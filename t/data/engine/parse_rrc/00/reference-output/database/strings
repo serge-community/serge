@@ -1,0 +1,8 @@
+strings
+{
+    0    1 2 `Sample title` NO 0
+    1    2 4 `String 0` NO 0
+    2    3 6 `String 0 0` NO 0
+    3    4 8 Username: NO 0
+    4    5 10 Exit NO 0
+}

@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. String_with_no_quotes1
+#: File: Localizable.strings
+#: ID: 3cf884a5158a75e2ed71b81803d1b7e8
+msgid "some text 1"
+msgstr "šőḿē ţēҳţ 1"
+
+#. comment line 2
+#. String_with_no_quotes2
+#: File: Localizable.strings
+#: ID: b53ac92120b0c6aa8ffc6f6cdf1b1c83
+msgid "some text 2"
+msgstr "šőḿē ţēҳţ 2"
+
+#. String_with_no_quotes3
+#: File: Localizable.strings
+#: ID: 279e80c9df260acf16ae08157f1e21d8
+msgid "some text 3"
+msgstr "šőḿē ţēҳţ 3"
+
+#. String_with_no_quotes4
+#: File: Localizable.strings
+#: ID: cc7913b8c6dbb0ef45c859e8b47f30e0
+msgid "some text 4"
+msgstr "šőḿē ţēҳţ 4"
+
+#. String_with_quotes5
+#: File: Localizable.strings
+#: ID: 10d1ffb5cd2169780ce6c92c321c4ccb
+msgid "some text 5"
+msgstr "šőḿē ţēҳţ 5"
+
+#. comment line 6
+#. String with quotes 6
+#: File: Localizable.strings
+#: ID: d4ef0b37b77218dcd4322ea44a88ea8a
+msgid "some text 6"
+msgstr "šőḿē ţēҳţ 6"
+
+#. String with quotes 7
+#: File: Localizable.strings
+#: ID: cdcd03f8e31a019e1d3000e34111d1e6
+msgid "some text 7"
+msgstr "šőḿē ţēҳţ 7"
+
+#. String with quotes 8
+#: File: Localizable.strings
+#: ID: e9b0c8716f33eb4fe4cc7e5e22962f7c
+msgid "some text 8"
+msgstr "šőḿē ţēҳţ 8"
+
+#. String with quotes 9
+#: File: Localizable.strings
+#: ID: 1fd1007e02dbdc340f4d3171a049d7c1
+msgid "some text 9"
+msgstr "šőḿē ţēҳţ 9"

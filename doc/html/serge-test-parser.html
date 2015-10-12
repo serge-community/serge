@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>serge-test-parser</title>
+    <link rel="stylesheet" href="media/pod.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="media/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-bg"></div>
+        <div class="header">
+            <a class="logo" href="serge.html"><img src="media/logo.svg" />Serge</a>
+        </div>
+
+        <h1 class="command">
+            <code class="command">serge-test-parser</code>
+        </h1>
+
+        <div class="content">
+
+<h1 id="NAME">NAME</h1>
+
+<p>serge-test-parser - Test parser against any given file</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><code>serge test-parser &lt;parser_name&gt; &lt;file_path&gt; [--output-mode=&lt;mode&gt;]</code></p>
+
+<p>Where <code>&lt;parser_name&gt;</code> is a file name of the parser sans its extension (parsers are typically located in lib/Serge/Engine/Plugin folder), and <code>&lt;file_path&gt;</code> is a path to the localizable file to test this parser on.</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Parse the given file using the selected parser and emit the resulting data in one of the available formats. This is useful for writing new parsers.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt><b>--output-mode=mode</b></dt>
+<dd>
+
+<p>By default, parsed data will be emitted in an easily readable Config::Neat format (the format used in Serge configuration files). Such files are also suitable for diff. However, there are alternative output modes available:</p>
+
+<dl>
+
+<dt><b>dumper</b></dt>
+<dd>
+
+<p>Use Data::Dumper to dump the parsed structure. The format is a bit verbose, but can be handy for debugging.</p>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Part of <a href="serge.html">serge</a> suite.</p>
+
+
+        </div>
+
+        <div class="footer">
+            <div class="copyright">
+                &copy; 2014&ndash;2015 Evernote Corporation.<br/>
+                All rights reserved.
+            </div>
+            <div class="license">
+                Serge is licensed under Standard Perl License (dual <a href="http://dev.perl.org/licenses/gpl1.html">GPL</a> / <a href="http://dev.perl.org/licenses/artistic.html">Artistic License</a>)<br/>
+                Serge.io website and Serge documentation are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+            </div>
+            <div class="version">
+                Serge 3.0.<br/>
+                Page last generated: Wed Sep 23 16:24:13 2015
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

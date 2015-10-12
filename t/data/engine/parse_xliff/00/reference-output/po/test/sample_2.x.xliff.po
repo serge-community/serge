@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. file-original:sample1.txt unit-id:foo
+#: File: sample_2.x.xliff
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
+
+#. file-original:sample1.txt unit-id:bar
+#: File: sample_2.x.xliff
+#: ID: b9377c81c897fce0255961a7aa29ad6e
+msgid "Bar"
+msgstr "Ḃáŕ"
+
+#. file-original:sample2.txt group-id:mygroup unit-id:foo2
+#. 
+#. File note: File-related comment 1
+#. 
+#. File note: File-related comment 2
+#. 
+#. Group note: Group-related comment
+#: File: sample_2.x.xliff
+#: ID: 770de3d487aa3e32037e15baccb2b42c
+msgid "Foo2 <ph dataRef=\"bar2\" id=\"1\"/>"
+msgstr "Ḟőő2 <ph dataRef=\"bar2\" id=\"1\"/>"
+
+#. file-original:sample2.txt group-id:mygroup unit-id:bar2
+#. 
+#. File note: File-related comment 1
+#. 
+#. File note: File-related comment 2
+#. 
+#. Group note: Group-related comment
+#. 
+#. Unit note: Unit-related comment
+#: File: sample_2.x.xliff
+#: ID: 4f65406a2cbc7725a82eea4d6444e491
+msgid "Bar2"
+msgstr "Ḃáŕ2"
+
+#. file-original:sample2.txt group-id:mygroup unit-id:bar2
+#. 
+#. File note: File-related comment 1
+#. 
+#. File note: File-related comment 2
+#. 
+#. Group note: Group-related comment
+#. 
+#. Unit note: Unit-related comment
+#: File: sample_2.x.xliff
+#: ID: 76b43fd66e940106189fad77920571a7
+msgid "Etc2"
+msgstr "Ēţç2"

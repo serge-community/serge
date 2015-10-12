@@ -1,0 +1,15 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.dtd$
+
+        parser
+        {
+            plugin                               parse_dtd
+        }
+
+        output_file_path                         ./test-output/localized-resources/%CULTURE%/%FILE%
+    }
+}

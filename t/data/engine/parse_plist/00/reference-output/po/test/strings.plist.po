@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string_key1
+#: File: strings.plist
+#: ID: 72c38a07d9ca5b210f2238358cecdae0
+msgid "value1"
+msgstr "ṽáļũē1"
+
+#. string_key2
+#: File: strings.plist
+#: ID: 756654a055e06ad2ea904371afc4bd10
+msgid "value2"
+msgstr "ṽáļũē2"
+
+#. list
+#: File: strings.plist
+#: ID: df4638a39025bee17ae3649d8f879832
+msgid "one"
+msgstr "őŋē"
+
+#. list
+#: File: strings.plist
+#: ID: d9982d563e59c4f8ab9b0534731a6992
+msgid "two"
+msgstr "ţŵő"
+
+#. list
+#: File: strings.plist
+#: ID: b25fd45a3dfc5a7708d0d40a0249737c
+msgid "three"
+msgstr "ţĥŕēē"

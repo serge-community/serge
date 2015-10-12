@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. FOO
+#. localization note
+#: File: sample.inc
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
+
+#. BAR
+#: File: sample.inc
+#: ID: b9377c81c897fce0255961a7aa29ad6e
+msgid "Bar"
+msgstr "Ḃáŕ"
+
+#. BAZ
+#. localization note 2 line 1
+#. localization note 2 line 2
+#: File: sample.inc
+#: ID: 1e39bbaa5d9df77f9c1753eba2b74173
+msgid "Baz baz BAz"
+msgstr "Ḃáž ḃáž ḂĀž"
+
+#. etc
+#. comment
+#: File: sample.inc
+#: ID: 9cfefb3c4f8cbd896bd149f59df05a7e
+msgid ""
+"Etc\\n"
+"Etc2\\n"
+"Etc3"
+msgstr ""
+"Ēţç\\n"
+"Ēţç2\\n"
+"Ēţç3"

@@ -1,0 +1,13 @@
+CONTRIBUTING
+
+Your contributions to the project mean a lot to us. Bugfixes are accepted in the form of pull requests (one per bug). Before filing a bug, please make sure it still appears in the bleeding edge version published on Github. CPAN versions may lag behind the code on Github.
+
+CLONING THE GITHUB REPOSITORY
+
+git clone git@github.com:evernote/serge.git
+
+DISCUSSING BUGS / FEATURES
+
+We encourage you to file issues to discuss bugs and enhancements prior to making a pull request. This will make sure that your changes are something we want to see in the mainstream version and understand what they are about.
+
+You can also reach us on #serge IRC channel on freenode.net.

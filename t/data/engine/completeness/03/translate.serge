@@ -1,0 +1,52 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           completeness
+            }
+
+            :test_language
+            {
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Foo`                    `Test Translation 1`
+                        `Bar`                    `Test Translation 2`
+                    }
+                }
+            }
+
+            {
+                plugin                           process_if
+                phase                            can_translate
+
+                data
+                {
+                    if
+                    {
+                        content_doesnt_match     ^Baz$
+
+                        then
+                        {
+                            return               YES
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

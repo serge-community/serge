@@ -1,0 +1,139 @@
+<html>
+<head>
+    <title>serge-localize</title>
+    <link rel="stylesheet" href="media/pod.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="media/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-bg"></div>
+        <div class="header">
+            <a class="logo" href="serge.html"><img src="media/logo.svg" />Serge</a>
+        </div>
+
+        <h1 class="command">
+            <code class="command">serge-localize</code>
+        </h1>
+
+        <div class="content">
+
+<h1 id="NAME">NAME</h1>
+
+<p>serge-localize - Perform localization cycle</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><code>serge localize &lt;configuration-files&gt; [--force] [--rebuild-ts-files] [--lang=aa,bb,cc] [--jobs=foo,bar]</code></p>
+
+<p>Where <code>&lt;configuration-files&gt;</code> is a path to a specific .serge file, or a directory to scan .serge files in. You can specify multiple paths as separate command-line parameters.</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>For all provided configuration files, run all their localization jobs, as follows:</p>
+
+<ul>
+
+<li><p>Extract strings from original (e.g. English) resource files in the working directory and populate translation database.</p>
+
+</li>
+<li><p>Scan previously generated translation files in corresponding output directory (if such files exist), extract translations from there and put them into translation database.</p>
+
+</li>
+<li><p>Update translation files with any existing translations, create missing translation files.</p>
+
+</li>
+<li><p>Generate localized resource files in the working directory by taking original resource files and replacing original strings with translated ones.</p>
+
+</li>
+</ul>
+
+<p>See Serge config format description for more information on how to define localization jobs.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt><b>--force</b></dt>
+<dd>
+
+<p>Disable internal optimizations and force process/generate all the files.</p>
+
+<p>This is useful when someone outside has altered/deleted the previously created localized resource files, and you want to rebuild everything.</p>
+
+<p>Note that some localization plugins (for example, <i>completeness</i> plugin) may prevent some files from being updated or created unless a certain criteria is met; <code>--force</code> doesn&#39;t change any of this logic, it will only ensure that the localization procedures will be run for each matching file and no shortcut paths will be taken.</p>
+
+</dd>
+<dt><b>--lang=xx[,yy][,zz]</b>, <b>--language=xx[,yy][,zz]</b> <b>--languages=xx[,yy][,zz]</b></dt>
+<dd>
+
+<p>An optional comma-separated list of target languages. If not specified, will go through all languages defined in each job.</p>
+
+</dd>
+<dt><b>--job=xx[,yy][,zz]</b>, <b>--jobs=xx[,yy][,zz]</b></dt>
+<dd>
+
+<p>An optional comma-separated list of jobs to process.</p>
+
+</dd>
+<dt><b>--rebuild-ts-files</b></dt>
+<dd>
+
+<p>With this mode enabled, translation files will not be parsed, their existing translations will be discarded, and the files will be forcedly generated again.</p>
+
+<p>Note that you won&#39;t need this in the typical use of Serge toolkit, until you write some custom scripts that import translations directly into the translation memory database, bypassing translation files. So, this option will propagate translation changes from the database into translation files, otherwise in the next localization cycle (<code>serge localize</code> or <code>serge sync</code>) translations will be read from these files, essentially undoing any side changes.</p>
+
+<p>The typical custom import flow is:</p>
+
+<ol>
+
+<li><p>Run <code>serge localize</code> or <code>serge sync</code>;</p>
+
+</li>
+<li><p>Run custom script that does something to translation memory database;</p>
+
+</li>
+<li><p>Run <code>serge localize --rebuild-ts-files</code> or <code>serge sync --rebuild-ts-files</code> once to propagate changes into translation files;</p>
+
+</li>
+<li><p>Continue running <code>serge localize</code> or <code>serge sync</code> normally.</p>
+
+</li>
+</ol>
+
+</dd>
+<dt><b>--output-only-mode</b></dt>
+<dd>
+
+<p>Only produce output files: do not parse or generate .po files, do not update database with source strings or translations. This flag will force this mode on all jobs, disregarding their own <code>output_only_mode</code> setting.</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="serge-sync.html">serge-sync</a></p>
+
+<p>Part of <a href="serge.html">serge</a> suite.</p>
+
+
+        </div>
+
+        <div class="footer">
+            <div class="copyright">
+                &copy; 2014&ndash;2015 Evernote Corporation.<br/>
+                All rights reserved.
+            </div>
+            <div class="license">
+                Serge is licensed under Standard Perl License (dual <a href="http://dev.perl.org/licenses/gpl1.html">GPL</a> / <a href="http://dev.perl.org/licenses/artistic.html">Artistic License</a>)<br/>
+                Serge.io website and Serge documentation are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+            </div>
+            <div class="version">
+                Serge 3.0.<br/>
+                Page last generated: Wed Sep 23 16:24:13 2015
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+=head1 NAME
+
+serge-import - Import translations from already existing resource files
+
+=head1 SYNOPSIS
+
+C<< serge import [configuration-files] [options] >>
+
+Where C<< [configuration-files] >> is a path to a specific .serge file,
+or a directory to scan .serge files in. You can specify multiple paths
+as separate command-line parameters. If no paths provided, Serge will
+look up for .serge files in the current directory.
+
+=head1 DESCRIPTION
+
+B<serge-import> does the opposite of L<serge-localize>: it scans previously
+generated localized resource files according to the rules in configuration files,
+and tries to import translations back into the database.
+
+This is useful to initially import pre-existing translations before setting up an
+automated localization flow.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--dry-run>
+
+Just show a report, but do no actual import.
+
+=item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+An optional comma-separated list of target languages
+
+=item B<--disambiguate-keys>
+
+If duplicate keys are found, don't exit but disambiguate them in
+the order of their presence. Use with care only when you are sure that
+the ordering and the number of ambigous keys in all files (both original
+and localized) is the same, otherwise you might end up importing
+wrong translations for wrong keys.
+
+=item B<--no-report>
+
+By default, serge-import generates HTML reports, one per language, in the
+current directory with 'serge-import-report-xx.html' file names, where
+'xx' is the language. It is strongly recommended to always review these reports,
+but one may skip generating report files by providing this option.
+
+=item B<--debug>
+
+Print debug output
+
+=back
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

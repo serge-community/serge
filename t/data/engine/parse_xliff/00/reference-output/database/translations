@@ -1,0 +1,12 @@
+translations
+{
+    0    1 18 1 test Ḟőő NO 0 0
+    1    2 19 2 test Ḃáŕ NO 0 0
+    2    3 20 3 test `Ḟőő2 <x xid="bar2"/>` NO 0 0
+    3    4 21 4 test Ḃáŕ2 NO 0 0
+    4    5 22 5 test Ḟőő NO 0 0
+    5    6 23 6 test Ḃáŕ NO 0 0
+    6    7 24 7 test `Ḟőő2 <ph dataRef="bar2" id="1"/>` NO 0 0
+    7    8 25 8 test Ḃáŕ2 NO 0 0
+    8    9 26 9 test Ēţç2 NO 0 0
+}

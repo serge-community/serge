@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#: File: strings.php
+#: ID: 05c382b374518cc317f4ec0f98409fa0
+msgid "bar"
+msgstr "ba<r"

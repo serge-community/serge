@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sample</key>
+	<dict>
+		<key>subset</key>
+		<array>
+			<dict>
+				<!-- integers will not be extracted -->
+				<key>integer_key</key>
+				<integer>-1</integer>
+
+				<!-- strings and arrays will be extracted -->
+				<key>string_key1</key>
+				<string>value1</string>
+				<key>string_key2</key>
+				<string>value2</string>
+				
+				<key>list</key>
+				<array>
+					<string>one</string>
+					<string>two</string>
+					<string>three</string>
+				</array>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

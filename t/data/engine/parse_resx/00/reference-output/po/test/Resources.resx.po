@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. Name1
+#: File: Resources.resx
+#: ID: bca43b6ab8231b16cfe4c6610534454c
+msgid "this is my long string"
+msgstr "ţĥĩš ĩš ḿŷ ļőŋğ šţŕĩŋğ"
+
+#. Color1
+#: File: Resources.resx
+#: ID: c33994005c0cf66a4e3bb62352173132
+msgid "[base64 mime encoded serialized .NET Framework object]"
+msgstr "[ḃášē64 ḿĩḿē ēŋçőđēđ šēŕĩáļĩžēđ .ŅĒŦ Ḟŕáḿēŵőŕķ őḃĵēçţ]"
+
+#. Icon1
+#: File: Resources.resx
+#: ID: a89ebdbb2847973a1cf3e78062e7619d
+msgid ""
+"[base64 mime encoded string representing a byte array form of the .NET "
+"Framework object]"
+msgstr ""
+"[ḃášē64 ḿĩḿē ēŋçőđēđ šţŕĩŋğ ŕēṕŕēšēŋţĩŋğ á ḃŷţē áŕŕáŷ ḟőŕḿ őḟ ţĥē .ŅĒŦ "
+"Ḟŕáḿēŵőŕķ őḃĵēçţ]"
+
+#. Key1
+#: File: Resources.resx
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. Key2
+#: File: Resources.resx
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#. Key3
+#: File: Resources.resx
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+msgid "Value 3"
+msgstr "Ṽáļũē 3"

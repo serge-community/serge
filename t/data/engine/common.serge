@@ -1,0 +1,28 @@
+job_template
+{
+        name                                     Test Job
+        id                                       test_job
+        active                                   YES
+        source_language                          en
+        destination_languages                    test
+        source_dir                               ./resources
+        db_source                                DBI:SQLite:dbname=:memory:
+        db_namespace                             test_namespace
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.po
+        output_bom                               NO
+        output_file_path                         ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+                phase                            get_translation_pre
+
+                data
+                {
+                    save_translations            YES
+                }
+            }
+        }
+}

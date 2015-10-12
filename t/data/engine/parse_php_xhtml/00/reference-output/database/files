@@ -1,0 +1,7 @@
+files
+{
+    0    1 1 test_job test_namespace broken_01.html 0
+    1    2 2 test_job test_namespace broken_02.html 0
+    2    3 3 test_job test_namespace broken_03.html 0
+    3    4 4 test_job test_namespace index.php 0
+}

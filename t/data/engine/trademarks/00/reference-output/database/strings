@@ -1,0 +1,8 @@
+strings
+{
+    0    1 2 `foo FooTM foo` NO 0
+    1    2 4 `BarTM BarTM` NO 0
+    2    3 6 `etc Baz T M BarTM` NO 0
+    3    4 8 `BarTM FooTM` NO 0
+    4    5 10 `foo bar` NO 0
+}

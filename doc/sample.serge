@@ -1,0 +1,465 @@
+/*
+    Sample configuration file.
+    Do not alter it directly; make a copy of the file first.
+
+    This configuration file uses Config::Neat format.
+    See https://github.com/iafan/Config-Neat for more information.
+*/
+
+# `sync` block contains all synchroinzation-related settings
+sync
+{
+    # `ts` defines which translation service
+    # to synchronize translation files with
+    ts
+    {
+        # (STRING) TS plugin name
+        plugin                      pootle
+
+        # [OPTIONAL] Plugin data. Each plugin may have specific parameters
+        # inside the `data` block. See the documentation for each specific
+        # plugin for more information.
+        data
+        {
+            # Unique project id (folder name) in Pootle
+            project_id              my_project
+
+            # Path to Pootle's `manage.py` utility that is used to sync
+            # local translation files with its internal database
+            manage_py_path          /path/to/pootle/manage.py
+        }
+    }
+
+    # connection parameters for a remote source control repository
+    vcs
+    {
+        # (STRING) VCS plugin name
+        plugin                      git
+
+        # [OPTIONAL] Plugin data. Each plugin may have specific parameters
+        # inside the `data` block. See the documentation for each specific
+        # plugin for more information.
+        data
+        {
+            # (STRING) Absolute path to local folder where local checkout will be stored.
+            local_path              %ENV:SERGE_DATA_DIR%/my_project
+
+            /*
+            As you can see from the line above, one can use `%ENV:SOMEVAR%` macro
+            anywhere in the string — it will be substituted with the value
+            of the `SOMEVAR` environment variable; if the variable with that name
+            is not defined, the script will fail with the corresponding message.
+            This allows to use the same configuration file in different environments
+            (e.g. different developers' and build machines) or to reuse
+            common configuration parameters across multiple configuration files.
+            */
+
+            # (STRING) Path to a single remote repository
+            # to sync with local `data_dir` folder
+            remote_path             ssh://l10n@git.example.com/myrepo
+            # --- OR ---
+            # (MAP) A key-value list of local subfolders to create and their
+            # corresponding remote repositories (if the localizable data for the
+            # single localization project is located in several per-component
+            # or per-library repositories)
+            remote_path
+            {
+                # one can specify branch name after the '#'.
+                # below, the `v5` branch us used
+                main                ssh://l10n@git.example.com/myapp#v5
+                # if no branch is specified, `master` branch is used by default
+                widget              ssh://l10n@git.example.com/myappwidget
+            }
+
+            # (BOOLEAN) [OPTIONAL] should the newly generated
+            # files be added to the remote repository automatically?
+            # (YES or NO, defaults to NO)
+            add_unversioned         NO
+
+            # (STRING) [OPTIONAL] Commit message
+            # Default: 'Automatic commit of updated project files'
+            commit_message          Automatic commit of updated project files
+
+            # (STRING) public committer name
+            name                    L10N Robot
+
+            # (STRING) committer's email address
+            email                   l10n-robot@example.com
+        }
+    }
+}
+
+# `jobs` block represents an ordered list of localization jobs to process.
+jobs
+{
+    # First job definition
+    {
+        # (STRING) Unique job identifier string.
+        # Format is arbitrary
+        id                          unique.job.identifier.string
+
+        # (STRING) [OPTIONAL] Name of the job
+        # (this is used only for logging purposes)
+        name                        Sample job 1
+
+        # (BOOLEAN) [OPTIONAL] Can optimizations be applied during job run?
+        # YES - active (default)
+        # NO - optimizations should be permanently disabled for the job
+        # (set this to NO when you want all files to be parsed unconditionally)
+        optimizations               YES
+
+        # (BOOLEAN) [OPTIONAL] Is the job active?
+        # YES - active (default)
+        # NO  - job should be skipped
+        active                      YES
+
+        # (BOOLEAN) [OPTIONAL] Debug mode
+        # YES - enable debug mode
+        # (will produce much more verbose output for debugging purposes)
+        # NO  - disable debug mode (default)
+        debug                       NO
+
+        # (BOOLEAN) [OPTIONAL] Disable saving any files
+        # YES - enable this mode (no translation files and no localized
+        # files will be generated)
+        # NO  - disable this mode (default)
+        debug_nosave                NO
+
+        # (BOOLEAN) [OPTIONAL] Only produce output files: do not parse or
+        # generate translation files, do not update database
+        # with source strings or translations
+        # YES - enable this mode
+        # NO - disable this mode (default)
+        output_only_mode            NO
+
+        # (STRING) Source language
+        # Languages should be in ISO 639-1 format for wider compatibility,
+        # but internally Serge can accept any strings as language identifiers
+        source_language             en
+
+        # (ARRAY) Destination (generated) languages.
+        # This list should not include the source language.
+        # There should be at least one destination language defined.
+        destination_languages       de ja ru
+
+        # (STRING) Path to source files relative to the config file
+        # ('.' here is the current dir)
+        source_dir                  .
+
+        # (STRING) [OPTIONAL] Path prefix which will be prepended to the relative file path,
+        # allowing gathering multiple files with the same name under the same db_namespace
+        # pretending they are from different subdirectories or having different
+        # filename prefixes.
+        # Default: blank string
+        #
+        # The parameter must end with a path delimiter / (e.g. 'virtual/dir/')
+        # or otherwise it will become a file prefix.
+        #
+        # Examples (provided we have translation files 'somefile.po' and
+        # 'somefolder/otherfile.po'):
+        # 'my/dir/' will generate files like 'my/dir/somefile.po'
+        # or 'my/dir/somefolder/otherfile.po'
+        # 'my/prefix_' will generate files like 'my/prefix_somefile.po'
+        # or 'my/prefix_somefolder/otherfile.po'
+        source_path_prefix          ``
+
+        /*
+        In the example above, a blank string is specified using backticks.
+        Backticks can also be used to specify string parameters containing spaces.
+        */
+
+        # (BOOLEAN) [OPTIONAL] Should the directory be processed recursively?
+        # YES - subdirectories are processed
+        # NO - subdirectories are not processed (default)
+        source_process_subdirs      NO
+
+        # (ARRAY) List of regular expressions for the file name
+        # to match the files that should be processed.
+        # This matches case-insensitively agains the file name (without path)
+        source_match                \.rc$
+
+        # (ARRAY) [OPTIONAL] List of regular expressions for the file name
+        # to match the files that should be skipped.
+        # This matches case-insensitively agains the file name (without path)
+        # Default behavior: no exclusion takes place
+        source_exclude              ``
+
+        # Parser plugin definition
+        parser
+        {
+            # (STRING) Parser class name.
+            # See Serge/Engine/Plugin/parse_*.pm files
+            plugin                  parse_rc
+
+            # [OPTIONAL] Plugin data. Each plugin may have specific parameters
+            # inside the `data` block. See the documentation for each specific
+            # plugin for more information.
+            data
+            {
+                #param1             value1
+                #param2             value2
+            }
+        }
+
+        # (BOOLEAN) [OPTIONAL] Should the strings be normalized, i.e. trimmed
+        # and converted to single line with no double-spaces?
+        # YES - the string should be normalized
+        # NO - the string is extracted as is (default)
+        normalize_strings           NO
+
+        # (STRING) DBI-compatible connection string
+        # Supported drivers: SQLite, MySQL and Postgres
+        # SQLite sample: 'DBI:SQLite:dbname=/path/to/translate.db3'
+        # SQLite sample: 'DBI:SQLite:dbname=:memory:' - in-memory database
+        # for testing purposes
+        # MySQL sample: 'DBI:mysql:database=translations'
+        # MySQL sample: 'DBI:mysql:database=translations;host=localhost;port=3306'
+        #
+        # Note 1: SQLite database will be created automatically
+        # if the target file does not exist
+        # Note 2: Database will be initialized automatically if necessary
+        db_source                   DBI:SQLite:dbname=./translate.db3
+
+        # (STRING) [OPTIONAL] Username for database connection
+        # (when applicable; has no effect for SQLite-based databases)
+        db_username                 l10n
+
+        # (STRING) [OPTIONAL] Password for database connection
+        # (when applicable;  has no effect for SQLite-based databases)
+        db_password                 secretword
+
+        # (STRING) Internal namespace to register files under in the database.
+        # Namespace (can be perceived as a localization project name) are used to group jobs
+        # together and are used to improve the fidelity of TM reuse: by default, translations
+        # are looked up in the same file, then in the same namespace, then in the entire TM
+        # database.
+        # Note that (namespace + relative file path) pair must be unique. So different jobs
+        # sharing the same namespace must generate different relative file paths to avoid
+        # collisions. The format of the string is arbitrary. We don't recommend using spaces,
+        # however, because it will be harder to specify such namespace names as command-line
+        # parameters in various situations.
+        db_namespace                my_project
+
+        # (BOOLEAN) [OPTIONAL] Should the translations
+        # from other files or namespaces be reused?
+        # YES - enable reuse (copying) from pre-existing translations
+        # for the same strings (default)
+        # NO - do not reuse translations (good for e.g. terminology projects where everything
+        # needs to be translated explicitly)
+        reuse_translations          YES
+
+        # (BOOLEAN) [OPTIONAL] Should the orphaned translations,
+        # i.e. not used in any active namespace/file, be reused?
+        # YES - reuse orphaned translations (default)
+        # NO - do not reuse orphaned translations
+        reuse_orphaned              YES
+
+        # (BOOLEAN) [OPTIONAL] Should the translations be reused
+        # even if there are different translations for the same source?
+        # YES - just try to pick the best one based on context/file/namespace
+        # NO - do not reuse such uncertain translations at all (default)
+        reuse_uncertain             NO
+
+        # (BOOLEAN) [OPTIONAL] Should the fuzzy flag be set on translations
+        # which are copied from other strings?
+        # Fuzzy flag indicates that the translation is not final and needs review.
+        # The fuzzy flag is exported in the translation file, and translation environment
+        # can indicate or otherwise filter such fuzzy strings.
+        # YES - set the fuzzy flag (default)
+        # NO - do not set the fuzzy flag (but the flag may be set explicitly by other rules,
+        # see below)
+        reuse_as_fuzzy_default      YES
+
+        # (ARRAY) [OPTIONAL] The list of languages where reused translations
+        # should have the fuzzy flag turned on disregarding the
+        # `reuse_as_fuzzy_default' setting.
+        # Use this as an override.
+        # Default: an empty list
+        reuse_as_fuzzy              ja
+
+        # (ARRAY) [OPTIONAL] The list of languages where reused translations
+        # should NOT have the fuzzy flag turned on disregarding the
+        # `reuse_as_fuzzy_default' setting.
+        # Use this as an override.
+        # Default: an empty list
+        reuse_as_not_fuzzy          de
+
+        # [OPTIONAL] The list of rules defining if translations
+        # can be copied over from similar languages.
+        # Default: an empty list (which means no cross-language translation reuse)
+        similar_languages
+        {
+            # Example:
+            # For Latin American Spanish, borrow translations as fuzzy from generic
+            # (European) Spanish
+            {
+                # (STRING) Source language (where to look translations in)
+                source              es
+
+                # (STRING) Destination language (where to apply translations to)
+                destination         es-419
+
+                # (BOOLEAN) [OPTIONAL] Should the translations
+                # copied from `source' to `destination'
+                # be marked as fuzzy?
+                # YES - force the fuzzy flag
+                # NO - the fuzzy state will be taken from the original translation (default)
+                as_fuzzy            YES
+            }
+
+            # Vice versa
+            {
+                source              es-419
+                destination         es
+                as_fuzzy            YES
+            }
+        }
+
+        # (STRING) Path to output translation files, relative to the config file or absolute
+        # (currently translation files are generated only in the .po format)
+        ts_file_path                ./po/my_project/%LOCALE%/%FILE%.po
+
+        /*
+        In the parameter above, the following macros are allowed:
+
+        %ENV:WHATEVER%  -  gets substituted with `WHATEVER' environment variable,
+                           or dies if it is not set. This allows to define parameters
+                           externally without modifying the config file itself.
+
+        %PATH%           - file path including trailing path delimiter
+        %NAME%           - file name without extension
+                           (the rightmost dot is used to split name and extension)
+        %EXT%            - extension (the rightmost dot is used to split
+                           name and extension)
+        %LNAME%          - file name without extension
+                           (the leftmost dot is used to split name and extension)
+        %LEXT%           - extension (the leftmost dot is used to split name and extension)
+        %NAME:NAME%      - split the %NAME% using the rightmost dot and take the left part
+        %NAME:EXT%       - split the %NAME% using the rightmost dot and take the right part
+        %NAME:LNAME%     - split the %NAME% using the leftmost dot and take the left part
+        %NAME:LEXT%      - split the %NAME% using the leftmost dot and take the right part
+                           (%NAME% is equivalent to %NAME:NAME%.%NAME:EXT%)
+
+        %LNAME:NOLOCALE% - take %LNAME% and strip the source locale '_XX' suffix
+                           (e.g. '_en')
+        %NAME:NOLOCALE%  - take %NAME% and strip the source locale '_XX' suffix
+                           (e.g. '_en')
+
+        %FILE%           - original file name including full path
+                           (equivalent to %PATH%%NAME%.%EXT% or %PATH%%LNAME%.%LEXT%)
+
+        %LANG%           - language tag (e.g. 'en', 'ru', 'pt-br')
+        %CULTURE%        - culture tag (e.g. 'en-US', 'ru-RU', 'pt-BR')
+        %LOCALE%         - locale name (e.g. 'en', 'ru', 'pt_BR')
+        %LOCALE:ANDROID% - locale name as used on Android (e.g. 'en', 'ru', 'pt-rBR')
+        %LOCALE:IPHONE%  - locale name as used on iPhone
+                           (**DEPRECATED**, use %LANG% instead + `output_lang_rewrite`)
+        %LOCALE:LC%      - a lowercased locale name (e.g. 'en', 'ru', 'pt_br')
+        %LOCALE:UC%      - an uppercased locale name (e.g. 'EN', 'RU', 'PT_BR')
+        %LOCALE:FULL%    - full locale with country name (e.g. 'en_US', 'ru_RU', 'pt_BR')
+        %LOCALE:FULL:LC% - same as above, but lowercased
+        %LOCALE:FULL:UC% - same as above, but uppercased
+        %LANGNAME%       - full language name (e.g. 'English', 'Russian') used in Mac
+                           (**LEGACY, DEPRECATED**)
+        %LANGNAME:IPHONE%- full language name (e.g. 'English', 'Russian') used in iPhone
+                           (**LEGACY, DEPRECATED**)
+        %LANGID%         - Win32 laguage locale as 4-digit hex value (e.g. '0419')
+        %LANGID:DEC%     - Win32 laguage locale as decimal value (e.g. '1049')
+        %LANGCONST%      - Win32 LANG_ constant (e.g. 'LANG_RUSSIAN')
+        %SUBLANGCONST%   - Win32 SUBLANG_ constant (e.g 'SUBLANG_RUSSIAN_RUSSIA')
+        %AFXTARGCONST%   - Win32 AFX_TARG_ constant (e.g. 'AFX_TARG_RUS')
+        %CODEPAGE%       - Win32 codepage (e.g. '1251')
+        */
+
+        # (BOOLEAN) [OPTIONAL] Should the language-specific files be created
+        # from each target language (see `destination_languages` parameter)?
+        # YES - localized files should be created (default)
+        # NO - localized files should not be created (useful when one doesn't want to have
+        # the localized files but rather use some plugin to export the translations in some
+        # separate format)
+        output_lang_files           YES
+
+        # (BOOLEAN) [OPTIONAL] Should the localized files be created
+        # for the default language (see `source_language` parameter) as well?
+        # YES - the files needs to be created
+        # NO - do not create the files (default)
+        # Note: This option is handy when the source file is not the final localizable
+        # resource to use but rather a template that has to be preprocessed.
+        # See e.g. the `parse_master` parser and its `.master` template file format
+        # that allows one to mark up unstructured plain text files for translation
+        output_default_lang_file    NO
+
+        # (STRING) [OPTIONAL] Output encoding for generated language files
+        # Sample values: UTF-8, UTF-16, UCS-2, UCS-4
+        # Default: UTF-8
+        # This value has effect only if `output_lang_files` or `output_default_lang_file`
+        # parameters are set to YES
+        output_encoding             UCS-2LE
+
+        # (BOOLEAN) [OPTIONAL] Should the BOM ("byte order mark")
+        # be emitted at the beginning of the output file?
+        # YES - output the BOM (default)
+        # NO - do not output the BOM
+        output_bom                  YES
+
+        # [OPTIONAL] Map telling to use different language name in language macros
+        # (see the list of available macros in `ts_file_path` parameter description)
+        # and when constructing output path (see `output_file_path` parameter).
+        # This allows to tweak language/locale names for different projects.
+        output_lang_rewrite
+        {
+            no                      nb
+        }
+
+        # (STRING) Path to a generated file (relative to the config file or absolute).
+        # Allowed macros: same as for the `ts_file_path` parameter (see above)
+        # This value has effect only if `output_lang_files` or `output_default_lang_file`
+        # parameters are set to YES
+        output_file_path            ./%FILE%.%LANG%
+
+        # [OPTIONAL] A list of callback plugins that we should load,
+        # with the parameters to pass
+        callback_plugins
+        {
+            # First plugin definition
+            {
+                # (STRING) Plugin to use for processing.
+                # See Serge/Engine/Plugin/*.pm files
+                plugin              foo_plugin
+
+                # [OPTIONAL] Data for plugin parameters. Each plugin may have
+                # specific parameters inside the `data` block. See the documentation
+                # for each specific plugin for more information.
+                data
+                {
+                    bar             YES
+                    baz             string
+                    etc             1 2 3
+                }
+            }
+        }
+    } # end of first job definition
+
+    # Second job definition
+    {
+        id                          sample.job
+        name                        Sample `<%`...`%>` parsing job
+        source_language             en
+        destination_languages       es de it fr ru
+        source_dir                  ./sample
+        source_match                \.txt\.master$
+
+        parser
+        {
+            plugin                  parse_master
+        }
+
+        db_source                   DBD:SQLite:dbname=./translate.db3
+        db_namespace                sample
+        ts_file_path                ./po/sample/%LANG%/%FILE%.po
+        output_file_path            ./sample/%FILE%.%LANG%
+    } # end of second job definition
+
+} # end of jobs block
+
+# end of config

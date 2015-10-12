@@ -1,0 +1,46 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               metaparser
+
+            data
+            {
+                hint                             ^\s*[;#]\s*(.*)\s*$        #    ; foo
+                keyvalue                         ^(\S+)\s*=\s*(.*)\s*$      #    foo = bar
+                localize                         ^(\S+\s*=\s*)(.*)(\s*)$
+                reset                            ^\s*$                      #    blank/whitespace-only line
+            }
+        }
+
+        callback_plugins
+        {
+            # allow translating only strings which don't start with '!!',
+            # and whose comments don't start with '!!' either
+            # (including multi-line comments in which one of the lines starts with '!!')
+            :!!_placeholder_strings
+            {
+                plugin                           process_if
+                phase                            can_extract
+
+                data
+                {
+                    if
+                    {
+                        content_doesnt_match     ^!!
+                        comment_doesnt_match     (^!!|\n!!)
+
+                        then
+                        {
+                            return               YES
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

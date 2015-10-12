@@ -1,0 +1,21 @@
+=head1 NAME
+
+serge-gendocs - Generate HTML docs from POD
+
+=head1 SYNOPSIS
+
+C<serge gendocs>
+
+=head1 DESCRIPTION
+
+Scans all .pod files under doc/pod directory and subdirectories
+and for each file renders its HTML representation under doc/html.
+
+L<serge-help> uses these HTML files internally to show help on commands in your browser
+rather than in console (depending on your OS).
+
+=head1 SEE ALSO
+
+L<serge-help>
+
+Part of L<serge> suite.

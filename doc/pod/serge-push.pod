@@ -1,0 +1,41 @@
+=head1 NAME
+
+serge-push - Push project files to source control
+
+=head1 SYNOPSIS
+
+C<< serge push [configuration-files] [--echo-commands] [--echo-output] >>
+
+Where C<< [configuration-files] >> is a path to a specific .serge file,
+or a directory to scan .serge files in. You can specify multiple paths
+as separate command-line parameters. If no paths provided, Serge will
+look up for .serge files in the current directory.
+
+=head1 DESCRIPTION
+
+Based on each configuration file's B<job> section, push changes to
+source control (e.g. Git or SVN) from the local working directory.
+Per configuration file settings, there might be several subdirectories
+mapped to different remote repositories, which will be pushed in one step.
+
+B<Caution>: All unversioned files in the working directory are
+automatically added to source control, so the working directory should
+not be the one you are doing any development in.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--echo-commands>
+
+Echo system commands about to be executed (useful for debugging)
+
+=item B<--echo-output>
+
+Echo commands' output (useful for debugging)
+
+=back
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

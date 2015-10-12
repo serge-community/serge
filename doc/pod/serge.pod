@@ -1,0 +1,75 @@
+=head1 NAME
+
+serge - Serge command launcher
+
+=head1 SYNOPSIS
+
+C<< serge E<lt>commandE<gt> [command-specific-parameters] [--command-specific-options] [--debug] >>
+
+Run C<< serge help E<lt>commandE<gt> >> for help on a particular command.
+
+=head1 DESCRIPTION
+
+B<serge> scans all configuration files in the specified directory
+and for each found file performs resource localization cycle, namely:
+
+=over 2
+
+=item
+
+Extracting strings from original (e.g. English) resource files and populate
+translation database
+
+=item
+
+Scan previously generated translated files, extract translations from there
+and put them into translation database
+
+=item
+
+Generate translation files with original strings and existing translations
+
+=item
+
+Generate localized resource files by taking original resource files and
+replacing original strings with translated ones.
+
+=back
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--dry-run>
+
+Just report and validate configuration files, but do no actual
+synchronization/localization work.
+
+=item B<-l xx[,yy][,zz]>, B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+An optional comma-separated list of target languages
+
+=item B<-j xx[,yy][,zz]>, B<--job=xx[,yy][,zz]>, B<--jobs=xx[,yy][,zz]>
+
+An optional comma-separated list of jobs to process
+
+=item B<--force>
+
+Disable optimizations and force generate all the files
+
+=item B<--recreate-ts-files>
+
+With this mode enabled, translation files will not be parsed, their existing translations
+will be discarded, and the files will be forcedly generated again. This is useful
+when removing translations from the database and forcing translation files to be in sync
+with the database.
+
+=item B<--debug>
+
+Print debug output
+
+=back
+
+=head1 SEE ALSO
+
+L<serge website|http://serge.io/>

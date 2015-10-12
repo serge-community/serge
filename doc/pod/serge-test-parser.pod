@@ -1,0 +1,41 @@
+=head1 NAME
+
+serge-test-parser - Test parser against any given file
+
+=head1 SYNOPSIS
+
+C<< serge test-parser E<lt>parser_nameE<gt> E<lt>file_pathE<gt> [--output-mode=E<lt>modeE<gt>] >>
+
+Where C<E<lt>parser_nameE<gt>> is a file name of the parser sans its extension
+(parsers are typically located in lib/Serge/Engine/Plugin folder),
+and C<E<lt>file_pathE<gt>> is a path to the localizable file to test this parser on.
+
+=head1 DESCRIPTION
+
+Parse the given file using the selected parser and emit the resulting data
+in one of the available formats. This is useful for writing new parsers.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--output-mode=mode>
+
+By default, parsed data will be emitted in an easily readable Config::Neat format
+(the format used in Serge configuration files). Such files are also suitable for diff.
+However, there are alternative output modes available:
+
+=over 8
+
+=item B<dumper>
+
+Use Data::Dumper to dump the parsed structure. The format is a bit verbose, but can be handy
+for debugging.
+
+=back
+
+=back
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

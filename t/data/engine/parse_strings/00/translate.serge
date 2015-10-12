@@ -1,0 +1,17 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.strings$
+
+        parser
+        {
+            plugin                               parse_strings
+        }
+
+        output_encoding                          UTF-16LE
+        output_bom                               YES
+        output_file_path                         ./test-output/localized-resources/%LANGNAME%.lproj/%FILE%
+    }
+}

@@ -1,0 +1,1 @@
+Test for different placeholder types (that were previously supported natively by Serge::Engine)

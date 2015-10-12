@@ -1,0 +1,48 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    es es-419
+        source_match                             \.master$
+
+        parser
+        {
+            plugin                               parse_master
+        }
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
+
+        similar_languages
+        {
+            {
+                # for Spanish language, borrow translation from Latin American Spanish
+                source                           es
+                destination                      es-419
+                as_fuzzy                         NO
+            }
+
+            {
+                # vice versa
+                source                           es-419
+                destination                      es
+                as_fuzzy                         NO
+            }
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                data
+                {
+                    language                     es
+                }
+            }
+
+            :completeness
+            {
+                plugin                           completeness
+            }
+        }
+    }
+}

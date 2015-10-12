@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. key1
+#: File: strings.js
+#: ID: 72c38a07d9ca5b210f2238358cecdae0
+msgid "value1"
+msgstr "ṽáļũē1"
+
+#. key2
+#: File: strings.js
+#: ID: 04011367b58d51086ae91d756fd56a81
+msgid "value\\2"
+msgstr "ṽáļũē\\2"
+
+#. key3
+#: File: strings.js
+#: ID: 1b6e7406dfeaab35f6e83c55a99ed2ec
+msgid "value \"3\""
+msgstr "ṽáļũē \"3\""
+
+#. key4
+#: File: strings.js
+#: ID: dcbae4201ab999ef1b904337135a87c1
+msgid "value\\\"4\""
+msgstr "ṽáļũē\\\"4\""

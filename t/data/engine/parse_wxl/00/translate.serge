@@ -1,0 +1,15 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             en-us\.wxl$
+
+        parser
+        {
+            plugin                               parse_wxl
+        }
+
+        output_file_path                         ./test-output/localized-resources/%NAME:NOLOCALE%.%CULTURE%.%EXT%
+    }
+}

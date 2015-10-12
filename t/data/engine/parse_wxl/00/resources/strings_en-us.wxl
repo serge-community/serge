@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<WixLocalization>
+	<String Id="Custom_Welcome">Welcome to the &quot;[ProductName]&quot; installation &amp; setup.</String>
+</WixLocalization>

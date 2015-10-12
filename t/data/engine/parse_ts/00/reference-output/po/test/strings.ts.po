@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#: File: strings.ts
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#: File: strings.ts
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#: File: strings.ts
+#: ID: f6b24ad725daf0bbe9b2e53e81ceaa7b
+msgid "\"Value1\" <> \"&Value2\""
+msgstr "\"Ṽáļũē1\" <> \"&Ṽáļũē2\""

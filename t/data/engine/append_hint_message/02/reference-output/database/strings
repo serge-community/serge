@@ -1,0 +1,8 @@
+strings
+{
+    0    1 2 <foo> NO 0
+    1    2 4 &foo; NO 0
+    2    3 6 %foo% NO 0
+    3    4 8 {1} NO 0
+    4    5 10 ${foo} NO 0
+}

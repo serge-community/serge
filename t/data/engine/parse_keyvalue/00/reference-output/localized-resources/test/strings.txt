@@ -1,0 +1,4 @@
+﻿string1 = Ṽáļũē 1
+string2 =Ṽáļũē 2
+string3= Ṽáļũē 3
+string4=Ṽáļũē 4

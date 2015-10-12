@@ -1,0 +1,16 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_process_subdirs                   YES
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        output_bom                               YES
+    }
+}

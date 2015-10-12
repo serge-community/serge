@@ -1,0 +1,118 @@
+=head1 NAME
+
+serge-localize - Perform localization cycle
+
+=head1 SYNOPSIS
+
+C<< serge localize E<lt>configuration-filesE<gt>
+	[--force] [--rebuild-ts-files]
+	[--lang=aa,bb,cc] [--jobs=foo,bar] >>
+
+Where C<< E<lt>configuration-filesE<gt> >> is a path to a specific .serge file,
+or a directory to scan .serge files in. You can specify multiple paths
+as separate command-line parameters.
+
+=head1 DESCRIPTION
+
+For all provided configuration files, run all their localization jobs, as follows:
+
+=over 2
+
+=item
+
+Extract strings from original (e.g. English) resource files in the working directory
+and populate translation database.
+
+=item
+
+Scan previously generated translation files in corresponding output directory
+(if such files exist), extract translations from there and put them into translation
+database.
+
+=item
+
+Update translation files with any existing translations, create missing translation
+files.
+
+=item
+
+Generate localized resource files in the working directory by taking original
+resource files and replacing original strings with translated ones.
+
+=back
+
+See Serge config format description for more information on how to define
+localization jobs.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--force>
+
+Disable internal optimizations and force process/generate all the files.
+
+This is useful when someone outside has altered/deleted the previously created
+localized resource files, and you want to rebuild everything.
+
+Note that some localization plugins (for example, F<completeness> plugin) may prevent
+some files from being updated or created unless a certain criteria is met; C<--force>
+doesn't change any of this logic, it will only ensure that the localization procedures
+will be run for each matching file and no shortcut paths will be taken.
+
+=item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+An optional comma-separated list of target languages. If not specified, will
+go through all languages defined in each job.
+
+=item B<--job=xx[,yy][,zz]>, B<--jobs=xx[,yy][,zz]>
+
+An optional comma-separated list of jobs to process.
+
+=item B<--rebuild-ts-files>
+
+With this mode enabled, translation files will not be parsed, their existing translations
+will be discarded, and the files will be forcedly generated again.
+
+Note that you won't need this in the typical use of Serge toolkit, until you write some custom
+scripts that import translations directly into the translation memory database, bypassing
+translation files. So, this option will propagate translation changes from the database into
+translation files, otherwise in the next localization cycle (C<serge localize> or C<serge sync>)
+translations will be read from these files, essentially undoing any side changes.
+
+The typical custom import flow is:
+
+=over
+
+=item 1
+
+Run C<serge localize> or C<serge sync>;
+
+=item 2
+
+Run custom script that does something to translation memory database;
+
+=item 3
+
+Run C<serge localize --rebuild-ts-files> or C<serge sync --rebuild-ts-files> once
+to propagate changes into translation files;
+
+=item 4
+
+Continue running C<serge localize> or C<serge sync> normally.
+
+=back
+
+=item B<--output-only-mode>
+
+Only produce output files: do not parse or generate .po files, do not update database with
+source strings or translations. This flag will force this mode on all jobs, disregarding
+their own C<output_only_mode> setting.
+
+=back
+
+=head1 SEE ALSO
+
+L<serge-sync>
+
+Part of L<serge> suite.

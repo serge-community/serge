@@ -1,0 +1,1 @@
+Test for 'process_if' plugin, 'can_extract' phase

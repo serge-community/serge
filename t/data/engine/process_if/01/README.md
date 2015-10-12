@@ -1,0 +1,1 @@
+Skip strings that start with '!!' (and strings with comments that start with '!!')

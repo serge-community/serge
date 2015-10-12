@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- L10N_LIMIT_DESTINATION_LANGUAGES=test -->
+<resources>
+    <string name="string">Test Translation</string>
+</resources>

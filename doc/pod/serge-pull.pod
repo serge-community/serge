@@ -1,0 +1,52 @@
+=head1 NAME
+
+serge-pull - Pull project files from source control
+
+=head1 SYNOPSIS
+
+C<< serge pull [configuration-files] [--initialize] [--echo-commands] [--echo-output] >>
+
+Where C<< [configuration-files] >> is a path to a specific .serge file,
+or a directory to scan .serge files in. You can specify multiple paths
+as separate command-line parameters. If no paths provided, Serge will
+look up for .serge files in the current directory.
+
+=head1 DESCRIPTION
+
+Based on each configuration file's B<job> section, pull changes from
+source control (e.g. Git or SVN) into the local working directory.
+Per configuration file settings, there might be several subdirectories
+mapped to different remote repositories, which will be pulled in one step.
+
+B<Caution>: Before the data is downloaded, all unversioned files in the
+working directory are removed, and pending rebase is aborted, so the working
+directory should not be the one you are doing any development in.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--initialize>
+
+Allow the script to reconfigure the local checkout (re-sync from scratch,
+delete extra folders) if the local working dir is missing or the contents
+of the local project folder differ from the expected one.
+
+If this option is not specified, then, in such an event, the script will
+report an error and skip processing the configuration file. This is to
+prevent massive re-syncing on misconfiguration or transient networking
+errors.
+
+=item B<--echo-commands>
+
+Echo system commands about to be executed (useful for debugging)
+
+=item B<--echo-output>
+
+Echo commands' output (useful for debugging)
+
+=back
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. Custom_Welcome
+#: File: strings_en-us.wxl
+#: ID: 9cd3c663bf099901559ec83a3c56ec35
+msgid "Welcome to the \"[ProductName]\" installation & setup."
+msgstr "Ŵēļçőḿē ţő ţĥē \"[ṔŕőđũçţŅáḿē]\" ĩŋšţáļļáţĩőŋ & šēţũṕ."

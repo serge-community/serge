@@ -1,0 +1,15 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.resx$
+
+        parser
+        {
+            plugin                               parse_resx
+        }
+
+        output_file_path                         ./test-output/localized-resources/%NAME%.%CULTURE%.%EXT%
+    }
+}

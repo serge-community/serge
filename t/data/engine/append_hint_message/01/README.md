@@ -1,0 +1,1 @@
+Test for 'append_hint' plugin that sets hint on specific items by defining conditional `if` logic

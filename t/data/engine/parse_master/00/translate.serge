@@ -1,0 +1,15 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.master$
+
+        parser
+        {
+            plugin                               parse_master
+        }
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
+    }
+}

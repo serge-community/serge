@@ -1,0 +1,9 @@
+strings
+{
+    0    1 2 Foo NO 0
+    1    2 4 Bar NO 0
+    2    3 6 `Foo2 <x xid="bar2"/>` NO 0
+    3    4 8 Bar2 NO 0
+    4    5 13 `Foo2 <ph dataRef="bar2" id="1"/>` NO 0
+    5    6 16 Etc2 NO 0
+}

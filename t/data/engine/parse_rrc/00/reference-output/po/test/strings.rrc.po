@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. TITLE
+#: File: strings.rrc
+#: ID: 6ca83956978d50db8e91aeadf0786f51
+msgid "Sample title"
+msgstr "Šáḿṕļē ţĩţļē"
+
+#. STRING0
+#: File: strings.rrc
+#: ID: 9581590a50a09d78b8e2f1efa21a297d
+msgid "String 0"
+msgstr "Šţŕĩŋğ 0"
+
+#. STRING_0_0
+#: File: strings.rrc
+#: ID: 56992b507368ab9aecd27722a1c5016a
+msgid "String 0 0"
+msgstr "Šţŕĩŋğ 0 0"
+
+#. USERNAME
+#: File: strings.rrc
+#: ID: bb5ee1415d608eed66f7214058fc3231
+msgid "Username:"
+msgstr "Ůšēŕŋáḿē:"
+
+#. EXIT
+#: File: strings.rrc
+#: ID: 5860e501cf13e8b70da72a6a2da83129
+msgid "Exit"
+msgstr "Ēҳĩţ"

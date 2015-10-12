@@ -1,0 +1,31 @@
+=head1 NAME
+
+serge-help - Show help on Serge and its commands
+
+=head1 SYNOPSIS
+
+C<serge help [--console]>
+
+C<< serge help E<lt>commandE<gt> [--console] >>
+
+=head1 DESCRIPTION
+
+Show help on particular command (if it is provided), or general information about Serge.
+By default (and depending on your operating system), it will try to open an HTML version
+of the help in your browser. Otherwise it will render a plain-text version in the console.
+
+For the list of available commands, just run C<serge> with no command-line parameters.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--console>
+
+Do not try to open HTML help in browser; render help in console instead.
+
+=back
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

@@ -1,0 +1,17 @@
+translations
+{
+    0     1 37 1 test `Test Translation 1` NO 0 0
+    1     2 38 2 test `Test Translation 2` NO 0 0
+    2     3 39 3 test `Test Translation 1` NO 0 0
+    3     4 40 4 test `Test Translation 2` NO 0 0
+    4     5 41 5 test `Test Translation 3` NO 0 0
+    5     6 42 7 test `Test Translation 1` NO 0 0
+    6     7 43 8 test `Test Translation 2` NO 0 0
+    7     8 44 9 test `Test Translation 3` NO 0 0
+    8     9 45 12 test `Test Translation 1` NO 0 0
+    9     10 46 13 test `Test Translation 2` NO 0 0
+    10    11 47 14 test `Test Translation 3` NO 0 0
+    11    12 48 18 test `Test Translation 1` NO 0 0
+    12    13 49 19 test `Test Translation 2` NO 0 0
+    13    14 50 20 test `Test Translation 3` NO 0 0
+}

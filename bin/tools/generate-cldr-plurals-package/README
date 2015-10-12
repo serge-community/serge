@@ -1,0 +1,16 @@
+This script will generate CLDRPlurals.pm Perl module, which will contain mappings of locales
+to their supported plural forms as they are described in CLDR.
+
+To update against latest CLDR:
+
+1. Download latest `core.zip` file from CLDR website:
+
+    http://unicode.org/Public/cldr/ => <latest.version>/ => core.zip
+
+2. Extract `supplemental/plurals.xml` from `core.zip` into this directory
+
+3. Run:
+
+    $ perl generate-cldr-plurals-package.pl
+
+The generated file will be saved as `<Serge-root>/lib/Serge/Util/CLDR/CLDRPlurals.pm`.

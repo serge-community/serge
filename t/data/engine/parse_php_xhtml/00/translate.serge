@@ -1,0 +1,14 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.(php|htm|html)$
+        normalize_strings                        YES
+
+        parser
+        {
+            plugin                               parse_php_xhtml
+        }
+    }
+}

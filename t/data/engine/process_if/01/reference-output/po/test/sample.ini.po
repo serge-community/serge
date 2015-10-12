@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. foo
+#: File: sample.ini
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
+
+#. baz
+#: File: sample.ini
+#: ID: 22f5886a8a9a6b1d15e58cb1eef41fc1
+msgid "Baz"
+msgstr "Ḃáž"

@@ -1,0 +1,16 @@
+/* Single-line comment 1 */
+    /*Single-line comment 2*/
+
+// Single-line comment 3
+    //Single-line comment 4
+
+String_with_no_quotes1="some text 1";    
+String_with_no_quotes2= "some text 2"; // comment line 2
+    String_with_no_quotes3 ="some text 3";
+ String_with_no_quotes4 ="some text 4";
+
+"String_with_quotes5"="some text 5";    
+"String with quotes 6"="some text 6"; // comment line 6
+    "String with quotes 7"= "some text 7";  
+    "String with quotes 8" ="some text 8";
+ "String with quotes 9" = "some text 9";

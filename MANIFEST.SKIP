@@ -1,0 +1,14 @@
+^~
+\/~
+\.git\/
+\.gitignore
+_build\/
+cpanfile
+MANIFEST.SKIP
+MANIFEST.bak
+\/test-output\/
+^vendor\/
+setup.pl^MYMETA\.yml$
+^MYMETA\.json$
+^MYMETA\.yml$
+\.tar\.gz$

@@ -1,0 +1,61 @@
+=head1 NAME
+
+serge-sync - Perform a full synchronization + localization cycle
+
+=head1 SYNOPSIS
+
+C<< serge sync [configuration-files]
+	[--force] [--rebuild-ts-files]
+	[--lang=aa,bb,cc] [--jobs=foo,bar] >>
+
+Where C<< [configuration-files] >> is a path to a specific .serge file,
+or a directory to scan .serge files in. You can specify multiple paths
+as separate command-line parameters. If no paths provided, Serge will
+look up for .serge files in the current directory.
+
+=head1 DESCRIPTION
+
+For all provided configuration files, run `pull`, `pull-ts`, `localize`, `push-ts` and `push`
+commands in one cycle.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--force>
+
+Has the same effect as C<< L<serge pull-ts --force|serge-pull-ts> >> and C<< L<serge localize --force|serge-localize> >> combined.
+
+=item B<--rebuild-ts-files>
+
+Has the same effect as C<< L<serge localize --rebuild-ts-files|serge-localize> >>.
+
+=item B<--output-only-mode>
+
+Has the same effect as C<< L<serge localize --output-only-mode|serge-localize> >>.
+
+=item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+See C<< L<serge localize --lang|serge-localize> >>. Will also completely skip processing configs where
+no target languages are found.
+
+=item B<--job=xx[,yy][,zz]>, B<--jobs=xx[,yy][,zz]>
+
+See C<< L<serge localize --job|serge-localize> >>. Will also completely skip processing configs where
+no target jobs are found.
+
+=item B<--echo-commands>
+
+Echo system commands about to be executed (useful for debugging)
+
+=item B<--echo-output>
+
+Echo commands' output (useful for debugging)
+
+=back
+
+=head1 SEE ALSO
+
+L<serge-pull>, L<serge-pull-ts>, L<serge-localize>, L<serge-push-ts>, L<serge-push>
+
+Part of L<serge> suite.

@@ -1,0 +1,13 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.ts$
+
+        parser
+        {
+            plugin                               parse_ts
+        }
+    }
+}

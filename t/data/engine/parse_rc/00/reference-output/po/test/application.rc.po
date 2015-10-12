@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. IDS_TEST_1
+#: File: application.rc
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. IDS_TEST_2
+#: File: application.rc
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#. IDS_ERROR
+#: File: application.rc
+#: ID: 062f9dcbf9d6b396c1733a30e68226ab
+msgid "Error %s"
+msgstr "Ēŕŕőŕ %s"
+
+#. IDS_TEST_3
+#: File: application.rc
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+msgid "Value 3"
+msgstr "Ṽáļũē 3"
+
+#. IDS_TEST_4
+#: File: application.rc
+#: ID: bf5a11014de06a379dcb4fda0faa156d
+msgid "Value 4"
+msgstr "Ṽáļũē 4"

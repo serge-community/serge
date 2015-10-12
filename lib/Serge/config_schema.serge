@@ -1,0 +1,109 @@
+inc
+{
+    # this section is a container for any includes
+    *                               DATA
+}
+
+sync
+{
+    ts
+    {
+        plugin                      STRING
+        data
+        {
+            *                       DATA
+        }
+    }
+
+    vcs
+    {
+        plugin                      STRING
+        data
+        {
+            *                       DATA
+        }
+    }
+}
+
+jobs                                ARRAY
+{
+    *
+    {
+        name                        STRING
+        id                          STRING
+        optimizations               BOOLEAN
+        active                      BOOLEAN
+        debug                       BOOLEAN
+        debug_nosave                BOOLEAN
+        output_only_mode            BOOLEAN
+        source_language             STRING
+        destination_languages       ARRAY
+        source_dir                  STRING
+        source_path_prefix          STRING
+        source_process_subdirs      BOOLEAN
+        source_match                ARRAY
+        source_exclude              ARRAY
+        source_exclude_dirs         ARRAY
+
+        parser
+        {
+            plugin                  STRING
+
+            data
+            {
+                *                       DATA
+            }
+        }
+
+        normalize_strings           BOOLEAN
+        db_source                   STRING
+        db_username                 STRING
+        db_password                 STRING
+        db_namespace                STRING
+        reuse_translations          BOOLEAN
+        reuse_orphaned              BOOLEAN
+        reuse_uncertain             BOOLEAN
+        reuse_as_fuzzy_default      BOOLEAN
+        reuse_as_fuzzy              ARRAY
+        reuse_as_not_fuzzy          ARRAY
+
+        similar_languages           ARRAY
+        {
+            *
+            {
+                source              ARRAY
+                destination         STRING
+                as_fuzzy            BOOLEAN
+            }
+        }
+
+        ts_file_path                STRING
+        output_lang_files           BOOLEAN
+        output_default_lang_file    BOOLEAN
+        output_encoding             STRING
+        output_bom                  BOOLEAN
+
+        output_lang_rewrite
+        {
+            *                       STRING
+        }
+
+        output_file_path            STRING
+        trademarks                  ARRAY
+
+        callback_plugins            ARRAY
+        {
+            *
+            {
+                plugin              STRING
+                phase               ARRAY
+                hint                STRING
+
+                data
+                {
+                    *               DATA    # each plugin must validate additional parameters on it's own
+                }
+            }
+        }
+    }
+}

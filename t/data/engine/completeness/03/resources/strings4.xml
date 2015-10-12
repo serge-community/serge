@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="foo">Foo</string>
+    <string name="bar">Bar</string>
+    <string name="baz">Baz</string>
+    <string name="etc">Etc</string>
+</resources>

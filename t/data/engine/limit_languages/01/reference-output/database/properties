@@ -1,0 +1,19 @@
+properties
+{
+    0     1 source:1 f5667e6a183795be2ca316d5263f252b
+    1     2 hash:1 f5667e6a183795be2ca316d5263f252b
+    2     3 size:1 128
+    3     4 items:1 1
+    4     5 ts:1:test:count 1
+    5     6 usn:1:test 3
+    6     7 ts:1:test 06ff030928681556d524c7d4be151184
+    7     8 target:1:test_job:test a6423897f3bf3d8d781f5ca512c611c1
+    8     9 target:mtime:1:test_job:test 12345678
+    9     10 source:1:test_job:test f5667e6a183795be2ca316d5263f252b
+    10    11 source:ts:1:test_job:test
+          06ff030928681556d524c7d4be151184
+    11    12 job-hash:test_namespace:test_job
+          d9946192080ec3761db22f5ad0d65f22
+    12    13 job-plugin:test_namespace:test_job parse_android.
+    13    14 job-engine:test_namespace:test_job 1.0
+}

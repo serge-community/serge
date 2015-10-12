@@ -1,0 +1,25 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :gzip
+            {
+                plugin                           run_command
+
+                data
+                {
+                    command                      gzip <%FILE% >%FILE%.gz
+                }
+            }
+        }
+    }
+}

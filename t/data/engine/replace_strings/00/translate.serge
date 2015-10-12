@@ -1,0 +1,44 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value 1`                `Test Translation 1`
+                        `Value 2`                `Test Translation 2`
+                        `Value 3`                `Test Translation 3`
+                    }
+                }
+            }
+
+            {
+                plugin                           replace_strings
+                phase                            rewrite_translation
+
+                data
+                {
+                    replace                      T t g          # replace uppercase 'T' with lowercase 't' globally ('g' regex modifier)
+                    replace                      (\d+) `#$1` g  # prepend digits with '#' symbol globally
+                    replace                      \s - g         # replace each whitespace symbol with '-' globally
+                }
+            }
+        }
+    }
+}

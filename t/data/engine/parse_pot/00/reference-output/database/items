@@ -1,0 +1,15 @@
+items
+{
+    0    1 3 1 1 /file/path/filename0.php:106 NO 0
+    1    2 5 1 2 /file/path/filename1.php:75 NO 0
+    2    3 7 1 3 /file/path/filename2.php:13;30;45 NO 0
+    3    4 9 1 4
+         `/file/path/filename3.php:6
+/file/path/filename4.php:6
+/file/path/filename5.php:6`
+         NO 0
+    4    5 11 1 5 `translator-comments
+automatic-comments
+reference`
+         NO 0
+}

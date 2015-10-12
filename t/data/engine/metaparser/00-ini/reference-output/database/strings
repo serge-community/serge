@@ -1,0 +1,7 @@
+strings
+{
+    0    1 2 Foo NO 0
+    1    2 4 Bar NO 0
+    2    3 6 Baz NO 0
+    3    4 8 Etc\nEtc2\nEtc3 NO 0
+}

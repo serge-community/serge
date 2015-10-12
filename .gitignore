@@ -1,0 +1,11 @@
+~*
+vendor/*
+*.bak
+MANIFEST
+_build
+META.*
+MYMETA.*
+Makefile.PL
+*.gz
+Build
+Build.bat

@@ -1,0 +1,7 @@
+properties
+{
+    0    1 job-hash:test_namespace:test_job
+         d3eb7b17c0d4b31b8e32a9633d73f2e9
+    1    2 job-plugin:test_namespace:test_job parse_php_xhtml.
+    2    3 job-engine:test_namespace:test_job 1.0
+}

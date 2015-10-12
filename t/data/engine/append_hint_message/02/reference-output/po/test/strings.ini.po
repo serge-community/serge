@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string1
+#. Please do not alter HTML tags and attributes unless you know what you are doing
+#: File: strings.ini
+#: ID: d51764a474eb8bf91502d1c39990f91a
+msgid "<foo>"
+msgstr "<foo>"
+
+#. string2
+#. Please do not alter the text inside &...; entities (e.g. &nbsp;)
+#: File: strings.ini
+#: ID: c7d9e2e1af70abed33dbef1c715f7850
+msgid "&foo;"
+msgstr "&foo;"
+
+#. string3
+#. Please do not alter %...% macros (e.g. %VAR%)
+#: File: strings.ini
+#: ID: 0e1d1c24a6b3a675f8953ac50adee47a
+msgid "%foo%"
+msgstr "%foo%"
+
+#. string4
+#. Please do not alter {...} macros (e.g. {0})
+#: File: strings.ini
+#: ID: 3f177ca48e59d7325abbb64ca00348b1
+msgid "{1}"
+msgstr "{1}"
+
+#. string5
+#. Please do not alter ${...} macros (e.g. ${var})
+#: File: strings.ini
+#: ID: a6581491fbf7ce28384a60ca9f29e34f
+msgid "${foo}"
+msgstr "${foo}"

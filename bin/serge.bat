@@ -1,0 +1,1 @@
+@perl %~dp0serge %*

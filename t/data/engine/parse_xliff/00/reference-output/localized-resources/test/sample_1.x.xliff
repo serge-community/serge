@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file original="sample1.txt" source-language="en" target-language="test">
+        <body>
+            <trans-unit id="foo">
+                <source>Foo</source>
+                <target>Ḟőő</target>
+            </trans-unit>
+            <trans-unit id="bar">
+                <source>Bar</source>
+                <target>Ḃáŕ</target>
+            </trans-unit>
+        </body>
+    </file>
+    <file original="sample2.txt" source-language="en" target-language="test">
+        <header>
+            <note>File-related comment</note>
+        </header>
+        <body>
+            <group id="mygroup">
+                <note>Group-related comment 1</note>
+                <note>Group-related comment 2</note>
+                <trans-unit id="foo2">
+                    <source>Foo2 <x xid="bar2"/></source>
+                    <target>Ḟőő2 <x xid="bar2"/></target>
+                </trans-unit>
+                <trans-unit id="bar2">
+                    <note>Unit-related comment</note>
+                    <source>Bar2</source>
+                    <target>Ḃáŕ2</target>
+                </trans-unit>
+            </group>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,106 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            :hint_html_tag
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    if
+                    {
+                        content_matches          [<>]
+
+                        then
+                        {
+                            message              Please do not alter HTML tags and attributes unless you know what you are doing
+                        }
+                    }
+
+                }
+            }
+
+            :hint_xml_entity
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    if
+                    {
+                        content_matches          &\w+;
+
+                        then
+                        {
+                            message              Please do not alter the text inside &...; entities (e.g. &nbsp;)
+                        }
+                    }
+                }
+            }
+
+            :hint_percent
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    if
+                    {
+                        content_matches          %
+
+                        then
+                        {
+                            message              Please do not alter %...% macros (e.g. %VAR%)
+                        }
+                    }
+                }
+            }
+
+            :hint_curly_brace_digit
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    if
+                    {
+                        content_matches          `\{\d+\}`
+
+                        then
+                        {
+                            message              `Please do not alter {...} macros (e.g. {0})`
+                        }
+                    }
+                }
+            }
+
+            :hint_$_curly_brace
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    if
+                    {
+                        content_matches          `\$\{.+?\}`
+
+                        then
+                        {
+                            message              `Please do not alter ${...} macros (e.g. ${var})`
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+properties
+{
+    0     1 source:1 5071ecc77b32ce11e85370bf3909ec01
+    1     2 hash:1 5071ecc77b32ce11e85370bf3909ec01
+    2     3 size:1 15
+    3     4 items:1 1
+    4     5 ts:1:es:count 1
+    5     6 usn:1:es 3
+    6     7 ts:1:es 06cefbef323ab2cf03196ed7f152288c
+    7     8 ts:1:es-419:count 1
+    8     9 usn:1:es-419 4
+    9     10 ts:1:es-419 1848a9997811708dc49af5cbd3796fe1
+    10    11 target:1:test_job:es 30d874365857faf579bf14791af42136
+    11    12 target:mtime:1:test_job:es 12345678
+    12    13 source:1:test_job:es 5071ecc77b32ce11e85370bf3909ec01
+    13    14 source:ts:1:test_job:es 06cefbef323ab2cf03196ed7f152288c
+    14    15 target:1:test_job:es-419 30d874365857faf579bf14791af42136
+    15    16 target:mtime:1:test_job:es-419 12345678
+    16    17 source:1:test_job:es-419 5071ecc77b32ce11e85370bf3909ec01
+    17    18 source:ts:1:test_job:es-419
+          1848a9997811708dc49af5cbd3796fe1
+    18    19 job-hash:test_namespace:test_job
+          1a92d0a5a31cf8c3b13bfe73dcbf1cb2
+    19    20 job-plugin:test_namespace:test_job parse_master.
+    20    21 job-engine:test_namespace:test_job 1.0
+}

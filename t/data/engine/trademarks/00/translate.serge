@@ -1,0 +1,24 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           trademarks
+
+                data
+                {
+                    trademarks                   FooTM BarTM `Baz T M`
+                }
+            }
+        }
+    }
+}

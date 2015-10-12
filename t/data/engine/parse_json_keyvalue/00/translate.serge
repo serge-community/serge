@@ -1,0 +1,17 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_process_subdirs                   YES
+        source_match                             \.json$
+
+        parser
+        {
+            plugin                               parse_json_keyvalue
+        }
+
+        output_encoding                          Java
+        output_bom                               YES
+    }
+}

@@ -1,0 +1,8 @@
+items
+{
+    0    1 3 1 1 string_key1 NO 0
+    1    2 5 1 2 string_key2 NO 0
+    2    3 7 1 3 list NO 0
+    3    4 9 1 4 list NO 0
+    4    5 11 1 5 list NO 0
+}

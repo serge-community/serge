@@ -1,0 +1,23 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               metaparser
+
+            data
+            {
+                hint                             ^\s*[;#]\s*(.*)\s*$        #    ; foo
+                keyvalue                         ^(\S+)\s*=\s*(.*)\s*$      #    foo = bar
+                localize                         ^(\S+\s*=\s*)(.*)(\s*)$
+                reset                            ^\s*$                      #    blank/whitespace-only line
+            }
+        }
+
+        output_file_path                         ./test-output/localized-resources/%LANG%/%FILE%
+    }
+}
