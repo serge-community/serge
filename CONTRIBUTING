@@ -2,8 +2,8 @@ CONTRIBUTING
 
 Your contributions to the project mean a lot to us. Bugfixes are accepted
 in the form of pull requests (one per bug). Before filing a bug, please
-make sure it still appears in the bleeding edge version published on Github.
-CPAN versions may lag behind the code on Github.
+make sure it still appears in the bleeding edge version published on GitHub.
+CPAN versions may lag behind the code on GitHub.
 
 DISCUSSING BUGS / FEATURES
 
