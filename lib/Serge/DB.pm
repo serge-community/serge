@@ -76,6 +76,10 @@ sub open {
             $type = 'SQLite_pre_1_26_06' if $@;
         }
 
+        # expand '~/' in file path to the value of $ENV{HOME}
+        # See https://github.com/evernote/serge/issues/1
+        $source =~ s!^(DBI:SQLite:dbname=)~/(.*)$!$1.$ENV{HOME}.'/'.$2!se;
+
         if (exists $DBD_PARAMS->{$type}) {
             $self->{dbh} = DBI->connect(
                 $source, $username, $password,
