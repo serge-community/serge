@@ -3,9 +3,10 @@
 use strict;
 
 BEGIN {
+    use Cwd qw(abs_path);
     use File::Basename;
-    use File::Spec::Functions qw(rel2abs catfile);
-    map { unshift(@INC, catfile(dirname(rel2abs(__FILE__)), $_)) } qw(../extlibs/lib/perl5 ../lib ../vendor/lib);
+    use File::Spec::Functions qw(catfile);
+    map { unshift(@INC, catfile(dirname(abs_path(__FILE__)), $_)) } qw(../extlibs/lib/perl5 ../lib ../vendor/lib);
 }
 
 use Serge::Application;

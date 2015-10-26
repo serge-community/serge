@@ -2,12 +2,13 @@
 
 use strict;
 
+use Cwd qw(abs_path);
 use File::Basename;
 use File::Find qw(find);
-use File::Spec::Functions qw(rel2abs catfile);
+use File::Spec::Functions qw(catfile);
 use Test::More;
 
-my $thisdir = dirname(rel2abs(__FILE__));
+my $thisdir = dirname(abs_path(__FILE__));
 my $libpath = catfile($thisdir, '../lib');
 
 my @tests;

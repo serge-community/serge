@@ -8,9 +8,10 @@ use utf8;
 # no matter what directory it is running from
 
 BEGIN {
-    use File::Spec::Functions qw(rel2abs catfile);
+    use Cwd qw(abs_path);
     use File::Basename;
-    unshift(@INC, catfile(dirname(rel2abs($0)), '../../lib'));
+    use File::Spec::Functions qw(catfile);
+    unshift(@INC, catfile(dirname(abs_path(__FILE__)), '../../lib'));
 }
 
 use IO::File;
@@ -24,7 +25,7 @@ my $db = Serge::DB->new();
 
 # determining the current directory where the script is located
 
-my $SCRIPT_DIR = dirname(rel2abs($0));
+my $SCRIPT_DIR = dirname(abs_path(__FILE__));
 
 # Initializing output
 
@@ -530,7 +531,7 @@ sub do_export {
     $filename =~ s/%LANG%/$lang/g;
     $filename =~ s/%DATETIME%/$timestamp/g;
 
-    my $path = dirname(rel2abs($filename));
+    my $path = dirname(abs_path($filename));
     eval { mkpath($path) };
     ($@) && die "Couldn't create $path: $@\n";
 

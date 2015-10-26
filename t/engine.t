@@ -3,9 +3,10 @@
 use strict;
 
 BEGIN {
+    use Cwd qw(abs_path);
     use File::Basename;
-    use File::Spec::Functions qw(rel2abs catfile);
-    map { unshift(@INC, catfile(dirname(rel2abs(__FILE__)), $_)) } qw(lib ../lib);
+    use File::Spec::Functions qw(catfile);
+    map { unshift(@INC, catfile(dirname(abs_path(__FILE__)), $_)) } qw(lib ../lib);
 }
 
 use Data::Dumper;
@@ -31,7 +32,7 @@ sub Serge::Engine::file_mtime {
     return 12345678;
 }
 
-my $thisdir = dirname(rel2abs(__FILE__));
+my $thisdir = dirname(abs_path(__FILE__));
 
 my @confs;
 

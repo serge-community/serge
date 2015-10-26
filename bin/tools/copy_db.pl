@@ -79,9 +79,10 @@ use strict;
 # no matter what directory it is running from
 
 BEGIN {
-    use File::Spec::Functions qw(rel2abs catfile);
+    use Cwd qw(abs_path);
     use File::Basename;
-    map { unshift(@INC, catfile(dirname(rel2abs($0)), $_)) } qw(../../lib lib);
+    use File::Spec::Functions qw(catfile);
+    map { unshift(@INC, catfile(dirname(abs_path(__FILE__)), $_)) } qw(../../lib lib);
 }
 
 use Data::Dumper;
