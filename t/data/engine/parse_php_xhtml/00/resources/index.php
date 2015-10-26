@@ -4,7 +4,7 @@
 ?>
 
 <div id="header">
-s    <!-- the following line was enclosed in <span lang="en"> and will be explicitly translated -->
+    <!-- the following line was enclosed in <span lang="en"> and will be explicitly translated -->
     <span lang="en"><img src="x.png" alt="<? echo $pageTitle; ?>" /></span>
 
     <!-- another way to mark image as translatable (this will work on terminal tags only like <img />) -->
@@ -44,7 +44,6 @@ s    <!-- the following line was enclosed in <span lang="en"> and will be explic
         <!-- in the subsequent lines, the <li> item will be the default translation item (default behavior) -->
         <li><a href="#topic3">Topic 3</a></li>
     </ul>
-    </div>
 
     <h2 id="topic1">Topic 1</h2>
     <p>Paragraph 1</p>
@@ -53,7 +52,7 @@ s    <!-- the following line was enclosed in <span lang="en"> and will be explic
     <p>Paragraph 2</p>
 
     <h2 id="topic2">Topic 3</h2>
-    <!-- One can manually segment larg paragraphs (split them into separate translatable sentences) -->
+    <!-- One can manually segment large paragraphs (split them into separate translatable sentences) -->
     <p><span lang="en">Paragraph 3, Sentence 1.</span> <span lang="en">Paragraph 3, Sentence 2.</span></p>
 
     <ul>

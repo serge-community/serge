@@ -1,3 +1,12 @@
 strings
 {
+    0    1 2 Friday Friday 0
+    1    2 4 Monday Monday 0
+    2    3 6 Saturday Saturday 0
+    3    4 8 Sunday Sunday 0
+    4    5 10 Thursday Thursday 0
+    5    6 12 Tuesday Tuesday 0
+    6    7 14 Wednesday Wednesday 0
+    7    8 16 `Value 1` string1 0
+    8    9 18 `Value 2` string2 0
 }

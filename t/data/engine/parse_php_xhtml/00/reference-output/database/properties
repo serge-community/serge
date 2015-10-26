@@ -1,7 +1,20 @@
 properties
 {
-    0    1 job-hash:test_namespace:test_job
-         d3eb7b17c0d4b31b8e32a9633d73f2e9
-    1    2 job-plugin:test_namespace:test_job parse_php_xhtml.
-    2    3 job-engine:test_namespace:test_job 1.0
+    0     1 source:4 7b5e59f8bb7ad3023335abd269b539b1
+    1     2 hash:4 7b5e59f8bb7ad3023335abd269b539b1
+    2     3 size:4 2601
+    3     4 items:4
+          1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+    4     5 ts:4:test:count 21
+    5     6 usn:4:test 46
+    6     7 ts:4:test 4a66ebfdf3eba126bca1eaf54fb084ea
+    7     8 target:4:test_job:test 83ee5768900a2bfa7312cbd8bbb08b89
+    8     9 target:mtime:4:test_job:test 12345678
+    9     10 source:4:test_job:test 7b5e59f8bb7ad3023335abd269b539b1
+    10    11 source:ts:4:test_job:test
+          4a66ebfdf3eba126bca1eaf54fb084ea
+    11    12 job-hash:test_namespace:test_job
+          d3eb7b17c0d4b31b8e32a9633d73f2e9
+    12    13 job-plugin:test_namespace:test_job parse_php_xhtml.
+    13    14 job-engine:test_namespace:test_job 1.0
 }

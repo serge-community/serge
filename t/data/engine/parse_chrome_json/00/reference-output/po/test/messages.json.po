@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#: File: messages.json
+#: ID: 7be7e3d02e19148bb3ae61376bf9f943
+msgctxt "Friday"
+msgid "Friday"
+msgstr "Ḟŕĩđáŷ"
+
+#: File: messages.json
+#: ID: 0a8c9b0635a1582ad1f12fd0130d58d8
+msgctxt "Monday"
+msgid "Monday"
+msgstr "Ḿőŋđáŷ"
+
+#: File: messages.json
+#: ID: 00c8528eeff0d39e78f7443e8384660d
+msgctxt "Saturday"
+msgid "Saturday"
+msgstr "Šáţũŕđáŷ"
+
+#: File: messages.json
+#: ID: 25d65bcdd54384866b367f7d9b4db7c9
+msgctxt "Sunday"
+msgid "Sunday"
+msgstr "Šũŋđáŷ"
+
+#: File: messages.json
+#: ID: edc04d50a5fa4c10f182d918742d96c3
+msgctxt "Thursday"
+msgid "Thursday"
+msgstr "Ŧĥũŕšđáŷ"
+
+#: File: messages.json
+#: ID: c5c0c9987a6631da3f3c5232b064f9cc
+msgctxt "Tuesday"
+msgid "Tuesday"
+msgstr "Ŧũēšđáŷ"
+
+#: File: messages.json
+#: ID: 1075dbca29a03e6d18b7d58772273655
+msgctxt "Wednesday"
+msgid "Wednesday"
+msgstr "Ŵēđŋēšđáŷ"
+
+#. Description 1
+#: File: messages.json
+#: ID: 37881f5ca702bb268877e4edb0edc83d
+msgctxt "string1"
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. Description 2
+#: File: messages.json
+#: ID: 7d8ec73df55728a29c38a9f7741aefa6
+msgctxt "string2"
+msgid "Value 2"
+msgstr "Ṽáļũē 2"

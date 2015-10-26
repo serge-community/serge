@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. Page title
+#: File: index.php
+#: ID: 49fe2e1f5719b3f7c2466b422f97f66e
+msgid "Sample Page"
+msgstr "Šáḿṕļē Ṕáğē"
+
+#: File: index.php
+#: ID: a66e4f5fd5c2a2a4c026c22d19c90e5d
+msgid "<img src=\"x.png\" alt=\"<? echo $pageTitle; ?>\" />"
+msgstr "<img src=\"x.png\" alt=\"<? echo $pageTitle; ?>\" />"
+
+#: File: index.php
+#: ID: 1a469c5f9b1686aa0bba16ff0c3e99b0
+msgid "<img src=\"x.png\" alt=\"baz\" />"
+msgstr "<img src=\"x.png\" alt=\"baz\" />"
+
+#. alt attribute
+#: File: index.php
+#: ID: 34425ef5fe06102e2de17ce406e1c917
+msgid "localizable alt attribute text"
+msgstr "ļőçáļĩžáḃļē áļţ áţţŕĩḃũţē ţēҳţ"
+
+#. title attribute
+#: File: index.php
+#: ID: 9f0e7bee1fbb5eec8cddb8ebb7d10355
+msgid "localizable title attribute text"
+msgstr "ļőçáļĩžáḃļē ţĩţļē áţţŕĩḃũţē ţēҳţ"
+
+#: File: index.php
+#: ID: e93e6d67a5e03712e87f2d8d93d4fdc4
+msgid "<img src=\"x.png\" alt=\"localizable image\" />"
+msgstr "<img src=\"x.png\" alt=\"localizable image\" />"
+
+#: File: index.php
+#: ID: 7d9035b2c51a176dcd792ad0f8024a2b
+msgid "localizable string 2"
+msgstr "ļőçáļĩžáḃļē šţŕĩŋğ 2"
+
+#: File: index.php
+#: ID: 3b31defc07678f0de737043d90f33f00
+msgid "Table of Contents"
+msgstr "Ŧáḃļē őḟ Ćőŋţēŋţš"
+
+#: File: index.php
+#: ID: 40d504f7798cda942b7bd59900e763f4
+msgid "Topic 1"
+msgstr "Ŧőṕĩç 1"
+
+#: File: index.php
+#: ID: bb0b3bf3511feab37619f946e0237811
+msgid "Topic 2"
+msgstr "Ŧőṕĩç 2"
+
+#: File: index.php
+#: ID: 8ade6d1ffe6fd5970597c73b600252d1
+msgid "<a href=\"#topic3\">Topic 3</a>"
+msgstr "<a href=\"#topic3\">Ŧőṕĩç 3</a>"
+
+#: File: index.php
+#: ID: 996846f8670ab376b53f5ca443e286df
+msgctxt "context.1"
+msgid "Topic 1"
+msgstr "Ŧőṕĩç 1"
+
+#: File: index.php
+#: ID: 96bc27974e4e82a218a4d1502938d02d
+msgid "Paragraph 1"
+msgstr "Ṕáŕáğŕáṕĥ 1"
+
+#: File: index.php
+#: ID: 054c21a2169e4b8a80ab5f79dde097d6
+msgctxt "context.1"
+msgid "Topic 2"
+msgstr "Ŧőṕĩç 2"
+
+#: File: index.php
+#: ID: bfbc8f478c954b6c5765d5285b655500
+msgid "Paragraph 2"
+msgstr "Ṕáŕáğŕáṕĥ 2"
+
+#: File: index.php
+#: ID: 0cd9b7e2b1d0a17927da40a7a5be599c
+msgid "Topic 3"
+msgstr "Ŧőṕĩç 3"
+
+#: File: index.php
+#: ID: 8f97e74768d7b55d7e02f9195f0c846e
+msgid "Paragraph 3, Sentence 1."
+msgstr "Ṕáŕáğŕáṕĥ 3, Šēŋţēŋçē 1."
+
+#: File: index.php
+#: ID: 54988f57cc86c6ed3c64bd520e18d6f2
+msgid "Paragraph 3, Sentence 2."
+msgstr "Ṕáŕáğŕáṕĥ 3, Šēŋţēŋçē 2."
+
+#: File: index.php
+#: ID: bc36b3a53f73f49726402745eea839d2
+msgid "Item 1"
+msgstr "Ĩţēḿ 1"
+
+#: File: index.php
+#: ID: 9d66bb5198c158d5c883d21e77b4d00a
+msgid "Item 2"
+msgstr "Ĩţēḿ 2"
+
+#: File: index.php
+#: ID: 0f0f255d5c9c92533d5bd889681bf21b
+msgid "Item 3"
+msgstr "Ĩţēḿ 3"

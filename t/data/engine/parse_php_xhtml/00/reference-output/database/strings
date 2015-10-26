@@ -1,4 +1,24 @@
 strings
 {
-    0    1 5 `Sample Page` NO 0
+    0     1 5 `Sample Page` NO 0
+    1     2 7 `<img src="x.png" alt="<? echo $pageTitle; ?>" />` NO 0
+    2     3 9 `<img src="x.png" alt="baz" />` NO 0
+    3     4 11 `localizable alt attribute text` NO 0
+    4     5 13 `localizable title attribute text` NO 0
+    5     6 15 `<img src="x.png" alt="localizable image" />` NO 0
+    6     7 17 `localizable string 2` NO 0
+    7     8 19 `Table of Contents` NO 0
+    8     9 21 `Topic 1` NO 0
+    9     10 23 `Topic 2` NO 0
+    10    11 25 `<a href="#topic3">Topic 3</a>` NO 0
+    11    12 27 `Topic 1` context.1 0
+    12    13 29 `Paragraph 1` NO 0
+    13    14 31 `Topic 2` context.1 0
+    14    15 33 `Paragraph 2` NO 0
+    15    16 35 `Topic 3` NO 0
+    16    17 37 `Paragraph 3, Sentence 1.` NO 0
+    17    18 39 `Paragraph 3, Sentence 2.` NO 0
+    18    19 41 `Item 1` NO 0
+    19    20 43 `Item 2` NO 0
+    20    21 45 `Item 3` NO 0
 }

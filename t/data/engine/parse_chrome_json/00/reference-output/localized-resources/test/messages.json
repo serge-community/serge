@@ -1,0 +1,31 @@
+{
+   "Friday" : {
+      "message" : "Ḟŕĩđáŷ"
+   },
+   "Monday" : {
+      "message" : "Ḿőŋđáŷ"
+   },
+   "Saturday" : {
+      "message" : "Šáţũŕđáŷ"
+   },
+   "Sunday" : {
+      "message" : "Šũŋđáŷ"
+   },
+   "Thursday" : {
+      "message" : "Ŧĥũŕšđáŷ"
+   },
+   "Tuesday" : {
+      "message" : "Ŧũēšđáŷ"
+   },
+   "Wednesday" : {
+      "message" : "Ŵēđŋēšđáŷ"
+   },
+   "string1" : {
+      "description" : "Description 1",
+      "message" : "Ṽáļũē 1"
+   },
+   "string2" : {
+      "description" : "Description 2",
+      "message" : "Ṽáļũē 2"
+   }
+}
