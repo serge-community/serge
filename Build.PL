@@ -21,6 +21,7 @@ my $builder = Module::Build->new(
         'Config::Neat'       => '1.204',
         'DBD::SQLite'        => 0,
         'JSON'               => 0,
+        'JSON::XS'           => 0,
         'MIME::Lite'         => 0,
         'Net::SMTP::SSL'     => 0,
         'XML::Parser'        => 0,
