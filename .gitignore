@@ -3,6 +3,7 @@ vendor/*
 *.bak
 MANIFEST
 _build
+blib
 META.*
 MYMETA.*
 Makefile.PL
