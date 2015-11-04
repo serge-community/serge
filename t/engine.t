@@ -95,6 +95,7 @@ for my $config_file (@confs) {
             my $engine = Serge::Engine->new();
             $engine->{optimizations} = undef; # force generate all the files
             my $config = Serge::Config->new($config_file);
+            $config->chdir;
             my $processor = Serge::Engine::Processor->new($engine, $config);
 
             eval {

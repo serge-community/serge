@@ -49,6 +49,12 @@ sub abspath {
     return Serge::Util::abspath($self->{base_dir}, $path);
 }
 
+sub chdir {
+    my ($self) = @_;
+
+    chdir($self->{base_dir});
+}
+
 #
 # Get database sources
 #

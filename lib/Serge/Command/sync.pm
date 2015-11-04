@@ -130,6 +130,7 @@ sub run {
 };
 
         my $config = $self->{parent}->get_config_object($config_file);
+        $config->chdir;
 
         if ($self->{languages} && !$config->any_language_exists(\%limit_languages)) {
             print "Skip (no target languages)\n";
