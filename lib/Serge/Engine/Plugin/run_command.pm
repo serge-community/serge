@@ -4,6 +4,7 @@ use parent Serge::Engine::Plugin::if;
 use strict;
 use utf8;
 
+use File::Basename;
 use Serge::Util qw(remove_flags set_flag subst_macros);
 
 sub name {
@@ -65,10 +66,18 @@ sub process_then_block {
 
     die "This plugin should only be used in 'after_save_localized_file' phase (current phase: '$phase')" unless $phase eq 'after_save_localized_file';
 
-    my $fullpath = $self->{parent}->{engine}->get_full_output_path($file, $lang);
+    my $outfile = $self->{parent}->{engine}->get_full_output_path($file, $lang);
+    ($_, my $outpath, $_) = fileparse($outfile); # this way $outpath will include the trailing delimiter
 
-    # substitute macros; substitute %FILE% with the full path to the saved file
-    my $command = subst_macros($block->{command}, $fullpath);
+    # substitute %FILE% and target language-based macros
+    # with the full path to the saved file
+    my $command = subst_macros($block->{command}, $file, $lang);
+
+    # substitute %OUTFILE% macro with the full path to the saved file
+    $command =~ s/%OUTFILE%/$outfile/sg;
+    # substitute %OUTPATH% macro with the full directory path
+    $command =~ s/%OUTPATH%/$outpath/sg;
+
     die "After macro substitution, 'command' parameter evaluates to an empty string" if $command eq '';
 
     print "RUN: $command\n";

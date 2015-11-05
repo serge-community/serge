@@ -17,7 +17,7 @@ jobs
 
                 data
                 {
-                    command                      gzip <%OUTFILE% >%OUTFILE%.gz
+                    command                      gzip <%OUTFILE% >%OUTPATH%%NAME%.%EXT%.gz
                 }
             }
         }
