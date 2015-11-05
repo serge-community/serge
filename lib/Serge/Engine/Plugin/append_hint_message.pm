@@ -15,11 +15,16 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        message                      => 'STRING',
+        message => {''               => 'LIST',
+            '*'                      => 'STRING'
+        },
+
         if => {
             '*' => {
                 then => {
-                    message          => 'STRING',
+                    message => {''   => 'LIST',
+                        '*'          => 'STRING'
+                    },
                 },
             },
         },
@@ -55,7 +60,9 @@ sub process_then_block {
     my ($self, $phase, $block, $file, $lang, $strref, $commentref, $aref) = @_;
 
     if ($phase eq 'add_dev_comment') {
-        push @$aref, $self->{parent}->render_full_output_path($block->{message}, $file, $lang);
+        foreach my $message (@{$block->{message}}) {
+            push @$aref, $self->{parent}->render_full_output_path($message, $file, $lang);
+        }
     }
 
     return (shift @_)->SUPER::process_then_block(@_);

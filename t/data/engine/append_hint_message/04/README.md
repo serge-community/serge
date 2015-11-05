@@ -1,0 +1,1 @@
+Test for 'append_hint' plugin, multiple messages
