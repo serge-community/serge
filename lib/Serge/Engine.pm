@@ -868,7 +868,7 @@ sub update_database_from_ts_files {
 
     # Iterating through all modified languages
     foreach my $lang (sort @{$self->{job}->{modified_languages}}) {
-        $self->update_database_from_ts_files_lang(lc($lang)); # language is always lowercased
+        $self->update_database_from_ts_files_lang($lang);
     }
 }
 
