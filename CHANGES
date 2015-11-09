@@ -1,0 +1,32 @@
+Revision history
+
+1.1     Pending release
+
+        - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string
+          https://github.com/evernote/serge/issues/1
+
+        - Accept multiple `message` entries in append_hint_message plugin
+          https://github.com/evernote/serge/issues/2
+
+        - Require JSON::XS
+          https://github.com/evernote/serge/issues/3
+
+        - Make serge and tools fine their libs when they are symlinked
+          https://github.com/evernote/serge/issues/4
+
+        - Fixed: Uppercase letters in language names are unsupported
+          https://github.com/evernote/serge/issues/5
+
+        - Accept multiple `command` entries in run_command plugin
+          https://github.com/evernote/serge/issues/6
+
+        - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
+          other macros like %FILE% now work consistently with the rest of the config code
+
+        - Fixed some tests due to broken source files
+
+        - Fixed typos in embedded documentation
+
+1.0     October 15, 2012
+
+        * Code published on GitHub *
