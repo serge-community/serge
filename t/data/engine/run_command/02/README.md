@@ -1,0 +1,1 @@
+Test for 'run_command' plugin, multiple commands

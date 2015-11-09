@@ -17,12 +17,16 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        command             => 'STRING',
+        command => {''               => 'LIST',
+            '*'                      => 'STRING'
+        },
 
         if => {
             '*' => {
                 then => {
-                    command => 'STRING',
+                    command => {''   => 'LIST',
+                        '*'          => 'STRING'
+                    },
                 },
             },
         },
@@ -69,22 +73,24 @@ sub process_then_block {
     my $outfile = $self->{parent}->{engine}->get_full_output_path($file, $lang);
     ($_, my $outpath, $_) = fileparse($outfile); # this way $outpath will include the trailing delimiter
 
-    # substitute %FILE% and target language-based macros
-    # with the full path to the saved file
-    my $command = subst_macros($block->{command}, $file, $lang);
+    foreach my $command (@{$block->{command}}) {
+        # substitute %FILE% and target language-based macros
+        # with the full path to the saved file
+        $command = subst_macros($command, $file, $lang);
 
-    # substitute %OUTFILE% macro with the full path to the saved file
-    $command =~ s/%OUTFILE%/$outfile/sg;
-    # substitute %OUTPATH% macro with the full directory path
-    $command =~ s/%OUTPATH%/$outpath/sg;
+        # substitute %OUTFILE% macro with the full path to the saved file
+        $command =~ s/%OUTFILE%/$outfile/sg;
+        # substitute %OUTPATH% macro with the full directory path
+        $command =~ s/%OUTPATH%/$outpath/sg;
 
-    die "After macro substitution, 'command' parameter evaluates to an empty string" if $command eq '';
+        die "After macro substitution, 'command' parameter evaluates to an empty string" if $command eq '';
 
-    print "RUN: $command\n";
-    system($command);
+        print "RUN: $command\n";
+        system($command);
 
-    my $error_code = unpack 'c', pack 'C', $? >> 8; # error code
-    die "Exit code: $error_code\n" if $error_code != 0;
+        my $error_code = unpack 'c', pack 'C', $? >> 8; # error code
+        die "Exit code: $error_code\n" if $error_code != 0;
+    }
 
     return (shift @_)->SUPER::process_then_block(@_);
 }
