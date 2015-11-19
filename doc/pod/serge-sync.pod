@@ -5,7 +5,7 @@ serge-sync - Perform a full synchronization + localization cycle
 =head1 SYNOPSIS
 
 C<< serge sync [configuration-files]
-	[--force] [--rebuild-ts-files]
+	[--force] [--rebuild-ts-files] [--output-only-mode]
 	[--lang=aa,bb,cc] [--jobs=foo,bar] >>
 
 Where C<< [configuration-files] >> is a path to a specific .serge file,
