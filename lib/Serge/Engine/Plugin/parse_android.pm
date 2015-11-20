@@ -47,18 +47,18 @@ sub parse_string_callback {
     my ($self, $callbackref, $opening_tag, $inner_xml, $lang) = @_;
 
     return $inner_xml if $opening_tag =~ m|\btranslatable="false"|;
-    my $hint = $1 if $opening_tag =~ m|\bname="(.*?)"|;
+    my $key = $1 if $opening_tag =~ m|\bname="(.*?)"|;
 
-    return $self->parse_callback($callbackref, $inner_xml, undef, $hint, undef, $lang);
+    return $self->parse_callback($callbackref, $inner_xml, undef, $key, undef, $lang, $key);
 }
 
 sub parse_plurals_callback {
     my ($self, $callbackref, $opening_tag, $inner_xml, $lang) = @_;
 
     return $inner_xml if $opening_tag =~ m|\btranslatable="false"|;
-    my $hint = $1 if $opening_tag =~ m|\bname="(.*?)"|;
+    my $key = $1 if $opening_tag =~ m|\bname="(.*?)"|;
 
-    $inner_xml =~ s|(<item .*?quantity=")(.*?)(".*?>)(.*?)(</item>)|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, "$hint:$2", undef, $lang).$5|sge;
+    $inner_xml =~ s|(<item .*?quantity=")(.*?)(".*?>)(.*?)(</item>)|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, "$key:$2", undef, $lang, "$key:$2").$5|sge;
     return $inner_xml;
 }
 
@@ -66,19 +66,20 @@ sub parse_string_array_callback {
     my ($self, $callbackref, $opening_tag, $inner_xml, $lang) = @_;
 
     return $inner_xml if $opening_tag =~ m|\btranslatable="false"|;
-    my $hint = $1 if $opening_tag =~ m|\bname="(.*?)"|;
+    my $key = $1 if $opening_tag =~ m|\bname="(.*?)"|;
 
-    $inner_xml =~ s|(<item>)(.*?)(</item>)|$1.$self->parse_callback($callbackref, $2, undef, "$hint:item", undef, $lang).$3|sge;
+    my $index = 0;
+    $inner_xml =~ s|(<item>)(.*?)(</item>)|$1.$self->parse_callback($callbackref, $2, undef, "$key:item", undef, $lang, $key.':'.$index++).$3|sge;
     return $inner_xml;
 }
 
 sub parse_callback {
-    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang) = @_;
+    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang, $key) = @_;
 
     $string =~ s/\\'/'/g; # Android-specific apostrophe unescaping
     $string =~ s/\\"/"/g; # Android-specific quote unescaping
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang, $key);
 
     $translated_string =~ s/'/\\'/g; # Android-specific apostrophe escaping
     $translated_string =~ s/"/\\"/g; # Android-specific quote escaping
