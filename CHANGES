@@ -20,6 +20,10 @@ Revision history
         - Accept multiple `command` entries in run_command plugin
           https://github.com/evernote/serge/issues/6
 
+        - parse_android plugin now supports `serge import` mode
+          (generates string keys for alignment)
+          https://github.com/evernote/serge/issues/7
+
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
 
