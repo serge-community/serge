@@ -24,6 +24,10 @@ Revision history
           (generates string keys for alignment)
           https://github.com/evernote/serge/issues/7
 
+        - parse_pot plugin now supports `serge import` mode
+          (generates string keys for alignment)
+          https://github.com/evernote/serge/issues/8
+
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
 

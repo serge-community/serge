@@ -3,7 +3,7 @@ use parent Serge::Engine::Plugin::Base::Parser;
 
 use strict;
 
-use Serge::Util qw(glue_plural_string po_serialize_msgstr unescape_strref);
+use Serge::Util qw(glue_plural_string generate_key po_serialize_msgstr unescape_strref);
 
 my $MODE_DEFAULT      = 0;
 my $MODE_MSGID        = 1;
@@ -98,10 +98,11 @@ sub parse {
             }
             my $comment = @comments > 0 ? join("\n", @comments) : undef;
 
+            my $key = generate_key($msgid, $msgctxt);
             if (!$lang) {
-                &$callbackref($msgid, $msgctxt, $comment, undef, undef);
+                &$callbackref($msgid, $msgctxt, $comment, undef, undef, $key);
             } else {
-                my $translation = &$callbackref($msgid, $msgctxt, $comment, undef, $lang);
+                my $translation = &$callbackref($msgid, $msgctxt, $comment, undef, $lang, $key);
                 push @out, po_serialize_msgstr($translation);
             }
             $mode = $MODE_MSGSTR;
