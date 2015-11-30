@@ -274,7 +274,6 @@ sub set_translation {
     my $key = "lang:$lang";
     my $h = $self->{cache}->{$key};
     if ($h) {
-        $h->{$item_id} = 1;
         my $i = $self->get_item_props($item_id);
         if ($i) {
             my $s = $self->get_string_props($i->{string_id});
@@ -417,7 +416,7 @@ sub preload_strings_for_lang {
     utf8::upgrade($lang) if defined $lang;
 
     my $sqlquery =
-        "SELECT t.item_id, s.string, s.context ".
+        "SELECT s.string, s.context ".
         "FROM translations t ".
 
         "JOIN items i ".
@@ -435,7 +434,6 @@ sub preload_strings_for_lang {
     $sth->execute || die $sth->errstr;
 
     while (my $hr = $sth->fetchrow_hashref()) {
-        $h->{$hr->{item_id}} = 1;
         $h->{generate_key($hr->{string})} = 1;
         $h->{generate_key($hr->{string}, $hr->{context})} = 1;
     }

@@ -148,6 +148,8 @@ my $want_target_text;
 my $source_text;
 my $target_text;
 
+my $cache = {};
+
 my $db_source = $param->{database}->[0] || $ENV{L10N_DATABASE};
 die "Neither --database parameter nor 'L10N_DATABASE' environment variable provided\n" unless $db_source;
 
@@ -315,8 +317,7 @@ sub StartTag { # Stream parser callback
             if ($lang ne $current_lang) {
                 if (exists $known_languages{$lang}) {
                     if (!$test_mode) {
-                        print "Preloading string cache for lang [$lang]\n";
-                        $db->preload_strings_for_lang($lang); # undef:include_orphaned, 1:key_is_item_id
+                        preload_items_for_lang($lang);
                     }
                 } else {
                     if (!exists $param->{'force-lang'}) {
@@ -333,7 +334,7 @@ sub StartTag { # Stream parser callback
 
             # skip items that already have translations and which come from an unknown language
             if (
-                     (!exists $param->{overwrite} && exists $db->{cache}->{"lang:$lang"}->{$item_id}) ||
+                     (!exists $param->{overwrite} && exists $cache->{$lang}->{$item_id}) ||
                      (!exists $param->{'force-lang'} && !exists($known_languages{$lang}))
                  ) {
                 print "\tSKIP: $item_id:$current_lang\n";
@@ -467,4 +468,40 @@ sub get_directory_contents {
     }, 'follow' => 1}, $path);
 
     return @a;
+}
+
+# preload the list of known items which have translations for a given language
+sub preload_items_for_lang {
+    my ($lang) = @_;
+
+    return if exists $cache->{$lang}; # return if language is already cached
+    my $h = $cache->{$lang} = {};
+
+    print "Preloading item cache for language '$lang'...\n";
+
+    utf8::upgrade($lang) if defined $lang;
+
+    my $sqlquery =
+        "SELECT t.item_id ".
+        "FROM translations t ".
+
+        "JOIN items i ".
+        "ON t.item_id = i.id ".
+
+        "JOIN strings s ".
+        "ON i.string_id = s.id ".
+
+        "WHERE s.skip = 0 ".
+        "AND t.language = ? ".
+        "AND t.string IS NOT NULL";
+
+    my $sth = $db->prepare($sqlquery);
+    $sth->bind_param(1, $lang) || die $sth->errstr;
+    $sth->execute || die $sth->errstr;
+
+    while (my $hr = $sth->fetchrow_hashref()) {
+        $h->{$hr->{item_id}} = 1;
+    }
+    $sth->finish;
+    $sth = undef;
 }
