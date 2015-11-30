@@ -417,18 +417,18 @@ sub preload_strings_for_lang {
     utf8::upgrade($lang) if defined $lang;
 
     my $sqlquery =
-        "SELECT translations.item_id, strings.string, strings.context ".
-        "FROM strings ".
+        "SELECT t.item_id, s.string, s.context ".
+        "FROM translations t ".
 
-        "LEFT OUTER JOIN items ".
-        "ON items.string_id = strings.id ".
+        "JOIN items i ".
+        "ON t.item_id = i.id ".
 
-        "LEFT OUTER JOIN translations ".
-        "ON translations.item_id = items.id ".
+        "JOIN strings s ".
+        "ON i.string_id = s.id ".
 
-        "WHERE strings.skip = 0 ".
-        "AND translations.language = ? ".
-        "AND translations.string IS NOT NULL";
+        "WHERE s.skip = 0 ".
+        "AND t.language = ? ".
+        "AND t.string IS NOT NULL";
 
     my $sth = $self->prepare($sqlquery);
     $sth->bind_param(1, $lang) || die $sth->errstr;
