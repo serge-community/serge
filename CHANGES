@@ -28,6 +28,9 @@ Revision history
           (generates string keys for alignment)
           https://github.com/evernote/serge/issues/8
 
+        - Fix performance when `reuse_uncertain` mode is off
+          https://github.com/evernote/serge/issues/9
+
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
 
