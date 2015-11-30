@@ -277,8 +277,10 @@ sub set_translation {
         my $i = $self->get_item_props($item_id);
         if ($i) {
             my $s = $self->get_string_props($i->{string_id});
-            $h->{generate_key($s->{string})} = 1;
-            $h->{generate_key($s->{string}, $s->{context})} = 1;
+            my $skey = generate_key($s->{string});
+            my $variants = $h->{$skey};
+            $variants = $h->{$skey} = {} unless defined $variants;
+            $variants->{generate_short_key($string)} = 1;
         }
     }
 
@@ -393,6 +395,11 @@ sub get_translation {
     }
 }
 
+# generate full key from provided string+context and return last 4 symbols from it
+sub generate_short_key {
+    return substr(generate_key(@_), -4);
+}
+
 #
 # This builds a per-language hash of md5(string) checksums for strings that
 # have a translation in the database. This hash can then be queried to determine
@@ -416,7 +423,7 @@ sub preload_strings_for_lang {
     utf8::upgrade($lang) if defined $lang;
 
     my $sqlquery =
-        "SELECT s.string, s.context ".
+        "SELECT s.string, t.string as translation ".
         "FROM translations t ".
 
         "JOIN items i ".
@@ -434,8 +441,10 @@ sub preload_strings_for_lang {
     $sth->execute || die $sth->errstr;
 
     while (my $hr = $sth->fetchrow_hashref()) {
-        $h->{generate_key($hr->{string})} = 1;
-        $h->{generate_key($hr->{string}, $hr->{context})} = 1;
+        my $skey = generate_key($hr->{string});
+        my $variants = $h->{$skey};
+        $variants = $h->{$skey} = {} unless defined $variants;
+        $variants->{generate_short_key($hr->{translation})} = 1;
     }
     $sth->finish;
     $sth = undef;
@@ -612,7 +621,7 @@ sub preload_properties {
 
 sub find_best_translation {
     my $self = shift;
-    my ($namespace, $filepath, $string, $context, $lang) = @_;
+    my ($namespace, $filepath, $string, $context, $lang, $allow_orphaned, $allow_multiple_variants) = @_;
 
     # Now that we hit the item we have no translation for, and need to query
     # the database for the best translation, preload the cache for the
@@ -621,12 +630,18 @@ sub find_best_translation {
 
     my $key = "lang:$lang";
 
-    # if language cache was preloaded successfully, but neither string or string+context exist there, return immediately
     my $h = $self->{cache}->{$key};
-    return if $h and !(exists $h->{generate_key($string)} or exists $h->{generate_key($string, $context)});
+    if ($h) {
+        # if language cache was preloaded successfully, but string doesn't exist there, return immediately
+        my $skey = generate_key($string);
+        return if !exists $h->{$skey};
 
-    # TODO: try to find the translation directly in the cache
-    # ...
+        # return just the count of multiple translations if we don't want multiple (uncertain) matches,
+        # and we know there are multiple translations for the given string in the database
+        # (this will cause Engine.pm to spit debug message and return empty translation)
+        my $count = scalar keys %{$h->{$skey}};
+        return (undef, undef, undef, $count) if ($count > 1) && !$allow_multiple_variants;
+    }
 
     # otherwise, find translation in the database
     return $self->SUPER::find_best_translation(@_);

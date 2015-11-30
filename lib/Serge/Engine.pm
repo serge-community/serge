@@ -1795,7 +1795,7 @@ sub internal_get_translation { # from database
     if ($self->{job}->{reuse_translations}) {
         # Find the best match from other files or namespaces
         my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{db}->find_best_translation(
-            $namespace, $filepath, $string, $context, $lang, $self->{job}->{reuse_orphaned}
+            $namespace, $filepath, $string, $context, $lang, $self->{job}->{reuse_orphaned}, $self->{job}->{reuse_uncertain}
         );
 
         if ($multiple_variants && !$self->{job}->{reuse_uncertain}) {
