@@ -158,20 +158,35 @@ sub parse_tree {
 sub parse_segment {
     my ($self, $node, $callbackref, $lang) = @_;
 
+    # if segment has <target> tag defined, get text from it rather than
+    # from the source. This allows parser to import translations
+    my $has_target = $node->has_child('target');
+    my $source_tag = $has_target ? 'target' : 'source';
+
     # get as plain text
-    #my $source = $node->first_child('source')->text;
+    #my $source = $node->first_child($source_tag)->text;
 
     # get as raw XML (unsafe, but can support placeholders)
-    my $source = $node->first_child('source')->inner_xml;
+    my $source = $node->first_child($source_tag)->inner_xml;
 
     my $hint = $self->get_context($node);
-    my $translation = &$callbackref($source, undef, $hint, undef, $lang);
+    my $translation = &$callbackref($source, undef, $hint, undef, $lang, $node->att('id'));
 
-    # insert as plain text
-    #$node->insert_new_elt('last_child', 'target' => $translation) if $lang;
+    if ($lang) {
+        if ($has_target) {
+            # insert as plain text
+            #xml_escape_strref(\$translation);
 
-    # insert as raw XML (unsafe, but can support placeholders)
-    $node->insert_new_elt('last_child', 'target')->set_inner_xml($translation) if $lang;
+            # add raw XML (unsafe, but can support placeholders)
+            $node->first_child('target')->set_inner_xml($translation);
+        } else {
+            # insert as plain text
+            #$node->insert_new_elt('last_child', 'target' => $translation) if $lang;
+
+            # insert as raw XML (unsafe, but can support placeholders)
+            $node->insert_new_elt('last_child', 'target')->set_inner_xml($translation);
+        }
+    }
 }
 
 sub get_context {

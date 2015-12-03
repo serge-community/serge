@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="2.0">
+
+    <file original="sample1.txt" source-language="en">
+        <header/>
+        <body>
+            <unit id="foo">
+                <source>Foo</source>
+                <target>Foo_translated</target>
+            </unit>
+            <unit id="bar">
+                <source>Bar</source>
+                <target>Bar_translated</target>
+            </unit>
+        </body>
+    </file>
+
+    <file original="sample2.txt" source-language="en">
+        <notes>
+            <note>File-related comment 1</note>
+            <note>File-related comment 2</note>
+        </notes>
+        <body>
+            <group id="mygroup">
+                <notes>
+                    <note>Group-related comment</note>
+                </notes>
+                <unit id="foo2">
+                    <source>Foo2 <ph id="1" dataRef="bar2" /></source>
+                    <target>Foo2_translated <ph id="1" dataRef="bar2" /></target>
+                </unit>
+                <unit id="bar2">
+                    <notes>
+                        <note>Unit-related comment</note>
+                    </notes>
+                    <segment>
+                        <source>Bar2</source>
+                        <target>Bar2_translated</target>
+                    </segment>
+                    <ignorable>Baz2</ignorable>
+                    <segment>
+                        <source>Etc2</source>
+                        <target>Etc2_translated</target>
+                    </segment>
+                </unit>
+            </group>
+        </body>
+    </file>
+
+</xliff>

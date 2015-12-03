@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. file-original:sample1.txt unit-id:foo
+#: File: sample_1.x_tr.xliff
+#: ID: 0051b562ef1b9af474b43c695b80708e
+msgid "Foo_translated"
+msgstr "Ḟőő_ţŕáŋšļáţēđ"
+
+#. file-original:sample1.txt unit-id:bar
+#: File: sample_1.x_tr.xliff
+#: ID: 5bc3bcdf34885902bd4e260019b9d358
+msgid "Bar_translated"
+msgstr "Ḃáŕ_ţŕáŋšļáţēđ"
+
+#. file-original:sample2.txt group-id:mygroup unit-id:foo2
+#. 
+#. File note: File-related comment
+#. 
+#. Group note: Group-related comment 1
+#. 
+#. Group note: Group-related comment 2
+#: File: sample_1.x_tr.xliff
+#: ID: ee339ec623ab2cc6a6584177c31c5c2c
+msgid "Foo2_translated <x xid=\"bar2\"/>"
+msgstr "Ḟőő2_ţŕáŋšļáţēđ <x xid=\"bar2\"/>"
+
+#. file-original:sample2.txt group-id:mygroup unit-id:bar2
+#. 
+#. File note: File-related comment
+#. 
+#. Group note: Group-related comment 1
+#. 
+#. Group note: Group-related comment 2
+#. 
+#. Unit note: Unit-related comment
+#: File: sample_1.x_tr.xliff
+#: ID: 4f65406a2cbc7725a82eea4d6444e491
+msgid "Bar2"
+msgstr "Ḃáŕ2"

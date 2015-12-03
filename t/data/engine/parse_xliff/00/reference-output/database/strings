@@ -1,9 +1,15 @@
 strings
 {
-    0    1 2 Foo NO 0
-    1    2 4 Bar NO 0
-    2    3 6 `Foo2 <x xid="bar2"/>` NO 0
-    3    4 8 Bar2 NO 0
-    4    5 13 `Foo2 <ph dataRef="bar2" id="1"/>` NO 0
-    5    6 16 Etc2 NO 0
+    0     1 2 Foo NO 0
+    1     2 4 Bar NO 0
+    2     3 6 `Foo2 <x xid="bar2"/>` NO 0
+    3     4 8 Bar2 NO 0
+    4     5 11 Foo_translated NO 0
+    5     6 13 Bar_translated NO 0
+    6     7 15 `Foo2_translated <x xid="bar2"/>` NO 0
+    7     8 21 `Foo2 <ph dataRef="bar2" id="1"/>` NO 0
+    8     9 24 Etc2 NO 0
+    9     10 29 `Foo2_translated <ph dataRef="bar2" id="1"/>` NO 0
+    10    11 31 Bar2_translated NO 0
+    11    12 33 Etc2_translated NO 0
 }

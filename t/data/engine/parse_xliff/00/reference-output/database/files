@@ -1,5 +1,7 @@
 files
 {
     0    1 1 test_job test_namespace sample_1.x.xliff 0
-    1    2 10 test_job test_namespace sample_2.x.xliff 0
+    1    2 10 test_job test_namespace sample_1.x_tr.xliff 0
+    2    3 18 test_job test_namespace sample_2.x.xliff 0
+    3    4 26 test_job test_namespace sample_2.x_tr.xliff 0
 }
