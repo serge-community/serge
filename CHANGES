@@ -31,6 +31,8 @@ Revision history
         - Fix performance when `reuse_uncertain` mode is off
           https://github.com/evernote/serge/issues/9
 
+        - parse_xliff plugin now supports `serge import` mode
+
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
 
