@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. /file/path/filename0.php:106
+#: File: translated.po
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. /file/path/filename1.php:75
+#: File: translated.po
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#. /file/path/filename2.php:13;30;45
+#: File: translated.po
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+msgid "Value 3"
+msgstr "Ṽáļũē 3"
+
+#. /file/path/filename3.php:6
+#. /file/path/filename4.php:6
+#. /file/path/filename5.php:6
+#: File: translated.po
+#: ID: bf5a11014de06a379dcb4fda0faa156d
+msgid "Value 4"
+msgstr "Ṽáļũē 4"
+
+#. translator-comments
+#. automatic-comments
+#. reference
+#: File: translated.po
+#: ID: 01287f731417b297d6d3884f9622230c
+msgid "Value 5 - Singular"
+msgid_plural "Value 5 - Plural"
+msgstr[0] "Ṽáļũē 5 - Šĩŋğũļáŕ"
+msgstr[1] "Ṽáļũē 5 - Ṕļũŕáļ"

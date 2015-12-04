@@ -158,10 +158,14 @@ sub parse_tree {
 sub parse_segment {
     my ($self, $node, $callbackref, $lang) = @_;
 
-    # if segment has <target> tag defined, get text from it rather than
-    # from the source. This allows parser to import translations
     my $has_target = $node->has_child('target');
-    my $source_tag = $has_target ? 'target' : 'source';
+
+    # in import mode, try to get translations from <target> tag
+    # and skip units without such tag
+
+    return if ($self->{import_mode} && !$has_target);
+
+    my $source_tag = ($self->{import_mode} && $has_target) ? 'target' : 'source';
 
     # get as plain text
     #my $source = $node->first_child($source_tag)->text;

@@ -7,15 +7,15 @@ msgstr ""
 
 #. file-original:sample1.txt unit-id:foo
 #: File: sample_1.x_tr.xliff
-#: ID: 0051b562ef1b9af474b43c695b80708e
-msgid "Foo_translated"
-msgstr "Ḟőő_ţŕáŋšļáţēđ"
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
 
 #. file-original:sample1.txt unit-id:bar
 #: File: sample_1.x_tr.xliff
-#: ID: 5bc3bcdf34885902bd4e260019b9d358
-msgid "Bar_translated"
-msgstr "Ḃáŕ_ţŕáŋšļáţēđ"
+#: ID: b9377c81c897fce0255961a7aa29ad6e
+msgid "Bar"
+msgstr "Ḃáŕ"
 
 #. file-original:sample2.txt group-id:mygroup unit-id:foo2
 #. 
@@ -25,9 +25,9 @@ msgstr "Ḃáŕ_ţŕáŋšļáţēđ"
 #. 
 #. Group note: Group-related comment 2
 #: File: sample_1.x_tr.xliff
-#: ID: ee339ec623ab2cc6a6584177c31c5c2c
-msgid "Foo2_translated <x xid=\"bar2\"/>"
-msgstr "Ḟőő2_ţŕáŋšļáţēđ <x xid=\"bar2\"/>"
+#: ID: b7fc1e2ddb4e5b4baf1c4affc9c71949
+msgid "Foo2 <x xid=\"bar2\"/>"
+msgstr "Ḟőő2 <x xid=\"bar2\"/>"
 
 #. file-original:sample2.txt group-id:mygroup unit-id:bar2
 #. 

@@ -5,11 +5,11 @@
         <body>
             <unit id="foo">
                 <source>Foo</source>
-                <target>Ḟőő_ţŕáŋšļáţēđ</target>
+                <target>Ḟőő</target>
             </unit>
             <unit id="bar">
                 <source>Bar</source>
-                <target>Ḃáŕ_ţŕáŋšļáţēđ</target>
+                <target>Ḃáŕ</target>
             </unit>
         </body>
     </file>
@@ -25,7 +25,7 @@
                 </notes>
                 <unit id="foo2">
                     <source>Foo2 <ph dataRef="bar2" id="1"/></source>
-                    <target>Ḟőő2_ţŕáŋšļáţēđ <ph dataRef="bar2" id="1"/></target>
+                    <target>Ḟőő2 <ph dataRef="bar2" id="1"/></target>
                 </unit>
                 <unit id="bar2">
                     <notes>
@@ -33,12 +33,12 @@
                     </notes>
                     <segment>
                         <source>Bar2</source>
-                        <target>Ḃáŕ2_ţŕáŋšļáţēđ</target>
+                        <target>Ḃáŕ2</target>
                     </segment>
                     <ignorable>Baz2</ignorable>
                     <segment>
                         <source>Etc2</source>
-                        <target>Ēţç2_ţŕáŋšļáţēđ</target>
+                        <target>Ēţç2</target>
                     </segment>
                 </unit>
             </group>

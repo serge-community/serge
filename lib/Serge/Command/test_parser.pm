@@ -20,6 +20,7 @@ sub init {
     $self->SUPER::init($command);
 
     GetOptions(
+        "import-mode"   => \$self->{import_mode},
         "output-mode:s" => \$self->{output_mode},
     ) or die "Failed to parse some command-line parameters.";
 
@@ -59,6 +60,7 @@ sub run {
     my $src = read_and_normalize_file($self->{path});
     my @data;
 
+    $parser->{import_mode} = 1 if $self->{import_mode};
     $parser->parse(\$src, sub {
         my @row = @_;
         push @data, \@row;

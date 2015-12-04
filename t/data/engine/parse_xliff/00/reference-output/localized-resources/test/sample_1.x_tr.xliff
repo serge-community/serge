@@ -4,11 +4,11 @@
         <body>
             <trans-unit id="foo">
                 <source>Foo</source>
-                <target>Ḟőő_ţŕáŋšļáţēđ</target>
+                <target>Ḟőő</target>
             </trans-unit>
             <trans-unit id="bar">
                 <source>Bar</source>
-                <target>Ḃáŕ_ţŕáŋšļáţēđ</target>
+                <target>Ḃáŕ</target>
             </trans-unit>
         </body>
     </file>
@@ -22,7 +22,7 @@
                 <note>Group-related comment 2</note>
                 <trans-unit id="foo2">
                     <source>Foo2 <x xid="bar2"/></source>
-                    <target>Ḟőő2_ţŕáŋšļáţēđ <x xid="bar2"/></target>
+                    <target>Ḟőő2 <x xid="bar2"/></target>
                 </trans-unit>
                 <trans-unit id="bar2">
                     <note>Unit-related comment</note>

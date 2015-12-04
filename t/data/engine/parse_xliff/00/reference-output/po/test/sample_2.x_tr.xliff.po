@@ -7,15 +7,15 @@ msgstr ""
 
 #. file-original:sample1.txt unit-id:foo
 #: File: sample_2.x_tr.xliff
-#: ID: 0051b562ef1b9af474b43c695b80708e
-msgid "Foo_translated"
-msgstr "Ḟőő_ţŕáŋšļáţēđ"
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
 
 #. file-original:sample1.txt unit-id:bar
 #: File: sample_2.x_tr.xliff
-#: ID: 5bc3bcdf34885902bd4e260019b9d358
-msgid "Bar_translated"
-msgstr "Ḃáŕ_ţŕáŋšļáţēđ"
+#: ID: b9377c81c897fce0255961a7aa29ad6e
+msgid "Bar"
+msgstr "Ḃáŕ"
 
 #. file-original:sample2.txt group-id:mygroup unit-id:foo2
 #. 
@@ -25,9 +25,9 @@ msgstr "Ḃáŕ_ţŕáŋšļáţēđ"
 #. 
 #. Group note: Group-related comment
 #: File: sample_2.x_tr.xliff
-#: ID: f560ad93314670bade4c42d81125ab64
-msgid "Foo2_translated <ph dataRef=\"bar2\" id=\"1\"/>"
-msgstr "Ḟőő2_ţŕáŋšļáţēđ <ph dataRef=\"bar2\" id=\"1\"/>"
+#: ID: 770de3d487aa3e32037e15baccb2b42c
+msgid "Foo2 <ph dataRef=\"bar2\" id=\"1\"/>"
+msgstr "Ḟőő2 <ph dataRef=\"bar2\" id=\"1\"/>"
 
 #. file-original:sample2.txt group-id:mygroup unit-id:bar2
 #. 
@@ -39,9 +39,9 @@ msgstr "Ḟőő2_ţŕáŋšļáţēđ <ph dataRef=\"bar2\" id=\"1\"/>"
 #. 
 #. Unit note: Unit-related comment
 #: File: sample_2.x_tr.xliff
-#: ID: 8351b8ba6250f2c87afcc792c62cd638
-msgid "Bar2_translated"
-msgstr "Ḃáŕ2_ţŕáŋšļáţēđ"
+#: ID: 4f65406a2cbc7725a82eea4d6444e491
+msgid "Bar2"
+msgstr "Ḃáŕ2"
 
 #. file-original:sample2.txt group-id:mygroup unit-id:bar2
 #. 
@@ -53,6 +53,6 @@ msgstr "Ḃáŕ2_ţŕáŋšļáţēđ"
 #. 
 #. Unit note: Unit-related comment
 #: File: sample_2.x_tr.xliff
-#: ID: ca96557ff3f13c7e5952cf5654b00686
-msgid "Etc2_translated"
-msgstr "Ēţç2_ţŕáŋšļáţēđ"
+#: ID: 76b43fd66e940106189fad77920571a7
+msgid "Etc2"
+msgstr "Ēţç2"

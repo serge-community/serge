@@ -12,4 +12,16 @@ items
 automatic-comments
 reference`
          NO 0
+    5    6 13 2 1 /file/path/filename0.php:106 NO 0
+    6    7 14 2 2 /file/path/filename1.php:75 NO 0
+    7    8 15 2 3 /file/path/filename2.php:13;30;45 NO 0
+    8    9 16 2 4
+         `/file/path/filename3.php:6
+/file/path/filename4.php:6
+/file/path/filename5.php:6`
+         NO 0
+    9    10 18 2 6 `translator-comments
+automatic-comments
+reference`
+         NO 0
 }

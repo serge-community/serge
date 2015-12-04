@@ -1,22 +1,21 @@
 translations
 {
-    0     1 35 1 test Ḟőő NO 0 0
-    1     2 36 2 test Ḃáŕ NO 0 0
-    2     3 37 3 test `Ḟőő2 <x xid="bar2"/>` NO 0 0
-    3     4 38 4 test Ḃáŕ2 NO 0 0
-    4     5 39 5 test Ḟőő_ţŕáŋšļáţēđ NO 0 0
-    5     6 40 6 test Ḃáŕ_ţŕáŋšļáţēđ NO 0 0
-    6     7 41 7 test `Ḟőő2_ţŕáŋšļáţēđ <x xid="bar2"/>` NO 0 0
-    7     8 42 8 test Ḃáŕ2 NO 0 0
-    8     9 43 9 test Ḟőő NO 0 0
-    9     10 44 10 test Ḃáŕ NO 0 0
-    10    11 45 11 test `Ḟőő2 <ph dataRef="bar2" id="1"/>` NO 0 0
-    11    12 46 12 test Ḃáŕ2 NO 0 0
-    12    13 47 13 test Ēţç2 NO 0 0
-    13    14 48 14 test Ḟőő_ţŕáŋšļáţēđ NO 0 0
-    14    15 49 15 test Ḃáŕ_ţŕáŋšļáţēđ NO 0 0
-    15    16 50 16 test `Ḟőő2_ţŕáŋšļáţēđ <ph dataRef="bar2" id="1"/>`
-          NO 0 0
-    16    17 51 17 test Ḃáŕ2_ţŕáŋšļáţēđ NO 0 0
-    17    18 52 18 test Ēţç2_ţŕáŋšļáţēđ NO 0 0
+    0     1 29 1 test Ḟőő NO 0 0
+    1     2 30 2 test Ḃáŕ NO 0 0
+    2     3 31 3 test `Ḟőő2 <x xid="bar2"/>` NO 0 0
+    3     4 32 4 test Ḃáŕ2 NO 0 0
+    4     5 33 5 test Ḟőő NO 0 0
+    5     6 34 6 test Ḃáŕ NO 0 0
+    6     7 35 7 test `Ḟőő2 <x xid="bar2"/>` NO 0 0
+    7     8 36 8 test Ḃáŕ2 NO 0 0
+    8     9 37 9 test Ḟőő NO 0 0
+    9     10 38 10 test Ḃáŕ NO 0 0
+    10    11 39 11 test `Ḟőő2 <ph dataRef="bar2" id="1"/>` NO 0 0
+    11    12 40 12 test Ḃáŕ2 NO 0 0
+    12    13 41 13 test Ēţç2 NO 0 0
+    13    14 42 14 test Ḟőő NO 0 0
+    14    15 43 15 test Ḃáŕ NO 0 0
+    15    16 44 16 test `Ḟőő2 <ph dataRef="bar2" id="1"/>` NO 0 0
+    16    17 45 17 test Ḃáŕ2 NO 0 0
+    17    18 46 18 test Ēţç2 NO 0 0
 }

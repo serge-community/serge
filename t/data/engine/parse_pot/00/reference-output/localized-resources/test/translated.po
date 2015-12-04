@@ -1,0 +1,42 @@
+# LANGUAGE translation of Sample application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2012-10-10 09:47+0400\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /file/path/filename0.php:106
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#: /file/path/filename1.php:75
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#: /file/path/filename2.php:13;30;45
+msgid "Value 3"
+msgstr "Ṽáļũē 3"
+
+#: /file/path/filename3.php:6
+#: /file/path/filename4.php:6
+#: /file/path/filename5.php:6
+msgid "Value 4"
+msgstr "Ṽáļũē 4"
+
+#  translator-comments
+#. automatic-comments
+#: reference
+#, flag
+msgid "Value 5 - Singular"
+msgid_plural "Value 5 - Plural"
+msgstr[0] "Ṽáļũē 5 - Šĩŋğũļáŕ"
+msgstr[1] "Ṽáļũē 5 - Ṕļũŕáļ"

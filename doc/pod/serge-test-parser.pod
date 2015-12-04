@@ -4,7 +4,8 @@ serge-test-parser - Test parser against any given file
 
 =head1 SYNOPSIS
 
-C<< serge test-parser E<lt>parser_nameE<gt> E<lt>file_pathE<gt> [--output-mode=E<lt>modeE<gt>] >>
+C<< serge test-parser E<lt>parser_nameE<gt> E<lt>file_pathE<gt> [--import-mode]
+[--output-mode=E<lt>modeE<gt>] >>
 
 Where C<E<lt>parser_nameE<gt>> is a file name of the parser sans its extension
 (parsers are typically located in lib/Serge/Engine/Plugin folder),
@@ -18,6 +19,12 @@ in one of the available formats. This is useful for writing new parsers.
 =head1 OPTIONS
 
 =over 8
+
+=item B<--import-mode>
+
+With this option, parser will be told it works in import mode. In such mode
+import-aware parsers are expected to extract translations rather than source strings,
+and also skip missing translations.
 
 =item B<--output-mode=mode>
 

@@ -142,6 +142,7 @@ sub parse_localized_files_for_file_lang {
 
     # Parsing the file
     eval {
+        $self->{job}->{parser_object}->{import_mode} = 1;
         $self->{job}->{parser_object}->parse(\$src, sub { $self->parse_localized_file_callback(@_) }, $lang);
     };
 

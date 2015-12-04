@@ -20,13 +20,20 @@ sub parse {
 
     die 'callbackref not specified' unless $callbackref;
 
+    print "*** IMPORT MODE ***\n" if $self->{import_mode};
+
     my @out;
     my @comments;
-    my ($msgid, $msgid_plural, $msgctxt);
+    my $msgctxt;
+    my @msgid;
+    my @msgstr;
+    my $msgstr_idx = 0;
     my $mode = $MODE_DEFAULT;
     my $n = 0;
 
     my @lines = split(/\n/, $$textref);
+    push @lines, ''; # add extra blank line at the end for parser to catch the last unit
+    my $last_line = scalar @lines;
 
     foreach my $line (@lines) {
         $n++;
@@ -34,17 +41,6 @@ sub parse {
 
         $line =~ s/^\s+//g;
         $line =~ s/\s+$//g;
-
-        # blank line
-        if ($line eq '') {
-            @comments = ();
-            $msgid = '';
-            $msgid_plural = '';
-            $msgctxt = undef;
-            $mode = $MODE_DEFAULT;
-            push @out, $orig_line;
-            next;
-        }
 
         # dev/translator comment or reference
         if (($mode == $MODE_DEFAULT) && ($line =~ m/^#[\.:]?(\s+.+)?$/)) {
@@ -62,7 +58,7 @@ sub parse {
 
         if ($line =~ m/^msgid\s+"(.*)"$/) {
             $mode = $MODE_MSGID;
-            $msgid = $1;
+            $msgid[0] = $1;
             push @out, $orig_line;
             next;
         }
@@ -76,49 +72,38 @@ sub parse {
 
         if ($line =~ m/^msgid_plural\s+"(.*)"$/) {
             $mode = $MODE_MSGID_PLURAL;
-            $msgid_plural = $1;
+            $msgid[1] = $1;
             push @out, $orig_line;
             next;
         }
 
-        if ($line =~ m/^msgstr(\[\d+\])?\s+"(.*)"$/) {
-            # deal with the header
-            if ($msgid eq '') {
+        if ($line =~ m/^msgstr(\[(\d+)\])?\s+"(.*)"$/) {
+            $mode = $MODE_MSGSTR;
+
+            # deal with the .po file header which has an empty msgid
+            if ($msgid[0] eq '') {
                 push @out, $orig_line;
                 next;
             }
 
-            # skip subsequent msgstr lines
-            next if $mode == $MODE_MSGSTR;
+            #print ":: [$2] [$3]\n";
+            $msgstr_idx = $2;
+            $msgstr[$msgstr_idx] = $3;
+            push @out, $orig_line if $self->{import_mode};
 
-            unescape_strref(\$msgid);
-            if ($msgid_plural ne '') {
-                unescape_strref(\$msgid_plural);
-                $msgid = glue_plural_string($msgid, $msgid_plural);
-            }
-            my $comment = @comments > 0 ? join("\n", @comments) : undef;
-
-            my $key = generate_key($msgid, $msgctxt);
-            if (!$lang) {
-                &$callbackref($msgid, $msgctxt, $comment, undef, undef, $key);
-            } else {
-                my $translation = &$callbackref($msgid, $msgctxt, $comment, undef, $lang, $key);
-                push @out, po_serialize_msgstr($translation);
-            }
-            $mode = $MODE_MSGSTR;
             next;
         }
 
         # multiline string part
         if ($line =~ m/^"(.*)"$/) {
             if ($mode == $MODE_MSGID) {
-                $msgid .= $1;
+                $msgid[0] .= $1;
                 push @out, $orig_line;
                 next;
             }
 
             if ($mode == $MODE_MSGID_PLURAL) {
-                $msgid_plural .= $1;
+                $msgid[1] .= $1;
                 push @out, $orig_line;
                 next;
             }
@@ -129,10 +114,57 @@ sub parse {
                 next;
             }
 
-            # skip original MSGSTR lines
             if ($mode == $MODE_MSGSTR) {
+                # deal with the .po file header which has an empty msgid
+                if ($msgid[0] eq '') {
+                    push @out, $orig_line;
+                    next;
+                }
+
+                $msgstr[$msgstr_idx] .= $1;
+                push @out, $orig_line if $self->{import_mode};
                 next;
             }
+        }
+
+        # empty line denotes the end of the unit
+        if ($line eq '') {
+            if (scalar(@msgid) > 0 && $msgid[0] ne '') {
+                my $msgid_0 = $msgid[0];
+                unescape_strref(\$msgid_0);
+
+                use Data::Dumper; print Dumper(\@msgstr);
+
+                # need to use own variable ($x) instead of $_ since Perl would not
+                # allow to modify the reference for $_ for missing array entries
+                # (when array indexes have gaps)
+                @msgid = map { my $x = $_; unescape_strref(\$x); $x } @msgid;
+                @msgstr = map { my $x = $_; unescape_strref(\$x); $x } @msgstr;
+
+                my $str = glue_plural_string($self->{import_mode} ? @msgstr : @msgid);
+                if ($str ne '') {
+                    my $comment = @comments > 0 ? join("\n", @comments) : undef;
+
+                    my $key = generate_key($msgid_0, $msgctxt);
+                    if (!$lang or $self->{import_mode}) {
+                        &$callbackref($str, $msgctxt, $comment, undef, undef, $key);
+                    } else {
+                        my $translation = &$callbackref($str, $msgctxt, $comment, undef, $lang, $key);
+                        push @out, po_serialize_msgstr($translation);
+                    }
+                }
+            }
+
+            # reset state
+
+            @comments = ();
+            @msgid = ();
+            @msgstr = ();
+            $msgstr_idx = 0;
+            $msgctxt = undef;
+            $mode = $MODE_DEFAULT;
+            push @out, $orig_line unless $n == $last_line; # do not output the extra blank line that we added
+            next;
         }
 
         die "Failed to parse .PO at line $n: '$orig_line'";

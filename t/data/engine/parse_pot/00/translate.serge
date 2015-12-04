@@ -3,7 +3,7 @@ jobs
     {
         @inherit                                 ../../common.serge#job_template
 
-        source_match                             \.pot$
+        source_match                             \.pot?$
 
         parser
         {
