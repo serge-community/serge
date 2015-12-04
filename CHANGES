@@ -28,6 +28,10 @@ Revision history
           behavior accordingly; one can now run `serge test-parser --import-mode <...>`
           to test parsers in import mode.
 
+        - Added the ability to specify any arbitrary class name and plugin data for
+          `test-parser` command, which allows one to use this command for any
+          custom plugins.
+
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
 
