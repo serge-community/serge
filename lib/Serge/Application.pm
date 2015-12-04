@@ -54,6 +54,8 @@ sub run {
         $self->error("Unknown command: $command\n");
     }
 
+    $handler->{plugin}->{debug} = 1 if $debug;
+
     my @commands = ($command);
     if (exists $handler->{combine_with}) {
         my %combine;
