@@ -1,5 +1,5 @@
 package Serge::Command::test_parser;
-use parent Serge::Command;
+use parent Serge::Command, Serge::Interface::PluginHost;
 
 use strict;
 
@@ -20,11 +20,15 @@ sub init {
     $self->SUPER::init($command);
 
     GetOptions(
+        "data-file:s"   => \$self->{data_file},
         "import-mode"   => \$self->{import_mode},
         "output-mode:s" => \$self->{output_mode},
     ) or die "Failed to parse some command-line parameters.";
 
-    $self->{parser} = shift @ARGV;
+    $self->{parser} = {
+        plugin => shift @ARGV
+    };
+
     $self->{path} = shift @ARGV;
 }
 
@@ -34,26 +38,25 @@ sub validate_data {
     $self->SUPER::validate_data($command);
 
     die "Unknown --output-mode value\n" unless $self->{output_mode} =~ m/^(|dumper)$/;
-    die "Please provide the name of the parser as a first argument to the command" unless defined $self->{parser};
+    die "Please provide the name of the parser as a first argument to the command" unless defined $self->{parser}->{plugin};
     die "Please provide the path to the file as a second argument to the command" unless defined $self->{path};
     die "The provided path doesn't point to a valid file" unless -f $self->{path};
+    die "The provided '--data-file' parameter doesn't point to a valid file" if ($self->{data_file} ne '') && (!-f $self->{data_file});
+
+    if ($self->{data_file} ne '') {
+        eval 'use Config::Neat::Inheritable';
+        my $c = Config::Neat::Inheritable->new();
+
+        $self->{parser}->{data} = $c->parse_file($self->{data_file});
+    }
 }
 
 sub run {
     my ($self, $command) = @_;
 
-    # Creating dummy engine object
-
-    my $engine = {
-        debug => undef,
-    };
-
     # Loading parser plugin
 
-    my $parser;
-
-    eval('use Serge::Engine::Plugin::'.$self->{parser}.'; $parser = Serge::Engine::Plugin::'.$self->{parser}.'->new($engine);');
-    ($@) && die "Can't load parser plugin [$self->{parser}]: $@";
+    my $parser = $self->load_plugin_from_node('Serge::Engine::Plugin', $self->{parser});
 
     print "Using plugin: ".$parser->name."\n";
 
