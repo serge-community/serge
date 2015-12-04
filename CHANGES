@@ -2,36 +2,31 @@ Revision history
 
 1.1     Pending release
 
-        - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string
-          https://github.com/evernote/serge/issues/1
+        - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
 
-        - Accept multiple `message` entries in append_hint_message plugin
-          https://github.com/evernote/serge/issues/2
+        - Accept multiple `message` entries in append_hint_message plugin (#2)
 
-        - Require JSON::XS
-          https://github.com/evernote/serge/issues/3
+        - Require JSON::XS (#3)
 
-        - Make serge and tools fine their libs when they are symlinked
-          https://github.com/evernote/serge/issues/4
+        - Make serge and tools fine their libs when they are symlinked (#4)
 
-        - Fixed: Uppercase letters in language names are unsupported
-          https://github.com/evernote/serge/issues/5
+        - Fixed: Uppercase letters in language names are unsupported (#5)
 
-        - Accept multiple `command` entries in run_command plugin
-          https://github.com/evernote/serge/issues/6
+        - Accept multiple `command` entries in run_command plugin (#6)
 
         - parse_android plugin now supports `serge import` mode
-          (generates string keys for alignment)
-          https://github.com/evernote/serge/issues/7
+          (generates string keys for alignment) (#7)
 
         - parse_pot plugin now supports `serge import` mode
-          (generates string keys for alignment)
-          https://github.com/evernote/serge/issues/8
+          (generates string keys for alignment) (#8)
 
-        - Fix performance when `reuse_uncertain` mode is off
-          https://github.com/evernote/serge/issues/9
+        - Fix performance when `reuse_uncertain` mode is off (#9)
 
         - parse_xliff plugin now supports `serge import` mode
+
+        - Parsers are now aware when they are used in import mode, and can adjust their
+          behavior accordingly; one can now run `serge test-parser --import-mode <...>`
+          to test parsers in import mode.
 
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
