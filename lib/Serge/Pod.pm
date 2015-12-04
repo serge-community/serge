@@ -30,8 +30,6 @@ sub save_html {
 
     my $html;
 
-    my $localtime = localtime;
-
     my $parser = Pod::Simple::XHTML->new();
     $parser->perldoc_url_prefix('');
     $parser->perldoc_url_postfix('.html');
@@ -68,10 +66,6 @@ qq|
             <div class="license">
                 Serge is licensed under Standard Perl License (dual <a href="http://dev.perl.org/licenses/gpl1.html">GPL</a> / <a href="http://dev.perl.org/licenses/artistic.html">Artistic License</a>)<br/>
                 Serge.io website and Serge documentation are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-            </div>
-            <div class="version">
-                Serge $Serge::VERSION.<br/>
-                Page last generated: $localtime
             </div>
         </div>
     </div>
