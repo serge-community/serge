@@ -21,6 +21,12 @@ sub init {
 
     $self->{errors} = {};
 
+    $self->merge_schema({
+        email_from    => 'STRING',
+        email_to      => 'ARRAY',
+        email_subject => 'STRING',
+    });
+
     $self->add('after_job', \&report_errors);
 }
 
