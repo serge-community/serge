@@ -322,6 +322,7 @@ sub process_job {
     my ($self, $job) = @_;
 
     $self->init_job($job);
+    $self->adjust_job_defaults($job);
     $self->adjust_destination_languages($job);
 
     # now that we have a final list of destination languages, we can
@@ -341,7 +342,6 @@ sub process_job {
     $self->open_database($job);
     $self->adjust_job_optimizations($job);
     $self->adjust_modified_languages($job);
-    $self->adjust_job_defaults($job);
 
     die "source_dir directory [$job->{source_dir}] doesn't exist. Try doing an initial data checkout (`serge pull --initialize`), or reconfigure your job" unless -d $job->{source_dir};
 
