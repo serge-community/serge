@@ -13,14 +13,14 @@ sub process_job {
     $self->{stats} = {} unless exists $self->{stats};
 
     $self->init_job($job);
+    $self->adjust_job_defaults($job);
+    $self->adjust_destination_languages($job);
 
     # this hash will hold key => {item => <item_id>, string => <string>} mapping
     # for the source resource file
     $job->{source_keys} = {};
     $job->{localized_keys} = {};
     $job->{optimizations} = undef;
-
-    $self->adjust_destination_languages($job);
 
     # now that we have a final list of destination languages, we can
     # determine if the job can run or not
