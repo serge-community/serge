@@ -37,6 +37,8 @@ Revision history
 
         - Fixed some tests due to broken source files
 
+        - Fixed a regression with job's `active` parameter not defaulting to `YES`
+
         - Fixed typos in embedded documentation
 
 1.0     October 15, 2012
