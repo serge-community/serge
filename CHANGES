@@ -39,6 +39,15 @@ Revision history
 
         - Fixed a regression with job's `active` parameter not defaulting to `YES`
 
+        - Added `feature_branch` plugin that allows one add strings from multiple sources
+          (branches) and exclude duplicate strings.
+
+        - Added `log_translation` callback that allows one to log/cache translations
+
+        - String context and key is now passed in `can_extract` callback
+
+        - String key is now passed in `get_translation` and `get_translation_pre` callbacks
+
         - Fixed typos in embedded documentation
 
 1.0     October 15, 2012
