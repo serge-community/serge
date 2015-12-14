@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string1
+#: File: strings.ini
+#: ID: bc89e186bf61bdcf8e9a3112c74814f4
+msgid "foo FooTM foo"
+msgstr "ḟőő ḞőőŦḾ ḟőő"
+
+#. string2
+#: File: strings.ini
+#: ID: 61c446a73dbdc9337a0dda2d14a7d2ae
+msgid "BarTM BarTM"
+msgstr "ḂáŕŦḾ ḂáŕŦḾ"
+
+#. string3
+#: File: strings.ini
+#: ID: ef18d1ff6900483fe83ec9e4e05630cb
+msgid "etc Baz T M BarTM"
+msgstr "ēţç Ḃáž Ŧ Ḿ ḂáŕŦḾ"
+
+#. string4
+#: File: strings.ini
+#: ID: 8d3677f0f583c4744b3ee2a227e0c68e
+msgid "BarTM FooTM"
+msgstr "ḂáŕŦḾ ḞőőŦḾ"
+
+#. string5
+#: File: strings.ini
+#: ID: 5c595d3fae472ca97ca4775c327019ac
+msgid "foo bar"
+msgstr "ḟőő ḃáŕ"

@@ -824,7 +824,7 @@ sub parse_source_file_callback {
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
-    my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, undef, \$string, \$hint));
+    my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, undef, \$string, \$hint, $context, $key));
     if ($result eq '0') {
         print "\t\tSkip extracting string '$string' because at least one callback returned 0\n" if $self->{debug};
         return;
@@ -1682,7 +1682,7 @@ sub generate_localized_files_for_file_lang_callback {
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
-    my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, undef, \$string, \$hint));
+    my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, $lang, \$string, \$hint, $context, $key));
     if ($result eq '0') {
         print "\t\tSkip extracting string '$string' because at least one callback returned 0\n" if $self->{debug};
         return $string;
@@ -1707,16 +1707,15 @@ sub generate_localized_files_for_file_lang_callback {
 
     if (!$self->{job}->{output_only_mode}) {
         if (!$string_id) {
-            #print "::[$string_id]::[$item_id]::[$self->{current_file_rel}]::[$string],[$context],[$hint],[$lang]\n";
-            print "\t\t? [string_id] not defined for string='$string', context='$context' (potential problem with the parser?)\n";
+            print "\t\t? [string_id] not defined for string='$string', context='$context' (potential problem with the parser?)\n" if $self->{debug};
         } elsif (!$item_id) {
-            print "\t\t? [item_id] not defined for string_id $string_id\n";
+            print "\t\t? [item_id] not defined for string_id $string_id\n" if $self->{debug};
         }
     }
 
     print "::[$item_id] >> [$self->{current_file_rel}]::[$string], [$context], [$hint], [$lang]\n" if $self->{debug};
 
-    my ($translation, $fuzzy) = $self->get_translation($string, $context, $self->{job}->{db_namespace}, $self->{current_file_rel}, $lang, undef, $item_id);
+    my ($translation, $fuzzy) = $self->get_translation($string, $context, $self->{job}->{db_namespace}, $self->{current_file_rel}, $lang, undef, $item_id, $key);
 
     print "::[$item_id] << [$translation, $fuzzy]\n" if $self->{debug};
     $translation = $string unless $translation;
@@ -1731,11 +1730,13 @@ sub generate_localized_files_for_file_lang_callback {
         $translation = sprintf('%*s', -$n, $translation); # pad with spaces (spaces are appended to the end)
     }
 
+    $self->run_callbacks('log_translation', $string, $context, $hint, $flagsref, $lang, $key, $translation);
+
     return $translation;
 }
 
 sub get_translation { # either from cache or from database
-    my ($self, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id) = @_;
+    my ($self, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
 
     # For source language, return the original string immediately ("exact match")
 
@@ -1744,7 +1745,7 @@ sub get_translation { # either from cache or from database
     }
 
     my ($translation, $fuzzy, $comment, $need_save) =
-        $self->internal_get_translation($string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id);
+        $self->internal_get_translation($string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key);
 
     # if need_save flag is set, this means that translation comes from a fuzzy match
     # and it needs to be applied back to the database; note that if disallow_similar_lang
@@ -1758,9 +1759,11 @@ sub get_translation { # either from cache or from database
             $self->{db}->set_translation($item_id, $lang, $translation, $fuzzy, $comment);
         } else {
             if (!$self->{job}->{output_only_mode}) {
-                print "\t\t? [need_save, but item_id not defined]\n";
-                print "::>> string=[$string], context=[$context], namespace=[$namespace], filepath=[$filepath], lang=[$lang], disallow_similar_lang=[$disallow_similar_lang], item_id=[$item_id])\n";
-                print "::<< translation=[$translation], fuzzy=[$fuzzy], comment=[$comment], need_save=[$need_save]\n";
+                if ($self->{debug}) {
+                    print "\t\t? [need_save, but item_id not defined]\n";
+                    print "::>> string=[$string], context=[$context], namespace=[$namespace], filepath=[$filepath], lang=[$lang], disallow_similar_lang=[$disallow_similar_lang], item_id=[$item_id], key=[$key])\n";
+                    print "::<< translation=[$translation], fuzzy=[$fuzzy], comment=[$comment], need_save=[$need_save]\n";
+                }
             }
         }
     }
@@ -1771,13 +1774,13 @@ sub get_translation { # either from cache or from database
 }
 
 sub internal_get_translation { # from database
-    my ($self, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id) = @_;
+    my ($self, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
 
     # try to get translation by calling registered plugin callbacks
     # (phase 1, before even looking for existing translations)
     my ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
             'get_translation_pre',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id
+            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
         );
     $translation = NFC($translation) if $translation;
     return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
@@ -1821,7 +1824,7 @@ sub internal_get_translation { # from database
     # (phase 2, after looking up the database)
     ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
             'get_translation',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id
+            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
         );
     $translation = NFC($translation) if $translation;
     return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
@@ -1834,7 +1837,7 @@ sub internal_get_translation { # from database
                 foreach my $source_lang (sort @{$rule->{source}}) {
                     # pass disallow_similar_lang = 1 to avoid infinite recursion
                     my ($translation, $fuzzy, $comment, $need_save) =
-                        $self->get_translation($string, $context, $namespace, $filepath, $source_lang, 1, $item_id);
+                        $self->get_translation($string, $context, $namespace, $filepath, $source_lang, 1, $item_id, $key);
                     # force fuzzy flag if $rule->{as_fuzzy} is true; otherwise, use the original fuzzy flag value
                     $fuzzy = $fuzzy || $rule->{as_fuzzy};
                     return ($translation, $fuzzy, $comment, 1) if ($translation || $comment);

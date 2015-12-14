@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string5
+#: File: feature1/strings.ini
+#: ID: 3bafc920f86354e654beaaedbca8a1e5
+msgid "foo bar feature 1"
+msgstr ""
+
+#. string6
+#: File: feature1/strings.ini
+#: ID: f6b68f290d28ba541d188f6fb2f0897d
+msgid "abc def"
+msgstr ""
+
+#. string7
+#: File: feature1/strings.ini
+#: ID: 290e2f5ceaa02de4ae0280cbc769b18b
+msgid "ABC DEF"
+msgstr ""

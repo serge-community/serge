@@ -1,0 +1,6 @@
+files
+{
+    0    1 1 test_job.master test_namespace strings.ini 0
+    1    2 17 test_job.feature1 test_namespace feature1/strings.ini 0
+    2    3 24 test_job.feature2 test_namespace feature2/strings.ini 0
+}

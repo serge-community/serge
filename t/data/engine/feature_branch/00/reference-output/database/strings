@@ -1,0 +1,13 @@
+strings
+{
+    0    1 2 `foo FooTM foo` NO 0
+    1    2 4 `BarTM BarTM` NO 0
+    2    3 6 `etc Baz T M BarTM` NO 0
+    3    4 8 `BarTM FooTM` NO 0
+    4    5 10 `foo bar` NO 0
+    5    6 18 `foo bar feature 1` NO 0
+    6    7 20 `abc def` NO 0
+    7    8 22 `ABC DEF` NO 0
+    8    9 25 `qaz wsx` NO 0
+    9    10 27 `QAZ WSX` NO 0
+}

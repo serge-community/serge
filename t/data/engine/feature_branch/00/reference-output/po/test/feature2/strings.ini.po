@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string6
+#: File: feature2/strings.ini
+#: ID: 104a6c3c872f18ba0441689661ad9f8b
+msgid "qaz wsx"
+msgstr ""
+
+#. string7
+#: File: feature2/strings.ini
+#: ID: 580db624524a7dc14a1f68ff420ee5fb
+msgid "QAZ WSX"
+msgstr ""

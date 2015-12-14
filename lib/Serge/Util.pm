@@ -156,9 +156,7 @@ sub generate_key {
 }
 
 sub generate_hash {
-    my ($strref) = @_;
-
-    return md5_hex(encode_utf8($strref));
+    return md5_hex(encode_utf8(join("\001", @_)));
 }
 
 sub locale_from_lang {
