@@ -141,7 +141,7 @@ sub _fake_translate_string_unescape {
 }
 
 sub get_translation {
-    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id) = @_;
+    my ($self, $phase, $string, $context, $namespace, $filepath, $lang) = @_;
 
     return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations}) if $self->is_test_language($lang);
     return (); # otherwise, return an empty array
