@@ -1,1 +1,1 @@
-This is a test for 'completeness' plugin, `exclude_languages` option.
+This is a test for 'completeness' plugin, `bypass_languages` option.

@@ -19,7 +19,7 @@ jobs
 
                 data
                 {
-                    exclude_languages            ru es
+                    bypass_languages             ru es
                 }
             }
         }

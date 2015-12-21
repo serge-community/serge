@@ -52,7 +52,7 @@ Revision history
           transliterate them), it allows string expansion (disabled by default),
           and transliteration can now be optionally turned off (it is enabled by default)
 
-        - `completeness` plugin has got a new `exclude_languages` option the allows to
+        - `completeness` plugin has got a new `bypass_languages` option the allows to
           skip its logic for certain languages (this is primarily useful for
           pseudo-localization, see `test_language` plugin)
 
