@@ -8,7 +8,7 @@ Revision history
 
         - Require JSON::XS (#3)
 
-        - Make serge and tools fine their libs when they are symlinked (#4)
+        - Make serge and tools find their libs when they are symlinked (#4)
 
         - Fixed: Uppercase letters in language names are unsupported (#5)
 
@@ -48,9 +48,12 @@ Revision history
 
         - String key is now passed in `get_translation` and `get_translation_pre` callbacks
 
-        - `test_language` plugin was improved: it now handles URLs better (doesn't try to
+        - `test_language` plugin now handles URLs better (doesn't try to
           transliterate them), it allows string expansion (disabled by default),
           and transliteration can now be optionally turned off (it is enabled by default)
+
+        - `test_language` plugin now won't generate TS files if its `save_translations`
+          option is turned off
 
         - `completeness` plugin has got a new `bypass_languages` option the allows to
           skip its logic for certain languages (this is primarily useful for
