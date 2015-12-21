@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.0\n"
+
+#. string1
+#: File: strings.ini
+#: ID: b51857520f95b6bde870958d212a72d7
+msgid "a"
+msgstr "!á !"
+
+#. string2
+#: File: strings.ini
+#: ID: bf897b18b45a8a2c2029a5ceb57d3cb4
+msgid "OK"
+msgstr "!ŐĶ X!"
+
+#. string3
+#: File: strings.ini
+#: ID: 2fdea6b7c16fb81dc680510d695992c2
+msgid "Cancel"
+msgstr "!Ćáŋçēļ XXXXX!"
+
+#. string4
+#: File: strings.ini
+#: ID: 1aaef4a310d7e56153f80ed30a17b19a
+msgid "Upgrade"
+msgstr "!Ůṕğŕáđē XXXXXX!"
+
+#. string5
+#: File: strings.ini
+#: ID: c3688add09d3faf02eb66acafac8c86d
+msgid "Internationalization"
+msgstr "!Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ XXXXXXXXX!"
+
+#. string6
+#: File: strings.ini
+#: ID: 46faa2f6c0cd3e9480e13db2d79ab801
+msgid "Lorem ispsum dolor sit amet"
+msgstr "!Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ XXXXXXXXXX X!"
+
+#. string7
+#: File: strings.ini
+#: ID: b2c8c3252262a9d1b9df79938d2b8bd3
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim felis."
+msgstr ""
+"!Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ "
+"ḟēļĩš. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXX!"
+
+#. string8
+#: File: strings.ini
+#: ID: 9ab24f84618b2d77dede167a6f05cbee
+msgid ""
+"Ut est orci, bibendum ut mi ut, feugiat gravida ligula. Curabitur auctor "
+"eget leo a rutrum. Suspendisse tempor velit id dui volutpat condimentum."
+msgstr ""
+"!Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá. Ćũŕáḃĩţũŕ áũçţőŕ "
+"ēğēţ ļēő á ŕũţŕũḿ. Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ ṽőļũţṕáţ çőŋđĩḿēŋţũḿ. "
+"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXX!"
+
+#. string9
+#: File: strings.ini
+#: ID: 23674dccb1ad26f51305b03fb64de906
+msgid ""
+"Proin in odio odio. Curabitur quis arcu iaculis, convallis quam ac, dictum "
+"eros. Phasellus sollicitudin consequat risus, id eleifend risus dapibus in. "
+"Quisque porta porttitor condimentum. Phasellus aliquam dapibus dolor, et "
+"mattis turpis lobortis vitae. Nulla facilisi. In ut bibendum orci. Sed mi "
+"eros, efficitur vel ligula vitae, lobortis rhoncus libero. Suspendisse "
+"maximus, lectus et feugiat venenatis, libero est vestibulum justo, in tempor "
+"massa erat non libero. Etiam arcu nibh, ultricies id faucibus in, convallis "
+"eu diam. Phasellus facilisis sed metus vitae ornare. Vestibulum ante ipsum "
+"primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus "
+"posuere ut mi et mattis. Integer sed tortor porta, cursus diam eu, placerat "
+"nulla. Mauris congue a lorem sit amet feugiat. Sed elementum malesuada eros, "
+"sed finibus urna malesuada vel."
+msgstr ""
+"!Ṕŕőĩŋ ĩŋ őđĩő őđĩő. Ćũŕáḃĩţũŕ ǫũĩš áŕçũ ĩáçũļĩš, çőŋṽáļļĩš ǫũáḿ áç, đĩçţũḿ "
+"ēŕőš. Ṕĥášēļļũš šőļļĩçĩţũđĩŋ çőŋšēǫũáţ ŕĩšũš, ĩđ ēļēĩḟēŋđ ŕĩšũš đáṕĩḃũš ĩŋ. "
+"Ωũĩšǫũē ṕőŕţá ṕőŕţţĩţőŕ çőŋđĩḿēŋţũḿ. Ṕĥášēļļũš áļĩǫũáḿ đáṕĩḃũš đőļőŕ, ēţ "
+"ḿáţţĩš ţũŕṕĩš ļőḃőŕţĩš ṽĩţáē. Ņũļļá ḟáçĩļĩšĩ. Ĩŋ ũţ ḃĩḃēŋđũḿ őŕçĩ. Šēđ ḿĩ "
+"ēŕőš, ēḟḟĩçĩţũŕ ṽēļ ļĩğũļá ṽĩţáē, ļőḃőŕţĩš ŕĥőŋçũš ļĩḃēŕő. Šũšṕēŋđĩššē "
+"ḿáҳĩḿũš, ļēçţũš ēţ ḟēũğĩáţ ṽēŋēŋáţĩš, ļĩḃēŕő ēšţ ṽēšţĩḃũļũḿ ĵũšţő, ĩŋ ţēḿṕőŕ "
+"ḿáššá ēŕáţ ŋőŋ ļĩḃēŕő. Ēţĩáḿ áŕçũ ŋĩḃĥ, ũļţŕĩçĩēš ĩđ ḟáũçĩḃũš ĩŋ, çőŋṽáļļĩš "
+"ēũ đĩáḿ. Ṕĥášēļļũš ḟáçĩļĩšĩš šēđ ḿēţũš ṽĩţáē őŕŋáŕē. Ṽēšţĩḃũļũḿ áŋţē ĩṕšũḿ "
+"ṕŕĩḿĩš ĩŋ ḟáũçĩḃũš őŕçĩ ļũçţũš ēţ ũļţŕĩçēš ṕőšũēŕē çũḃĩļĩá Ćũŕáē; Ṽĩṽáḿũš "
+"ṕőšũēŕē ũţ ḿĩ ēţ ḿáţţĩš. Ĩŋţēğēŕ šēđ ţőŕţőŕ ṕőŕţá, çũŕšũš đĩáḿ ēũ, ṕļáçēŕáţ "
+"ŋũļļá. Ḿáũŕĩš çőŋğũē á ļőŕēḿ šĩţ áḿēţ ḟēũğĩáţ. Šēđ ēļēḿēŋţũḿ ḿáļēšũáđá ēŕőš, "
+"šēđ ḟĩŋĩḃũš ũŕŋá ḿáļēšũáđá ṽēļ. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
+"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
+"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
+"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
+"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX!"
+
+#. string_sprintf1
+#: File: strings.ini
+#: ID: a0528c795544ba0a06e30a596df8c6d5
+msgid "%s"
+msgstr "%s"
+
+#. string_sprintf2
+#: File: strings.ini
+#: ID: 43e6a32789fa88f1a9c082f8d9bed412
+msgid "foo %s bar %d baz%.2f"
+msgstr "!ḟőő %s ḃáŕ %d ḃáž%.2f XXXXXXXXX!"
+
+#. string_escape1
+#: File: strings.ini
+#: ID: 76f50558289e425da4321a4170886623
+msgid "\\n"
+msgstr "\\n"
+
+#. string_escape2
+#: File: strings.ini
+#: ID: 509036793506b81ae4b320d7504a15ea
+msgid ""
+"foo \\n"
+" bar \\t baz\\x"
+msgstr ""
+"!ḟőő \\n"
+" ḃáŕ \\t ḃáž\\x XXXXXXXXXX X!"
+
+#. string_var1
+#: File: strings.ini
+#: ID: 5617e403a852e35a33ec637b0bb99777
+msgid "%FOO%"
+msgstr "%FOO%"
+
+#. string_var2
+#: File: strings.ini
+#: ID: eb31959f9b0c820efc4e95c0f911686e
+msgid "foo %FOO% bar %bar% baz%_baz_%"
+msgstr "!ḟőő %FOO% ḃáŕ %bar% ḃáž%_baz_% XXXXXXXXXX XXX!"
+
+#. string_tag1
+#: File: strings.ini
+#: ID: 7e79812eb98b396887ef85822f975134
+msgid "<tag>"
+msgstr "<tag>"
+
+#. string_tag2
+#: File: strings.ini
+#: ID: f77df8d03e5d138afdb598803586ecf9
+msgid "foo <tag>bar</tag> baz<etc/>"
+msgstr "!ḟőő <tag>ḃáŕ</tag> ḃáž<etc/> XXXXXXXXXX XX!"
+
+#. string_php1
+#: File: strings.ini
+#: ID: d9bc3f8267d121528f833b0c68e91410
+msgid "<?php echo foo(); ?>"
+msgstr "<?php echo foo(); ?>"
+
+#. string_php2
+#: File: strings.ini
+#: ID: f14cc8cae0a61e043b2db597b4083e0b
+msgid "<?= foo(); ?>"
+msgstr "<?= foo(); ?>"
+
+#. string_php3
+#: File: strings.ini
+#: ID: d10a5ad9aae6c17579195f2390dc561e
+msgid "foo <?php echo foo(); ?> bar<?= foo(); ?>baz"
+msgstr "!ḟőő <?php echo foo(); ?> ḃáŕ<?= foo(); ?>ḃáž XXXXXXXXXX XXXXXXXXXX!"
+
+#. string_entity1
+#: File: strings.ini
+#: ID: f98c7a784bbfb093c8957aac3777aed7
+msgid "&nbsp;"
+msgstr "&nbsp;"
+
+#. string_entity2
+#: File: strings.ini
+#: ID: 9bff2d40f28a7b7b4f691d5d177e5920
+msgid "foo &mdash; bar&nbsp;baz"
+msgstr "!ḟőő &mdash; ḃáŕ&nbsp;ḃáž XXXXXXXXXX !"
+
+#. string_javafmt1
+#: File: strings.ini
+#: ID: c538b4bc0cd6c5a05219446b0f06e202
+msgid "{0}"
+msgstr "{0}"
+
+#. string_javafmt2
+#: File: strings.ini
+#: ID: 9fbe3ac9bcc38dfaadfeb36d587b2af3
+msgid "foo {0} bar{1}baz{123}"
+msgstr "!ḟőő {0} ḃáŕ{1}ḃáž{123} XXXXXXXXXX!"
+
+#. string_tplfmt1
+#: File: strings.ini
+#: ID: 8325cbe128f7b64773cb8061bcdddb58
+msgid "${0}"
+msgstr "${0}"
+
+#. string_tplfmt2
+#: File: strings.ini
+#: ID: c37b3174e18051091153e04ea1df0a57
+msgid "foo ${0} bar${ab.cd}baz${ef$g}"
+msgstr "!ḟőő ${0} ḃáŕ${ab.cd}ḃáž${ef$g} XXXXXXXXXX XXX!"
+
+#. string_unixpath1
+#: File: strings.ini
+#: ID: d9aff9c70fe1be113428e851af536802
+msgid "/var/www"
+msgstr "/var/www"
+
+#. string_unixpath2
+#: File: strings.ini
+#: ID: f831068141aa2ba9daac0160339652c1
+msgid "foo /var/www bar /etc/pwd baz /x"
+msgstr "!ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x XXXXXXXXXX XXXX!"
+
+#. string_url1
+#: File: strings.ini
+#: ID: acea8364a43da4157a275245c59a32cb
+msgid "http://foo.bar/baz.etc"
+msgstr "http://foo.bar/baz.etc"
+
+#. string_url2
+#: File: strings.ini
+#: ID: 22b9bb16ca3d69a682c69af05882e3ce
+msgid "https://var/www/?foo=bar&baz=e+t%20c#pwd"
+msgstr "https://var/www/?foo=bar&baz=e+t%20c#pwd"
+
+#. string_url3
+#: File: strings.ini
+#: ID: b3da46279fbc4d2a05b0f72aa8468788
+msgid "mailto:foo@bar"
+msgstr "mailto:foo@bar"
+
+#. string_url4
+#: File: strings.ini
+#: ID: 7df06ff1bd505459f6c76e43a5d65be5
+msgid "mailto:foo@bar.baz"
+msgstr "mailto:foo@bar.baz"
+
+#. string_url5
+#: File: strings.ini
+#: ID: 4f4f08bf9d00dd064cdc5277612e32c1
+msgid "ftp://var/www"
+msgstr "ftp://var/www"
+
+#. string_url6
+#: File: strings.ini
+#: ID: 8b24b05f8e228ddf41b91ff6b1fdb107
+msgid "ssh://foo@bar.baz/etc"
+msgstr "ssh://foo@bar.baz/etc"
+
+#. string_url7
+#: File: strings.ini
+#: ID: 5a4075b8b0ccf3e125c5e80166958694
+msgid "foo http://foo.bar/baz.etc mailto:foo@bar.baz baz"
+msgstr "!ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž XXXXXXXXXX XXXXXXXXXX X!"
+
+#. string_plurr1
+#: File: strings.ini
+#: ID: b826868dfe2dedf4f2e10b40f6f3b1f3
+msgid "{CHOICE:{A} aaa|{B} bbb}"
+msgstr "!{CHOICE:{A} aaa|{B} bbb} XXXXXXXXXX !"
+
+#. string_plurr2
+#: File: strings.ini
+#: ID: b85ba459861ecc8b9a69077f26468fc9
+msgid "foo {CHOICE:{A} aaa|{B} bbb} bar"
+msgstr "!foo {CHOICE:{A} aaa|{B} bbb} bar XXXXXXXXXX XXXX!"
+
+#. string_square_brackets1
+#: File: strings.ini
+#: ID: 5d8b239c4197efb80f68d470da553d92
+msgid "[0]"
+msgstr "![0] XX!"
+
+#. string_square_brackets2
+#: File: strings.ini
+#: ID: 2122d1511ab3406c805603b1b31567d7
+msgid "foo [bar] baz"
+msgstr "!ḟőő [ḃáŕ] ḃáž XXXXXXXX!"
