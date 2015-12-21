@@ -18,6 +18,7 @@ my $DBD_PARAMS = {
             'sqlite_unicode' => 1,
         },
         'do' => 'PRAGMA cache_size = 10000', # 10 MB of cache instead of default 2 MB
+        'begin_transaction_stmt' => 'BEGIN',
     },
 
     'SQLite_pre_1_26_06' => {
@@ -25,6 +26,7 @@ my $DBD_PARAMS = {
             'unicode' => 1, # old version of DBD::SQLite used 'unicode' instead of 'sqlite_unicode'
         },
         'do' => 'PRAGMA cache_size = 10000', # 10 MB of cache instead of default 2 MB
+        'begin_transaction_stmt' => 'BEGIN',
     },
 
     'mysql' => {
@@ -32,12 +34,14 @@ my $DBD_PARAMS = {
             'mysql_enable_utf8' => 1,
             'mysql_bind_type_guessing' => 1,
         },
+        'begin_transaction_stmt' => 'START TRANSACTION',
     },
 
     'Pg' => { # Postgres
         'options' => {
             'pg_enable_utf8' => 1,
         },
+        'begin_transaction_stmt' => 'BEGIN',
     }
 };
 
@@ -81,13 +85,15 @@ sub open {
         $source =~ s!^(DBI:SQLite:dbname=)~/(.*)$!$1.$ENV{HOME}.'/'.$2!se;
 
         if (exists $DBD_PARAMS->{$type}) {
+            $self->{params} = $DBD_PARAMS->{$type};
+
             $self->{dbh} = DBI->connect(
                 $source, $username, $password,
-                $DBD_PARAMS->{$type}->{options}
+                $self->{params}->{options}
             ) or die "Can't connect to the database [$source]: $!\n";
 
             # execute driver-specific statements, if any
-            my $query = $DBD_PARAMS->{$type}->{do};
+            my $query = $self->{params}->{do};
             map $self->execute($_), split(';', $query) if ($query ne '');
 
             # test if 'files' table exists. If it's not,
@@ -124,24 +130,27 @@ sub open {
 
 sub begin_transaction {
     my ($self) = @_;
-    print "[DB] BEGIN TRANSACTION\n" if $DEBUG;
-    $self->execute("BEGIN TRANSACTION");
+    my $sqlquery = $self->{params}->{begin_transaction_stmt};
+    print "[DB] $sqlquery\n" if $DEBUG;
+    $self->execute($sqlquery);
     $self->{transaction_opened} = undef;
 }
 
 sub commit_transaction {
     my ($self) = @_;
     return unless $self->{transaction_opened};
-    print "[DB] COMMIT TRANSACTION\n" if $DEBUG;
-    $self->execute("COMMIT TRANSACTION");
+    my $sqlquery = 'COMMIT';
+    print "[DB] $sqlquery\n" if $DEBUG;
+    $self->execute($sqlquery);
     $self->{transaction_opened} = undef;
 }
 
 sub rollback_transaction {
     my ($self) = @_;
     return unless $self->{transaction_opened};
-    print "[DB] ROLLBACK TRANSACTION\n" if $DEBUG;
-    $self->execute("ROLLBACK TRANSACTION");
+    my $sqlquery = 'ROLLBACK';
+    print "[DB] $sqlquery\n" if $DEBUG;
+    $self->execute($sqlquery);
     $self->{transaction_opened} = undef;
 }
 
