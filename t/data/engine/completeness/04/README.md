@@ -1,0 +1,1 @@
+This is a test for 'completeness' plugin, `exclude_languages` option.

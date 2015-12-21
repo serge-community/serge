@@ -22,6 +22,8 @@ sub init {
         create_threshold   => 'STRING',
         update_threshold   => 'STRING',
 
+        exclude_languages  => 'ARRAY',
+
         save_incomplete_to => 'STRING',
 
         can_delete         => 'BOOLEAN',
@@ -62,6 +64,13 @@ sub validate_data {
 
     print "WARNING: data->email_from not defined. Will skip sending any reports.\n" unless $self->{data}->{email_from};
     print "WARNING: data->email_to not defined. Will skip sending any reports.\n" unless $self->{data}->{email_to};
+
+    $self->{exclude_languages} = {};
+    if (defined $self->{data}->{exclude_languages}) {
+        map {
+            $self->{exclude_languages}->{$_} = 1;
+        } @{$self->{data}->{exclude_languages}};
+    }
 }
 
 # public static method
@@ -72,6 +81,10 @@ sub make_key {
 
 sub can_generate_localized_file {
     my ($self, $phase, $file, $lang, $strref) = @_;
+
+    # skip checks and allow file generation if the language
+    # is in `exclude_languages` list
+    return 1 if exists $self->{exclude_languages}->{$lang};
 
     my $file_id = $self->{parent}->{engine}->{db}->get_file_id($self->{parent}->{db_namespace}, $self->{parent}->{id}, $file, 1); # 1=no_create
 

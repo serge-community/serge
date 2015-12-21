@@ -1,0 +1,27 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    de es it ru
+
+        source_match                             strings\.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           completeness
+
+                data
+                {
+                    exclude_languages            ru es
+                }
+            }
+        }
+    }
+}
