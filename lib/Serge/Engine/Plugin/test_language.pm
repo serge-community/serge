@@ -178,13 +178,14 @@ sub _expand_string {
 
     $count = int($count * ($coeff - 1));
 
-    my $dummy_text = ' XXXXXXXXXX';
+    my $dummy_text = ' xxxxxxxxxx';
     # make sure dummy text length exceeds the needed number of chars to copy
     while (length($dummy_text) < $count) {
         $dummy_text .= $dummy_text;
     }
 
-    my $start = my $stop = '!';
+    my $start = '[';
+    my $stop = ']';
 
     return $start.$s.substr($dummy_text, 0, $count).$stop;
 }
