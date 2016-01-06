@@ -186,6 +186,12 @@ sub _expand_string {
 
     my $start = '[';
     my $stop = ']';
+    # if the source string already uses square brackets (for e.g. some sort of placeholders),
+    # use parenthesis as markers instead
+    if ($s =~ m/[\[\]]/) {
+        $start = '(';
+        $stop = ')';
+    }
 
     return $start.$s.substr($dummy_text, 0, $count).$stop;
 }
