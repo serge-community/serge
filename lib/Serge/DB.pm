@@ -944,7 +944,7 @@ sub find_best_translation { # find best match, including fuzzy translations
 
     my $sqlquery =
         "SELECT DISTINCT ".
-        "files.namespace, files.path, ".
+        "files.namespace, files.path, files.orphaned AS f_orphaned,".
         "strings.context, ".
         "items.orphaned, ".
         "translations.string, translations.fuzzy, translations.comment ".
@@ -980,7 +980,7 @@ sub find_best_translation { # find best match, including fuzzy translations
         $fitness++ if ($hr->{namespace} eq $namespace);
         $fitness++ if ($hr->{path} eq $filepath);
         $fitness++ if ($hr->{context} eq $context);
-        $fitness++ if (!$hr->{orphaned});
+        $fitness++ if (!$hr->{orphaned} && !$hr->{f_orphaned});
         if ($fitness > $best_fitness) {
             $best_fitness = $fitness;
             $translation = $hr->{string};
