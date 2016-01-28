@@ -42,7 +42,7 @@ sub process_subdir {
     opendir(my $dh, $dir);
     while (my $name = readdir $dh) {
         next if $name eq '.' || $name eq '..';
-        my $subpath = $relpath ? $relpath.'/'.$name : $name; # relative path is always delimited by a forward slash (relative paths are platform-independent)
+        my $subpath = $relpath ne '' ? $relpath.'/'.$name : $name; # relative path is always delimited by a forward slash (relative paths are platform-independent)
         my $fullpath = catfile($dir, $name);
         my $file_rel = $self->{prefix}.$subpath;
 
