@@ -8,7 +8,7 @@ use utf8;
 
 use DBI;
 use Digest::MD5 qw(md5 md5_hex);
-use Encode qw(decode encode_utf8);
+use Encode qw(decode encode_utf8 decode_utf8);
 use File::Path;
 use File::Basename;
 use Time::HiRes qw(gettimeofday tv_interval);
@@ -929,8 +929,8 @@ sub update_database_from_ts_files_lang_file {
         print "WARNING: Can't read $fullpath: $!\n";
         return;
     }
-    binmode(PO, ':utf8');
-    my $text = join('', <PO>);
+    binmode(PO);
+    my $text = decode_utf8(join('', <PO>));
     close(PO);
 
     my $current_hash = generate_hash($text);
