@@ -5,7 +5,8 @@ use strict;
 
 no warnings qw(uninitialized);
 
-use Serge::Util qw(generate_hash set_flags);
+use Serge::Util qw(generate_key set_flags);
+use Time::HiRes qw(gettimeofday tv_interval);
 
 sub name {
     return 'Extract only strings missing in the master job';
@@ -17,14 +18,14 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        master_job        => 'STRING',
+        master_job => 'STRING',
     });
 
     $self->add({
         before_job => \&before_job,
-        log_translation => \&log_translation,
-        get_translation_pre => \&get_translation_pre,
+        after_job => \&after_job,
         can_extract => \&can_extract,
+        get_translation_pre => \&get_translation_pre,
     });
 
     $self->{cache} = {};
@@ -46,17 +47,10 @@ sub adjust_phases {
     $self->SUPER::adjust_phases($phases);
 
     # always tie to these phases
-    set_flags($phases, 'before_job', 'can_extract');
+    set_flags($phases, 'before_job', 'after_job', 'can_extract', 'get_translation_pre');
 
     die "This plugin attaches itself to specific phases; please don't specify phases in the configuration file" unless @$phases == 4;
 }
-
-#sub get_translation {
-#    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id) = @_;
-#
-#    return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations}) if $self->is_test_language($lang);
-#    return (); # otherwise, return an empty array
-#}
 
 sub before_job {
     my ($self, $phase) = @_;
@@ -70,11 +64,6 @@ sub before_job {
 
     if ($self->{master_mode}) {
         print "Running overlay_mode plugin in master mode\n" if $self->{debug};
-
-        # initialize engine-wide plugin data structure for the current job
-        $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
-        $engine->{plugin_data}->{overlay_mode} = {} unless exists $engine->{plugin_data}->{overlay_mode};
-        $engine->{plugin_data}->{overlay_mode}->{$master_job_id} = {};
     } else {
         print "Running overlay_mode plugin in slave mode\n" if $self->{debug};
 
@@ -83,16 +72,76 @@ sub before_job {
             !exists $engine->{plugin_data}->{overlay_mode}->{$master_job_id}) {
             die "Can't run job with overlay_mode plugin in slave mode before (or without) the master job\n";
         }
+
+        $self->{cache} = $engine->{plugin_data}->{overlay_mode}->{$master_job_id};
     }
-    $self->{cache} = $engine->{plugin_data}->{overlay_mode}->{$master_job_id};
 }
 
-sub log_translation {
-    my ($self, $phase, $string, $context, $hint, $flagsref, $lang, $key, $translation) = @_;
+sub after_job {
+   my ($self, $phase) = @_;
 
-    if ($self->{master_mode}) {
-        $self->{cache}->{generate_hash($string, $context, $key)} = $translation;
+    return unless $self->{master_mode}; # do nothing in slave mode
+
+    # cache translations for slave jobs
+    $self->load_translations;
+}
+
+sub load_translations {
+    my ($self) = @_;
+
+    my $start = [gettimeofday];
+
+    my $job_id = $self->{parent}->{id}; # we're the master job
+    my $engine = $self->{parent}->{engine};
+    my $db = $engine->{db};
+
+    # initialize engine-wide plugin data structure for the current job
+    $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
+    $engine->{plugin_data}->{overlay_mode} = {} unless exists $engine->{plugin_data}->{overlay_mode};
+    my $cache = $engine->{plugin_data}->{overlay_mode}->{$job_id} = {};
+
+    print "feature_branch plugin: caching known translations...\n";
+
+    # in our query we want to include orphaned translations because some items
+    # or files that are already orphaned on the master branch can still be there
+    # in the slave (feature) branch, and we want to reuse them
+    my $sqlquery = <<__END__;
+        SELECT s.string, s.context, t.language, t.string as translation
+        FROM translations t
+
+        JOIN items i
+        ON t.item_id = i.id
+
+        JOIN strings s
+        ON i.string_id = s.id
+
+        JOIN files f
+        ON i.file_id = f.id
+
+        WHERE s.skip = 0
+        AND f.namespace = ?
+        AND f.job = ?
+        AND t.string IS NOT NULL
+__END__
+
+    my $sth = $db->prepare($sqlquery);
+    $sth->bind_param(1, $self->{parent}->{db_namespace}) || die $sth->errstr;
+    $sth->bind_param(2, $job_id) || die $sth->errstr;
+    $sth->execute || die $sth->errstr;
+
+    my $n = 0;
+    while (my $hr = $sth->fetchrow_hashref()) {
+        $n++;
+        my $lang = $hr->{language};
+        my $skey = generate_key($hr->{string}, $hr->{context});
+        $cache->{$lang} = {} unless defined $cache->{$lang};
+        $cache->{$lang}->{$skey} = $hr->{translation};
     }
+    $sth->finish;
+    $sth = undef;
+
+    my $delta = tv_interval($start);
+    print "feature_branch::load_translations() took $delta seconds\n";
 }
 
 sub get_translation_pre {
@@ -101,12 +150,14 @@ sub get_translation_pre {
     return () if $self->{master_mode}; # do nothing in master mode
 
     # otherwise, return current translation (or undef, if there's no matching translation)
-    return $self->{cache}->{generate_hash($string, $context, $key)};
+    return $self->{cache}->{$lang}->{generate_key($string, $context)};
 }
 
 sub string_exists {
-    my ($self, $stringref, $context, $key) = @_;
-    return exists $self->{cache}->{generate_hash($$stringref, $context, $key)};
+    my ($self, $stringref, $context) = @_;
+
+    my $string_id = $self->{parent}->{engine}->{db}->get_string_id($$stringref, $context, 1); # do not create the string, just look if there is one
+    return defined $string_id;
 }
 
 sub can_extract {
@@ -115,13 +166,13 @@ sub can_extract {
     # extract everything for master job
     return 1 if $self->{master_mode};
 
-    # otherwise, we're in an overlay job
+    # otherwise, we're in a slave job
 
     # if we're generating localized files, $lang will be set
     return 1 if defined $lang; # extract everything to translate all the strings, not just overlay ones
 
     # otherwise (when $lang is not set) we're parsing the source file
-    return $self->string_exists($stringref, $context, $key) ? 0 : 1; # extract only strings which are missing from the master job
+    return $self->string_exists($stringref, $context) ? 0 : 1; # extract only strings which are missing from the master job
 }
 
 1;
