@@ -1446,6 +1446,16 @@ msgstr ""
         print "\t\tSkip saving $fullpath: content didn't change\n" if $self->{debug};
     }
 
+    # get the highest USN for the current language and all similar languages
+    #
+    # (we need to do it again because the usn may have been bumped up
+    # as some translations may have been saved to the database)
+    #
+    # NOTE: this is only supposed to work under assumption that no other process
+    # writes to the database during TS file generation; otherwise we will be 'forgetting'
+    # about all these changes and not pushing them to a TS file on next run
+    $current_usn = $self->{db}->get_highest_usn_for_file_lang($self->{current_file_id}, $lang);
+
     if ($current_usn ne $old_usn) {
         $self->{db}->set_property("usn:$self->{current_file_id}:$lang", $current_usn);
     }
