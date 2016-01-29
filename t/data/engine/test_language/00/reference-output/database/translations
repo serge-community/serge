@@ -1,46 +1,46 @@
 translations
 {
-    0     1 80 1 test `!á !` NO 0 0
-    1     2 81 2 test `!ŐĶ X!` NO 0 0
-    2     3 82 3 test `!Ćáŋçēļ XXXXX!` NO 0 0
-    3     4 83 4 test `!Ůṕğŕáđē XXXXXX!` NO 0 0
-    4     5 84 5 test `!Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ XXXXXXXXX!` NO 0 0
-    5     6 85 6 test `!Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ XXXXXXXXXX X!` NO
+    0     1 80 1 test `[á ]` NO 0 0
+    1     2 81 2 test `[ŐĶ x]` NO 0 0
+    2     3 82 3 test `[Ćáŋçēļ xxxxx]` NO 0 0
+    3     4 83 4 test `[Ůṕğŕáđē xxxxxx]` NO 0 0
+    4     5 84 5 test `[Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ xxxxxxxxx]` NO 0 0
+    5     6 85 6 test `[Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ xxxxxxxxxx x]` NO
           00
     6     7 86 7 test
-          `!Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ ḟēļĩš. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXX!`
+          `[Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ ḟēļĩš. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxx]`
           NO 0 0
     7     8 87 8 test
-          `!Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá. Ćũŕáḃĩţũŕ áũçţőŕ ēğēţ ļēő á ŕũţŕũḿ. Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ ṽőļũţṕáţ çőŋđĩḿēŋţũḿ. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXX!`
+          `[Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá. Ćũŕáḃĩţũŕ áũçţőŕ ēğēţ ļēő á ŕũţŕũḿ. Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ ṽőļũţṕáţ çőŋđĩḿēŋţũḿ. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxx]`
           NO 0 0
     8     9 88 9 test
-          `!Ṕŕőĩŋ ĩŋ őđĩő őđĩő. Ćũŕáḃĩţũŕ ǫũĩš áŕçũ ĩáçũļĩš, çőŋṽáļļĩš ǫũáḿ áç, đĩçţũḿ ēŕőš. Ṕĥášēļļũš šőļļĩçĩţũđĩŋ çőŋšēǫũáţ ŕĩšũš, ĩđ ēļēĩḟēŋđ ŕĩšũš đáṕĩḃũš ĩŋ. Ωũĩšǫũē ṕőŕţá ṕőŕţţĩţőŕ çőŋđĩḿēŋţũḿ. Ṕĥášēļļũš áļĩǫũáḿ đáṕĩḃũš đőļőŕ, ēţ ḿáţţĩš ţũŕṕĩš ļőḃőŕţĩš ṽĩţáē. Ņũļļá ḟáçĩļĩšĩ. Ĩŋ ũţ ḃĩḃēŋđũḿ őŕçĩ. Šēđ ḿĩ ēŕőš, ēḟḟĩçĩţũŕ ṽēļ ļĩğũļá ṽĩţáē, ļőḃőŕţĩš ŕĥőŋçũš ļĩḃēŕő. Šũšṕēŋđĩššē ḿáҳĩḿũš, ļēçţũš ēţ ḟēũğĩáţ ṽēŋēŋáţĩš, ļĩḃēŕő ēšţ ṽēšţĩḃũļũḿ ĵũšţő, ĩŋ ţēḿṕőŕ ḿáššá ēŕáţ ŋőŋ ļĩḃēŕő. Ēţĩáḿ áŕçũ ŋĩḃĥ, ũļţŕĩçĩēš ĩđ ḟáũçĩḃũš ĩŋ, çőŋṽáļļĩš ēũ đĩáḿ. Ṕĥášēļļũš ḟáçĩļĩšĩš šēđ ḿēţũš ṽĩţáē őŕŋáŕē. Ṽēšţĩḃũļũḿ áŋţē ĩṕšũḿ ṕŕĩḿĩš ĩŋ ḟáũçĩḃũš őŕçĩ ļũçţũš ēţ ũļţŕĩçēš ṕőšũēŕē çũḃĩļĩá Ćũŕáē; Ṽĩṽáḿũš ṕőšũēŕē ũţ ḿĩ ēţ ḿáţţĩš. Ĩŋţēğēŕ šēđ ţőŕţőŕ ṕőŕţá, çũŕšũš đĩáḿ ēũ, ṕļáçēŕáţ ŋũļļá. Ḿáũŕĩš çőŋğũē á ļőŕēḿ šĩţ áḿēţ ḟēũğĩáţ. Šēđ ēļēḿēŋţũḿ ḿáļēšũáđá ēŕőš, šēđ ḟĩŋĩḃũš ũŕŋá ḿáļēšũáđá ṽēļ. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX!`
+          `[Ṕŕőĩŋ ĩŋ őđĩő őđĩő. Ćũŕáḃĩţũŕ ǫũĩš áŕçũ ĩáçũļĩš, çőŋṽáļļĩš ǫũáḿ áç, đĩçţũḿ ēŕőš. Ṕĥášēļļũš šőļļĩçĩţũđĩŋ çőŋšēǫũáţ ŕĩšũš, ĩđ ēļēĩḟēŋđ ŕĩšũš đáṕĩḃũš ĩŋ. Ωũĩšǫũē ṕőŕţá ṕőŕţţĩţőŕ çőŋđĩḿēŋţũḿ. Ṕĥášēļļũš áļĩǫũáḿ đáṕĩḃũš đőļőŕ, ēţ ḿáţţĩš ţũŕṕĩš ļőḃőŕţĩš ṽĩţáē. Ņũļļá ḟáçĩļĩšĩ. Ĩŋ ũţ ḃĩḃēŋđũḿ őŕçĩ. Šēđ ḿĩ ēŕőš, ēḟḟĩçĩţũŕ ṽēļ ļĩğũļá ṽĩţáē, ļőḃőŕţĩš ŕĥőŋçũš ļĩḃēŕő. Šũšṕēŋđĩššē ḿáҳĩḿũš, ļēçţũš ēţ ḟēũğĩáţ ṽēŋēŋáţĩš, ļĩḃēŕő ēšţ ṽēšţĩḃũļũḿ ĵũšţő, ĩŋ ţēḿṕőŕ ḿáššá ēŕáţ ŋőŋ ļĩḃēŕő. Ēţĩáḿ áŕçũ ŋĩḃĥ, ũļţŕĩçĩēš ĩđ ḟáũçĩḃũš ĩŋ, çőŋṽáļļĩš ēũ đĩáḿ. Ṕĥášēļļũš ḟáçĩļĩšĩš šēđ ḿēţũš ṽĩţáē őŕŋáŕē. Ṽēšţĩḃũļũḿ áŋţē ĩṕšũḿ ṕŕĩḿĩš ĩŋ ḟáũçĩḃũš őŕçĩ ļũçţũš ēţ ũļţŕĩçēš ṕőšũēŕē çũḃĩļĩá Ćũŕáē; Ṽĩṽáḿũš ṕőšũēŕē ũţ ḿĩ ēţ ḿáţţĩš. Ĩŋţēğēŕ šēđ ţőŕţőŕ ṕőŕţá, çũŕšũš đĩáḿ ēũ, ṕļáçēŕáţ ŋũļļá. Ḿáũŕĩš çőŋğũē á ļőŕēḿ šĩţ áḿēţ ḟēũğĩáţ. Šēđ ēļēḿēŋţũḿ ḿáļēšũáđá ēŕőš, šēđ ḟĩŋĩḃũš ũŕŋá ḿáļēšũáđá ṽēļ. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx]`
           NO 0 0
     9     10 89 10 test %s NO 0 0
-    10    11 90 11 test `!ḟőő %s ḃáŕ %d ḃáž%.2f XXXXXXXXX!` NO 0 0
+    10    11 90 11 test `[ḟőő %s ḃáŕ %d ḃáž%.2f xxxxxxxxx]` NO 0 0
     11    12 91 12 test \n NO 0 0
-    12    13 92 13 test `!ḟőő \n ḃáŕ \t ḃáž\x XXXXXXXXXX X!` NO 0 0
+    12    13 92 13 test `[ḟőő \n ḃáŕ \t ḃáž\x xxxxxxxxxx x]` NO 0 0
     13    14 93 14 test %FOO% NO 0 0
     14    15 94 15 test
-          `!ḟőő %FOO% ḃáŕ %bar% ḃáž%_baz_% XXXXXXXXXX XXX!` NO 0 0
+          `[ḟőő %FOO% ḃáŕ %bar% ḃáž%_baz_% xxxxxxxxxx xxx]` NO 0 0
     15    16 95 16 test <tag> NO 0 0
-    16    17 96 17 test `!ḟőő <tag>ḃáŕ</tag> ḃáž<etc/> XXXXXXXXXX XX!`
+    16    17 96 17 test `[ḟőő <tag>ḃáŕ</tag> ḃáž<etc/> xxxxxxxxxx xx]`
           NO 0 0
     17    18 97 18 test `<?php echo foo(); ?>` NO 0 0
     18    19 98 19 test `<?= foo(); ?>` NO 0 0
     19    20 99 20 test
-          `!ḟőő <?php echo foo(); ?> ḃáŕ<?= foo(); ?>ḃáž XXXXXXXXXX XXXXXXXXXX!`
+          `[ḟőő <?php echo foo(); ?> ḃáŕ<?= foo(); ?>ḃáž xxxxxxxxxx xxxxxxxxxx]`
           NO 0 0
     20    21 100 21 test &nbsp; NO 0 0
-    21    22 101 22 test `!ḟőő &mdash; ḃáŕ&nbsp;ḃáž XXXXXXXXXX !` NO 0
+    21    22 101 22 test `[ḟőő &mdash; ḃáŕ&nbsp;ḃáž xxxxxxxxxx ]` NO 0
     22    23 102 23 test {0} NO 0 0
-    23    24 103 24 test `!ḟőő {0} ḃáŕ{1}ḃáž{123} XXXXXXXXXX!` NO 0 0
+    23    24 103 24 test `[ḟőő {0} ḃáŕ{1}ḃáž{123} xxxxxxxxxx]` NO 0 0
     24    25 104 25 test ${0} NO 0 0
     25    26 105 26 test
-          `!ḟőő ${0} ḃáŕ${ab.cd}ḃáž${ef$g} XXXXXXXXXX XXX!` NO 0 0
+          `[ḟőő ${0} ḃáŕ${ab.cd}ḃáž${ef$g} xxxxxxxxxx xxx]` NO 0 0
     26    27 106 27 test /var/www NO 0 0
     27    28 107 28 test
-          `!ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x XXXXXXXXXX XXXX!` NO 0 0
+          `[ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x xxxxxxxxxx xxxx]` NO 0 0
     28    29 108 29 test http://foo.bar/baz.etc NO 0 0
     29    30 109 30 test https://var/www/?foo=bar&baz=e+t%20c#pwd NO 0
     30    31 110 31 test mailto:foo@bar NO 0 0
@@ -48,11 +48,11 @@ translations
     32    33 112 33 test ftp://var/www NO 0 0
     33    34 113 34 test ssh://foo@bar.baz/etc NO 0 0
     34    35 114 35 test
-          `!ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž XXXXXXXXXX XXXXXXXXXX X!`
+          `[ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž xxxxxxxxxx xxxxxxxxxx x]`
           NO 0 0
-    35    36 115 36 test `!{CHOICE:{A} aaa|{B} bbb} XXXXXXXXXX !` NO 0
+    35    36 115 36 test `[{CHOICE:{A} aaa|{B} bbb} xxxxxxxxxx ]` NO 0
     36    37 116 37 test
-          `!foo {CHOICE:{A} aaa|{B} bbb} bar XXXXXXXXXX XXXX!` NO 0 0
-    37    38 117 38 test `![0] XX!` NO 0 0
-    38    39 118 39 test `!ḟőő [ḃáŕ] ḃáž XXXXXXXX!` NO 0 0
+          `[foo {CHOICE:{A} aaa|{B} bbb} bar xxxxxxxxxx xxxx]` NO 0 0
+    37    38 117 38 test `([0] xx)` NO 0 0
+    38    39 118 39 test `(ḟőő [ḃáŕ] ḃáž xxxxxxxx)` NO 0 0
 }

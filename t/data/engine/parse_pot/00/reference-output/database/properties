@@ -9,10 +9,10 @@ properties
     6     7 size:2 1034
     7     8 items:2 6,7,8,9,10
     8     9 ts:1:test:count 5
-    9     10 usn:1:test 11
+    9     10 usn:1:test 23
     10    11 ts:1:test fc7682ac995529aa5467b93c15c29502
     11    12 ts:2:test:count 5
-    12    13 usn:2:test 18
+    12    13 usn:2:test 28
     13    14 ts:2:test 01e12b38fddc136c63fd8a183018c5a1
     14    15 target:1:test_job:test c424cb99684ae14eba712f9bcf6bf118
     15    16 target:mtime:1:test_job:test 12345678

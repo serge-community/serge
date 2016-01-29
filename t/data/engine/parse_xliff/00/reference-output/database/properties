@@ -17,16 +17,16 @@ properties
     14    15 size:4 1597
     15    16 items:4 14,15,16,17,18
     16    17 ts:1:test:count 4
-    17    18 usn:1:test 9
+    17    18 usn:1:test 32
     18    19 ts:1:test 0ab7342b0b16d56604879e98bf304f26
     19    20 ts:2:test:count 4
-    20    21 usn:2:test 14
+    20    21 usn:2:test 36
     21    22 ts:2:test 63db9928be3fd1727bc292431e25c6e5
     22    23 ts:3:test:count 5
-    23    24 usn:3:test 22
+    23    24 usn:3:test 41
     24    25 ts:3:test 87d842b9effc461888daed6a7848f267
     25    26 ts:4:test:count 5
-    26    27 usn:4:test 28
+    26    27 usn:4:test 46
     27    28 ts:4:test 6859d28d8d50e54e6bbbf619cc7a65d3
     28    29 target:1:test_job:test 29dfbda9ad26587f7e316832e6c135be
     29    30 target:mtime:1:test_job:test 12345678

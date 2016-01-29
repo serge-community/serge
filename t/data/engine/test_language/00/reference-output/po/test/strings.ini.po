@@ -9,45 +9,45 @@ msgstr ""
 #: File: strings.ini
 #: ID: b51857520f95b6bde870958d212a72d7
 msgid "a"
-msgstr "!á !"
+msgstr "[á ]"
 
 #. string2
 #: File: strings.ini
 #: ID: bf897b18b45a8a2c2029a5ceb57d3cb4
 msgid "OK"
-msgstr "!ŐĶ X!"
+msgstr "[ŐĶ x]"
 
 #. string3
 #: File: strings.ini
 #: ID: 2fdea6b7c16fb81dc680510d695992c2
 msgid "Cancel"
-msgstr "!Ćáŋçēļ XXXXX!"
+msgstr "[Ćáŋçēļ xxxxx]"
 
 #. string4
 #: File: strings.ini
 #: ID: 1aaef4a310d7e56153f80ed30a17b19a
 msgid "Upgrade"
-msgstr "!Ůṕğŕáđē XXXXXX!"
+msgstr "[Ůṕğŕáđē xxxxxx]"
 
 #. string5
 #: File: strings.ini
 #: ID: c3688add09d3faf02eb66acafac8c86d
 msgid "Internationalization"
-msgstr "!Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ XXXXXXXXX!"
+msgstr "[Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ xxxxxxxxx]"
 
 #. string6
 #: File: strings.ini
 #: ID: 46faa2f6c0cd3e9480e13db2d79ab801
 msgid "Lorem ispsum dolor sit amet"
-msgstr "!Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ XXXXXXXXXX X!"
+msgstr "[Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ xxxxxxxxxx x]"
 
 #. string7
 #: File: strings.ini
 #: ID: b2c8c3252262a9d1b9df79938d2b8bd3
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim felis."
 msgstr ""
-"!Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ "
-"ḟēļĩš. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXX!"
+"[Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ "
+"ḟēļĩš. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxx]"
 
 #. string8
 #: File: strings.ini
@@ -56,9 +56,9 @@ msgid ""
 "Ut est orci, bibendum ut mi ut, feugiat gravida ligula. Curabitur auctor "
 "eget leo a rutrum. Suspendisse tempor velit id dui volutpat condimentum."
 msgstr ""
-"!Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá. Ćũŕáḃĩţũŕ áũçţőŕ "
+"[Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá. Ćũŕáḃĩţũŕ áũçţőŕ "
 "ēğēţ ļēő á ŕũţŕũḿ. Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ ṽőļũţṕáţ çőŋđĩḿēŋţũḿ. "
-"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXX!"
+"xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxx]"
 
 #. string9
 #: File: strings.ini
@@ -77,7 +77,7 @@ msgid ""
 "nulla. Mauris congue a lorem sit amet feugiat. Sed elementum malesuada eros, "
 "sed finibus urna malesuada vel."
 msgstr ""
-"!Ṕŕőĩŋ ĩŋ őđĩő őđĩő. Ćũŕáḃĩţũŕ ǫũĩš áŕçũ ĩáçũļĩš, çőŋṽáļļĩš ǫũáḿ áç, đĩçţũḿ "
+"[Ṕŕőĩŋ ĩŋ őđĩő őđĩő. Ćũŕáḃĩţũŕ ǫũĩš áŕçũ ĩáçũļĩš, çőŋṽáļļĩš ǫũáḿ áç, đĩçţũḿ "
 "ēŕőš. Ṕĥášēļļũš šőļļĩçĩţũđĩŋ çőŋšēǫũáţ ŕĩšũš, ĩđ ēļēĩḟēŋđ ŕĩšũš đáṕĩḃũš ĩŋ. "
 "Ωũĩšǫũē ṕőŕţá ṕőŕţţĩţőŕ çőŋđĩḿēŋţũḿ. Ṕĥášēļļũš áļĩǫũáḿ đáṕĩḃũš đőļőŕ, ēţ "
 "ḿáţţĩš ţũŕṕĩš ļőḃőŕţĩš ṽĩţáē. Ņũļļá ḟáçĩļĩšĩ. Ĩŋ ũţ ḃĩḃēŋđũḿ őŕçĩ. Šēđ ḿĩ "
@@ -88,11 +88,11 @@ msgstr ""
 "ṕŕĩḿĩš ĩŋ ḟáũçĩḃũš őŕçĩ ļũçţũš ēţ ũļţŕĩçēš ṕőšũēŕē çũḃĩļĩá Ćũŕáē; Ṽĩṽáḿũš "
 "ṕőšũēŕē ũţ ḿĩ ēţ ḿáţţĩš. Ĩŋţēğēŕ šēđ ţőŕţőŕ ṕőŕţá, çũŕšũš đĩáḿ ēũ, ṕļáçēŕáţ "
 "ŋũļļá. Ḿáũŕĩš çőŋğũē á ļőŕēḿ šĩţ áḿēţ ḟēũğĩáţ. Šēđ ēļēḿēŋţũḿ ḿáļēšũáđá ēŕőš, "
-"šēđ ḟĩŋĩḃũš ũŕŋá ḿáļēšũáđá ṽēļ. XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
-"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
-"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
-"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX "
-"XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX!"
+"šēđ ḟĩŋĩḃũš ũŕŋá ḿáļēšũáđá ṽēļ. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx "
+"xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx "
+"xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx "
+"xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx "
+"xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx]"
 
 #. string_sprintf1
 #: File: strings.ini
@@ -104,7 +104,7 @@ msgstr "%s"
 #: File: strings.ini
 #: ID: 43e6a32789fa88f1a9c082f8d9bed412
 msgid "foo %s bar %d baz%.2f"
-msgstr "!ḟőő %s ḃáŕ %d ḃáž%.2f XXXXXXXXX!"
+msgstr "[ḟőő %s ḃáŕ %d ḃáž%.2f xxxxxxxxx]"
 
 #. string_escape1
 #: File: strings.ini
@@ -119,8 +119,8 @@ msgid ""
 "foo \\n"
 " bar \\t baz\\x"
 msgstr ""
-"!ḟőő \\n"
-" ḃáŕ \\t ḃáž\\x XXXXXXXXXX X!"
+"[ḟőő \\n"
+" ḃáŕ \\t ḃáž\\x xxxxxxxxxx x]"
 
 #. string_var1
 #: File: strings.ini
@@ -132,7 +132,7 @@ msgstr "%FOO%"
 #: File: strings.ini
 #: ID: eb31959f9b0c820efc4e95c0f911686e
 msgid "foo %FOO% bar %bar% baz%_baz_%"
-msgstr "!ḟőő %FOO% ḃáŕ %bar% ḃáž%_baz_% XXXXXXXXXX XXX!"
+msgstr "[ḟőő %FOO% ḃáŕ %bar% ḃáž%_baz_% xxxxxxxxxx xxx]"
 
 #. string_tag1
 #: File: strings.ini
@@ -144,7 +144,7 @@ msgstr "<tag>"
 #: File: strings.ini
 #: ID: f77df8d03e5d138afdb598803586ecf9
 msgid "foo <tag>bar</tag> baz<etc/>"
-msgstr "!ḟőő <tag>ḃáŕ</tag> ḃáž<etc/> XXXXXXXXXX XX!"
+msgstr "[ḟőő <tag>ḃáŕ</tag> ḃáž<etc/> xxxxxxxxxx xx]"
 
 #. string_php1
 #: File: strings.ini
@@ -162,7 +162,7 @@ msgstr "<?= foo(); ?>"
 #: File: strings.ini
 #: ID: d10a5ad9aae6c17579195f2390dc561e
 msgid "foo <?php echo foo(); ?> bar<?= foo(); ?>baz"
-msgstr "!ḟőő <?php echo foo(); ?> ḃáŕ<?= foo(); ?>ḃáž XXXXXXXXXX XXXXXXXXXX!"
+msgstr "[ḟőő <?php echo foo(); ?> ḃáŕ<?= foo(); ?>ḃáž xxxxxxxxxx xxxxxxxxxx]"
 
 #. string_entity1
 #: File: strings.ini
@@ -174,7 +174,7 @@ msgstr "&nbsp;"
 #: File: strings.ini
 #: ID: 9bff2d40f28a7b7b4f691d5d177e5920
 msgid "foo &mdash; bar&nbsp;baz"
-msgstr "!ḟőő &mdash; ḃáŕ&nbsp;ḃáž XXXXXXXXXX !"
+msgstr "[ḟőő &mdash; ḃáŕ&nbsp;ḃáž xxxxxxxxxx ]"
 
 #. string_javafmt1
 #: File: strings.ini
@@ -186,7 +186,7 @@ msgstr "{0}"
 #: File: strings.ini
 #: ID: 9fbe3ac9bcc38dfaadfeb36d587b2af3
 msgid "foo {0} bar{1}baz{123}"
-msgstr "!ḟőő {0} ḃáŕ{1}ḃáž{123} XXXXXXXXXX!"
+msgstr "[ḟőő {0} ḃáŕ{1}ḃáž{123} xxxxxxxxxx]"
 
 #. string_tplfmt1
 #: File: strings.ini
@@ -198,7 +198,7 @@ msgstr "${0}"
 #: File: strings.ini
 #: ID: c37b3174e18051091153e04ea1df0a57
 msgid "foo ${0} bar${ab.cd}baz${ef$g}"
-msgstr "!ḟőő ${0} ḃáŕ${ab.cd}ḃáž${ef$g} XXXXXXXXXX XXX!"
+msgstr "[ḟőő ${0} ḃáŕ${ab.cd}ḃáž${ef$g} xxxxxxxxxx xxx]"
 
 #. string_unixpath1
 #: File: strings.ini
@@ -210,7 +210,7 @@ msgstr "/var/www"
 #: File: strings.ini
 #: ID: f831068141aa2ba9daac0160339652c1
 msgid "foo /var/www bar /etc/pwd baz /x"
-msgstr "!ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x XXXXXXXXXX XXXX!"
+msgstr "[ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x xxxxxxxxxx xxxx]"
 
 #. string_url1
 #: File: strings.ini
@@ -252,28 +252,28 @@ msgstr "ssh://foo@bar.baz/etc"
 #: File: strings.ini
 #: ID: 5a4075b8b0ccf3e125c5e80166958694
 msgid "foo http://foo.bar/baz.etc mailto:foo@bar.baz baz"
-msgstr "!ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž XXXXXXXXXX XXXXXXXXXX X!"
+msgstr "[ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž xxxxxxxxxx xxxxxxxxxx x]"
 
 #. string_plurr1
 #: File: strings.ini
 #: ID: b826868dfe2dedf4f2e10b40f6f3b1f3
 msgid "{CHOICE:{A} aaa|{B} bbb}"
-msgstr "!{CHOICE:{A} aaa|{B} bbb} XXXXXXXXXX !"
+msgstr "[{CHOICE:{A} aaa|{B} bbb} xxxxxxxxxx ]"
 
 #. string_plurr2
 #: File: strings.ini
 #: ID: b85ba459861ecc8b9a69077f26468fc9
 msgid "foo {CHOICE:{A} aaa|{B} bbb} bar"
-msgstr "!foo {CHOICE:{A} aaa|{B} bbb} bar XXXXXXXXXX XXXX!"
+msgstr "[foo {CHOICE:{A} aaa|{B} bbb} bar xxxxxxxxxx xxxx]"
 
 #. string_square_brackets1
 #: File: strings.ini
 #: ID: 5d8b239c4197efb80f68d470da553d92
 msgid "[0]"
-msgstr "![0] XX!"
+msgstr "([0] xx)"
 
 #. string_square_brackets2
 #: File: strings.ini
 #: ID: 2122d1511ab3406c805603b1b31567d7
 msgid "foo [bar] baz"
-msgstr "!ḟőő [ḃáŕ] ḃáž XXXXXXXX!"
+msgstr "(ḟőő [ḃáŕ] ḃáž xxxxxxxx)"

@@ -5,7 +5,7 @@ properties
     2     3 size:1 368
     3     4 items:1 1,2,3,4,5
     4     5 ts:1:test:count 5
-    5     6 usn:1:test 11
+    5     6 usn:1:test 16
     6     7 ts:1:test dc8cb077cc1917d86c82d6d0fa62c97a
     7     8 target:1:test_job:test 1014ad811e98702a5e8ac91a61eda3a3
     8     9 target:mtime:1:test_job:test 12345678

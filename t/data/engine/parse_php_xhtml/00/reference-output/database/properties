@@ -6,7 +6,7 @@ properties
     3     4 items:4
           1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
     4     5 ts:4:test:count 21
-    5     6 usn:4:test 46
+    5     6 usn:4:test 67
     6     7 ts:4:test 4a66ebfdf3eba126bca1eaf54fb084ea
     7     8 target:4:test_job:test 83ee5768900a2bfa7312cbd8bbb08b89
     8     9 target:mtime:4:test_job:test 12345678
