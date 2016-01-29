@@ -7,8 +7,8 @@ no warnings qw(uninitialized);
 
 use Digest::MD5 qw(md5);
 use Encode qw(encode_utf8);
-use Serge::Util qw(generate_key);
-
+use Serge::Util qw(generate_key generate_hash);
+use Time::HiRes qw(gettimeofday tv_interval);
 
 my $DEBUG = undef;
 
@@ -34,7 +34,9 @@ sub open {
         password => $password
     };
 
-    $self->{cache} = {};
+    $self->{cache} = {
+        translations => {}
+    };
 
     return $self->SUPER::open($source, $username, $password);
 }
@@ -230,7 +232,7 @@ sub get_translation_id {
         return $id if $id or $nocreate;
     }
 
-    #print "::get_translation_id - key 'translation_id:$item_id:$lang' MISSING FROM CACHE\n";
+    #print "::get_translation_id - key '$key' MISSING FROM CACHE\n";
 
     return $self->{cache}->{$key} = $self->SUPER::get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge, $nocreate);
 }
@@ -257,6 +259,8 @@ sub get_translation_props {
 
     return $self->{cache}->{$key} if exists $self->{cache}->{$key};
 
+    #print "::get_translation_props - key '$key' MISSING FROM CACHE\n";
+
     return $self->{cache}->{$key} = $self->SUPER::get_translation_props($translation_id);
 }
 
@@ -270,17 +274,49 @@ sub set_translation {
 
     my $id = $self->get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge); # create if necessary
 
-    # if language cache was preloaded, update it as well
-    my $key = "lang:$lang";
-    my $h = $self->{cache}->{$key};
-    if ($h) {
+    ## if language cache was preloaded, update it as well
+    #my $key = "lang:$lang";
+    #my $h = $self->{cache}->{$key};
+    #if ($h) {
+    #    my $i = $self->get_item_props($item_id);
+    #    if ($i) {
+    #        my $s = $self->get_string_props($i->{string_id});
+    #        my $skey = generate_key($s->{string});
+    #        my $variants = $h->{$skey};
+    #        $variants = $h->{$skey} = {} unless defined $variants;
+    #        $variants->{generate_short_key($string)} = 1;
+    #    }
+    #}
+
+    # if translations cache was preloaded, update it as well
+    my $cache = $self->{cache}->{translations}->{$lang};
+    if ($cache) {
         my $i = $self->get_item_props($item_id);
         if ($i) {
             my $s = $self->get_string_props($i->{string_id});
+            my $f = $self->get_file_props($i->{file_id});
             my $skey = generate_key($s->{string});
-            my $variants = $h->{$skey};
-            $variants = $h->{$skey} = {} unless defined $variants;
-            $variants->{generate_short_key($string)} = 1;
+
+            #######
+            #use Data::Dumper;
+            #print "DB::Cached::set_translation(), item record:", Dumper($i);
+            #print "DB::Cached::set_translation(), string record:", Dumper($s);
+            #print "DB::Cached::set_translation(), file record:", Dumper($f);
+            #######
+
+            $cache->{$skey} = {} unless exists $cache->{$skey};
+            $cache->{$skey}->{$item_id} = {
+                namespace => $f->{namespace},
+                path => $f->{path},
+                context => $s->{context},
+                orphaned => undef,
+                string => $string,
+                fuzzy => $fuzzy,
+                comment => $comment,
+            };
+            #######
+            #use Data::Dumper; print "DB::Cached::set_translation(), cache record:", Dumper($cache->{$skey}->{$item_id});
+            #######
         }
     }
 
@@ -400,60 +436,63 @@ sub generate_short_key {
     return substr(generate_key(@_), -4);
 }
 
-#
-# This builds a per-language hash of md5(string) checksums for strings that
-# have a translation in the database. This hash can then be queried to determine
-# if there is some translation for a particular string (no matter in which project).
-# This allows expensive fuzzy matching functions [find_translation() and
-# find_best_translation()] to work significantly faster.
-#
-sub preload_strings_for_lang {
+sub preload_translation_candidates_lang {
     my ($self, $lang) = @_;
 
-    # preload cache only once (as this may be run from different jobs
-    # with different set of languages)
+    return if exists $self->{cache}->{translations}->{$lang}; # return if cache is already preloaded for the same lang
 
-    my $key = "lang:$lang";
+    my $start = [gettimeofday];
 
-    return if exists $self->{cache}->{$key};
-    my $h = $self->{cache}->{$key} = {};
+    my $cache = $self->{cache}->{translations}->{$lang} = {};
 
-    print "Preloading string cache for language '$lang'...\n";
+    my $sqlquery = <<__END__;
+        SELECT s.id AS string_id, s.string, s.context, i.id as item_id, i.orphaned,
+        f.path, f.namespace, f.orphaned as f_orphaned,
+        t.language, t.string AS translation, t.fuzzy, t.comment
 
-    utf8::upgrade($lang) if defined $lang;
+        FROM translations t
 
-    my $sqlquery =
-        "SELECT s.string, t.string as translation ".
-        "FROM translations t ".
+        JOIN items i ON t.item_id = i.id
+        JOIN strings s ON i.string_id = s.id
+        JOIN files f ON i.file_id = f.id
 
-        "JOIN items i ".
-        "ON t.item_id = i.id ".
-
-        "JOIN strings s ".
-        "ON i.string_id = s.id ".
-
-        "WHERE s.skip = 0 ".
-        "AND t.language = ? ".
-        "AND t.string IS NOT NULL";
+        WHERE t.language = ?
+        AND s.skip = 0
+__END__
 
     my $sth = $self->prepare($sqlquery);
     $sth->bind_param(1, $lang) || die $sth->errstr;
+    $sth->bind_param(2, $lang) || die $sth->errstr;
     $sth->execute || die $sth->errstr;
 
     while (my $hr = $sth->fetchrow_hashref()) {
+        my $item_id = $hr->{item_id};
         my $skey = generate_key($hr->{string});
-        my $variants = $h->{$skey};
-        $variants = $h->{$skey} = {} unless defined $variants;
-        $variants->{generate_short_key($hr->{translation})} = 1;
+
+        $cache->{$skey} = {} unless exists $cache->{$skey};
+        $cache->{$skey}->{$item_id} = {
+            namespace => $hr->{namespace},
+            path => $hr->{path},
+            context => $hr->{context},
+            orphaned => $hr->{orphaned} || $hr->{f_orphaned},
+            string => $hr->{translation},
+            fuzzy => $hr->{fuzzy},
+            comment => $hr->{comment},
+        };
     }
+
     $sth->finish;
     $sth = undef;
+
+    my $delta = tv_interval($start);
+    $self->{preload_translation_candidates_total_time} += $delta;
+    print "preload_translation_candidates_lang($lang) took $delta seconds ($self->{preload_translation_candidates_total_time} total seconds)\n";
 }
 
 #
 # This preloads all cache data structures for the given job
 #
-sub preload_translations_for_job {
+sub preload_cache_for_job {
     my ($self, $namespace, $job, $langs) = @_;
 
     print "Preloading cache for job '$job' in namespace '$namespace'...\n";
@@ -501,6 +540,7 @@ sub preload_translations_for_job {
         my $key = 'item:'.$hr->{item_id};
 
         $self->{cache}->{$key} = {
+            file_id => $hr->{file_id},
             string_id => $hr->{string_id},
             hint => $hr->{item_hint},
             comment => $hr->{item_comment},
@@ -532,6 +572,8 @@ sub preload_translations_for_job {
         $key = 'file:'.$hr->{file_id};
         $self->{cache}->{$key} = {
             job => $hr->{job},
+            namespace => $hr->{namespace},
+            path => $hr->{path},
             orphaned => $hr->{file_orphaned}
         };
 
@@ -622,29 +664,41 @@ sub preload_properties {
 sub find_best_translation {
     my $self = shift;
     my ($namespace, $filepath, $string, $context, $lang, $allow_orphaned, $allow_multiple_variants) = @_;
+    #print "::find_best_translation()\n";
 
     # Now that we hit the item we have no translation for, and need to query
-    # the database for the best translation, preload the cache for the
-    # target language (and its similar languages) if we didn't do so already
-    $self->preload_strings_for_lang($lang);
+    # the database for the best translation, preload the cache for the target language
+    # if we didn't do so already
+    $self->preload_translation_candidates_lang($lang);
 
-    my $key = "lang:$lang";
+    my $cache = $self->{cache}->{translations}->{$lang};
+    my $skey = generate_key($string);
 
-    my $h = $self->{cache}->{$key};
-    if ($h) {
-        # if language cache was preloaded successfully, but string doesn't exist there, return immediately
-        my $skey = generate_key($string);
-        return if !exists $h->{$skey};
+    return unless $cache->{$skey};
 
-        # return just the count of multiple translations if we don't want multiple (uncertain) matches,
-        # and we know there are multiple translations for the given string in the database
-        # (this will cause Engine.pm to spit debug message and return empty translation)
-        my $count = scalar keys %{$h->{$skey}};
-        return (undef, undef, undef, $count) if ($count > 1) && !$allow_multiple_variants;
+    my $best_fitness = -1;
+    my $translation;
+    my $fuzzy;
+    my $comment;
+    my $variants = 0;
+    foreach my $hr (values %{$cache->{$skey}}) {
+        next if $hr->{orphaned} && !$allow_orphaned;
+        $variants++;
+
+        my $fitness = 0;
+        $fitness++ if $hr->{namespace} eq $namespace;
+        $fitness++ if $hr->{path} eq $filepath;
+        $fitness++ if $hr->{context} eq $context;
+        $fitness++ if !$hr->{orphaned};
+        if ($fitness > $best_fitness) {
+            $best_fitness = $fitness;
+            $translation = $hr->{string};
+            $fuzzy = $hr->{fuzzy};
+            $comment = $hr->{comment};
+        }
     }
 
-    # otherwise, find translation in the database
-    return $self->SUPER::find_best_translation(@_);
+    return ($translation, $fuzzy, $comment, $variants > 1);
 }
 
 1;

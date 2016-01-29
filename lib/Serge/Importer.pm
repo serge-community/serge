@@ -47,7 +47,7 @@ sub process_job {
 
     # preload all items/strings/translations into cache
 
-    $self->{db}->preload_translations_for_job($job->{db_namespace}, $job->{id}, $job->{modified_languages});
+    $self->{db}->preload_cache_for_job($job->{db_namespace}, $job->{id}, $job->{modified_languages});
 
     $self->run_callbacks('before_job');
 
