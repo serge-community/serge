@@ -30,7 +30,7 @@ Revision history
 
         - Added the ability to specify any arbitrary class name and plugin data for
           `test-parser` command, which allows one to use this command for any
-          custom plugins.
+          custom plugins
 
         - Added support for %OUTFILE% and %OUTPATH% macros in `run_command` plugin;
           other macros like %FILE% now work consistently with the rest of the config code
@@ -58,6 +58,16 @@ Revision history
         - `completeness` plugin has got a new `bypass_languages` option the allows to
           skip its logic for certain languages (this is primarily useful for
           pseudo-localization, see `test_language` plugin)
+
+        - Caching/lookup algorithm for translations was rewritten, giving a significant
+          performance boost when processing new strings, at the expense of loading
+          more data into memory (which also can take some time depending on a size of the
+          database)
+
+        - Fixed USN-based optimization when generating TS files
+
+        - Fixed TS file content hash-based optimization caused by inconsistent UTF-8 handling
+          at file save/load time
 
         - Fixed typos in embedded documentation
 
