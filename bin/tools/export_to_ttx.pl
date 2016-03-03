@@ -531,9 +531,13 @@ sub do_export {
     $filename =~ s/%LANG%/$lang/g;
     $filename =~ s/%DATETIME%/$timestamp/g;
 
-    my $path = dirname(abs_path($filename));
-    eval { mkpath($path) };
-    ($@) && die "Couldn't create $path: $@\n";
+    if ($filename =~ m|[\\/]|) {
+        my $path = dirname($filename);
+        if ($path ne '.') {
+            eval { mkpath($path) };
+            ($@) && die "Couldn't create $path: $@\n";
+        }
+    }
 
     my $ext = $ttx_format ? 'ttx' : 'tmx';
 
