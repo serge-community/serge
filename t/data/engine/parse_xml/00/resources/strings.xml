@@ -11,6 +11,8 @@
     <langs>en,fr,ja</langs>
     <shortdesc>Gadget from ACME</shortdesc>
     <longdesc><![CDATA[<p>Gadget from ACME can foo and bar.</p><p>Foo and bar without baz!</p>]]></longdesc>
+    <test><![CDATA[<p>&lt;foo/&gt;</p>]]></test>
+    <test>&lt;foo/&gt;</test>
     <smallimg>http:/example.com/gadget-small.png</smallimg>
     <largeimg>http:/example.com/gadget-large.png</largeimg>
     <linknames>

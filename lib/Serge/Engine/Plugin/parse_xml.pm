@@ -386,6 +386,9 @@ sub process_text_node {
 
         $$strref = $trimmed;
 
+        # unescape basic XML entities unless we're inside CDATA block
+        xml_unescape_strref($strref) unless $cdata;
+
         if ($is_html) {
             # if node is html, pass its text to html parser for string extraction
             # if html_parser fails to parse the XML due to errors,
@@ -397,9 +400,6 @@ sub process_text_node {
                 $self->{html_parser}->parse($strref, $callbackref);
             }
         } else {
-            # unescape basic XML entities
-            xml_unescape_strref($strref);
-
             # additionally unescape Android-specific stuff, if requested
             _android_unescape($strref) if ($self->{data}->{xml_kind_android});
 

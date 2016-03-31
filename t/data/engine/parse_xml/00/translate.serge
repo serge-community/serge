@@ -10,7 +10,7 @@ jobs
 
             data
             {
-                node_match                       ^/item/(name|shortdesc|longdesc|activationdesc)$
+                node_match                       ^/item/(name|shortdesc|longdesc|test|activationdesc)$
                                                  ^/item/linknames/
 
                 node_exclude                     ^/item/[\w]+desc$

@@ -17,6 +17,18 @@ msgstr "Ĝáđğēţ"
 msgid "test"
 msgstr "ţēšţ"
 
+#. /item/test
+#: File: strings.xml
+#: ID: dfbb07e029b8f90afe16df3dbaf45f31
+msgid "<p>&lt;foo/&gt;</p>"
+msgstr "<p>&lt;ḟőő/&gt;</p>"
+
+#. /item/test
+#: File: strings.xml
+#: ID: ba1635ce734ccfcb4eb3e41dcac46620
+msgid "<foo/>"
+msgstr "<foo/>"
+
 #. /item/linknames/activation
 #: File: strings.xml
 #: ID: 7235172da113bf7d254a0797cb983db9
