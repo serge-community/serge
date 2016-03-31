@@ -69,6 +69,9 @@ Revision history
         - Fixed TS file content hash-based optimization caused by inconsistent UTF-8 handling
           at file save/load time
 
+        - Fixed text unescaping in XML parser (it is now CDATA-aware and is also applied
+          for embedded HTML nodes)
+
         - Fixed typos in embedded documentation
 
 1.0     October 15, 2012
