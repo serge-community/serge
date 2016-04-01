@@ -395,7 +395,12 @@ sub process_text_node {
             # it will die(), and this will be catched in main application
             if ($lang) {
                 $$strref = $self->{html_parser}->parse($strref, $callbackref, $lang);
-                $$strref = $trimmed unless defined($$strref);
+                if (defined $$strref) {
+                    # escape unsafe xml chars unless we're in CDATA block
+                    xml_escape_strref($strref, $noquotes) unless $cdata;
+                } else {
+                    $$strref = $trimmed;
+                }
             } else {
                 $self->{html_parser}->parse($strref, $callbackref);
             }
