@@ -39,7 +39,7 @@ Revision history
 
         - Fixed a regression with job's `active` parameter not defaulting to `YES`
 
-        - Added `feature_branch` plugin that allows one add strings from multiple sources
+        - Added `feature_branch` plugin that allows one to add strings from multiple sources
           (branches) and exclude duplicate strings.
 
         - Added `log_translation` callback that allows one to log/cache translations
