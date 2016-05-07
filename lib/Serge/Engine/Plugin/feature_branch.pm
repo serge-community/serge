@@ -64,6 +64,13 @@ sub before_job {
 
     if ($self->{master_mode}) {
         print "Running overlay_mode plugin in master mode\n" if $self->{debug};
+
+        # initialize engine-wide plugin data structure for the current job
+        $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
+        $engine->{plugin_data}->{overlay_mode} = {} unless exists $engine->{plugin_data}->{overlay_mode};
+        $self->{cache} = $engine->{plugin_data}->{overlay_mode}->{$master_job_id} = {};
+        $self->{cache}->{''} = {};
+
     } else {
         print "Running overlay_mode plugin in slave mode\n" if $self->{debug};
 
@@ -94,11 +101,7 @@ sub load_translations {
     my $job_id = $self->{parent}->{id}; # we're the master job
     my $engine = $self->{parent}->{engine};
     my $db = $engine->{db};
-
-    # initialize engine-wide plugin data structure for the current job
-    $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
-    $engine->{plugin_data}->{overlay_mode} = {} unless exists $engine->{plugin_data}->{overlay_mode};
-    my $cache = $engine->{plugin_data}->{overlay_mode}->{$job_id} = {};
+    my $cache = $self->{cache};
 
     print "feature_branch plugin: caching known translations...\n";
 
@@ -156,15 +159,17 @@ sub get_translation_pre {
 sub string_exists {
     my ($self, $stringref, $context) = @_;
 
-    my $string_id = $self->{parent}->{engine}->{db}->get_string_id($$stringref, $context, 1); # do not create the string, just look if there is one
-    return defined $string_id;
+    return exists $self->{cache}->{''}->{generate_key($$stringref, $context)};
 }
 
 sub can_extract {
     my ($self, $phase, $file, $lang, $stringref, $hintref, $context, $key) = @_;
 
-    # extract everything for master job
-    return 1 if $self->{master_mode};
+    # extract everything for master job, and collect string+context pairs
+    if ($self->{master_mode}) {
+        $self->{cache}->{''}->{generate_key($$stringref, $context)} = 1;
+        return 1;
+    }
 
     # otherwise, we're in a slave job
 
