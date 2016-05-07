@@ -6,14 +6,14 @@ properties
     3     4 items:1 1
     4     5 ts:1:test:count 1
     5     6 usn:1:test 4
-    6     7 ts:1:test 0c4657335d0824737b1c819ca3814a22
+    6     7 ts:1:test 79b59698f20c3bd4d0edd5cbb5f30eef
     7     8 target:1:test_job:test 5ce93baff9a6a7b9113f7147262289d7
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test 20edd73cb39332553acd5b8b980af8f5
     10    11 source:ts:1:test_job:test
-          0c4657335d0824737b1c819ca3814a22
+          79b59698f20c3bd4d0edd5cbb5f30eef
     11    12 job-hash:test_namespace:test_job
           948f09b75aaad14af8591df569e66e56
     12    13 job-plugin:test_namespace:test_job parse_php_xhtml.
-    13    14 job-engine:test_namespace:test_job 1.0
+    13    14 job-engine:test_namespace:test_job 1.1
 }
