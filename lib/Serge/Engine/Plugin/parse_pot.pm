@@ -133,8 +133,6 @@ sub parse {
                 my $msgid_0 = $msgid[0];
                 unescape_strref(\$msgid_0);
 
-                use Data::Dumper; print Dumper(\@msgstr);
-
                 # need to use own variable ($x) instead of $_ since Perl would not
                 # allow to modify the reference for $_ for missing array entries
                 # (when array indexes have gaps)
