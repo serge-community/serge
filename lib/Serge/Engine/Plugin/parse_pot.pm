@@ -145,7 +145,7 @@ sub parse {
 
                     my $key = generate_key($msgid_0, $msgctxt);
                     if (!$lang or $self->{import_mode}) {
-                        &$callbackref($str, $msgctxt, $comment, undef, undef, $key);
+                        &$callbackref($str, $msgctxt, $comment, undef, $lang, $key);
                     } else {
                         my $translation = &$callbackref($str, $msgctxt, $comment, undef, $lang, $key);
                         push @out, po_serialize_msgstr($translation);
