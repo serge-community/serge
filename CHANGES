@@ -2,7 +2,13 @@ Revision history
 
 1.2     Pending release
 
-        - Fix feature_branch plugin to properly compare strings against the master job, not the entire database
+        - Fix feature_branch plugin to properly compare strings against the master job,
+          not the entire database
+
+        - Fix parse_pot plugin bug in import mode (language would not be passed back
+          in a callback in import mode, causing a DB constraint error)
+
+        - Print nice plural separators and show line breaks in strings in import reports
 
 1.1     April 20, 2016
 
