@@ -224,6 +224,19 @@ sub run {
         color: #999;
     }
 
+    .br {
+        font-size: 70%;
+        background: #999;
+        color: white;
+        padding: 0 0.4em;
+        margin-left: 0.2em;
+        border-radius: 3px;
+    }
+
+    .br:before {
+        content: "SEP"
+    }
+
 </style>
 <body>
 
@@ -284,6 +297,8 @@ sub severity_sort {
 sub xml_escape {
     my $s = shift;
     xml_escape_strref(\$s);
+    $s =~ s/$Serge::Util::UNIT_SEPARATOR/<span class="br"><\/span><br\/>/sgi;
+    $s =~ s/\n/<br\/>/sgi;
     return $s;
 }
 
