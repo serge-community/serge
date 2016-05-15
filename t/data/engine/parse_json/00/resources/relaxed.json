@@ -1,0 +1,7 @@
+# an example of a relaxed JSON format with trailing comma
+# and comments
+[
+	{"title": "test 1"},
+	{"title": "test 2"},
+	{"title": "test 3"}, # this comma is not allowed in strict JSON
+]

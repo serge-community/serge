@@ -114,7 +114,7 @@ sub parse {
 
     my $tree;
     eval {
-        ($tree) = from_json($text);
+        ($tree) = from_json($text, {relaxed => 1});
     };
     if ($@ || !$tree) {
         my $error_text = $@;

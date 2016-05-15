@@ -10,6 +10,9 @@ Revision history
 
         - Print nice plural separators and show line breaks in strings in import reports
 
+        - JSON parser now accepts source files with relaxed syntax (trailing commas and
+          comments) (#13)
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
