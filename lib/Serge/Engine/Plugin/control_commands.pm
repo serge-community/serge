@@ -25,8 +25,14 @@ sub name {
 #  Skip string (mark as skipped in Serge database and remove from all .po files)
 #  @skip
 
-#  Remove all exact translations for the same source string
-#  @remove_all
+#  Rewrite all translations for the same source string with the provided translation value.
+#  If translation is empty, this will simply remove the translation
+#  @rewrite_all
+
+#  Rewrite all translations for the same source string with the provided value
+#  and mark translations as fuzzy. If the translation is empty, this has the same effect
+#  as @rewrite_all (because empty translations can't be fuzzy)
+#  @rewrite_all_as_fuzzy
 
 sub init {
     my $self = shift;
