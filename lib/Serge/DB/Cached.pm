@@ -680,10 +680,10 @@ sub find_best_translation {
     my $translation;
     my $fuzzy;
     my $comment;
-    my $variants = 0;
+    my $variants = {};
     foreach my $hr (values %{$cache->{$skey}}) {
         next if $hr->{orphaned} && !$allow_orphaned;
-        $variants++;
+        $variants->{$hr->{string}}++;
 
         my $fitness = 0;
         $fitness++ if $hr->{namespace} eq $namespace;
@@ -698,7 +698,7 @@ sub find_best_translation {
         }
     }
 
-    return ($translation, $fuzzy, $comment, $variants > 1);
+    return ($translation, $fuzzy, $comment, keys %$variants > 1);
 }
 
 1;

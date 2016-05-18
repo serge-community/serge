@@ -13,6 +13,9 @@ Revision history
         - JSON parser now accepts source files with relaxed syntax (trailing commas and
           comments) (#13)
 
+        - Fix bug in translation variant counting that would prevent reusing strings
+          effectively (incorrectly treating more translations as "uncertain" ones)
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
