@@ -20,6 +20,13 @@ and tries to import translations back into the database.
 This is useful to initially import pre-existing translations before setting up an
 automated localization flow.
 
+Note that for import to work, you don't need to create a separate Serge
+configuration file or a job: you need to setup Serge jobs for the primary
+workflow (localization), in each job specifying the path to output localized
+files using C<< output_file_path >> parameter. Then make sure that the pre-existing
+localized files are located and named in accordance with that parameter,
+and B<serge-import> will know where to find these files for importing.
+
 =head1 OPTIONS
 
 =over 8
@@ -36,7 +43,7 @@ An optional comma-separated list of target languages
 
 If duplicate keys are found, don't exit but disambiguate them in
 the order of their presence. Use with care only when you are sure that
-the ordering and the number of ambigous keys in all files (both original
+the ordering and the number of ambiguous keys in all files (both original
 and localized) is the same, otherwise you might end up importing
 wrong translations for wrong keys.
 
