@@ -462,7 +462,6 @@ __END__
 
     my $sth = $self->prepare($sqlquery);
     $sth->bind_param(1, $lang) || die $sth->errstr;
-    $sth->bind_param(2, $lang) || die $sth->errstr;
     $sth->execute || die $sth->errstr;
 
     while (my $hr = $sth->fetchrow_hashref()) {
