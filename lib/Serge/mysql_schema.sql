@@ -1,6 +1,8 @@
 /*
 Translation database schema
 */
+ALTER DATABASE COLLATE utf8_bin;
+
 DROP TABLE IF EXISTS usn;
 CREATE TABLE usn (
   usn INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,

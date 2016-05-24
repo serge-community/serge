@@ -16,6 +16,8 @@ Revision history
         - Fix bug in translation variant counting that would prevent reusing strings
           effectively (incorrectly treating more translations as "uncertain" ones)
 
+        - When MySQL database is initialized, utf8_bin collation is now enforced
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
