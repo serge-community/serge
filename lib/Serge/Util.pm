@@ -267,7 +267,7 @@ sub subst_macros_strref {
         }
 
         $$strref =~ s/%FILE%/$file/ge;   # full file name with path
-        $$strref =~ s/%PATH%/$path/ge;   # just directory with trailing delimeter
+        $$strref =~ s/%PATH%/$path/ge;   # just directory with trailing delimiter
         $$strref =~ s/%NAME%/$name/ge;   # file name with no path and no extension
         $$strref =~ s/%EXT%/$ext/ge;     # extension
         $$strref =~ s/%LNAME%/$lname/ge;

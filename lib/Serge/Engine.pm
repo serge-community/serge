@@ -51,7 +51,7 @@ sub new {
         db => Serge::DB::Cached->new(),
         callback_phases => {},
         job => undef, # holds current job object
-        current_file_rel => undef, # holds relative path to the curently processed file
+        current_file_rel => undef, # holds relative path to the currently processed file
         current_file_id => undef, # holds id of current namespace/path record in [files] table
         current_file_keys => undef, # holds the hash of currently processed keys (strings/contexts)
 
@@ -396,7 +396,7 @@ sub process_job {
 
     $self->commit_transaction;
 
-    # note: do not close the databse at this point as it might be reused in another job
+    # note: do not close the database at this point as it might be reused in another job
 
     $self->run_callbacks('after_job');
 
@@ -421,7 +421,7 @@ sub update_database_from_source_files_postcheck_callback {
     my ($result) = $self->run_callbacks('rewrite_path', $file_rel);
     $file_rel = $result if $result;
 
-    # save relative=>absoulte path mapping
+    # save relative=>absolute path mapping
     $self->{file_mappings}->{$file_rel} = $fullpath;
 
     return $file_rel;
@@ -432,7 +432,7 @@ sub update_database_from_source_files {
 
     print "\nUpdating database from source files...\n\n";
 
-    # Walk through the given dirctory and its subdirectories, recursively
+    # Walk through the given directory and its subdirectories, recursively
 
     my $start = [gettimeofday];
 
@@ -493,7 +493,7 @@ sub update_database_from_source_files {
     # known ones that were renamed
 
     if ((scalar keys %$new > 0) && (scalar keys %$orphaned > 0)) {
-        # first leave only new/orphaned files with the same filesize
+        # first leave only new/orphaned files with the same file size
 
         # get file sizes of new files
         my $new_fsize = {};
@@ -767,7 +767,7 @@ sub disambiguate_string {
     }
 
     # see if the item was already found in this file and
-    # alter context if neccessary to disambiguate the string
+    # alter context if necessary to disambiguate the string
 
     my $key = generate_key($string, $context);
 
@@ -785,7 +785,7 @@ sub disambiguate_string {
         $key = generate_key($string, $context);
     }
 
-    # check if potential context exists, and if yes, try to autogenerate context
+    # check if potential context exists, and if yes, try to auto-generate context
 
     my $context_counter = 1;
     my $context_base = $context || 'context';
@@ -1290,7 +1290,7 @@ sub generate_ts_files_for_file_lang {
     # a) optimizations are disabled (job in a forced mode)
 	# b) rebuild_ts_files option is turned on
 	# c) target file is missing
-	# d) translations or items for the file have changed (based on translations' and items' higest usn value)
+	# d) translations or items for the file have changed (based on translations' and items' highest usn value)
     my $need_generate_ts_file = !$self->{job}->{optimizations} || $self->{rebuild_ts_files} || !-f $fullpath || ($current_usn ne $old_usn);
 
     # also, if the translations have changed, set additionally a force flag on a specific file:lang combo
@@ -1318,7 +1318,7 @@ msgstr ""
     foreach my $item_id (@$aref) {
 
         # .po files do not allow duplicate keys,
-        # so skip the keys which were alredy processed
+        # so skip the keys which were already processed
 
         if ($processed{$item_id}) {
             print "WARNING: duplicate item id $item_id\n";
@@ -1795,7 +1795,7 @@ sub internal_get_translation { # from database
     $translation = NFC($translation) if $translation;
     return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
 
-    # Find exact match for given namespace, filepath and context
+    # Find exact match for given namespace, file path and context
 
     ($translation, $fuzzy, $comment, my $merge, my $skip) = $self->{db}->get_translation($item_id, $lang, 1); # allow skip
     return if $skip;

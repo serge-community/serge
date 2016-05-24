@@ -101,7 +101,7 @@ jobs                                ARRAY
 
                 data
                 {
-                    *               DATA    # each plugin must validate additional parameters on it's own
+                    *               DATA    # each plugin must validate additional parameters on its own
                 }
             }
         }

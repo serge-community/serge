@@ -59,7 +59,7 @@ sub process_job {
 sub update_database_from_source_files {
     my ($self) = @_;
 
-    # Walk through the given dirctory and its subdirectories, recursively
+    # Walk through the given directory and its subdirectories, recursively
 
     my $start = [gettimeofday];
 

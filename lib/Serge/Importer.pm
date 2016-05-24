@@ -59,7 +59,7 @@ sub process_job {
 
     $self->parse_localized_files;
 
-    # note: do not close the databse at this point as it might be reused in another job
+    # note: do not close the database at this point as it might be reused in another job
 
     $self->run_callbacks('after_job');
 
