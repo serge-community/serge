@@ -17,21 +17,26 @@ sub parse {
     # Parse strings
 
     # Example:
-    #   "key" : "value"
-    #   "key":"value"
+    #   "key" : "value",
+    #   "key":"value",
+    #   "key": "value", // comment
 
-    $translated_text =~ s|^(\s*")(.+?)("\s*:\s*")(.+)("\s*(,\s*)?)$|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, $2, undef, $lang).$5|mgie;
+    $translated_text =~ s|^(\h*")(.+?)("\h*:\h*")(.+)("\h*(?:,\h*)?(?://\h*(.*?)\h*)?)$|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, $2, $6, $lang).$5|mgie;
 
     return $translated_text;
 }
 
 sub parse_callback {
-    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang) = @_;
+    my ($self, $callbackref, $string, $context, $key, $comment, $lang) = @_;
+
+    my @hint;
+    push @hint, $key if $key ne '' && $key ne $string;
+    push @hint, $comment if $comment ne '';
 
     $string =~ s/\\"/"/g;
     $string =~ s/\\\\/\\/g;
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, join("\n", @hint), undef, $lang, $key);
 
     $translated_string =~ s/\\/\\\\/g;
     $translated_string =~ s/\n/\\n/sg;

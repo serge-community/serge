@@ -28,3 +28,17 @@ msgstr "ṽáļũē \"3\""
 #: ID: dcbae4201ab999ef1b904337135a87c1
 msgid "value\\\"4\""
 msgstr "ṽáļũē\\\"4\""
+
+#: File: strings.js
+#: ID: ff8ff36360c3187d5a7e8a7e5435b23d
+msgctxt "value1"
+msgid "value1"
+msgstr "ṽáļũē1"
+
+#. key5
+#. this is a comment
+#: File: strings.js
+#: ID: b37932e128ce3529d5b0f30bbaf970ab
+msgctxt "key5"
+msgid "value1"
+msgstr "ṽáļũē1"

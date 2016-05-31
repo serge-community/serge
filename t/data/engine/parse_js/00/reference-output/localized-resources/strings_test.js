@@ -5,6 +5,13 @@ foo({
     "key3" :"\u1e7d\u00e1\u013c\u0169\u0113 \"3\"",
     "key4" : "\u1e7d\u00e1\u013c\u0169\u0113\\\"4\"",
 
+    // keys identical to values are not extracted
+    // as hints
+    "value1" : "\u1e7d\u00e1\u013c\u0169\u01131",
+
+    // line comments are extracted as hints as well
+    "key5" : "\u1e7d\u00e1\u013c\u0169\u01131", // this is a comment
+
     // bad strings
     "bad_key1" : 'bad_value1',
     'bad_key2': "bad_value2",

@@ -18,6 +18,8 @@ Revision history
 
         - When MySQL database is initialized, utf8_bin collation is now enforced
 
+        - parse_js plugin can now extract comments at the end of each line
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
