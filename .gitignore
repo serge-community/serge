@@ -10,3 +10,5 @@ Makefile.PL
 *.gz
 Build
 Build.bat
+.idea
+*.iml
