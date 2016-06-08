@@ -9,16 +9,16 @@ msgstr ""
 #: File: feature1/strings.ini
 #: ID: 3bafc920f86354e654beaaedbca8a1e5
 msgid "foo bar feature 1"
-msgstr ""
+msgstr "ḟőő ḃáŕ ḟēáţũŕē 1"
 
 #. string6
 #: File: feature1/strings.ini
 #: ID: f6b68f290d28ba541d188f6fb2f0897d
 msgid "abc def"
-msgstr ""
+msgstr "áḃç đēḟ"
 
 #. string7
 #: File: feature1/strings.ini
 #: ID: 290e2f5ceaa02de4ae0280cbc769b18b
 msgid "ABC DEF"
-msgstr ""
+msgstr "ĀḂĆ ĐĒḞ"

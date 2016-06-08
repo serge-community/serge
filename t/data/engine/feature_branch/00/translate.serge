@@ -12,6 +12,8 @@ inc
 
         callback_plugins
         {
+            -:test_language
+
             :feature_branch
             {
                 plugin                           feature_branch
@@ -19,6 +21,17 @@ inc
                 data
                 {
                     master_job                   test_job.master
+                }
+            }
+
+            :test_language_lower_priority
+            {
+                plugin                           test_language
+                phase                            get_translation_pre
+
+                data
+                {
+                    save_translations            YES
                 }
             }
         }
@@ -45,11 +58,6 @@ jobs
         source_path_prefix                       feature1/
         output_file_path                         ./test-output/localized-resources/feature1/%LOCALE%/%FILE%
         id                                       test_job.feature1
-
-        callback_plugins
-        {
-            -:test_language
-        }
     }
 
     /**/
@@ -62,11 +70,6 @@ jobs
         source_path_prefix                       feature2/
         output_file_path                         ./test-output/localized-resources/feature2/%LOCALE%/%FILE%
         id                                       test_job.feature2
-
-        callback_plugins
-        {
-            -:test_language
-        }
     }
     /**/
 }

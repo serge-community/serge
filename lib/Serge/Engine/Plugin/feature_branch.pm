@@ -103,17 +103,24 @@ sub load_translations {
     my $db = $engine->{db};
     my $cache = $self->{cache};
 
-    print "feature_branch plugin: caching known translations...\n";
+
+    my @languages = @{$self->{parent}->{destination_languages}};
+    my $sql_lang_filter = '';
+    if (@languages > 0) {
+        my $placeholders = join(', ', ('?') x @languages);
+        $sql_lang_filter = "AND (t.language is NULL OR t.language IN ($placeholders))";
+    }
+    print "feature_branch plugin: caching strings and known translations...\n";
 
     # in our query we want to include orphaned translations because some items
     # or files that are already orphaned on the master branch can still be there
-    # in the slave (feature) branch, and we want to reuse them
+    # in the slave (feature) branch, and we want to reuse them;
+    # we will also select non-translated items here at once (though there will be
+    # many string+context duplicates, but calculating keys for these extra pairs
+    # shouldn't be much of a problem)
     my $sqlquery = <<__END__;
         SELECT s.string, s.context, t.language, t.string as translation
-        FROM translations t
-
-        JOIN items i
-        ON t.item_id = i.id
+        FROM items i
 
         JOIN strings s
         ON i.string_id = s.id
@@ -121,15 +128,23 @@ sub load_translations {
         JOIN files f
         ON i.file_id = f.id
 
+        LEFT OUTER JOIN translations t
+        ON t.item_id = i.id
+
         WHERE s.skip = 0
         AND f.namespace = ?
         AND f.job = ?
-        AND t.string IS NOT NULL
+        $sql_lang_filter
 __END__
 
     my $sth = $db->prepare($sqlquery);
-    $sth->bind_param(1, $self->{parent}->{db_namespace}) || die $sth->errstr;
-    $sth->bind_param(2, $job_id) || die $sth->errstr;
+
+    my $n = 1;
+    $sth->bind_param($n++, $self->{parent}->{db_namespace}) || die $sth->errstr;
+    $sth->bind_param($n++, $job_id) || die $sth->errstr;
+    map {
+        $sth->bind_param($n++, $_) || die $sth->errstr;
+    } @languages;
     $sth->execute || die $sth->errstr;
 
     my $n = 0;
@@ -137,8 +152,15 @@ __END__
         $n++;
         my $lang = $hr->{language};
         my $skey = generate_key($hr->{string}, $hr->{context});
-        $cache->{$lang} = {} unless defined $cache->{$lang};
-        $cache->{$lang}->{$skey} = $hr->{translation};
+        # save string+context key (to know the string exists in master job
+        # even if it doesn't have a translation)
+        $cache->{''} = {} unless defined $cache->{''};
+        $cache->{''}->{$skey} = 1;
+        # save translation
+        if ($lang ne '') {
+            $cache->{$lang} = {} unless defined $cache->{$lang};
+            $cache->{$lang}->{$skey} = $hr->{translation};
+        }
     }
     $sth->finish;
     $sth = undef;
@@ -152,8 +174,9 @@ sub get_translation_pre {
 
     return () if $self->{master_mode}; # do nothing in master mode
 
-    # otherwise, return current translation (or undef, if there's no matching translation)
-    return $self->{cache}->{$lang}->{generate_key($string, $context)};
+    # otherwise, return current translation (or empty array if there's no matching translation)
+    my $key = generate_key($string, $context);
+    return exists $self->{cache}->{$lang}->{$key} ? ($self->{cache}->{$lang}->{$key}, undef, undef, undef) : ();
 }
 
 sub string_exists {
@@ -177,7 +200,7 @@ sub can_extract {
     return 1 if defined $lang; # extract everything to translate all the strings, not just overlay ones
 
     # otherwise (when $lang is not set) we're parsing the source file
-    return $self->string_exists($stringref, $context) ? 0 : 1; # extract only strings which are missing from the master job
+    return $self->string_exists($stringref, $context, ) ? 0 : 1; # extract only strings which are missing from the master job
 }
 
 1;
