@@ -51,22 +51,11 @@ sub close {
 sub _copy_props {
     my ($self, $h_old, $h_new) = @_;
 
-    ##################
-    #use Data::Dumper; print "::_copy_props\nOld:\n".Dumper($h_old)."\nNew:\n".Dumper($h_new)."\n";
-    ##################
-
     my $result = undef;
     foreach (keys %$h_new) {
         $result = 1 if $h_new->{$_} ne $h_old->{$_};
-        ##################
-        #print "Changed key: $_\n" if $h_new->{$_} ne $h_old->{$_};
-        ##################
         $h_old->{$_} = $h_new->{$_};
     }
-    ##################
-    #print "Result: $result\n";
-    ##################
-
     return $result;
 }
 
@@ -76,8 +65,6 @@ sub _copy_props {
 
 sub get_string_id {
     my ($self, $string, $context, $nocreate) = @_;
-
-    #print "::get_string_id\n" if $DEBUG;
 
     my $key = 'string_id:'.generate_key($string, $context);
 
@@ -92,8 +79,6 @@ sub get_string_id {
 sub update_string_props {
     my ($self, $string_id, $props) = @_;
 
-    #print "::update_string_props\n" if $DEBUG;
-
     my $key = "string:$string_id";
 
     my $h = $self->{cache}->{$key};
@@ -104,8 +89,6 @@ sub update_string_props {
 
 sub get_string_props {
     my ($self, $string_id) = @_;
-
-    #print "::get_string_props\n" if $DEBUG;
 
     my $key = "string:$string_id";
 
@@ -120,8 +103,6 @@ sub get_string_props {
 
 sub get_item_id {
     my ($self, $file_id, $string_id, $hint, $nocreate) = @_;
-
-    #print "::get_item_id(file_id=$file_id, string_id=$string_id)\n";
 
     my $key = "item_id:$file_id:$string_id";
 
@@ -148,8 +129,6 @@ sub get_item_id {
 sub update_item_props {
     my ($self, $item_id, $props) = @_;
 
-    #print "::update_item_props\n" if $DEBUG;
-
     my $key = "item:$item_id";
 
     my $h = $self->{cache}->{$key};
@@ -160,8 +139,6 @@ sub update_item_props {
 
 sub get_item_props {
     my ($self, $item_id) = @_;
-
-    #print "::get_item_props\n" if $DEBUG;
 
     my $key = "item:$item_id";
 
@@ -177,8 +154,6 @@ sub get_item_props {
 sub get_file_id {
     my ($self, $namespace, $job, $path, $nocreate) = @_;
 
-    #print "::get_file_id\n" if $DEBUG;
-
     my $key = 'file_id:'.md5(encode_utf8(join("\001", ($namespace, $job, $path))));
 
     if (exists $self->{cache}->{$key}) {
@@ -192,10 +167,6 @@ sub get_file_id {
 sub update_file_props {
     my ($self, $file_id, $props) = @_;
 
-    #print "::update_file_props (file_id=$file_id)\n";
-    #use Data::Dumper;
-    #print Dumper($props);
-
     my $key = "file:$file_id";
 
     my $h = $self->{cache}->{$key};
@@ -206,8 +177,6 @@ sub update_file_props {
 
 sub get_file_props {
     my ($self, $file_id) = @_;
-
-    #print "::get_file_props\n" if $DEBUG;
 
     my $key = "file:$file_id";
 
@@ -223,8 +192,6 @@ sub get_file_props {
 sub get_translation_id {
     my ($self, $item_id, $lang, $string, $fuzzy, $comment, $merge, $nocreate) = @_;
 
-    #print "::get_translation_id\n";
-
     my $key = "translation_id:$item_id:$lang";
 
     if (exists $self->{cache}->{$key}) {
@@ -232,15 +199,11 @@ sub get_translation_id {
         return $id if $id or $nocreate;
     }
 
-    #print "::get_translation_id - key '$key' MISSING FROM CACHE\n";
-
     return $self->{cache}->{$key} = $self->SUPER::get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge, $nocreate);
 }
 
 sub update_translation_props {
     my ($self, $translation_id, $props) = @_;
-
-    #print "::update_translation_props\n" if $DEBUG;
 
     my $key = "translation:$translation_id";
 
@@ -253,13 +216,9 @@ sub update_translation_props {
 sub get_translation_props {
     my ($self, $translation_id) = @_;
 
-    #print "::get_translation_props\n" if $DEBUG;
-
     my $key = "translation:$translation_id";
 
     return $self->{cache}->{$key} if exists $self->{cache}->{$key};
-
-    #print "::get_translation_props - key '$key' MISSING FROM CACHE\n";
 
     return $self->{cache}->{$key} = $self->SUPER::get_translation_props($translation_id);
 }
@@ -274,20 +233,6 @@ sub set_translation {
 
     my $id = $self->get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge); # create if necessary
 
-    ## if language cache was preloaded, update it as well
-    #my $key = "lang:$lang";
-    #my $h = $self->{cache}->{$key};
-    #if ($h) {
-    #    my $i = $self->get_item_props($item_id);
-    #    if ($i) {
-    #        my $s = $self->get_string_props($i->{string_id});
-    #        my $skey = generate_key($s->{string});
-    #        my $variants = $h->{$skey};
-    #        $variants = $h->{$skey} = {} unless defined $variants;
-    #        $variants->{generate_short_key($string)} = 1;
-    #    }
-    #}
-
     # if translations cache was preloaded, update it as well
     my $cache = $self->{cache}->{translations}->{$lang};
     if ($cache) {
@@ -296,13 +241,6 @@ sub set_translation {
             my $s = $self->get_string_props($i->{string_id});
             my $f = $self->get_file_props($i->{file_id});
             my $skey = generate_key($s->{string});
-
-            #######
-            #use Data::Dumper;
-            #print "DB::Cached::set_translation(), item record:", Dumper($i);
-            #print "DB::Cached::set_translation(), string record:", Dumper($s);
-            #print "DB::Cached::set_translation(), file record:", Dumper($f);
-            #######
 
             $cache->{$skey} = {} unless exists $cache->{$skey};
             $cache->{$skey}->{$item_id} = {
@@ -314,9 +252,6 @@ sub set_translation {
                 fuzzy => $fuzzy,
                 comment => $comment,
             };
-            #######
-            #use Data::Dumper; print "DB::Cached::set_translation(), cache record:", Dumper($cache->{$skey}->{$item_id});
-            #######
         }
     }
 
@@ -663,7 +598,6 @@ sub preload_properties {
 sub find_best_translation {
     my $self = shift;
     my ($namespace, $filepath, $string, $context, $lang, $allow_orphaned, $allow_multiple_variants) = @_;
-    #print "::find_best_translation()\n";
 
     # Now that we hit the item we have no translation for, and need to query
     # the database for the best translation, preload the cache for the target language
