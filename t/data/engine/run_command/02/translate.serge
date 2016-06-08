@@ -17,7 +17,7 @@ jobs
 
                 data
                 {
-                    command                      gzip <%OUTFILE% >%OUTFILE%.gz
+                    command                      gzip -n <%OUTFILE% >%OUTFILE%.gz
                     command                      perl ../../cp.pl %OUTFILE%.gz %OUTFILE%.gz.copy
                 }
             }
