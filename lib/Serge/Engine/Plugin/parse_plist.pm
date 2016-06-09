@@ -20,7 +20,7 @@ sub parse {
     # <key>...</key>
     # <string>...</string>
 
-    $translated_text =~ s|(<key>([^<>]*?)</key>[\r\n\t ]*<string>)([^<>]*?)(</string>)|$1.$self->parse_callback($callbackref, $3, undef, $2, undef, $lang).$4|sge;
+    $translated_text =~ s|(<key>([^<>]*?)</key>[\r\n\t ]*<string>)([^<>]*?)(</string>)|$1.$self->parse_callback($callbackref, $3, undef, $2, undef, $lang, $2).$4|sge;
 
     # Format:
     # <key>...</key>
@@ -29,23 +29,24 @@ sub parse {
     #     <string>...</string>
     # </array>
 
-    $translated_text =~ s|(<key>([^<>]*?)</key>[\r\n\t ]*<array>)(([\s]*<string>([^<>]*?)</string>[\s]*){1,})(</array>)|$1.$self->parse_array_callback($callbackref, $3, undef, $2, undef, $lang).$6|sge;
+    $translated_text =~ s|(<key>([^<>]*?)</key>[\r\n\t ]*<array>)(([\s]*<string>([^<>]*?)</string>[\s]*){1,})(</array>)|$1.$self->parse_array_callback($callbackref, $3, undef, $2, undef, $lang, $2).$6|sge;
 
     return $translated_text;
 }
 
 sub parse_array_callback {
-    my ($self, $callbackref, $array_xml, $context, $hint, $flagsref, $lang) = @_;
-    $array_xml =~ s|(<string>)([^<>]*?)(</string>)|$1.$self->parse_callback($callbackref, $2, $context, $hint, $flagsref, $lang).$3|sge;
+    my ($self, $callbackref, $array_xml, $context, $hint, $flagsref, $lang, $key_prefix) = @_;
+    my $n = 0;
+    $array_xml =~ s|(<string>)([^<>]*?)(</string>)|$1.$self->parse_callback($callbackref, $2, $context, $hint, $flagsref, $lang, $key_prefix.'#'.$n++).$3|sge;
     return $array_xml;
 }
 
 sub parse_callback {
-    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang) = @_;
+    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang, $key) = @_;
 
     xml_unescape_strref(\$string);
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang, $key);
 
     $translated_string =~ s/\n/\\n/g;
 
