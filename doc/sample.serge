@@ -201,6 +201,25 @@ jobs
             }
         }
 
+        # [OPTIONAL] Serializer plugin definition
+        # If this entire block is omitted, the default serializer plugin is used
+        # (serialize_po) for backward compatibility
+        serializer
+        {
+            # (STRING) Serializer class name.
+            # See Serge/Engine/Plugin/serialize_*.pm files
+            plugin                  serialize_po
+
+            # [OPTIONAL] Plugin data. Each plugin may have specific parameters
+            # inside the `data` block. See the documentation for each specific
+            # plugin for more information.
+            data
+            {
+                #param1             value1
+                #param2             value2
+            }
+        }
+
         # (BOOLEAN) [OPTIONAL] Should the strings be normalized, i.e. trimmed
         # and converted to single line with no double-spaces?
         # YES - the string should be normalized

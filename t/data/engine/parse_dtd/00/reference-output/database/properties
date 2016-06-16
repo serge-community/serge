@@ -15,5 +15,7 @@ properties
     11    12 job-hash:test_namespace:test_job
           5625a3a3df48034ce7f8728efc9b8410
     12    13 job-plugin:test_namespace:test_job parse_dtd.
-    13    14 job-engine:test_namespace:test_job 1.1
+    13    14 job-serializer-plugin:test_namespace:test_job
+          serialize_po.
+    14    15 job-engine:test_namespace:test_job 1.1
 }

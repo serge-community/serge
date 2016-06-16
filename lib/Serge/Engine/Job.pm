@@ -56,6 +56,20 @@ sub new {
     my $class = ref $self->{parser_object};
     $self->{plugin_version} = $plugin_name.'.'.eval('$'.$class.'::VERSION');
 
+    # load serializer plugin
+
+    # for backward compatibility, a missing `serializer` job config section
+    # means 'use `serialize_po` plugin with default settings'
+    my $plugin_name = 'serialize_po';
+    if (exists $self->{serializer}) {
+        $self->{serializer_object} = $self->load_plugin_and_register_callbacks($self->{serializer});
+        $plugin_name = $self->{serializer}->{plugin};
+    } else {
+        $self->{serializer_object} = $self->load_plugin_and_register_callbacks({plugin => $plugin_name});
+    }
+    my $class = ref $self->{serializer_object};
+    $self->{serializer_version} = $plugin_name.'.'.eval('$'.$class.'::VERSION');
+
     # load callback plugins
 
     map {

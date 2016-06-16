@@ -22,5 +22,7 @@ properties
     18    19 job-hash:test_namespace:test_job
           1a92d0a5a31cf8c3b13bfe73dcbf1cb2
     19    20 job-plugin:test_namespace:test_job parse_master.
-    20    21 job-engine:test_namespace:test_job 1.1
+    20    21 job-serializer-plugin:test_namespace:test_job
+          serialize_po.
+    21    22 job-engine:test_namespace:test_job 1.1
 }

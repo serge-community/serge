@@ -165,6 +165,11 @@ sub get_job_plugin_version_key {
     return "job-plugin:".$job->{db_namespace}.":".$job->{id};
 }
 
+sub get_job_serializer_plugin_version_key {
+    my ($self, $job) = @_;
+    return "job-serializer-plugin:".$job->{db_namespace}.":".$job->{id};
+}
+
 sub get_job_engine_version_key {
     my ($self, $job) = @_;
     return "job-engine:".$job->{db_namespace}.":".$job->{id};
@@ -186,6 +191,9 @@ sub adjust_job_optimizations {
     } elsif ($job->{plugin_version} ne $self->{db}->get_property($self->get_job_plugin_version_key($job))) {
         $opt = undef;
         print "*** OPTIMIZATIONS DISABLED: parser plugin version has changed ***\n";
+    } elsif ($job->{serializer_version} ne $self->{db}->get_property($self->get_job_serializer_plugin_version_key($job))) {
+        $opt = undef;
+        print "*** OPTIMIZATIONS DISABLED: serializer plugin version has changed ***\n";
     } elsif ($ENV{L10N_FORCE_GENERATE}) {
         $opt = undef;
         print "*** OPTIMIZATIONS DISABLED: L10N_FORCE_GENERATE is ON ***\n";
@@ -224,6 +232,7 @@ sub save_job_fingerprints {
 
     $self->{db}->set_property($self->get_job_hash_key($job), $job->{hash});
     $self->{db}->set_property($self->get_job_plugin_version_key($job), $job->{plugin_version}) if $job->{plugin_version};
+    $self->{db}->set_property($self->get_job_serializer_plugin_version_key($job), $job->{serializer_version}) if $job->{serializer_version};
     $self->{db}->set_property($self->get_job_engine_version_key($job), $Serge::VERSION);
 }
 
@@ -902,8 +911,6 @@ sub update_database_from_ts_files_lang_file {
     $self->{current_file_rel} = $relfile;
     $self->{current_file_id} = undef;
 
-    my $header_skipped;
-
     my $fullpath = $self->{job}->get_full_ts_file_path($relfile, $lang);
 
     if (!-f $fullpath) {
@@ -925,13 +932,13 @@ sub update_database_from_ts_files_lang_file {
 
     # Reading the entire file
 
-    if (!open(PO, $fullpath)) {
+    if (!open(TS, $fullpath)) {
         print "WARNING: Can't read $fullpath: $!\n";
         return;
     }
-    binmode(PO);
-    my $text = decode_utf8(join('', <PO>));
-    close(PO);
+    binmode(TS);
+    my $text = decode_utf8(join('', <TS>));
+    close(TS);
 
     my $current_hash = generate_hash($text);
 
@@ -940,171 +947,38 @@ sub update_database_from_ts_files_lang_file {
     } else {
         print "\t$fullpath\n";
 
-        # Scanning the file and extracting all the entries
+        # Parsing the file
 
-        #  Sample entry:
-        #
-        #  # Optional Translator's comment
-        #  #: File: ./_help.pl
-        #  #: ID: 7d150b9e4cd75b658d5f8d89300fd697
-        #  msgctxt "PageHeading"
-        #  msgid "Help"
-        #  msgstr "Help"
-        #
-        #  or
-        #
-        #  #: File: ./_help.pl
-        #  #: ID: 7d150b9e4cd75b658d5f8d89300fd697
-        #  msgctxt "PageHeading"
-        #  msgid "Help"
-        #  msgstr ""
-        #  "line1\n"
-        #  "line2"
-        #  ...
+        my $units;
+        eval {
+            $units = $self->{job}->{serializer_object}->deserialize(\$text);
+        };
 
-        # Joining the multi-line entries
+        if ($@) {
+            print "\t\tWARNING: File deserializing failed; the file will not be processed\n";
+            print "\t\tReason: $@\n";
+            return undef;
+        }
 
-        $text =~ s/"\n"//sg;
-
-        # getting current namespace
-
-        my $ns = $self->{job}->{db_namespace};
-
-        # Doing the search
-
-        my @blocks = split(/\n\n/, $text);
-        foreach my $block (@blocks) {
-            my @lines = split(/\n/, $block);
-
-            my @comments;
-            my $key;
-            my @strings;
-            my @translations;
-            my $context;
-            my $flags_str;
-            my $fuzzy = 0;
-            my $skip_system_comment;
-
-            # fix for poedit
-            # poedit breaks lines like:
-            #     #: ID: xxxxxxxxx
-            # into two lines:
-            #     #: ID:
-            #     #: xxxxxxxxx
-            # so we need to handle this in order not to reject such files
-
-            my $key_prefix_line;
-            # end fix for poedit
-
-            foreach my $line (@lines) {
-                # guard against IME editors inserting bogus unprintable symbols into strings
-                # that cause rendered resource files to be invalid.
-                $line =~ s/[\000-\011\013-\037]//g;
-
-                # use Unicode::Normalize to recompose (where possible) + reorder canonically the Unicode string
-                # this will prevent equivalent Unicode entities from being different in the terms of UTF8 sequences
-                $line = NFC($line);
-
-                $skip_system_comment = 1 if ((!$skip_system_comment) && ($line =~ m/^# ===/));
-                push (@comments, $1) if (!$skip_system_comment && ($line =~ m/^# (.*)$/));
-
-                # fix for poedit
-                if ($key_prefix_line) { # if the previous line was "ID:"
-                    $key = $1 if $line =~ m/^#: (.*)$/;
-                }
-                $key_prefix_line = ($line =~ m/^#: ID:$/);
-                # end fix for poedit
-
-                $key = $1 if $line =~ m/^#: ID: (.*)$/;
-                $strings[0] = $1 if $line =~ m/^msgid "(.*)"$/;
-                $strings[1] = $1 if $line =~ m/^msgid_plural "(.*)"$/;
-                @translations = ($1) if $line =~ m/^msgstr "(.*)"$/;
-                $translations[$1] = ($2) if $line =~ m/^msgstr\[(\d+)\] "(.*)"$/;
-                $context = $1 if $line =~ m/^msgctxt "(.*)"$/;
-                $flags_str = $1 if $line =~ m/^#, (.*)$/;
-            }
-
-            # remove empty trailing comment lines that might have separated user comments from system comments
-
-            while (($#comments >= 0) && ($comments[$#comments] eq '')) {
-                pop @comments;
-            }
-
-            my $string = glue_plural_string(@strings);
-            my $translation = glue_plural_string(@translations);
-            my $comment = join("\n", @comments);
-
-            unescape_strref(\$string);
-            unescape_strref(\$context);
-            unescape_strref(\$translation);
-
-            # Skip blocks where both translation and comment are not set. If one wants to clear the translation,
-            # he should at least set the comment (or leave an old one if it existed).
-
-            next unless ($translation or $comment);
-
-            # Skip blocks with no key defined (e.g. header entry)
-
-            if (!$string) {
-                if (!$header_skipped) {
-                    $header_skipped = 1;
-                    next;
-                }
-
-                if ($key) {
-                    # if key is defined for an empty string, just warn that and empty item is found
-                    # and continue (previously, the script was not safeguarded against empty strings,
-                    # so there can be such entries which can just be skipped)
-                    print "\t\t? [empty string] $key\n";
-                    next;
-                } else {
-                    # but if there is no key set, treat this as a seriously malformed file
-                    print "ERROR: Malformed entry or header found in the middle of the .po file, skipping the rest of the file\n";
-                    return;
-                }
-            }
-
-            # sanity check: skip blocks that have no ID defined
-
-            next unless $key;
-
-            my $string_id = $self->{db}->get_string_id($string, $context, 1); # do not create the string, just look if there is one
-
-            # sanity check: skip unknown keys
-
-            if (!$string_id) {
-                print "\t\t? [unknown string] $key\n";
-                next;
-            }
-
-            # sanity check: the extracted key should match the generated one for given string/context
-
-            if ($key ne generate_key($string, $context)) {
-                print "\t\t? [bad key] $key\n";
-                next;
-            }
+        foreach my $unit (@$units) {
+            my $string_id = $self->{db}->get_string_id($unit->{source}, $unit->{context}, 1); # do not create the string, just look if there is one
 
             # get item_id for current namespace/file and string/context
 
             my $item_id = $self->{db}->get_item_id($self->{current_file_id}, $string_id, undef, 1); # do not create
 
             if (!$item_id) {
-                print "\t\t? [no item_id for string] $key\n";
+                print "\t\t? [no item_id for string] $unit->{key}\n";
                 next;
             }
-
-            # read fuzzy flag
-
-            my @flags = split(/,[\t ]*/, lc($flags_str));
-
-            $fuzzy = is_flag_set(\@flags, 'fuzzy');
 
             # run plugins that might want to modify translation/comment,
             # or introduce special functionality on top of the default behavior
             # (for example, remove translations or mark strings as skipped based on the special flag or comment)
 
             my $item_comment;
-            $self->run_callbacks('rewrite_parsed_ts_file_item', $relfile, $lang, $item_id, \$string, \@flags, \$translation, \$comment, \$fuzzy, \$item_comment);
+            $self->run_callbacks('rewrite_parsed_ts_file_item', $relfile, $lang, $item_id,
+                \{$unit->{source}}, $unit->{flags}, \{$unit->{target}}, \{$unit->{comment}}, \{$unit->{fuzzy}}, \$item_comment);
             if (defined $item_comment) { # it can be an empty string
                 $item_comment = undef if $item_comment eq ''; # normalize the empty value
                 my $item_props = $self->{db}->get_item_props($item_id);
@@ -1118,15 +992,15 @@ sub update_database_from_ts_files_lang_file {
 
             my $props = $self->{db}->get_string_props($string_id);
             if ($props->{skip}) {
-                print "\t\t? [string is marked as skipped] $key\n";
+                print "\t\t? [string is marked as skipped] $unit->{key}\n";
                 next;
             }
 
             # sanity check: fuzzy flag with empty translation makes no sense
 
-            if (!$translation && $fuzzy) {
-                print "\t\t? [empty translation marked as fuzzy] $key\n";
-                $fuzzy = 0; # clear the fuzzy flag
+            if (!$unit->{target} && $unit->{fuzzy}) {
+                print "\t\t? [empty translation marked as fuzzy] $unit->{key}\n";
+                $unit->{fuzzy} = 0; # clear the fuzzy flag
             }
 
             my $translation_id = $self->{db}->get_translation_id($item_id, $lang, undef, undef, undef, undef, 1); # do not create
@@ -1136,22 +1010,22 @@ sub update_database_from_ts_files_lang_file {
 
                 if ($props->{merge}) {
                     $self->{db}->update_translation_props($translation_id, {merge => 0}); # clear merge flag
-                    print "\t\t! [ignore:merge] $key\n";
+                    print "\t\t! [ignore:merge] $unit->{key}\n";
                     next;
                 }
 
-                next if (($translation eq $props->{string}) && ($comment eq $props->{comment}) && ($fuzzy == $props->{fuzzy}));
+                next if (($unit->{target} eq $props->{string}) && ($unit->{comment} eq $props->{comment}) && ($unit->{fuzzy} == $props->{fuzzy}));
             }
 
             # check again if translation or comment is set here,
-            # because the values could have been removed in the callback
+            # because the values could have been removed in the callback;
             # also, if translation already exists (translation_id is defined),
             # we must update the record as well
-            if ($translation or $comment or $translation_id) {
-                print "\t\t> $key => [$item_id/$lang]=[$translation_id]\n";
-                $self->{db}->set_translation($item_id, $lang, $translation, $fuzzy, $comment, 0);
+            if ($unit->{target} or $unit->{comment} or $translation_id) {
+                print "\t\t> $unit->{key} => [$item_id/$lang]=[$translation_id]\n";
+                $self->{db}->set_translation($item_id, $lang, $unit->{target}, $unit->{fuzzy}, $unit->{comment}, 0);
             }
-        }
+        } # foreach
 
         $self->{db}->set_property("ts:$self->{current_file_id}:$lang", $current_hash);
     } # end if
@@ -1270,6 +1144,7 @@ sub generate_ts_files_for_file_lang {
 
     my $aref = $self->{files}->{$file};
 
+    my @units;
     my %processed;
     my $count = 0;
 
@@ -1307,14 +1182,6 @@ sub generate_ts_files_for_file_lang {
         }
     }
 
-    my $text = qq|msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Content-Transfer-Encoding: 8bit\\n"
-"Language: $locale\\n"
-"Generated-By: Serge $Serge::VERSION\\n"
-|;
-
     foreach my $item_id (@$aref) {
 
         # .po files do not allow duplicate keys,
@@ -1350,10 +1217,8 @@ msgstr ""
 
         $processed{$item_id} = 1;
 
-        # increment po item counter
+        # increment item counter
         $count++;
-
-        $text .= "\n"; # add whitespace before the entry
 
         # Get translated string; for default language, the returned string will be equal
         # to the original string (i.e. all strings in the default language are already 'translated')
@@ -1363,48 +1228,46 @@ msgstr ""
 
         my $key = generate_key($string, $context);
 
-        # The ordering of the lines matches the Pootle style and is the following:
-        #   # Translator's comments
-        #   #. Developer's comments (hints)
-        #   #: Reference lines
-        #   #, flags
-        #   msgid "..."
-        #   msgctxt "..."
-        #   msgstr "..."
+        my @hint_lines;
 
-        if ($comments) {
-            $comments =~ s/\n/\n# /sg;
-            $text .= "# $comments\n";
-        }
-
-        my @dev_comments;
-
-        push @dev_comments, $hint if ($hint ne '') && ($hint ne $string);
+        push @hint_lines, $hint if ($hint ne '') && ($hint ne $string);
 
         # run callbacks that might want to modify the hint (developer comment)
-        $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@dev_comments);
+        # TODO: rename 'add_dev_comment' to 'add_hint'
+        $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
 
-        push @dev_comments, "\n".$item_comment if $item_comment ne '';
-
-        my $dev_comment = join("\n", @dev_comments);
-
-        if ($dev_comment ne '') {
-            $dev_comment =~ s/\n/\n#. /sg;
-            $text .= "#. $dev_comment\n";
+        if (@hint_lines > 0 && $item_comment ne '') {
+            push @hint_lines, ''; # add extra line break between hint and extra item comment
+            push @hint_lines, $item_comment;
         }
 
-        $text .= "#: File: $file\n";
-        $text .= "#: ID: $key\n";
-        $text .= "#, fuzzy\n" if $fuzzy;
+        my $hint = join("\n", @hint_lines);
 
-        # Print the translation entry
+        # push the unit to the array
 
-        $text .= "msgctxt ".po_wrap($context)."\n" if $context;
-        $text .= join("\n", po_serialize_msgid($string))."\n";
-        # for now, just use one `msgstr[0]=""` placeholder for plural strings,
-        # disregarding the number of plurals supported by a language
-        $text .= join("\n", po_serialize_msgstr($translation, po_is_msgid_plural($string)))."\n";
+        push @units, {
+            key => $key,
+            source => $string,
+            context => $context,
+            target => $translation,
+            comment => $comments, # translator's comments
+            fuzzy => $fuzzy,
+            hint => $hint, # developer's comments
+        };
     } # foreach key
+
+    # serialize the file
+
+    my $text;
+    eval {
+        $text = $self->{job}->{serializer_object}->serialize(\@units, $file, $lang);
+    };
+
+    if ($@) {
+        print "\t\tWARNING: File serializing failed; the file will not be saved\n";
+        print "\t\tReason: $@\n";
+        return undef;
+    }
 
     # update translation file item counter property
 
@@ -1436,10 +1299,10 @@ msgstr ""
         die "ERROR: Couldn't create $dir: $@" if $@;
 
         print "\t\tSaving $fullpath";
-        open(PO, ">$fullpath") || die "ERROR: Can't write to [$fullpath]: $!";
-        binmode(PO);
-        print PO encode_utf8($text); # encode manually to avoid 'Wide character in print' warnings and force Unix-style endings
-        close(PO);
+        open(TS, ">$fullpath") || die "ERROR: Can't write to [$fullpath]: $!";
+        binmode(TS);
+        print TS encode_utf8($text); # encode manually to avoid 'Wide character in print' warnings and force Unix-style endings
+        close(TS);
         my $size = -s $fullpath;
         print " ($size bytes)\n";
     } else {

@@ -73,5 +73,7 @@ properties
     68    69 job-hash:test_namespace:test_job
           99a3421afafab09a2419716335e863b4
     69    70 job-plugin:test_namespace:test_job parse_android.
-    70    71 job-engine:test_namespace:test_job 1.1
+    70    71 job-serializer-plugin:test_namespace:test_job
+          serialize_po.
+    71    72 job-engine:test_namespace:test_job 1.1
 }

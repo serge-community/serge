@@ -51,7 +51,17 @@ jobs                                ARRAY
 
             data
             {
-                *                       DATA
+                *                   DATA
+            }
+        }
+
+        serializer
+        {
+            plugin                  STRING
+
+            data
+            {
+                *                   DATA
             }
         }
 
