@@ -26,6 +26,8 @@ sub init {
         email_from     => 'STRING',
         email_to       => 'ARRAY',
         email_subject  => 'STRING',
+
+        yaml_mode      => 'STRING',
     });
 
     $self->add('after_job', \&report_errors);
@@ -42,6 +44,11 @@ sub validate_data {
 
     if (!defined $self->{data}->{email_to}) {
         print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
+    }
+
+    my $yaml_mode = $self->{data}->{yaml_mode};
+    if (defined($yaml_mode) && $yaml_mode !~ /^(rails|generic)$/) {
+        print "WARNING: 'yaml_mode' is '$yaml_mode'. Supported values: rails, generic.\n";
     }
 }
 
@@ -134,11 +141,29 @@ sub parse {
         die $error_text;
     }
 
+    if ($self->{data}->{yaml_mode} eq 'rails') {
+        my @tree_keys = keys(%$tree);
+        my $tree_count = int(@tree_keys);
+        if ($tree_count == 0) {
+            # Special case NOOP. Empty data
+        } elsif ($tree_count == 1) {
+            $tree = $tree->{$tree_keys[0]};
+        } else {
+            my $err = join(', ', @tree_keys);
+            $err = "YAML file with more than 1 key at root in yaml_mode: rails: $err";
+            $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $err;
+            # Or should we die?
+            warn "WARNING: $err";
+        }
+    }
+
     # Process tree recursively
 
     $self->process_node('', $tree, $callbackref, $lang);
 
     # Reconstruct YAML
+
+    $tree = {$lang => $tree} if ($lang && $self->{data}->{yaml_mode} eq 'rails');
 
     my $out = decode_utf8(Dump($tree));
 
