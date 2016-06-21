@@ -173,10 +173,10 @@ sub process_node {
         # skip values starting with __PRESERVE_ANCHOR__ or __PRESERVE_REFERENCE__
         if (($string ne '') && ($string !~ '^__PRESERVE_(ANCHOR|REFERENCE)__')) {
             if ($lang) {
-                my $translated_string = &$callbackref($string, undef, $path, undef, $lang);
+                my $translated_string = &$callbackref($string, undef, $path, undef, $lang, $path);
                 $parent->{$key} = $translated_string;
             } else {
-                &$callbackref($string, undef, $path, undef, undef);
+                &$callbackref($string, undef, $path, undef, undef, $path);
             }
         }
     }
