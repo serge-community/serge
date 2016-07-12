@@ -63,20 +63,10 @@ sub adjust_phases {
 sub _get_combinations {
     my ($base) = @_;
 
-    my @digits;
-    for (0 .. $base - 1) {
-        push @digits, $_;
-    }
-
     my %result;
-    for (0 .. 2 ** $base - 2) { # do not include the highest value with all bits set to avoid empty number
-        my @mask = split('', sprintf('%0'.$base.'b', $_));
-        my @n = @digits;
-        for (0 .. $base - 1) {
-            $n[$_] = '' if $mask[$_];
-        }
 
-        $result{join('', @n)} = 1;
+    for (0 .. $base**$base-1) {
+        $result{_encode_unique_digits($_, $base)} = 1;
     }
 
     # sort by string length and by number
@@ -84,6 +74,25 @@ sub _get_combinations {
         my $result = length($a) <=> length($b);
         return $result == 0 ? $a cmp $b : $result
     } keys %result;
+}
+
+sub _encode_unique_digits {
+    my ($num, $base) = @_;
+    my $out = '';
+    my %digits;
+
+    return 0 if $num == 0;
+
+    while ($num > 0) {
+        my $digit = $num % $base;
+        $num = int($num / $base);
+        if (!exists $digits{$digit}) {
+            $out = $digit . $out;
+            $digits{$digit} = 1;
+        }
+    }
+
+    return $out;
 }
 
 sub _load_plugins {
