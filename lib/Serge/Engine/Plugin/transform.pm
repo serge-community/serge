@@ -8,6 +8,7 @@ use utf8;
 use Digest::MD5 qw(md5);
 use Encode qw(encode_utf8);
 use Serge::Util;
+use Time::HiRes qw(gettimeofday tv_interval);
 
 my @transforms = ('wrappertag', 'tags', 'whitespace', 'case', 'endpunc'); # ordering is important!
 my @combinations;
@@ -130,6 +131,8 @@ sub lazy_initialize {
 
     print "Preloading cache for string transformations\n";
 
+    my $start = [gettimeofday];
+
     my $sqlquery =
         "SELECT DISTINCT string ".
         "FROM strings ".
@@ -147,6 +150,8 @@ sub lazy_initialize {
     }
 
     $initialized = 1;
+
+    print "Cache preloaded in ", tv_interval($start), " seconds\n";
 }
 
 sub get_translation {
