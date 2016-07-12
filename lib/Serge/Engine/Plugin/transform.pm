@@ -213,16 +213,29 @@ sub guess_translation {
 
     my $key = $self->make_key($source);
 
-    if ($self->{parent}->{debug}) {
-        print "Trying to guess translation for string '$source'; candidates are:\n";
-        foreach my $candidate (keys %{$mappings->{$key}})  {
-            print "\t* '".$candidate."'\n" if $candidate ne $source;
+    my $candidates = $mappings->{$key};
+    # filter out candidates that have no translations (or have multiple translations and reuse_uncertain is disabled)
+    foreach my $candidate (keys %$candidates) {
+        my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{parent}->{engine}->{db}->find_best_translation($namespace, $filepath, $candidate, $context, $lang);
+
+        if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
+            print "Multiple translations found, will skip the candidate because 'reuse_uncertain' mode is set to NO\n" if $self->{parent}->{debug};
+            undef $translation;
+        }
+
+        if ($translation eq '') {
+            delete $candidates->{$candidate};
         }
     }
 
-    my $candidates = $mappings->{$key};
-
     if (keys %$candidates > 0) {
+        if ($self->{parent}->{debug}) {
+            print "Trying to guess translation for string '$source'; candidates are:\n";
+            foreach my $candidate (keys %$candidates)  {
+                print "\t* '".$candidate."'\n" if $candidate ne $source;
+            }
+        }
+
         foreach my $candidate (keys %$candidates) {
             next if ($candidate eq $source); # exact matches should be substituted outside this code
 
@@ -257,6 +270,8 @@ sub guess_translation {
                 }
             }
         }
+    } else {
+        print "There are no candidates to guess from\n" if $self->{parent}->{debug};
     }
 
     return undef;
