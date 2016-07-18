@@ -141,9 +141,11 @@ sub parse {
         die $error_text;
     }
 
-    if ($self->{data}->{yaml_kind} eq 'rails') {
-        my @tree_keys = keys(%$tree);
-        my $tree_count = int(@tree_keys);
+    my $is_rails = $self->{data}->{yaml_kind} eq 'rails';
+
+    if ($is_rails) {
+        my @tree_keys = keys %$tree;
+        my $tree_count = int @tree_keys;
         if ($tree_count == 0) {
             # Special case NOOP. Empty data
         } elsif ($tree_count == 1) {
@@ -162,7 +164,7 @@ sub parse {
 
     # Reconstruct YAML
 
-    $tree = {$lang => $tree} if $lang && $self->{data}->{yaml_kind} eq 'rails';
+    $tree = {$lang => $tree} if $lang && $is_rails;
 
     my $out = decode_utf8(Dump($tree));
 
