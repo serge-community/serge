@@ -152,8 +152,7 @@ sub parse {
             my $err = join(', ', @tree_keys);
             $err = "YAML file with more than 1 key at root in yaml_kind: rails: $err";
             $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $err;
-            # Or should we die?
-            warn "WARNING: $err";
+            die $err;
         }
     }
 
