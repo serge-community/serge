@@ -26,6 +26,8 @@ sub init {
         email_from     => 'STRING',
         email_to       => 'ARRAY',
         email_subject  => 'STRING',
+
+        yaml_kind      => 'STRING',
     });
 
     $self->add('after_job', \&report_errors);
@@ -42,6 +44,11 @@ sub validate_data {
 
     if (!defined $self->{data}->{email_to}) {
         print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
+    }
+
+    my $yaml_kind = $self->{data}->{yaml_kind};
+    if (defined($yaml_kind) && $yaml_kind !~ /^(rails|generic)$/) {
+        print "WARNING: 'yaml_kind' is '$yaml_kind'. Supported values: rails, generic.\n";
     }
 }
 
@@ -134,11 +141,34 @@ sub parse {
         die $error_text;
     }
 
+    my $is_rails = $self->{data}->{yaml_kind} eq 'rails';
+
+    if ($is_rails) {
+        my @tree_keys = keys %$tree;
+        my $tree_count = int @tree_keys;
+        if ($tree_count == 0) {
+            # Special case NOOP. Empty data
+        } elsif ($tree_count == 1) {
+            $tree = $tree->{$tree_keys[0]};
+        } else {
+            my $err = join(', ', @tree_keys);
+            $err = "YAML file with more than 1 key at root in yaml_kind: rails: $err";
+            $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $err;
+            die $err;
+        }
+    }
+
     # Process tree recursively
 
     $self->process_node('', $tree, $callbackref, $lang);
 
     # Reconstruct YAML
+    if ($lang && $is_rails) {
+        my $olr = $self->{parent}->{output_lang_rewrite};
+        my $root = defined $olr && exists($olr->{$lang}) ? $olr->{$lang} : $lang;
+
+        $tree = {$root => $tree};
+    }
 
     my $out = decode_utf8(Dump($tree));
 
