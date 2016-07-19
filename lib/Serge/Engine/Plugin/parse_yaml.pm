@@ -163,8 +163,12 @@ sub parse {
     $self->process_node('', $tree, $callbackref, $lang);
 
     # Reconstruct YAML
+    if ($lang && $is_rails) {
+        my $olr = $self->{parent}->{output_lang_rewrite};
+        my $root = defined $olr && exists($olr->{$lang}) ? $olr->{$lang} : $lang;
 
-    $tree = {$lang => $tree} if $lang && $is_rails;
+        $tree = {$root => $tree};
+    }
 
     my $out = decode_utf8(Dump($tree));
 
