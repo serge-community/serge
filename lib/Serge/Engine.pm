@@ -1558,13 +1558,13 @@ sub generate_localized_files_for_file_lang_callback {
     my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, $lang, \$string, \$hint, $context, $key));
     if ($result eq '0') {
         print "\t\tSkip extracting string '$string' because at least one callback returned 0\n" if $self->{debug};
-        return $string;
+        return $self->{job}->{leave_untranslated_blank} ? '' : $string;
     }
 
     $result = combine_and(1, $self->run_callbacks('can_translate', $self->{current_file_rel}, $lang, \$string, \$hint));
     if ($result eq '0') {
         print "\t\tSkip translating string '$string' because at least one callback returned 0\n" if $self->{debug};
-        return $string;
+        return $self->{job}->{leave_untranslated_blank} ? '' : $string;
     }
 
     # get (do not create) the string record for given string/context
@@ -1591,10 +1591,13 @@ sub generate_localized_files_for_file_lang_callback {
     my ($translation, $fuzzy) = $self->get_translation($string, $context, $self->{job}->{db_namespace}, $self->{current_file_rel}, $lang, undef, $item_id, $key);
 
     print "::[$item_id] << [$translation, $fuzzy]\n" if $self->{debug};
-    $translation = $string unless $translation;
+    if ($translation eq '') {
+        $translation = $self->{job}->{leave_untranslated_blank} ? '' : $string;
+    }
 
     if (combine_or($self->run_callbacks('rewrite_translation', $self->{current_file_rel}, $lang, \$translation))) {
         # if any of the rewrite_translation plugins returned a true value, normalize the output
+        $translation = '' if !defined $translation; # convert to a string for consistency
         $translation = NFC($translation);
     }
 

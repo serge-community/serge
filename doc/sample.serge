@@ -226,6 +226,16 @@ jobs
         # NO - the string is extracted as is (default)
         normalize_strings           NO
 
+        # (BOOLEAN) [OPTIONAL] Should untranslated strings appear blank
+        # in the output file, or have source strings as their "translation"?
+        # Rendering source string when a translation is missing may simplify
+        # the internationalization code and optimize your application performance,
+        # while using blank strings can reduce the size of the resource files
+        # (but you will likely need to implement your own fallback logic).
+        # YES - leave the string blank
+        # NO - fall back to source string (default)
+        leave_untranslated_blank    NO
+
         # (STRING) DBI-compatible connection string
         # Supported drivers: SQLite, MySQL and Postgres
         # SQLite sample: 'DBI:SQLite:dbname=/path/to/translate.db3'

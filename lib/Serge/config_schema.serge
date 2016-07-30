@@ -66,6 +66,7 @@ jobs                                ARRAY
         }
 
         normalize_strings           BOOLEAN
+        leave_untranslated_blank    BOOLEAN
         db_source                   STRING
         db_username                 STRING
         db_password                 STRING

@@ -28,6 +28,12 @@ Revision history
 
         - Improve `transform` plugin logic
 
+        - Add `yaml_kind` to the YAML parser to support Rails-specific file format
+
+        - Add `leave_untranslated_blank` job option to allow cleaning up untranslated
+        entries during post-processing; this in turn allows for custom fallback mechanisms
+        and also reduces resource file sizes
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
