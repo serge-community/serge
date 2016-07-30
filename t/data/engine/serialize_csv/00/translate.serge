@@ -15,7 +15,7 @@ jobs
             plugin                               serialize_csv
         }
 
-        ts_file_path                             ./test-output/csv/%LOCALE%/%FILE%.csv
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.csv
 
         output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
     }
