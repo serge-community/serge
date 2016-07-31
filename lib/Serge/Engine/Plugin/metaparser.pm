@@ -243,16 +243,14 @@ sub _flush {
     }
 
     if ($self->{lang}) {
-        if ($translated_str) {
-            my $re = $self->{data}->{localize};
-            $translated_str = $self->escape($self->{value}, $self->{lang}, $translated_str);
-            if ($self->{line} =~ m/$re/) {
-                die "'localize' pattern returned empty \$2 capture group" unless defined $2;
-            } else {
-                die "'localize' pattern didn't match anything";
-            }
-            $self->{line} =~ s/$re/$1$translated_str$3/;
+        my $re = $self->{data}->{localize};
+        $translated_str = $self->escape($self->{value}, $self->{lang}, $translated_str);
+        if ($self->{line} =~ m/$re/) {
+            die "'localize' pattern returned empty \$2 capture group" unless defined $2;
+        } else {
+            die "'localize' pattern didn't match anything";
         }
+        $self->{line} =~ s/$re/$1$translated_str$3/;
     }
 }
 
