@@ -1,0 +1,8 @@
+---
+test:
+  messages:
+    baz: ēţç1
+    foo: ḃáŕ1
+    subsection:
+      baz: ēţç2
+      foo: ḃáŕ2

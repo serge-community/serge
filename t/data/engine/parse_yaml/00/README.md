@@ -1,0 +1,1 @@
+Test for default plugin settings (`expand_aliases NO`)

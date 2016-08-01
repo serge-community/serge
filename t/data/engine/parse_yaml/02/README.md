@@ -1,0 +1,1 @@
+Test for Ruby-on-Rails-specific YAML files (`yaml_kind rails`)

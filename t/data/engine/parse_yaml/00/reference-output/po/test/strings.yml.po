@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.1\n"
+
+#. /foo__PRESERVE_ANCHOR__foo_anchor
+#: File: strings.yml
+#: ID: 2b2b5146df00a72b24a62de7f60c818b
+msgid "bar1"
+msgstr "ḃáŕ1"
+
+#. /subsection1/baz
+#: File: strings.yml
+#: ID: d153669b002fd5ab4e43d885eb02f39c
+msgid "etc2"
+msgstr "ēţç2"
+
+#. /subsection1/foo
+#: File: strings.yml
+#: ID: e5f2adbdbe00c558062db891f2072489
+msgid "bar2"
+msgstr "ḃáŕ2"
+
+#. /baz__PRESERVE_ANCHOR__baz_anchor
+#: File: strings.yml
+#: ID: 641460c2a4284dfe0a6e9b1368f89fd5
+msgid "etc1"
+msgstr "ēţç1"

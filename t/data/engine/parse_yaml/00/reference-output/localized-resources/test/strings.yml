@@ -1,0 +1,9 @@
+---
+baz: &baz_anchor ēţç1
+foo: &foo_anchor ḃáŕ1
+subsection1:
+  baz: ēţç2
+  foo: ḃáŕ2
+subsection2:
+  baz: *baz_anchor
+  foo: *foo_anchor

@@ -1,0 +1,8 @@
+foo: &foo_anchor bar1
+baz: &baz_anchor etc1
+subsection1:
+    foo: bar2
+    baz: etc2
+subsection2:
+    foo: *foo_anchor
+    baz: *baz_anchor

@@ -1,0 +1,17 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.yml$
+
+        parser
+        {
+            plugin                               parse_yaml
+
+            data
+            {
+                expand_aliases                   YES
+            }
+        }
+    }
+}
