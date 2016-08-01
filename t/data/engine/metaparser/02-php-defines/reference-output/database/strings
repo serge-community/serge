@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 Foo NO 0
+    1    2 4 Bar NO 0
+    2    3 6 new_baz NO 0
+}

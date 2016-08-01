@@ -1,0 +1,8 @@
+items
+{
+    0    1 3 1 1 `FOO
+comment for FOO message` NO 0
+    1    2 5 1 2 `BAR
+comment for BAR message` NO 0
+    2    3 7 1 3 BAZ NO 0
+}

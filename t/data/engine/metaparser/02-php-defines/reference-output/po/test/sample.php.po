@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.1\n"
+
+#. FOO
+#. comment for FOO message
+#: File: sample.php
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
+
+#. BAR
+#. comment for BAR message
+#: File: sample.php
+#: ID: b9377c81c897fce0255961a7aa29ad6e
+msgid "Bar"
+msgstr "Ḃáŕ"
+
+#. BAZ
+#: File: sample.php
+#: ID: feea27625483ef3d8dd3c76c49b9bca6
+msgid "new_baz"
+msgstr "ŋēŵ_ḃáž"

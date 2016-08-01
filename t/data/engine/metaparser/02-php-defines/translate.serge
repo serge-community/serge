@@ -1,0 +1,23 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.php$
+
+        parser
+        {
+            plugin                               metaparser
+
+            data
+            {
+                hint                             ^\s*\/\/\s*(?!define)(.*)\s*$                #    // comment
+                keyvalue                         ^\s*define\("(.*?)"\s*,\s*"(.*)"\);\s*$      #    define("key", "value");
+                localize                         ^(\s*define\(".*?"\s*,\s*")(.*)("\);\s*)$
+                reset                            ^(\s*|\s*\/\/\s*define)$                     #    blank line (or `// define`)
+            }
+        }
+
+        output_file_path                         ./test-output/localized-resources/%LANG%/%FILE%
+    }
+}
