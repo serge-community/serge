@@ -229,7 +229,7 @@ sub _flush {
 
     my $translated_str;
 
-    $self->{value} = $self->unescape($self->{value}, $self->{lang});
+    $self->{value} = $self->unescape($self->{value});
 
     if ($self->{value}) {
         $translated_str = &{$self->{callbackref}}(
@@ -244,7 +244,7 @@ sub _flush {
 
     if ($self->{lang}) {
         my $re = $self->{data}->{localize};
-        $translated_str = $self->escape($self->{value}, $self->{lang}, $translated_str);
+        $translated_str = $self->escape($translated_str);
         if ($self->{line} =~ m/$re/) {
             die "'localize' pattern returned empty \$2 capture group" unless defined $2;
         } else {
@@ -255,7 +255,7 @@ sub _flush {
 }
 
 sub unescape {
-    my ($self, $source, $lang) = @_;
+    my ($self, $source) = @_;
 
     my $rules = $self->{data}->{unescape};
     foreach my $rule (@{$self->{data}->{unescape}}) {
@@ -270,7 +270,7 @@ sub unescape {
 }
 
 sub escape {
-    my ($self, $source, $lang, $translation) = @_;
+    my ($self, $translation) = @_;
 
     foreach my $rule (@{$self->{data}->{escape}}) {
         my ($from, $to, $modifiers) = @$rule;
