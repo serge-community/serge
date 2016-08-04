@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- simple strings -->
+    <string name="string1">Value 1</string>
+    <string name="string2">Value 2</string>
+
+    <!-- string arrays -->
+    <string-array name="array1">
+        <item>Item 1.1</item>
+        <item>Item 1.2</item>
+    </string-array>
+    <string-array name="array2">
+        <item>Item 2.1</item>
+        <item>Item 2.2</item>
+    </string-array>
+
+    <!-- plurals -->
+    <plurals name="plural1">
+        <item quantity="one">%d foo</item>
+        <item quantity="other">%d foos</item>
+    </plurals>
+    <plurals name="plural2">
+        <item quantity="one">%d bar</item>
+        <item quantity="other">%d bars</item>
+    </plurals>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string2" translatable="false">Value 2</string>
+    <string-array name="array2" translatable="false">
+        <item>Item 2.1</item>
+        <item>Item 2.2</item>
+    </string-array>
+    <plurals name="plural2" translatable="false">
+        <item quantity="one">%d bar</item>
+        <item quantity="other">%d bars</item>
+    </plurals>
+</resources>

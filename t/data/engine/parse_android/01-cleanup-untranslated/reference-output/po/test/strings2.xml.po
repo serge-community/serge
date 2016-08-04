@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.1\n"
+
+#. string1
+#: File: strings2.xml
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. string2
+#: File: strings2.xml
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#. plural1:one
+#: File: strings2.xml
+#: ID: 61b41427621f6f1d7fdb9ad94dd25d5b
+msgid "%d foo"
+msgstr "%d ḟőő"
+
+#. plural1:other
+#: File: strings2.xml
+#: ID: 388cc53dd02ec6bd021fce7a776b2e28
+msgid "%d foos"
+msgstr "%d ḟőőš"
+
+#. plural2:one
+#: File: strings2.xml
+#: ID: 48a7ec7210717509b8c1e55f0ba7823c
+msgid "%d bar"
+msgstr "%d ḃáŕ"
+
+#. plural2:other
+#: File: strings2.xml
+#: ID: 819ef6df159e44f91863b05b0fecd5c6
+msgid "%d bars"
+msgstr "%d ḃáŕš"
+
+#. array1:item
+#: File: strings2.xml
+#: ID: 31fa23f81dbbf84fd6ef2038bc578b54
+msgid "Item 1.1"
+msgstr "Ĩţēḿ 1.1"
+
+#. array1:item
+#: File: strings2.xml
+#: ID: 7e4c90246929fb35bf3b6c8f6c41c244
+msgid "Item 1.2"
+msgstr "Ĩţēḿ 1.2"
+
+#. array2:item
+#: File: strings2.xml
+#: ID: cb52bc9f59558df7983ea9e27dc5a840
+msgid "Item 2.1"
+msgstr "Ĩţēḿ 2.1"
+
+#. array2:item
+#: File: strings2.xml
+#: ID: af8278dabd4cd8d8dd28523797946d4b
+msgid "Item 2.2"
+msgstr "Ĩţēḿ 2.2"

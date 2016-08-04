@@ -1,0 +1,36 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        leave_untranslated_blank                 YES    # this is needed to remove untranslated entries later
+        +destination_languages                   de     # add some real language in which all strings will remain untranslated (and thus, removed later with `replace_strings`)
+
+        callback_plugins
+        {
+            :cleanup_xml_file
+            {
+                plugin                           replace_strings
+                phase                            before_save_localized_file
+
+                data
+                {
+                    replace                      `\s*<!--.*?-->\s*\n`                                  `\n` sg   # remove comments at the end of lines
+                    replace                      `\s*<!--.*?-->\s*`                                      `` sg   # remove all other comments
+                    replace                      `\s*<string\s[^>]+><\/string>\s*\n`                   `\n` sg   # remove lines with empty <string> elements
+                    replace                      `\s*<item(\s[^>]+)?><\/item>\s*\n`                    `\n` sg   # remove lines with empty <item> elements (with and without attributes)
+                    replace                      `\s*<string-array\s[^>]+>\s*<\/string-array>\s*\n`    `\n` sg   # remove lines with empty <string-array> elements
+                    replace                      `\s*<plurals\s[^>]+>\s+<\/plurals>\s*\n`              `\n` sg   # remove lines with empty <plurals> elements
+                    replace                      `\n{2,}(<\/resources>)`                             `\n$1` sg   # remove extra newlines before the closing tag (for aesthetic reasons)
+                }
+            }
+        }
+    }
+}

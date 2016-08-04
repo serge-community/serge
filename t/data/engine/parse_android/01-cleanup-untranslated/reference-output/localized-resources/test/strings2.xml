@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string1">Ṽáļũē 1</string>
+    <string name="string2">Ṽáļũē 2</string>
+    <string-array name="array1">
+        <item>Ĩţēḿ 1.1</item>
+        <item>Ĩţēḿ 1.2</item>
+    </string-array>
+    <string-array name="array2">
+        <item>Ĩţēḿ 2.1</item>
+        <item>Ĩţēḿ 2.2</item>
+    </string-array>
+    <plurals name="plural1">
+        <item quantity="one">%d ḟőő</item>
+        <item quantity="other">%d ḟőőš</item>
+    </plurals>
+    <plurals name="plural2">
+        <item quantity="one">%d ḃáŕ</item>
+        <item quantity="other">%d ḃáŕš</item>
+    </plurals>
+</resources>

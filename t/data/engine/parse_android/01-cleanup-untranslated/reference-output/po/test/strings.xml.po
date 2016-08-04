@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.1\n"
+
+#. string1
+#: File: strings.xml
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#. plural1:one
+#: File: strings.xml
+#: ID: 61b41427621f6f1d7fdb9ad94dd25d5b
+msgid "%d foo"
+msgstr "%d ḟőő"
+
+#. plural1:other
+#: File: strings.xml
+#: ID: 388cc53dd02ec6bd021fce7a776b2e28
+msgid "%d foos"
+msgstr "%d ḟőőš"
+
+#. array1:item
+#: File: strings.xml
+#: ID: 31fa23f81dbbf84fd6ef2038bc578b54
+msgid "Item 1.1"
+msgstr "Ĩţēḿ 1.1"
+
+#. array1:item
+#: File: strings.xml
+#: ID: 7e4c90246929fb35bf3b6c8f6c41c244
+msgid "Item 1.2"
+msgstr "Ĩţēḿ 1.2"

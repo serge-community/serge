@@ -1,0 +1,18 @@
+items
+{
+    0     1 3 1 1 string1 NO 0
+    1     2 5 1 2 plural1:one NO 0
+    2     3 7 1 3 plural1:other NO 0
+    3     4 9 1 4 array1:item NO 0
+    4     5 11 1 5 array1:item NO 0
+    5     6 13 2 1 string1 NO 0
+    6     7 15 2 6 string2 NO 0
+    7     8 16 2 2 plural1:one NO 0
+    8     9 17 2 3 plural1:other NO 0
+    9     10 19 2 7 plural2:one NO 0
+    10    11 21 2 8 plural2:other NO 0
+    11    12 22 2 4 array1:item NO 0
+    12    13 23 2 5 array1:item NO 0
+    13    14 25 2 9 array2:item NO 0
+    14    15 27 2 10 array2:item NO 0
+}
