@@ -8,12 +8,12 @@ Serge is developed and maintained by Evernote, where it works non-stop
 to help deliver various Evernote clients, websites and marketing materials
 in 25 languages.
 
-### [Watch the Video &rarr;](https://www.youtube.com/v/bC3wECRgLog)
+### [Watch the Video &rarr;](https://www.youtube.com/watch?v=bC3wECRgLog)
 
 This is a recording of the presentation we did at IMUG meetup. It gives
 an overview of what Serge is and how you can use it in your team.
 
-[![](http://img.youtube.com/vi/bC3wECRgLog/0.jpg)](https://www.youtube.com/v/bC3wECRgLog)
+[![](http://img.youtube.com/vi/bC3wECRgLog/0.jpg)](https://www.youtube.com/watch?v=bC3wECRgLog)
 
 
 ### [Learn more at serge.io &rarr;](https://serge.io/docs/)
