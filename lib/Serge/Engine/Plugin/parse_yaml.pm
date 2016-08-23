@@ -186,11 +186,12 @@ sub parse {
 sub process_node {
     my ($self, $path, $subtree, $callbackref, $lang, $parent, $key) = @_;
 
+    $path = $self->{parent}->build_key($key, $path);
+
     if (ref($subtree) eq 'HASH') {
         # hash
-
         foreach my $key (sort keys %$subtree) {
-            $self->process_node($path.'/'.$key, $subtree->{$key}, $callbackref, $lang, $subtree, $key);
+            $self->process_node($path, $subtree->{$key}, $callbackref, $lang, $subtree, $key);
         }
     } else {
         # text node

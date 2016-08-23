@@ -64,7 +64,8 @@ jobs                                ARRAY
                 *                   DATA
             }
         }
-
+        key_separator               STRING
+        key_leading_separator       BOOLEAN
         normalize_strings           BOOLEAN
         leave_untranslated_blank    BOOLEAN
         db_source                   STRING

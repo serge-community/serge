@@ -46,6 +46,9 @@ sub new {
         }
     }
 
+    $self->{key_separator} = '/' unless (exists $self->{key_separator});
+    $self->{key_leading_separator} = 1 unless (exists $self->{key_leading_separator});
+
     bless $self, $class;
 
     # load parser plugin
@@ -176,6 +179,14 @@ sub gather_similar_languages_for_lang {
         }
     }
     return keys %out;
+}
+
+sub build_key {
+    my ($self, $leaf, $prefix) = @_;
+
+    return $leaf if (!$self->{key_leading_separator} && !$prefix);
+    return "$prefix$leaf" if $prefix eq $self->{key_separator};
+    return "$prefix$self->{key_separator}$leaf";
 }
 
 1;

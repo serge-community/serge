@@ -1,0 +1,19 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.yml$
+        key_separator                            .
+        key_leading_separator                    NO
+
+        parser
+        {
+            plugin                               parse_yaml
+
+            data
+            {
+                yaml_kind                        rails
+            }
+        }
+    }
+}

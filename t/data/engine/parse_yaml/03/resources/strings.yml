@@ -1,0 +1,7 @@
+en:
+  messages:
+    foo: bar1
+    baz: etc1
+    subsection:
+        foo: bar2
+        baz: etc2
