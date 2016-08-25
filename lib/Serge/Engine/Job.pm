@@ -104,6 +104,11 @@ sub load_plugin_and_register_callbacks {
     $p->adjust_phases(\@phases);
 
     foreach my $phase (@phases) {
+        # Deprecation notice
+        if ($phase eq 'before_update_database_from_ts_file') {
+            print "WARNING: 'before_update_database_from_ts_file' phase name is deprecated; use 'before_update_database_from_ts_files' instead\n";
+        }
+
         my $a = $self->{callback_phases}->{$phase};
         $self->{callback_phases}->{$phase} = $a = [] unless defined $a;
         push @$a, $p;
@@ -117,6 +122,7 @@ sub run_callbacks {
 
     if (exists $self->{callback_phases}->{$phase}) {
         print "::phase '$phase' has callbacks, running...\n" if $self->{debug};
+
 
         my @result;
 

@@ -373,7 +373,11 @@ sub process_job {
     $self->update_database_from_source_files;
     print "update_database_from_source_files() took ", tv_interval($start), " seconds\n";
 
+    # The following callback has been deprecated.
+    # See Engine::Job::load_plugin_and_register_callbacks for the deprecation notice
     $self->run_callbacks('before_update_database_from_ts_file');
+    # new callback name
+    $self->run_callbacks('before_update_database_from_ts_files');
 
     if (!$self->{rebuild_ts_files} && !$job->{output_only_mode}) {
         $start = [gettimeofday];
