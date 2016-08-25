@@ -151,10 +151,12 @@ sub parse {
         } elsif ($tree_count == 1) {
             $tree = $tree->{$tree_keys[0]};
         } else {
-            my $err = join(', ', @tree_keys);
-            $err = "YAML file with more than 1 key at root in yaml_kind: rails: $err";
-            $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $err;
-            die $err;
+            my $error_text = join(', ', sort @tree_keys);
+            $error_text = "YAML file is processed in `rails` mode but has multiple root keys: $error_text";
+
+            $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $error_text;
+
+            die $error_text;
         }
     }
 
