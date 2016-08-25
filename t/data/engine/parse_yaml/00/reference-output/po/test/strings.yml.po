@@ -5,6 +5,12 @@ msgstr ""
 "Language: test\n"
 "Generated-By: Serge 1.1\n"
 
+#. /baz__PRESERVE_ANCHOR__baz_anchor
+#: File: strings.yml
+#: ID: 641460c2a4284dfe0a6e9b1368f89fd5
+msgid "etc1"
+msgstr "ēţç1"
+
 #. /foo__PRESERVE_ANCHOR__foo_anchor
 #: File: strings.yml
 #: ID: 2b2b5146df00a72b24a62de7f60c818b
@@ -22,9 +28,3 @@ msgstr "ēţç2"
 #: ID: e5f2adbdbe00c558062db891f2072489
 msgid "bar2"
 msgstr "ḃáŕ2"
-
-#. /baz__PRESERVE_ANCHOR__baz_anchor
-#: File: strings.yml
-#: ID: 641460c2a4284dfe0a6e9b1368f89fd5
-msgid "etc1"
-msgstr "ēţç1"

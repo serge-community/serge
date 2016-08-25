@@ -1,9 +1,9 @@
 strings
 {
-    0    1 2 etc2 NO 0
-    1    2 4 bar2 NO 0
-    2    3 6 etc1 NO 0
-    3    4 8 etc1 /subsection2/baz 0
-    4    5 10 bar1 NO 0
-    5    6 12 bar1 /foo 0
+    0    1 2 etc1 NO 0
+    1    2 4 bar1 NO 0
+    2    3 6 etc2 NO 0
+    3    4 8 bar2 NO 0
+    4    5 10 etc1 /subsection2/baz 0
+    5    6 12 bar1 /subsection2/foo 0
 }

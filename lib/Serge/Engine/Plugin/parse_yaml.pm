@@ -145,7 +145,7 @@ sub parse {
 
     if ($is_rails) {
         my @tree_keys = keys %$tree;
-        my $tree_count = int @tree_keys;
+        my $tree_count = @tree_keys;
         if ($tree_count == 0) {
             # Special case NOOP. Empty data
         } elsif ($tree_count == 1) {
@@ -187,7 +187,7 @@ sub process_node {
     if (ref($subtree) eq 'HASH') {
         # hash
 
-        foreach my $key (keys %$subtree) {
+        foreach my $key (sort keys %$subtree) {
             $self->process_node($path.'/'.$key, $subtree->{$key}, $callbackref, $lang, $subtree, $key);
         }
     } else {

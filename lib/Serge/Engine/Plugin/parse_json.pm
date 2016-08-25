@@ -149,7 +149,7 @@ sub process_node {
     if (ref($subtree) eq 'HASH') {
         # hash
 
-        foreach my $key (keys %$subtree) {
+        foreach my $key (sort keys %$subtree) {
             $self->process_node($path.'/'.$key, $subtree->{$key}, $callbackref, $lang, $subtree, $key);
         }
     } elsif (ref($subtree) eq 'ARRAY') {

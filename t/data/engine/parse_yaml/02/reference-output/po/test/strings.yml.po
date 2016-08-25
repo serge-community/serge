@@ -11,6 +11,12 @@ msgstr ""
 msgid "etc1"
 msgstr "ēţç1"
 
+#. /messages/foo
+#: File: strings.yml
+#: ID: 2b2b5146df00a72b24a62de7f60c818b
+msgid "bar1"
+msgstr "ḃáŕ1"
+
 #. /messages/subsection/baz
 #: File: strings.yml
 #: ID: d153669b002fd5ab4e43d885eb02f39c
@@ -22,9 +28,3 @@ msgstr "ēţç2"
 #: ID: e5f2adbdbe00c558062db891f2072489
 msgid "bar2"
 msgstr "ḃáŕ2"
-
-#. /messages/foo
-#: File: strings.yml
-#: ID: 2b2b5146df00a72b24a62de7f60c818b
-msgid "bar1"
-msgstr "ḃáŕ1"

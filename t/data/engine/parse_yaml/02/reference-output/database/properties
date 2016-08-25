@@ -6,12 +6,12 @@ properties
     3     4 items:1 1,2,3,4
     4     5 ts:1:test:count 4
     5     6 usn:1:test 13
-    6     7 ts:1:test d1f18a868b46fbd6f6bbc59f0a61a6b6
+    6     7 ts:1:test 3b010fe0f7df938839b514e71b4cea7e
     7     8 target:1:test_job:test a34ea2a7ab5b90067203f0ea6313247f
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test 9931e2731aec2b1d56f564b338cd1c59
     10    11 source:ts:1:test_job:test
-          d1f18a868b46fbd6f6bbc59f0a61a6b6
+          3b010fe0f7df938839b514e71b4cea7e
     11    12 job-hash:test_namespace:test_job
           c2ddeb78ca623ddd463b7595aa56a916
     12    13 job-plugin:test_namespace:test_job parse_yaml.
