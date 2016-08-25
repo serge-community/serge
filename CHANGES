@@ -34,7 +34,12 @@ Revision history
           entries during post-processing; this in turn allows for custom fallback
           mechanisms and also reduces resource file sizes
 
-        - In Git plugin, automatically prune old branches to avoid conflicts on `git fetch`
+        - In Git plugin, old branches are automatically pruned to avoid conflicts
+          on `git fetch`
+
+        - JSON and YAML parsers now sort keys alphabetically at parsing time.
+          This is to guarantee stable output between multiple runs and between
+          different Perl versions (#29)
 
 1.1     April 20, 2016
 
