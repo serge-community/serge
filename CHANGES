@@ -31,8 +31,8 @@ Revision history
         - Add `yaml_kind` to the YAML parser to support Rails-specific file format
 
         - Add `leave_untranslated_blank` job option to allow cleaning up untranslated
-        entries during post-processing; this in turn allows for custom fallback mechanisms
-        and also reduces resource file sizes
+          entries during post-processing; this in turn allows for custom fallback
+          mechanisms and also reduces resource file sizes
 
         - In Git plugin, automatically prune old branches to avoid conflicts on `git fetch`
 
