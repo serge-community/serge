@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a comment-->
+<item type="hardware">
+    <id>Gadget</id>
+    <org>ACME Corp.</org>
+    <name>Gadget<!-- test --></name>
+    <categories>
+        <category>hardware</category>
+    </categories>
+    <added></added>
+    <langs>en,fr,ja</langs>
+    <shortdesc>Gadget from ACME</shortdesc>
+    <longdesc><![CDATA[<p>Gadget from ACME can foo and bar.</p><p>Foo and bar without baz!</p>]]></longdesc>
+    <test><![CDATA[<p>&lt;foo/&gt;</p>]]></test>
+    <test>&lt;foo/&gt;</test>
+    <smallimg>http:/example.com/gadget-small.png</smallimg>
+    <largeimg>http:/example.com/gadget-large.png</largeimg>
+    <linknames>
+	   <activation>Buy Now</activation>
+	   <blog>Blog Post</blog>
+	   <homepage>Gadget Website</homepage>
+	   <support>Gadget Support</support>
+    </linknames>
+    <links>
+        <en>
+            <activation><![CDATA[ http://acme.com/products/gadget/shop ]]></activation>
+            <blog>http://blog.acme.com/tag/gadget/</blog>
+        </en>
+    </links>
+</item>
