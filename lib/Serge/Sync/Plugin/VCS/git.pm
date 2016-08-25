@@ -152,6 +152,9 @@ sub checkout {
     # abandon all local changes, if any
     $self->run_in($local_path, qq|git reset --hard origin/$branch|, undef, $IGNORE_ERRORS);
 
+    # before fetching, remove old conflicting branches, if any
+    $self->run_in($local_path, qq|git remote prune origin|);
+
     # pull changes from remote server
     $self->run_in($local_path, qq|git fetch|);
     $self->run_in($local_path, qq|git rebase origin/$branch|);

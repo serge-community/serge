@@ -34,6 +34,8 @@ Revision history
         entries during post-processing; this in turn allows for custom fallback mechanisms
         and also reduces resource file sizes
 
+        - In Git plugin, automatically prune old branches to avoid conflicts on `git fetch`
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
