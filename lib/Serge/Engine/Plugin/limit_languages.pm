@@ -382,6 +382,8 @@ sub after_load_source_file_for_processing {
         } else {
             print "\t\tDestination languages: ".join(', ', sort keys %limit_langs)."\n";
         }
+    } else {
+        print "\t\tAll destination languages\n";
     }
 }
 
