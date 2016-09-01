@@ -4,6 +4,10 @@
     <string name="string1">Ṽáļũē 1</string>
     <string name="string2" translatable="false">Value 2</string>
 
+    <!-- strings with <xliff:g> placeholders and quotes/apostrophes -->
+    <string name="string3">Ŧēҳţ <xliff:g id="p_1">\"ṕļáçēĥőļđēŕ\"</xliff:g> \"ţēҳţ\" (<xliff:g id="p_2">ṕļáçēĥőļđēŕ</xliff:g> \"ţēҳţ\"</string>
+    <string name="string4">Ŧēҳţ <xliff:g id='p_1'>\'ṕļáçēĥőļđēŕ\'</xliff:g> \'ţēҳţ\' (<xliff:g id='p_2'>ṕļáçēĥőļđēŕ</xliff:g> \'ţēҳţ\'</string>
+
     <!-- string arrays -->
     <string-array name="array1">
         <item>Ĩţēḿ 1.1</item>

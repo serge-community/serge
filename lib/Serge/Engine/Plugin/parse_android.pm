@@ -73,16 +73,43 @@ sub parse_string_array_callback {
     return $inner_xml;
 }
 
+sub process_non_xml_chunks {
+    my ($s, $callback) = @_;
+
+    my @chunks = split(/(<.*?>)/, $s);
+    my $out = '';
+    my $translate;
+
+    foreach my $chunk (@chunks) {
+        $translate = !$translate;
+        &$callback(\$chunk) if $translate;
+        $out .= $chunk;
+    }
+    return $out;
+}
+
+sub unescape_callback {
+    my $strref = shift;
+
+    $$strref =~ s/\\'/'/g; # Android-specific apostrophe unescaping
+    $$strref =~ s/\\"/"/g; # Android-specific quote unescaping
+}
+
+sub escape_callback {
+    my $strref = shift;
+
+    $$strref =~ s/'/\\'/g; # Android-specific apostrophe escaping
+    $$strref =~ s/"/\\"/g; # Android-specific quote escaping
+}
+
 sub parse_callback {
     my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang, $key) = @_;
 
-    $string =~ s/\\'/'/g; # Android-specific apostrophe unescaping
-    $string =~ s/\\"/"/g; # Android-specific quote unescaping
+    $string = process_non_xml_chunks($string, \&unescape_callback);
 
     my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang, $key);
 
-    $translated_string =~ s/'/\\'/g; # Android-specific apostrophe escaping
-    $translated_string =~ s/"/\\"/g; # Android-specific quote escaping
+    $translated_string = process_non_xml_chunks($translated_string, \&escape_callback);
 
     return $translated_string;
 }

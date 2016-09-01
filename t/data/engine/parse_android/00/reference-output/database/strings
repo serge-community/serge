@@ -1,8 +1,14 @@
 strings
 {
     0    1 2 `Value 1` NO 0
-    1    2 4 `%d foo` NO 0
-    2    3 6 `%d foos` NO 0
-    3    4 8 `Item 1.1` NO 0
-    4    5 10 `Item 1.2` NO 0
+    1    2 4
+         `Text <xliff:g id="p_1">"placeholder"</xliff:g> "text" (<xliff:g id="p_2">placeholder</xliff:g> "text"`
+         NO 0
+    2    3 6
+         `Text <xliff:g id='p_1'>'placeholder'</xliff:g> 'text' (<xliff:g id='p_2'>placeholder</xliff:g> 'text'`
+         NO 0
+    3    4 8 `%d foo` NO 0
+    4    5 10 `%d foos` NO 0
+    5    6 12 `Item 1.1` NO 0
+    6    7 14 `Item 1.2` NO 0
 }

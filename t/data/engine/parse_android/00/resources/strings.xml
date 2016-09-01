@@ -4,6 +4,10 @@
     <string name="string1">Value 1</string>
     <string name="string2" translatable="false">Value 2</string>
 
+    <!-- strings with <xliff:g> placeholders and quotes/apostrophes -->
+    <string name="string3">Text <xliff:g id="p_1">\"placeholder\"</xliff:g> \"text\" (<xliff:g id="p_2">placeholder</xliff:g> \"text\"</string>
+    <string name="string4">Text <xliff:g id='p_1'>\'placeholder\'</xliff:g> \'text\' (<xliff:g id='p_2'>placeholder</xliff:g> \'text\'</string>
+
     <!-- string arrays -->
     <string-array name="array1">
         <item>Item 1.1</item>
