@@ -173,14 +173,14 @@ sub process_node {
         # translate only non-empty strings
         if ($string ne '') {
             if ($lang) {
-                my $translated_string = &$callbackref($string, undef, $path, undef, $lang);
+                my $translated_string = &$callbackref($string, undef, $path, undef, $lang, $path);
                 if (defined $index) {
                     $parent->[$index] = $translated_string;
                 } else {
                     $parent->{$key} = $translated_string;
                 }
             } else {
-                &$callbackref($string, undef, $path, undef, undef);
+                &$callbackref($string, undef, $path, undef, undef, $path);
             }
         }
     }

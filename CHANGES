@@ -26,6 +26,8 @@ Revision history
 
         - Add `serge import` support for .plist parser (#16)
 
+        - Add `serge import` support for parse_json and parse_json_keyvalue parsers
+
         - Improve `transform` plugin logic
 
         - Add `yaml_kind` to the YAML parser to support Rails-specific file format

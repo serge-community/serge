@@ -117,7 +117,7 @@ sub parse {
 
     foreach my $key (sort keys %$messages) {
         my $msg = $messages->{$key};
-        $messages->{$key} = &$callbackref($msg, undef, $key, undef, $lang);
+        $messages->{$key} = &$callbackref($msg, undef, $key, undef, $lang, $key);
     }
 
     # need to force indent_length, otherwise it will be zero when PP extension 'escape_slash' is used
