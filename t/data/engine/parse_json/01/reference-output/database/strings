@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 `test 1` NO 0
+    1    2 4 `test 2` NO 0
+    2    3 6 `test 3` NO 0
+}

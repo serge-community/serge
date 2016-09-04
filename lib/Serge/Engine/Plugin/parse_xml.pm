@@ -483,7 +483,7 @@ sub render_tag_recursively {
             if (($tagname eq '__ROOT') || ($tagname eq '__CDATA') || ($tagname eq '__COMMENT') || ($tagname eq '__PI')) {
                 $tagpath = $path;
             } else {
-                $tagpath = $path.'/'.$tagname;
+                $tagpath = $self->{parent}->build_key($tagname, $path);
             }
 
             if ($lang) {
