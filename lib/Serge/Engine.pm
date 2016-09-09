@@ -139,6 +139,7 @@ sub open_database {
     # reuse the previous DB  connection if its parameters weren't changed
 
     return if
+        ($self->{db_source} ne '') &&
         ($self->{db_source} eq $job->{db_source}) &&
         ($self->{db_username} eq $job->{db_username}) &&
         ($self->{db_password} eq $job->{db_password});
