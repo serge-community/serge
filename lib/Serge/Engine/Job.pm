@@ -33,16 +33,16 @@ sub new {
     die "job has no 'id' property" unless $self->{id};
 
     if (!exists $self->{destination_languages} or scalar(@{$self->{destination_languages}}) == 0) {
-        die "the list of target languages is empty";
+        die "the list of destination languages is empty";
     }
 
     if (scalar @{$self->{destination_languages}} > 1) {
         if ($self->{ts_file_path} !~ m/%(LANG|LOCALE|CULTURE|LANGNAME|LANGID)(:\w+)*%/) {
-            die "when there's more than one target language, 'ts_file_path' should have %LANG%, %LOCALE%, %CULTURE%, %LANGNAME%, or %LANGID% macro defined";
+            die "when there's more than one destination language, 'ts_file_path' should have %LANG%, %LOCALE%, %CULTURE%, %LANGNAME%, or %LANGID% macro defined";
         }
 
         if ($self->{output_lang_files} && ($self->{output_file_path} !~ m/%(LANG|LOCALE|CULTURE|LANGNAME|LANGID)(:\w+)*%/)) {
-            die "when there's more than one target language, 'output_file_path' should have %LANG%, %LOCALE%, %CULTURE%, %LANGNAME%, or %LANGID% macro defined";
+            die "when there's more than one destination language, 'output_file_path' should have %LANG%, %LOCALE%, %CULTURE%, %LANGNAME%, or %LANGID% macro defined";
         }
     }
 
