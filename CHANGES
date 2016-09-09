@@ -2,7 +2,7 @@ Revision history
 
 1.2     Pending release
 
-        - Make TS File serializiation pluggable (see #11)
+        - Make TS File serialization pluggable (see #11)
           - .PO file support is now implemented as a serialization plugin
           - .CSV serialization plugin added
 
