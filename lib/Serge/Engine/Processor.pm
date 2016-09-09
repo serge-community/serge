@@ -22,7 +22,6 @@ sub new {
 sub run {
     my ($self, $dry_run) = @_;
 
-    my $n;
     foreach my $job_data (@{$self->{config}->{data}->{jobs}}) {
         my $job;
 
@@ -34,8 +33,7 @@ sub run {
         };
 
         if ($@) {
-            my $id = "'" . $job_data->{id} . "'" || '#' . ++$n;
-            print "Job $id will be skipped: $@\n";
+            print "Job '$job_data->{id}' will be skipped: $@\n";
             next;
         }
 
