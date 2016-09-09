@@ -17,11 +17,18 @@ sub new {
     die "data not provided" unless $data;
 
     my $self = $data;
+    bless $self, $class;
+
+    # expand environment variables before calculating the job hash
+    $self->expand_env_vars;
 
     # calculate hash before we add additional calculated fields and bless
     # the data
     my $dumper = Data::Dumper->new([$data]);
     $self->{hash} = generate_hash($dumper->Terse(1)->Deepcopy(1)->Indent(0)->Dump);
+
+    # convert paths relative to the config path to absolute ones
+    $self->expand_paths;
 
     $self->{engine} = $engine if $engine;
     $self->{base_dir} = $base_dir if $base_dir;
@@ -45,8 +52,6 @@ sub new {
             die "when there's more than one destination language, 'output_file_path' should have %LANG%, %LOCALE%, %CULTURE%, %LANGNAME%, or %LANGID% macro defined";
         }
     }
-
-    bless $self, $class;
 
     # load parser plugin
 
@@ -77,6 +82,28 @@ sub new {
     } @{$self->{callback_plugins}};
 
     return $self;
+}
+
+sub expand_env_vars {
+    my ($self) = @_;
+
+    map {
+        my $was = $self->{$_};
+        my $now = subst_macros($self->{$_});
+        if ($was ne $now) {
+            print "\n[::1]\n\t$_\n\twas: $was\n\tnow: $now\n\n";
+        }
+
+        #$self->{$_} = subst_macros($self->{$_});
+    } qw(db_source db_username db_password source_dir ts_file_path output_file_path);
+}
+
+sub expand_paths {
+    my ($self) = @_;
+
+    map {
+        $self->{$_} = $self->abspath($self->{$_});
+    } qw(source_dir ts_file_path output_file_path);
 }
 
 sub load_plugin_and_register_callbacks {

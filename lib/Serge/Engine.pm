@@ -313,20 +313,6 @@ sub init_job {
     $job->{original_destination_languages} = $job->{destination_languages};
 }
 
-sub expand_paths {
-    my ($self, $job) = @_;
-
-    # Convert paths relative to the config path to absolute ones
-
-    $job->{db_source} = subst_macros($job->{db_source});
-    $job->{db_username} = subst_macros($job->{db_username});
-    $job->{db_password} = subst_macros($job->{db_password});
-
-    $job->{source_dir} = $job->abspath(subst_macros($job->{source_dir}));
-    $job->{ts_file_path} = $job->abspath(subst_macros($job->{ts_file_path}));
-    $job->{output_file_path} = $job->abspath(subst_macros($job->{output_file_path}));
-}
-
 sub process_job {
     my ($self, $job) = @_;
 
@@ -347,7 +333,6 @@ sub process_job {
         return;
     }
 
-    $self->expand_paths($job);
     $self->open_database($job);
     $self->adjust_job_optimizations($job);
     $self->adjust_modified_languages($job);

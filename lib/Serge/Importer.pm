@@ -34,7 +34,6 @@ sub process_job {
         return;
     }
 
-    $self->expand_paths($job);
     $self->open_database($job);
     $self->adjust_modified_languages($job);
 

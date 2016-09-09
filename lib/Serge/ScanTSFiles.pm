@@ -31,12 +31,9 @@ sub process_job {
     my $ts_file_path = $job->{ts_file_path};
     die "ERROR: ts_file_path not defined" unless $ts_file_path;
     my ($ts_base_dir) = split(/[\\\/]%LOCALE%[\\\/]/, $ts_file_path);
-    # die here, otherwise there's a chance some .po files will be deleted by mistake
+    # die here, otherwise there's a chance some translation interchange files will be deleted by mistake
     die "ERROR: ts_file_path has no %LOCALE% macro defined" unless $ts_base_dir;
-    $ts_base_dir = subst_macros($ts_base_dir);
     $ts_base_dir =~ s/\\/\//sg; # always use forward slash for consistency
-
-    $self->expand_paths($job);
 
     die "source_dir [$job->{source_dir}] doesn't exist. Try doing an initial data checkout (`serge pull --initialize`), or reconfigure your job" unless -d $job->{source_dir};
 
@@ -45,7 +42,7 @@ sub process_job {
     # always go through all destination languages with no optimizations
     $self->{job}->{modified_languages} = $self->{job}->{destination_languages};
 
-    print "PO base dir: [".$ts_base_dir."]\n";
+    print "TS base dir: [".$ts_base_dir."]\n";
 
     # this will just scan the files and prepare the list of relative file names
     # in $self->{files} for update_database_from_ts_files() to work properly
