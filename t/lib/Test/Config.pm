@@ -12,13 +12,8 @@ our $REFERENCE_OUTPUT_PATH = './reference-output';
 our $TS_DIR = './po';
 our $DATA_DIR = './localized-resources';
 our $DATABASE_DIR = './database';
+our $ERRORS_DIR = './errors';
 
-
-sub is_active {
-    my $self = shift;
-
-    return $self->{data}->{jobs}->[0]->{active};
-}
 
 sub output_path {
     my $self = shift;
@@ -48,7 +43,12 @@ sub db_path {
     my $self = shift;
 
     return catfile($self->{base_dir}, $OUTPUT_PATH, $DATABASE_DIR);
+}
 
+sub errors_path {
+    my $self = shift;
+
+    return catfile($self->{base_dir}, $OUTPUT_PATH, $ERRORS_DIR);
 }
 
 sub reference_db_path {
@@ -67,6 +67,18 @@ sub reference_data_path {
     my $self = shift;
 
     return catfile($self->{base_dir}, $REFERENCE_OUTPUT_PATH, $DATA_DIR);
+}
+
+sub reference_errors_path {
+    my $self = shift;
+
+    return catfile($self->{base_dir}, $REFERENCE_OUTPUT_PATH, $ERRORS_DIR);
+}
+
+sub can_dump_db {
+    my $self = shift;
+
+    return $self->{data}->{jobs}->[0]->{db_source} ne '';
 }
 
 sub db_dump_type {

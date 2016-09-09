@@ -20,7 +20,7 @@ use Test::Diff;
 use Test::More;
 use Test::DB::Dumper;
 use Serge::Engine;
-use Serge::Engine::Processor;
+use Serge::Engine::Job;
 
 $| = 1; # disable output buffering
 
@@ -83,7 +83,7 @@ for my $config_file (@confs) {
 
         SKIP: {
             my $ok = ok(defined $cfg, 'Config file read');
-            skip "<$config_file>", $init_references ? 2 : 4 if !$ok || !$cfg->is_active;
+            skip "<$config_file>", $init_references ? 2 : 4 if !$ok;
 
             my $err;
 
@@ -96,30 +96,52 @@ for my $config_file (@confs) {
             $engine->{optimizations} = undef; # force generate all the files
             my $config = Serge::Config->new($config_file);
             $config->chdir;
-            my $processor = Serge::Engine::Processor->new($engine, $config);
 
-            eval {
-                $processor->run();
-            };
-            print "Error: $@" if $@;
+            foreach my $job_data (@{$config->{data}->{jobs}}) {
+                my $job;
 
-            ok(!$@, 'Processing all jobs in config file') or BAIL_OUT('Engine failed to run some of the jobs');
+                eval {
+                    $job = Serge::Engine::Job->new($job_data, $engine, $config->{base_dir});
+                    $engine->process_job($job);
+                };
 
-            my $dumper = Test::DB::Dumper->new($engine);
-            $dumper->dump_l10n_tables($Test::DB::Dumper::TYPE_NEAT, $cfg->db_path);
+                if ($@) {
+                    my $error = $@;
+                    # cleanup error message to avoid having file paths that will differ across installations
+                    $error =~ s/\s+$//sg;
+                    $error =~ s/ at .*? line \d+\.$//s;
+                    $error =~ s/\(\@INC contains: .*\)$//s;
+
+                    print "Job '$job_data->{id}' will be skipped: $error\n";
+
+                    eval { mkpath($cfg->errors_path) };
+                    die "Couldn't create $cfg->errors_path: $@" if $@;
+                    my $filename = catfile($cfg->errors_path, $job_data->{id}.'.txt');
+                    open(OUT, ">$filename");
+                    binmode(OUT, ':unix :utf8');
+                    print OUT $error;
+                    close(OUT);
+                }
+            }
+
+            #ok(!$@, 'Processing all jobs in config file') or BAIL_OUT('Engine failed to run some of the jobs');
+
+            if ($cfg->can_dump_db) {
+                my $dumper = Test::DB::Dumper->new($engine);
+                $dumper->dump_l10n_tables($Test::DB::Dumper::TYPE_NEAT, $cfg->db_path);
+            } else {
+                print "Skipped dumping the database, as this is not applicable for this test\n";
+            }
 
             $engine->cleanup;
 
             if ($init_references) {
                 ok(dircopy($cfg->output_path, $cfg->reference_output_path), "Initialized ".$cfg->reference_output_path);
             } else {
+                $ok &= dir_diff($cfg->errors_path, $cfg->reference_errors_path, { base_dir => $cfg->{base_dir} } );
                 $ok &= dir_diff($cfg->db_path, $cfg->reference_db_path, { base_dir => $cfg->{base_dir} } );
                 $ok &= dir_diff($cfg->ts_path, $cfg->reference_ts_path, { base_dir => $cfg->{base_dir} } );
-                if (-d $cfg->reference_data_path) {
-                    $ok &= dir_diff($cfg->data_path, $cfg->reference_data_path, { base_dir => $cfg->{base_dir} } ) if $cfg->output_lang_files;
-                } else {
-                    ok(!-d $cfg->data_path, "Directory with localized files shouldn't exist");
-                }
+                $ok &= dir_diff($cfg->data_path, $cfg->reference_data_path, { base_dir => $cfg->{base_dir} } ) if $cfg->output_lang_files;
             }
 
             # Under Windows, deleting just created files may fail with 'Permission denied'

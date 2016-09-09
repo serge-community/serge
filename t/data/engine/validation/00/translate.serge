@@ -1,0 +1,164 @@
+jobs
+{
+    {
+        # job has no id
+    }
+
+    {
+        id                           no_db_source
+    }
+
+    {
+        id                           no_db_namespace
+        db_source                    some_invalid_string
+    }
+
+    {
+        id                           destination_languages_empty
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+    }
+
+    {
+        id                           plugin_parameter_missing
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test
+    }
+
+    {
+        id                           ts_file_path_missing
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+    }
+
+    {
+        id                           ts_file_path_no_macros
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 some_path
+    }
+
+    {
+        id                           plugin_parameter_missing_2
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+    }
+
+    {
+        id                           output_file_path_missing
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+    }
+
+    {
+        id                           output_file_path_no_macros
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             some_path
+    }
+
+    {
+        id                           plugin_parameter_missing_3
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+    }
+
+    {
+        id                           plugin_parameter_missing_4
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            # nothing
+        }
+    }
+
+    {
+        id                           plugin_not_defined
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            plugin                   # no plugin name specified
+        }
+    }
+
+    {
+        id                           plugin_not_found
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            plugin                   nonexistent_plugin
+        }
+    }
+
+    {
+        id                           plugin_not_found_2
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            plugin                   Some::Nonexistent::Plugin
+        }
+    }
+
+    {
+        id                           incorrect_data_source_format
+        db_source                    some_invalid_string
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            plugin                   parse_android
+        }
+    }
+
+    {
+        id                           unknown_dbi_driver
+        db_source                    DBI:unknown_driver:
+        db_namespace                 test.namespace
+        destination_languages        test test2
+        ts_file_path                 ./test-output/po/%LOCALE%/%FILE%.po
+        output_lang_files            YES
+        output_file_path             ./test-output/localized-resources/%LOCALE%/%FILE%
+
+        parser {
+            plugin                   parse_android
+        }
+    }
+}
