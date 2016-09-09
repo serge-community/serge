@@ -49,6 +49,17 @@ Revision history
         - Fix unwanted escaping of quotes/apostrophes inside tag markup embedded in a string
           (e.g. <xliff:g id="...">)
 
+        - Added support for tests that report job validation errors (and compare them
+          with reference error messages)
+
+        - Added better error reporting for incorrectly set up jobs, e.g. the ones
+          that have empty `db_source` or `db_namespace` parameters
+
+        - `db_namespace` parameter can now contain %ENV:...% macros
+
+        - When job fails, we now move on to the next job in the config
+          (previously the entire config would be skipped)
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
