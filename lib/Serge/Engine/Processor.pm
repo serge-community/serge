@@ -37,7 +37,14 @@ sub run {
             next;
         }
 
-        $self->{engine}->process_job($job) unless $dry_run;
+        eval {
+            $self->{engine}->process_job($job) unless $dry_run;
+        };
+
+        if ($@) {
+            print "Exception occurred while processing job '$job_data->{id}': $@\n";
+            next;
+        }
     }
 }
 
