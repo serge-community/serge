@@ -37,7 +37,8 @@ sub new {
 
     # Check job config validity
 
-    die "job has no 'id' property" unless $self->{id};
+    die "job has an empty 'id' property" if $self->{id} eq '';
+    die "job has an empty 'db_source' property" if $self->{db_source} eq '';
 
     if (!exists $self->{destination_languages} or scalar(@{$self->{destination_languages}}) == 0) {
         die "the list of destination languages is empty";
