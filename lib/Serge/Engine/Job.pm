@@ -39,6 +39,7 @@ sub new {
 
     die "job has an empty 'id' property" if $self->{id} eq '';
     die "job has an empty 'db_source' property" if $self->{db_source} eq '';
+    die "job has an empty 'db_namespace' property" if $self->{db_namespace} eq '';
 
     if (!exists $self->{destination_languages} or scalar(@{$self->{destination_languages}}) == 0) {
         die "the list of destination languages is empty";
@@ -96,7 +97,10 @@ sub expand_env_vars {
         }
 
         #$self->{$_} = subst_macros($self->{$_});
-    } qw(db_source db_username db_password source_dir ts_file_path output_file_path);
+    } qw(
+        db_source db_username db_password db_namespace
+        source_dir ts_file_path output_file_path
+    );
 }
 
 sub expand_paths {
