@@ -110,7 +110,8 @@ for my $config_file (@confs) {
                     # cleanup error message to avoid having file paths that will differ across installations
                     $error =~ s/\s+$//sg;
                     $error =~ s/ at .*? line \d+\.$//s;
-                    $error =~ s/\(\@INC contains: .*\)$//s;
+                    $error =~ s/ \(\@INC contains: .*\)$//s;
+                    $error =~ s/\@INC.+$/\@INC/s;
 
                     print "Job '$job_data->{id}' will be skipped: $error\n";
 

@@ -1,1 +1,1 @@
-Can't create instance for plugin 'Some::Nonexistent::Plugin': Can't locate Some/Nonexistent/Plugin.pm in @INC 
+Can't create instance for plugin 'Some::Nonexistent::Plugin': Can't locate Some/Nonexistent/Plugin.pm in @INC

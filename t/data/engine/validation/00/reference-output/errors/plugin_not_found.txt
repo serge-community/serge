@@ -1,1 +1,1 @@
-Can't create instance for plugin 'Serge::Engine::Plugin::nonexistent_plugin': Can't locate Serge/Engine/Plugin/nonexistent_plugin.pm in @INC 
+Can't create instance for plugin 'Serge::Engine::Plugin::nonexistent_plugin': Can't locate Serge/Engine/Plugin/nonexistent_plugin.pm in @INC

@@ -1,1 +1,1 @@
-Can't create instance for plugin 'Serge::Engine::Plugin::YES': Can't locate Serge/Engine/Plugin/YES.pm in @INC 
+Can't create instance for plugin 'Serge::Engine::Plugin::YES': Can't locate Serge/Engine/Plugin/YES.pm in @INC
