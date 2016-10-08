@@ -968,7 +968,7 @@ sub update_database_from_ts_files_lang_file {
 
             my $item_comment;
             $self->run_callbacks('rewrite_parsed_ts_file_item', $relfile, $lang, $item_id,
-                \{$unit->{source}}, $unit->{flags}, \{$unit->{target}}, \{$unit->{comment}}, \{$unit->{fuzzy}}, \$item_comment);
+                \$unit->{source}, $unit->{flags}, \$unit->{target}, \$unit->{comment}, \$unit->{fuzzy}, \$item_comment);
             if (defined $item_comment) { # it can be an empty string
                 $item_comment = undef if $item_comment eq ''; # normalize the empty value
                 my $item_props = $self->{db}->get_item_props($item_id);
