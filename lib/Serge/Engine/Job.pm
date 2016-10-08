@@ -90,13 +90,7 @@ sub expand_env_vars {
     my ($self) = @_;
 
     map {
-        my $was = $self->{$_};
-        my $now = subst_macros($self->{$_});
-        if ($was ne $now) {
-            print "\n[::1]\n\t$_\n\twas: $was\n\tnow: $now\n\n";
-        }
-
-        #$self->{$_} = subst_macros($self->{$_});
+        $self->{$_} = subst_macros($self->{$_});
     } qw(
         db_source db_username db_password db_namespace
         source_dir ts_file_path output_file_path
