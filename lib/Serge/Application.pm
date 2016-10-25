@@ -6,7 +6,7 @@ use Cwd;
 use File::Basename;
 use File::Find qw(find);
 use File::Spec::Functions qw(rel2abs catfile);
-use Getopt::Long qw(:config pass_through);
+use Getopt::Long qw(:config no_auto_abbrev no_ignore_case pass_through);
 use Serge::Config::Collector;
 
 sub new {
