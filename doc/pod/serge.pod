@@ -40,6 +40,10 @@ replacing original strings with translated ones.
 
 =over 8
 
+=item B<--version>
+
+Print Serge version information and exit.
+
 =item B<--dry-run>
 
 Just report and validate configuration files, but do no actual

@@ -8,6 +8,7 @@ use File::Find qw(find);
 use File::Spec::Functions qw(rel2abs catfile);
 use Getopt::Long qw(:config no_auto_abbrev no_ignore_case pass_through);
 use Serge::Config::Collector;
+use Serge;
 
 sub new {
     my ($class) = @_;
@@ -24,11 +25,20 @@ sub new {
 sub run {
     my ($self) = @_;
 
-    my ($help, $debug);
+    my ($help, $debug, $version);
     my $result = GetOptions(
         'help' => \$help,
         'debug' => \$debug,
+        'version' => \$version,
     );
+
+    my $command = shift @ARGV;
+
+    # print out version when passing the flag to a bare `serge` command
+    if ($version && $command eq '') {
+        print "Serge $Serge::VERSION\n";
+        exit(0);
+    }
 
     if (!$result) {
         $self->error("Failed to parse some command-line parameters.");
@@ -46,8 +56,6 @@ sub run {
     unshift @ARGV, 'help' if $help;
 
     $self->load_command_plugins;
-
-    my $command = shift @ARGV;
 
     my $handler = $self->{commands}->{$command};
     if (!$handler) {

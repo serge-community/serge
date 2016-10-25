@@ -60,6 +60,8 @@ Revision history
         - When job fails, we now move on to the next job in the config
           (previously the entire config would be skipped)
 
+        - Added version information to the CLI via the `--version` flag (#38)
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
