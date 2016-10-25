@@ -12,3 +12,4 @@ Build
 Build.bat
 .idea
 *.iml
+*.sw[op]
