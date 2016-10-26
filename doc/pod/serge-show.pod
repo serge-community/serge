@@ -1,0 +1,19 @@
+=head1 NAME
+
+serge-show - Show expanded version of a configuration file
+
+=head1 SYNOPSIS
+
+C<< serge show <configuration-file> >>
+
+Where C<< <configuration-file> >> is a path to a specific .serge file.
+
+=head1 DESCRIPTION
+
+B<serge-show> prints out the interpreted configuration file by applying all
+inheritance rules. This is useful to check the full configuration that will be
+used by Serge.
+
+=head1 SEE ALSO
+
+Part of L<serge> suite.

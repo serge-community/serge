@@ -1,5 +1,9 @@
 Revision history
 
+v.next  (Not release yet)
+
+        - Added new `show` command to display expanded .serge configurations (#40).
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
