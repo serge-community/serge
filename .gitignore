@@ -13,3 +13,4 @@ Build.bat
 .idea
 *.iml
 *.sw[op]
+.DS_Store
