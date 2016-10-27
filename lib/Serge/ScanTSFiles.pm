@@ -123,7 +123,7 @@ sub parse_source_file {
         return;
     }
 
-	$self->{files}->{$self->{current_file_rel}} = [1]; # a dummy array of a positive size (originally this should include a list of item_id)
+    $self->{files}->{$self->{current_file_rel}} = [1]; # a dummy array of a positive size (originally this should include a list of item_id)
 }
 
 sub update_database_from_ts_files_lang {
@@ -154,7 +154,7 @@ sub update_database_from_ts_files_lang_file {
         return;
     }
 
-	$self->{known_files}->{$fullpath} = 1;
+    $self->{known_files}->{$fullpath} = 1;
 }
 
 1;
