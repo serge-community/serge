@@ -51,8 +51,8 @@ sub run {
     foreach (@confs) {
         my $config = $self->{parent}->get_config_object($_);
         $config->chdir;
-   	    my $processor = Serge::Engine::Processor->new($scanner, $config);
-   	    $processor->run();
+        my $processor = Serge::Engine::Processor->new($scanner, $config);
+        $processor->run();
     }
 
     print "\nFound translation directories:\n";

@@ -1153,9 +1153,9 @@ sub generate_ts_files_for_file_lang {
 
     # regenerate translation file if either:
     # a) optimizations are disabled (job in a forced mode)
-	# b) rebuild_ts_files option is turned on
-	# c) target file is missing
-	# d) translations or items for the file have changed (based on translations' and items' highest usn value)
+    # b) rebuild_ts_files option is turned on
+    # c) target file is missing
+    # d) translations or items for the file have changed (based on translations' and items' highest usn value)
     my $need_generate_ts_file = !$self->{job}->{optimizations} || $self->{rebuild_ts_files} || !-f $fullpath || ($current_usn ne $old_usn);
 
     # also, if the translations have changed, set additionally a force flag on a specific file:lang combo
@@ -1197,11 +1197,11 @@ sub generate_ts_files_for_file_lang {
         my $hint = $item_props->{hint};
         my $item_comment = $item_props->{comment};
 
-	    my $result = combine_and(1, $self->run_callbacks('can_translate', $file, $lang, \$string, \$hint));
-	    if ($result eq '0') {
-	        print "\t\tSkip publishing string '$string' in translation file because at least one callback returned 0\n" if $self->{debug};
-	        next;
-	    }
+        my $result = combine_and(1, $self->run_callbacks('can_translate', $file, $lang, \$string, \$hint));
+        if ($result eq '0') {
+            print "\t\tSkip publishing string '$string' in translation file because at least one callback returned 0\n" if $self->{debug};
+            next;
+        }
 
         # mark the key as processed
 
@@ -1276,9 +1276,9 @@ sub generate_ts_files_for_file_lang {
 
     # save translation file if either:
     # a) optimizations are disabled (job in a forced mode)
-	# b) rebuild_ts_files option is turned on
-	# c) target file is missing
-	# d) file hash has changed
+    # b) rebuild_ts_files option is turned on
+    # c) target file is missing
+    # d) file hash has changed
     my $need_save_ts_file = !$self->{job}->{optimizations} || $self->{rebuild_ts_files} || !-f $fullpath || ($current_hash ne $old_hash);
 
     if ($need_save_ts_file) {
