@@ -663,7 +663,7 @@ sub render_tag_recursively {
         } elsif ($name eq '__COMMENT') {
             $xml = '<!--'.$inner_xml.'-->';
         } else {
-            $xml = (($inner_xml ne '') || ($name =~ m/^(a|div|iframe|p|script|span|td|textarea|title)$/i)) ? "<$name$attrs_text>$inner_xml</$name>" : "<$name$attrs_text \/>";
+            $xml = (($inner_xml ne '') || ($name =~ m/^(a|div|iframe|p|script|span|td|textarea|title|h\d)$/i)) ? "<$name$attrs_text>$inner_xml</$name>" : "<$name$attrs_text \/>";
         }
 
         # If this is a terminal tag (or <object> tag) that requires localization, extract itself
