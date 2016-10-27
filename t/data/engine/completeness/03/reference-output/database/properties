@@ -44,7 +44,7 @@ properties
     39    40 source:ts:3:test_job:test
           3f6b315dee5c7591d4f8f90d56f06891
     40    41 job-hash:test_namespace:test_job
-          3f80991c82a13f5bf11659eaf2a5c6fd
+          2a1004c1c5222d03563db1619c772300
     41    42 job-plugin:test_namespace:test_job parse_android.
     42    43 job-serializer-plugin:test_namespace:test_job
           serialize_po.

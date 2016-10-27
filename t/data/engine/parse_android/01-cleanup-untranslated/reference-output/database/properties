@@ -39,7 +39,7 @@ properties
     34    35 source:2:test_job:de fe07b6c0f5606b1b9b1c2ed9f72397c0
     35    36 source:ts:2:test_job:de fb7059e85d053e96578521a9e51b791e
     36    37 job-hash:test_namespace:test_job
-          b1db926c65577fc629324d24ef32e524
+          9930640f966f227428947565bf2a502e
     37    38 job-plugin:test_namespace:test_job parse_android.
     38    39 job-serializer-plugin:test_namespace:test_job
           serialize_po.
