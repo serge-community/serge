@@ -62,6 +62,8 @@ Revision history
 
         - Added version information to the CLI via the `--version` flag (#38)
 
+        - Added support for all escaped characters as defined in .po format (#44)
+
 1.1     April 20, 2016
 
         - On OS X, expand `~` to the actual `$HOME` path in SQLite DB connection string (#1)
