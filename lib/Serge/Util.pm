@@ -386,19 +386,35 @@ sub normalize_strref {
     $$ref =~ s/[ ]$//g; # remove trailing whitespace
 }
 
+# .PO-specific string escaping
+# see gettext po parser for a list of control sequences
+# https://github.com/autotools-mirror/gettext/blob/master/gettext-tools/src/po-lex.c#L749-L856
 sub escape_strref {
     my $ref = shift;
     $$ref =~ s/\\/\x1/g; # convert backslashes to a temporary symbol
     $$ref =~ s/\"/\\"/g;
-    $$ref =~ s/\n/\\n/sg;
+    $$ref =~ s/\n/\\n/sg; # newline
+    $$ref =~ s/\t/\\t/g;  # horizontal tab
+    $$ref =~ s/\x8/\\b/g; # 0x08 (bs) backspace
+    $$ref =~ s/\r/\\r/sg; # carriage return
+    $$ref =~ s/\xC/\\f/g; # 0x0C (np) formfeed
+    $$ref =~ s/\xB/\\v/g; # 0x0B (vt) vertical tab
+    $$ref =~ s/\x7/\\a/g; # 0x07 (bel) bel character
     $$ref =~ s/\x1/\\\\/g; # restore backslashes (and escape them)
 }
 
+# .PO-specific string unescaping
 sub unescape_strref {
     my $ref = shift;
     $$ref =~ s/\\\\/\x1/g;
     $$ref =~ s/\\"/\"/g;
     $$ref =~ s/\\n/\n/sg;
+    $$ref =~ s/\\t/\t/g;
+    $$ref =~ s/\\b/\x8/g;
+    $$ref =~ s/\\r/\r/sg;
+    $$ref =~ s/\\f/\xC/g;
+    $$ref =~ s/\\v/\xB/g;
+    $$ref =~ s/\\a/\x7/g;
     $$ref =~ s/\x1/\\/g;
 }
 

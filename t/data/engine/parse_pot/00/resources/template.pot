@@ -40,3 +40,11 @@ msgid "Value 1 - Singular"
 msgid_plural "Value 5 - Plural"
 msgstr[0] ""
 msgstr[1] ""
+
+# see gettext po parser for a list of control sequences
+# https://github.com/autotools-mirror/gettext/blob/master/gettext-tools/src/po-lex.c#L749-L856
+msgid "Value1 \n\t\b\r\f\v\a\"\\"
+msgstr ""
+
+msgid "Value2 \\n\\t\\b\\r\\f\\v\\a\\\"\\\\"
+msgstr ""

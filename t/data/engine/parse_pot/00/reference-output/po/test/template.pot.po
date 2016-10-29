@@ -40,3 +40,23 @@ msgid "Value 1 - Singular"
 msgid_plural "Value 5 - Plural"
 msgstr[0] "Ṽáļũē 1 - Šĩŋğũļáŕ"
 msgstr[1] "Ṽáļũē 5 - Ṕļũŕáļ"
+
+#. see gettext po parser for a list of control sequences
+#. https://github.com/autotools-mirror/gettext/blob/master/gettext-tools/src/po-lex.c#L749-L856
+#: File: template.pot
+#: ID: 6407b6d519834995a5bcd6c7162488ec
+msgid ""
+"Value1 \n"
+"\t\b\r\f\v\a\"\\"
+msgstr ""
+"Ṽáļũē1 \n"
+"\t\b\r\f\v\a\"\\"
+
+#: File: template.pot
+#: ID: ea6701ea1cf1a308ceabf7d825a7581a
+msgid ""
+"Value2 \\n"
+"\\t\\b\\r\\f\\v\\a\\\"\\\\"
+msgstr ""
+"Ṽáļũē2 \\n"
+"\\t\\b\\r\\f\\v\\a\\\"\\\\"
