@@ -1,6 +1,6 @@
 Revision history
 
-1.2     Pending release
+1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
           - .PO file support is now implemented as a serialization plugin
