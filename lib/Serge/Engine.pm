@@ -1226,8 +1226,8 @@ sub generate_ts_files_for_file_lang {
         # TODO: rename 'add_dev_comment' to 'add_hint'
         $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
 
-        if (@hint_lines > 0 && $item_comment ne '') {
-            push @hint_lines, ''; # add extra line break between hint and extra item comment
+        if ($item_comment ne '') {
+            push @hint_lines, '' if @hint_lines > 0; # add extra line break between hint and extra item comment
             push @hint_lines, $item_comment;
         }
 
