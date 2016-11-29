@@ -1,5 +1,6 @@
 files
 {
-    0    1 1 test_job test_namespace template.pot 0
-    1    2 16 test_job test_namespace translated.po 0
+    0    1 1 test_job test_namespace non-standard.pot 0
+    1    2 4 test_job test_namespace template.pot 0
+    2    3 19 test_job test_namespace translated.po 0
 }

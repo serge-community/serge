@@ -8,6 +8,9 @@ Revision history
         - In interactive console mode, `serge help` tries to use a pager,
           e.g. `less` or `more` (#39)
 
+        - In POT parser, bypass non-standard comments that other tools
+          may produce (#41)
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

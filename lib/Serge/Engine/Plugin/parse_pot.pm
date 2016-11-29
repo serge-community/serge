@@ -56,6 +56,13 @@ sub parse {
             next;
         }
 
+        # non-standard comment lines
+        if (($mode == $MODE_DEFAULT) && ($line =~ m/^#(.)\s+/)) {
+            print "WARNING: unsupported comment at line $n: $line\n" if $self->{parent}->{debug};
+            push @out, $orig_line;
+            next;
+        }
+
         if ($line =~ m/^msgid\s+"(.*)"$/) {
             $mode = $MODE_MSGID;
             $msgid[0] = $1;
