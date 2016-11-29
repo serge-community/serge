@@ -5,6 +5,9 @@ Revision history
         - Fix bug when extra item comment would be appended only if the
           original comment is not blank
 
+        - In interactive console mode, `serge help` tries to use a pager,
+          e.g. `less` or `more` (#39)
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

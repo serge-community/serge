@@ -24,9 +24,9 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<p><code>serge help [--console]</code></p>
+<p><code>serge help [--console] [--no-pager]</code></p>
 
-<p><code>serge help &lt;command&gt; [--console]</code></p>
+<p><code>serge help &lt;command&gt; [--console] [--no-pager]</code></p>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -42,6 +42,12 @@
 <dd>
 
 <p>Do not try to open HTML help in browser; render help in console instead.</p>
+
+</dd>
+<dt><b>--no-pager</b></dt>
+<dd>
+
+<p>When in console mode, do not try to use a pager. By default, Serge tries to use <code>less</code> or <code>more</code>. The pager command can be overwritten by <code>SERGE_PAGER</code> or <code>PAGER</code> environment variables. To permanently disable the pager in Serge, set <code>SERGE_PAGER</code> to <code>0</code>.</p>
 
 </dd>
 </dl>

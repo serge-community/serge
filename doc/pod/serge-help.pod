@@ -4,9 +4,9 @@ serge-help - Show help on Serge and its commands
 
 =head1 SYNOPSIS
 
-C<serge help [--console]>
+C<serge help [--console] [--no-pager]>
 
-C<< serge help E<lt>commandE<gt> [--console] >>
+C<< serge help E<lt>commandE<gt> [--console] [--no-pager] >>
 
 =head1 DESCRIPTION
 
@@ -23,6 +23,12 @@ For the list of available commands, just run C<serge> with no command-line param
 =item B<--console>
 
 Do not try to open HTML help in browser; render help in console instead.
+
+=item B<--no-pager>
+
+When in console mode, do not try to use a pager. By default, Serge tries to use C<less>
+or C<more>. The pager command can be overwritten by C<SERGE_PAGER> or C<PAGER> environment
+variables. To permanently disable the pager in Serge, set C<SERGE_PAGER> to C<0>.
 
 =back
 

@@ -6,6 +6,7 @@ use strict;
 use Getopt::Long;
 use Serge::Pod;
 use Serge;
+use Serge::Util::Pager;
 
 sub get_commands {
     return {
@@ -89,7 +90,9 @@ sub show_help_on_topic {
             exit(2);
         }
 
-        $pod->print_as_text($podfile);
+        my $fh = Serge::Util::Pager::init;
+        $pod->print_as_text($podfile, $fh);
+        Serge::Util::Pager::close;
     }
 }
 
