@@ -1,4 +1,6 @@
 language: perl
+install:
+  - cpanm -n -q --skip-satisfied --installdeps .
 perl:
   - "5.24"
   - "5.22"
