@@ -1,3 +1,5 @@
+[![build status](https://img.shields.io/travis/evernote/serge.svg?style=flat-square)](https://travis-ci.org/evernote/serge)
+
 __Serge__ *(String Extraction and Resource Generation Engine)* helps you
 set up a seamless continuous localization process for your software
 in a fully automated and scalable fashion. It allows developers to
