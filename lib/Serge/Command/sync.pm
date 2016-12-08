@@ -118,9 +118,12 @@ sub run {
     $sync->{no_push_ts}  = !$push_ts;
     $sync->{no_push}     = !$push;
 
+    $sync->reset_counters;
+
     my @confs = $self->{parent}->get_config_files;
 
-    my $exit_code = 0;
+    my $total_configs = 0;
+    my $failed_configs = 0;
 
     foreach my $config_file (@confs) {
 
@@ -142,19 +145,45 @@ sub run {
             next;
         }
 
+        $total_configs++;
+
         eval {
             $sync->do_sync($engine, $config);
         };
         if ($@) {
             print "Exception occurred while processing configuration file: $@\n";
-            $exit_code = 1;
+            $failed_configs++;
             next;
         }
     }
 
     $engine->cleanup;
 
-    return $exit_code;
+    my $jobs_plural = $sync->{total_jobs} == 1 ? 'job' : 'jobs';
+    my $files_plural = $total_configs == 1 ? 'file' : 'files';
+    my $was_plural = $sync->{total_jobs} == 1 ? 'was' : 'were';
+    print "\nSync complete. $sync->{total_jobs} $jobs_plural in $total_configs configuration $files_plural $was_plural processed\n";
+
+    if ($failed_configs) {
+        my $configs_plural = $failed_configs == 1 ? 'config' : 'configs';
+        print "$failed_configs $configs_plural failed to be processed\n";
+    }
+
+    if ($sync->{skipped_jobs}) {
+        my $jobs_plural = $sync->{skipped_jobs} == 1 ? 'job was' : 'jobs were';
+        print "$sync->{skipped_jobs} $jobs_plural skipped due to configuration errors\n";
+    }
+
+    if ($sync->{failed_jobs}) {
+        my $jobs_plural = $sync->{failed_jobs} == 1 ? 'job' : 'jobs';
+        print "$sync->{failed_jobs} $jobs_plural ended abnormally\n";
+    }
+
+    # return different codes for errors of different severity
+    return 3 if $failed_configs;
+    return 2 if $sync->{failed_jobs};
+    return 1 if $sync->{skipped_jobs};
+    return 0;
 }
 
 1;

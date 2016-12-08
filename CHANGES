@@ -11,6 +11,12 @@ Revision history
         - In POT parser, bypass non-standard comments that other tools
           may produce (#41)
 
+        - Add summary at the end of the sync command: how many
+          jobs and configs were processed, how many configs and jobs
+          were skipped due to errors, and how many jobs ended abnormally.
+          This will help easily identify issues both from the command line
+          and when analyzing logs
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

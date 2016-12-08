@@ -22,7 +22,13 @@ sub new {
 sub run {
     my ($self, $dry_run) = @_;
 
+    $self->{total_jobs} = 0;
+    $self->{skipped_jobs} = 0;
+    $self->{failed_jobs} = 0;
+
     foreach my $job_data (@{$self->{config}->{data}->{jobs}}) {
+        $self->{total_jobs}++;
+
         my $job;
 
         eval {
@@ -34,6 +40,7 @@ sub run {
 
         if ($@) {
             print "Job '$job_data->{id}' will be skipped: $@\n";
+            $self->{skipped_jobs}++;
             next;
         }
 
@@ -43,6 +50,7 @@ sub run {
 
         if ($@) {
             print "Exception occurred while processing job '$job_data->{id}': $@\n";
+            $self->{failed_jobs}++;
             next;
         }
     }
