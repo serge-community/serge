@@ -1,4 +1,8 @@
+Serge
+====
+
 [![build status](https://img.shields.io/travis/evernote/serge.svg?style=flat-square)](https://travis-ci.org/evernote/serge)
+[![test coverage](https://img.shields.io/codecov/c/github/evernote/serge/master.svg?style=flat-square)](https://codecov.io/gh/evernote/serge?branch=master)
 
 __Serge__ *(String Extraction and Resource Generation Engine)* helps you
 set up a seamless continuous localization process for your software
