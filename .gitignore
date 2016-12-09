@@ -1,4 +1,5 @@
 ~*
+cover_db/*
 vendor/*
 *.bak
 MANIFEST
