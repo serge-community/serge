@@ -18,11 +18,8 @@ map {
     }, catfile($thisdir, $_));
 } qw(../bin ../lib);
 
-for (@tests) {
-    my $output = `perl -I "$libpath" -c $_ 2>&1`;
-    my $ok = ($? >> 8 == 0);
-    print $output unless $ok;
-    ok($ok, "$_ syntax check");
+foreach my $file (@tests) {
+    require_ok $file;
 }
 
 done_testing();
