@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
     build_requires           => {
         'Test::More'         => '0.94',
         'File::Copy::Recursive' => 0,
+        'Test::Files'        => 0,
     },
     requires => {
         'Authen::SASL'       => 0,
