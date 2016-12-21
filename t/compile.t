@@ -14,9 +14,9 @@ my $libpath = catfile($thisdir, '../lib');
 my @tests;
 map {
     find(sub {
-        push @tests, $File::Find::name if(-f $_ && /(:(\.pl)|(\.pm)|(\.t))$/) ;
+        push @tests, $File::Find::name if (-f $_ && /\.(pl|pm|t)$/);
     }, catfile($thisdir, $_));
-} qw(../bin ../lib);
+} qw(../bin ../lib .);
 
 for (@tests) {
     my $output = `perl -I "$libpath" -c $_ 2>&1`;
