@@ -13,9 +13,10 @@ my $builder = Module::Build->new(
         'Module::Build'      => 0,
     },
     build_requires           => {
-        'Test::More'         => '0.94',
-        'Text::Diff'         => 0,
         'File::Copy::Recursive' => 0,
+        'Test::More'         => '0.94',
+        'Text::CSV_XS'       => 0,
+        'Text::Diff'         => 0,
     },
     requires => {
         'Authen::SASL'       => 0,
@@ -29,6 +30,9 @@ my $builder = Module::Build->new(
         'XML::Parser::Style::IxTree' => 0,
         'XML::Twig'          => 0,
         'YAML::XS'           => 0,
+    },
+    recommends => {
+        'Text::CSV_XS'       => 0,
     },
     add_to_cleanup           => ['Serge-*', 'Makefile.PL', 'MYMETA.*', 'META.*', 'MANIFEST.bak', 'MANIFEST'],
     create_makefile_pl       => 'traditional',

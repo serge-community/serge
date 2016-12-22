@@ -1,0 +1,30 @@
+# Tests parse_csv config settings.
+
+jobs
+{
+    {
+        @inherit                        ../../common.serge#job_template
+
+        name                            Parse CSV Test 02
+        id                              parse_csv_02
+
+        source_process_subdirs          YES
+        source_match                    \.csv$
+        output_bom                      NO
+
+        parser
+        {
+            plugin                      parse_csv
+
+            data
+            {
+                delimiter               -
+
+                column_key              TheKey
+                column_context          TheContext
+                column_string           TheString
+                column_comment          TheComment
+            }
+        }
+    }
+}

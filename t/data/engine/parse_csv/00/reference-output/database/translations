@@ -1,0 +1,10 @@
+translations
+{
+    0    1 14 1 test ṽáļũē1 NO 0 0
+    1    2 15 2 test ṽáļũē,2 NO 0 0
+    2    3 16 3 test '' NO 0 0
+    3    4 17 4 test `ļĩŋē1
+ļĩŋē2` NO 0 0
+    4    5 18 5 test " NO 0 0
+    5    6 19 6 test ` ` NO 0 0
+}
