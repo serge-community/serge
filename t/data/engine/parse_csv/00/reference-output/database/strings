@@ -1,0 +1,10 @@
+strings
+{
+    0    1 2 value1 string1 0
+    1    2 4 value,2 string2 0
+    2    3 6 '' string3 0
+    3    4 8 `line1
+line2` string4 0
+    4    5 10 " string5 0
+    5    6 12 ` ` string7 0
+}

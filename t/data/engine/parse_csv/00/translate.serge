@@ -1,0 +1,22 @@
+# Tests:
+# 1) Corner cases of CSV input
+# 2) parse_csv default configuration values
+
+jobs
+{
+    {
+        @inherit                        ../../common.serge#job_template
+
+        name                            Parse CSV Test 00
+        id                              parse_csv_00
+
+        source_process_subdirs          YES
+        source_match                    \.csv$
+        output_bom                      NO
+
+        parser
+        {
+            plugin                      parse_csv
+        }
+    }
+}
