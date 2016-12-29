@@ -14,6 +14,7 @@ my $builder = Module::Build->new(
     },
     build_requires           => {
         'Test::More'         => '0.94',
+        'Text::Diff'         => 0,
         'File::Copy::Recursive' => 0,
     },
     requires => {
