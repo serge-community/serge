@@ -2,6 +2,16 @@
 
 use strict;
 
+# HOW TO USE THIS TEST
+#
+# By default, this test runs over all directories in t/data/engine/.  To run
+# the test only for specific directories, pass the directory names to this
+# script or assign them to the environment variable SERGE_ENGINE_TESTS as a
+# comma-separated list.  The following two examples are equivalent:
+#
+# perl t/enigne.t parse_json parse_strings
+# SERGE_ENGINE_TESTS=parse_json,parse_strings prove t/engine.t
+
 BEGIN {
     use Cwd qw(abs_path);
     use File::Basename;
@@ -41,6 +51,9 @@ my ($init_references);
 GetOptions("init" => \$init_references);
 
 my @dirs = @ARGV;
+if (my $env_dirs = $ENV{SERGE_ENGINE_TESTS}) {
+    push @dirs, split(/,/, $env_dirs);
+}
 
 unless (@dirs) {
     find(sub {
