@@ -107,14 +107,13 @@ for my $config_file (@confs) {
 
             my $engine = Serge::Engine->new();
             $engine->{optimizations} = undef; # force generate all the files
-            my $config = Serge::Config->new($config_file);
-            $config->chdir;
+            $cfg->chdir;
 
-            foreach my $job_data (@{$config->{data}->{jobs}}) {
+            foreach my $job_data (@{$cfg->{data}->{jobs}}) {
                 my $job;
 
                 eval {
-                    $job = Serge::Engine::Job->new($job_data, $engine, $config->{base_dir});
+                    $job = Serge::Engine::Job->new($job_data, $engine, $cfg->{base_dir});
                     $engine->process_job($job);
                 };
 
