@@ -15,3 +15,4 @@ Build.bat
 *.iml
 *.sw[op]
 .DS_Store
+!t/data/engine/**/reference-output/**
