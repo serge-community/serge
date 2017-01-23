@@ -26,7 +26,7 @@ sub new {
     my ($class) = @_;
 
     my $self = {
-        debug_mode => $ENV{CI} ne '', # use debug mode from under CI environment to ensure better coverage
+        debug => $ENV{CI} ne '', # use debug mode from under CI environment to ensure better coverage
         debug_nosave_ts => undef, # disable generation of translation files
         debug_nosave_loc => undef, # disable generation of localized files
 
@@ -299,8 +299,7 @@ sub init_job {
 
     $self->{job} = $job;
 
-    $self->{debug} = $self->{debug_mode} || $job->{debug};
-    $job->{debug} = $self->{debug};
+    $job->{debug} = $job->{debug} || $self->{debug};
 
     if (exists $job->{debug_nosave}) {
         $self->{debug_nosave_loc} = $self->{debug_nosave_ts} = $job->{debug_nosave};

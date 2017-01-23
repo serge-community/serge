@@ -33,7 +33,7 @@ sub new {
     $self->{engine} = $engine if $engine;
     $self->{base_dir} = $base_dir if $base_dir;
 
-    $self->{debug} = undef;
+    $self->{debug} = $engine->{debug} if $engine;
 
     # Check job config validity
 
