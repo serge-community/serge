@@ -140,7 +140,6 @@ sub parse {
     # (looks like an issue in some newer version of JSON:PP)
     # also, force 'canonical' to sort keys alphabetically to ensure the structure won't be changed on subsequent script runs
     return $lang ? to_json($tree, {pretty => 1, indent_length => 3, canonical => 1, escape_slash => 1}) : undef;
-    return undef;
 }
 
 sub process_node {

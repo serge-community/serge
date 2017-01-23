@@ -191,7 +191,6 @@ sub parse {
     my $out = $self->render_tag_recursively('', $tree, $callbackref, $lang, '');
 
     return $lang ? $out : undef;
-    return undef;
 }
 
 sub _escape_pi_and_comments {

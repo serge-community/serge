@@ -122,7 +122,6 @@ sub parse {
     $self->parse_tree($tree, $callbackref, $lang);
 
     return $lang ? $tree->sprint(pretty_print => 'indented') : undef;
-    return undef;
 }
 
 sub parse_tree {
