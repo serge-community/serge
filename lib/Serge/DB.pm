@@ -10,7 +10,7 @@ use Encode qw(encode_utf8);
 use File::Basename;
 use utf8;
 
-our $DEBUG = undef;
+our $DEBUG = $ENV{CI} ne ''; # use debug mode from under CI environment to ensure better coverage
 
 my $DBD_PARAMS = {
     'SQLite' => {

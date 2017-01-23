@@ -26,7 +26,7 @@ sub new {
     my ($class) = @_;
 
     my $self = {
-        debug_mode => undef, # enable debug output
+        debug_mode => $ENV{CI} ne '', # use debug mode from under CI environment to ensure better coverage
         debug_nosave_ts => undef, # disable generation of translation files
         debug_nosave_loc => undef, # disable generation of localized files
 
