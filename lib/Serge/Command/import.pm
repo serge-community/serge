@@ -36,7 +36,7 @@ sub run {
 
     $importer->{dry_run} = 1 if $self->{dry_run};
     $importer->{save_report} = 1 unless $self->{no_report};
-    $importer->{debug_mode} = 1 if $self->{parent}->{debug};
+    $importer->{debug} = 1 if $self->{parent}->{debug};
     $importer->{disambiguate_keys} = 1 if $self->{disambiguate_keys};
 
     if ($self->{languages}) {

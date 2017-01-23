@@ -81,7 +81,7 @@ sub run {
     $sync->{echo_output} = 1 if $self->{echo_output};
     $sync->{commit_message} = $self->{message};
 
-    $engine->{debug_mode} = 1 if $self->{parent}->{debug}; # TODO: rename Engine `debug_mode` to `debug`?
+    $engine->{debug} = 1 if $self->{parent}->{debug};
     $engine->{optimizations} = undef if $self->{force};
     $engine->{rebuild_ts_files} = 1 if $self->{rebuild_ts_files};
     $engine->{output_only_mode} = 1 if $self->{output_only_mode};
