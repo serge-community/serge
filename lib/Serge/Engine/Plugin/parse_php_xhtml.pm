@@ -329,7 +329,6 @@ sub parse {
     #print "\n******************\n$out\n******************\n";
 
     return $lang ? $out : undef;
-    return undef;
 }
 
 sub parse_underscore_functions {

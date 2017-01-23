@@ -180,7 +180,6 @@ sub parse {
     }
 
     return $lang ? $out : undef;
-    return undef;
 }
 
 sub process_node {
