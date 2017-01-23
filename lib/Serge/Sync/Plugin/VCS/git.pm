@@ -56,6 +56,10 @@ sub split_remote_path_branch {
 sub get_remote_url {
     my ($self, $local_path) = @_;
 
+    # if there's no .git subfolder, return immediately
+    # without running any commands
+    return undef unless -d catfile($local_path, '.git');
+
     my ($url, $branch);
 
     # if $local_path points not to a git working copy (e.g. blank directory),
