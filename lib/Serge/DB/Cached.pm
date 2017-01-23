@@ -10,7 +10,7 @@ use Encode qw(encode_utf8);
 use Serge::Util qw(generate_key generate_hash);
 use Time::HiRes qw(gettimeofday tv_interval);
 
-my $DEBUG = undef;
+our $DEBUG = $ENV{CI} ne ''; # use debug mode from under CI environment to ensure better coverage
 
 sub open {
     my ($self, $source, $username, $password) = @_;
