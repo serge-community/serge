@@ -366,11 +366,6 @@ sub get_translation {
     }
 }
 
-# generate full key from provided string+context and return last 4 symbols from it
-sub generate_short_key {
-    return substr(generate_key(@_), -4);
-}
-
 sub preload_translation_candidates_lang {
     my ($self, $lang) = @_;
 
