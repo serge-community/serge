@@ -111,26 +111,6 @@ $text
 
 }
 
-sub dump_debug_xml {
-    my ($self, $textref) = @_;
-
-    my $dir = $self->{parent}->{base_dir}.'/_debug_output';
-
-    eval { mkpath($dir) };
-    ($@) && die "Couldn't create $dir: $@";
-
-    my $file = $self->{parent}->{engine}->{current_file_rel};
-    $file =~ s/[^\w\.]/_/g;
-    $file = $dir.'/'.$file.'.xml';
-
-    print "***** Dumping XML to $file\n";
-
-    open (OUT, ">$file");
-    binmode (OUT, ":utf8");
-    print OUT $$textref;
-    close(OUT);
-}
-
 sub parse {
     my ($self, $textref, $callbackref, $lang) = @_;
 
@@ -198,8 +178,6 @@ sub parse {
         $error_text =~ s/^\s+//s;
 
         $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $error_text;
-
-        $self->dump_debug_xml(\$text) if $self->{parent}->{debug};
 
         die $error_text;
     }
