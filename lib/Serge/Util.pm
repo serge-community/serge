@@ -349,7 +349,7 @@ sub subst_macros_strref {
 
         my $alias = $Serge::Util::LangID::alias{$lang};
         $lang = $alias if $alias;
-        my $h = $Serge::Util::LangID::map{$lang};
+        my $h = $Serge::Util::LangID::map{$lang} || $Serge::Util::LangID::map{''};
         if ($h) {
             my $langid = $h->{code};
             $$strref =~ s/%LANGID:DEC%/$langid/ge;
