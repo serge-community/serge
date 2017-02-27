@@ -38,4 +38,8 @@ my $builder = Module::Build->new(
     create_makefile_pl       => 'traditional',
 );
 
+# Copy lib/**/.serge and lib/**/.sql files to blib and the install directory.
+$builder->add_build_element('serge');
+$builder->add_build_element('sql');
+
 $builder->create_build_script();
