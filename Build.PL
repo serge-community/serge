@@ -20,7 +20,7 @@ my $builder = Module::Build->new(
     },
     requires => {
         'Authen::SASL'       => 0,
-        'Config::Neat'       => '1.204',
+        'Config::Neat'       => '1.301',
         'DBD::SQLite'        => 0,
         'JSON'               => 0,
         'JSON::XS'           => 0,

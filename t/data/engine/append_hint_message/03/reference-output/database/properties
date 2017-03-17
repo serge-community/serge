@@ -25,7 +25,7 @@ properties
     21    22 source:ts:2:test_job:test
           a92ba8441a37a560842b548314bf1cad
     22    23 job-hash:test_namespace:test_job
-          799e8e7bd865ad4ff26856898a6509ef
+          4b997f5d4f45fd4a350a4b9fbbb0bc8c
     23    24 job-plugin:test_namespace:test_job parse_android.
     24    25 job-serializer-plugin:test_namespace:test_job
           serialize_po.
