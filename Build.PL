@@ -14,6 +14,7 @@ my $builder = Module::Build->new(
     },
     build_requires           => {
         'File::Copy::Recursive' => 0,
+        'IO::String'         => 0,
         'Test::More'         => '0.94',
         'Text::CSV_XS'       => 0,
         'Text::Diff'         => 0,
@@ -32,6 +33,7 @@ my $builder = Module::Build->new(
         'YAML::XS'           => 0,
     },
     recommends => {
+        'IO::String'         => 0,
         'Text::CSV_XS'       => 0,
     },
     add_to_cleanup           => ['Serge-*', 'Makefile.PL', 'MYMETA.*', 'META.*', 'MANIFEST.bak', 'MANIFEST'],
