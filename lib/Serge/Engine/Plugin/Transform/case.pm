@@ -9,6 +9,12 @@ sub name {
 
 sub filter_key {
     my ($self, $s) = @_;
+
+    # Suppress `Operation "lc" returns its argument for UTF-16 surrogate 0xNNNN` warning
+    # for the `lc()` call below; use 'utf8' instead of a more appropriate 'surrogate' pragma
+    # since the latter is not available in until Perl 5.14
+    no warnings 'utf8';
+
     return lc($s); # lowercase the string
 }
 
