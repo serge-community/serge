@@ -629,4 +629,30 @@ sub find_best_translation {
     return ($translation, $fuzzy, $comment, keys %$variants > 1);
 }
 
+# helper function used in tools/import_from_ttx.pl
+sub get_source_string {
+    my ($self, $item_id) = @_;
+
+    $self->_check_item_id($item_id) if $DEBUG;
+
+    # lookup for the source string for the given item
+
+    my $sqlquery =
+        "SELECT ".
+        "strings.string, strings.context, strings.skip ".
+        "FROM items ".
+        "LEFT OUTER JOIN strings ON items.string_id = strings.id ".
+        "WHERE items.id = ?";
+    my $sth = $self->prepare($sqlquery);
+    $sth->bind_param(1, $item_id) || die $sth->errstr;
+    $sth->execute || die $sth->errstr;
+    my $hr = $sth->fetchrow_hashref();
+    $sth->finish;
+    $sth = undef;
+
+    return unless $hr;
+
+    return ($hr->{string}, $hr->{context}, $hr->{skip});
+}
+
 1;
