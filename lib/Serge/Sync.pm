@@ -113,7 +113,7 @@ sub do_sync {
     if ($self->{no_pull_ts}) {
         print "Skip 'pull_ts' step\n" if $self->{debug};
     } else {
-        print "\nUpdating .po files from Pootle's internal database...\n\n";
+        print "\nPulling translation files from external translation service...\n\n";
         my $start = [gettimeofday];
         $self->{ts}->pull_ts; # update all languages
         print "'pull-ts' step took ", tv_interval($start), " seconds\n";
@@ -140,7 +140,7 @@ sub do_sync {
     if ($self->{no_push_ts}) {
         print "Skip 'push_ts' step\n" if $self->{debug};
     } else {
-        print "\nUpdating Pootle's internal database from .po files...\n\n";
+        print "\nPushing translation files to external translation service...\n\n";
         my $start = [gettimeofday];
         $self->{ts}->push_ts; # update all languages
         print "'push-ts' step took ", tv_interval($start), " seconds\n";
