@@ -387,9 +387,11 @@ sub analyze_tag_recursively {
     my $will_translate = undef;
     my $contains_translatables = undef;
 
-    # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated
+    # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated;
+    # bare HTML (content of the root node) is also considered translated by default (provided there are no inner tags
+    # that override the segmentation)
 
-    if ($name =~ m/^(?:h[1-7]|p|li|dt|dd|label|option)$/) {
+    if ($name =~ m/^(?:|h[1-7]|p|li|dt|dd|label|option)$/) {
         $can_translate = !$prohibit_translation;
     }
 

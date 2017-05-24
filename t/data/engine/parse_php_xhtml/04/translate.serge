@@ -1,0 +1,26 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.html$
+
+        parser
+        {
+            plugin                               parse_php_xhtml
+
+            data
+            {
+                validate_output                  YES
+            }
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+            }
+        }
+    }
+}
