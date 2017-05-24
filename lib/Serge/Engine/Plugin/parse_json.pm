@@ -22,6 +22,7 @@ sub init {
     $self->merge_schema({
         path_matches      => 'ARRAY',
         path_doesnt_match => 'ARRAY',
+        path_html         => 'ARRAY',
 
         email_from        => 'STRING',
         email_to          => 'ARRAY',
@@ -169,41 +170,75 @@ sub process_node {
 
         my $string = $subtree;
 
-        # translate only non-empty strings
-        if ($string ne '') {
+        # trim the string
+        my $trimmed = $string;
+        $trimmed =~ s/^\s+//sg;
+        $trimmed =~ s/\s+$//sg;
+
+        # translate only non-empty (and non-whitespace) strings
+        if ($trimmed eq '') {
+            return;
+        }
+
+        if ($self->is_html($path)) {
+            # if node is html, pass its text to html parser for string extraction;
+            # if html_parser fails to parse the XML due to errors,
+            # it will die(), and this will be catched in main application
+
+            # lazy-load PHP/XHTML parser plugin (parse_php_xhtml)
+            if (!$self->{html_parser}) {
+                eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
+                ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
+                print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
+            }
+
             if ($lang) {
-                my $translated_string = &$callbackref($string, undef, $path, undef, $lang, $path);
-                if (defined $index) {
-                    $parent->[$index] = $translated_string;
-                } else {
-                    $parent->{$key} = $translated_string;
-                }
+                $string = $self->{html_parser}->parse(\$string, $callbackref, $lang);
+            } else {
+                $self->{html_parser}->parse(\$string, $callbackref);
+                return
+            }
+        } else {
+            # plain-text content
+            if ($lang) {
+                $string = &$callbackref($string, undef, $path, undef, $lang, $path);
             } else {
                 &$callbackref($string, undef, $path, undef, undef, $path);
+                return
             }
+        }
+
+        if (defined $index) {
+            $parent->[$index] = $string;
+        } else {
+            $parent->{$key} = $string;
         }
     }
 }
 
+sub _check_ruleset {
+    my ($ruleset, $positive, $value, $default) = @_;
+
+    return $default unless defined $ruleset;
+
+    foreach my $rule (@$ruleset) {
+        if ($value =~ m/$rule/s) {
+            return $positive;
+        }
+    }
+    return !$positive;
+}
+
 sub check_path {
     my ($self, $path) = @_;
-
-    sub _check_ruleset {
-        my ($ruleset, $positive, $value) = @_;
-
-        return 1 unless defined $ruleset;
-
-        foreach my $rule (@$ruleset) {
-            if ($value =~ m/$rule/s) {
-                return $positive;
-            }
-        }
-        return !$positive;
-    }
-
-    return 0 unless _check_ruleset($self->{data}->{path_matches},          1, $path);
-    return 0 unless _check_ruleset($self->{data}->{path_doesnt_match}, undef, $path);
+    return 0 unless _check_ruleset($self->{data}->{path_matches},          1, $path, 1);
+    return 0 unless _check_ruleset($self->{data}->{path_doesnt_match}, undef, $path, 1);
     return 1;
+}
+
+sub is_html {
+    my ($self, $path) = @_;
+    return _check_ruleset($self->{data}->{path_html}, 1, $path, undef);
 }
 
 1;

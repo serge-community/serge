@@ -12,7 +12,15 @@
 		"not_a_title": "test 3"
 	},
 	"skip_item4": {
-		"id": 3,
+		"id": 4,
 		"title": "test 4"
-	}
+	},
+	"item5": {
+		"id": 5,
+		"title": ""
+	},
+	"item6": {
+		"id": 6,
+		"title": "      "
+	},
 }
