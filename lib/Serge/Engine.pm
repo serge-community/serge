@@ -1635,7 +1635,7 @@ sub get_translation { # either from cache or from database
 
     # return translation
 
-    return ($translation, $translation ? $fuzzy : undef, $comment, $need_save);
+    return ($translation, $translation ne '' ? $fuzzy : undef, $comment, $need_save);
 }
 
 sub internal_get_translation { # from database
@@ -1647,14 +1647,14 @@ sub internal_get_translation { # from database
             'get_translation_pre',
             $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
         );
-    $translation = NFC($translation) if $translation;
-    return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
+    $translation = NFC($translation) if $translation ne '';
+    return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
     # Find exact match for given namespace, file path and context
 
     ($translation, $fuzzy, $comment, my $merge, my $skip) = $self->{db}->get_translation($item_id, $lang, 1); # allow skip
     return if $skip;
-    return ($translation, $fuzzy, $comment, undef) if ($translation || $comment);
+    return ($translation, $fuzzy, $comment, undef) if ($translation ne '' || $comment ne '');
 
     # check what the best translation is and if there are multiple translations
     # in the database for this exact string
@@ -1682,7 +1682,7 @@ sub internal_get_translation { # from database
             my $lang_as_not_fuzzy = is_flag_set($self->{job}->{reuse_as_not_fuzzy}, $lang);
             $fuzzy = 1 if $lang_as_fuzzy || ($self->{job}->{reuse_as_fuzzy_default} && !$lang_as_not_fuzzy);
         }
-        return ($translation, $fuzzy, $comment, 1) if ($translation || $comment);
+        return ($translation, $fuzzy, $comment, 1) if ($translation ne '' || $comment ne '');
     }
 
     # try to get translation by calling registered plugin callbacks
@@ -1691,8 +1691,8 @@ sub internal_get_translation { # from database
             'get_translation',
             $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
         );
-    $translation = NFC($translation) if $translation;
-    return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
+    $translation = NFC($translation) if $translation ne '';
+    return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
     # Otherwise, try to look for a translation from a similar language
 
@@ -1705,7 +1705,7 @@ sub internal_get_translation { # from database
                         $self->get_translation($string, $context, $namespace, $filepath, $source_lang, 1, $item_id, $key);
                     # force fuzzy flag if $rule->{as_fuzzy} is true; otherwise, use the original fuzzy flag value
                     $fuzzy = $fuzzy || $rule->{as_fuzzy};
-                    return ($translation, $fuzzy, $comment, 1) if ($translation || $comment);
+                    return ($translation, $fuzzy, $comment, 1) if ($translation ne '' || $comment ne '');
                 }
             }
         }

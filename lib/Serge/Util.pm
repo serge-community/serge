@@ -545,7 +545,7 @@ sub wrap {
             $line .= $chunk;
         }
     }
-    push @lines, $line if $line;
+    push @lines, $line if $line ne '';
 
     return @lines;
 }

@@ -1,0 +1,1 @@
+Test for blank, whitespace-only and "0" values

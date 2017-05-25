@@ -55,7 +55,7 @@ msgstr ""
 
         # Print the translation entry
 
-        $text .= "msgctxt ".po_wrap($unit->{context})."\n" if $unit->{context};
+        $text .= "msgctxt ".po_wrap($unit->{context})."\n" if $unit->{context} ne '';
         $text .= join("\n", po_serialize_msgid($unit->{source}))."\n";
         # for now, just use one `msgstr[0]=""` placeholder for plural strings,
         # disregarding the number of plurals supported by a language
@@ -176,13 +176,13 @@ sub deserialize {
 
         # Skip blocks with no key defined (e.g. header entry)
 
-        if (!$string) {
+        if ($string eq '') {
             if (!$header_skipped) {
                 $header_skipped = 1;
                 next;
             }
 
-            if ($key) {
+            if ($key ne '') {
                 # if key is defined for an empty string, just warn that and empty item is found
                 # and continue (previously, the script was not safeguarded against empty strings,
                 # so there can be such entries which can just be skipped)
@@ -197,7 +197,7 @@ sub deserialize {
 
         # sanity check: skip blocks that have no ID defined
 
-        next unless $key;
+        next unless $key ne '';
 
         # sanity check: the extracted key should match the generated one for given string/context
 
