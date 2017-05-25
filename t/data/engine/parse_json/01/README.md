@@ -1,0 +1,1 @@
+Test for `path_html` plugin option (HTML inside JSON values)
