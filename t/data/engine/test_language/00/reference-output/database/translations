@@ -6,7 +6,7 @@ translations
     3     4 83 4 test `[Ůṕğŕáđē xxxxxx]` NO 0 0
     4     5 84 5 test `[Ĩŋţēŕŋáţĩőŋáļĩžáţĩőŋ xxxxxxxxx]` NO 0 0
     5     6 85 6 test `[Łőŕēḿ ĩšṕšũḿ đőļőŕ šĩţ áḿēţ xxxxxxxxxx x]` NO
-          00
+          0 0
     6     7 86 7 test
           `[Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ. Šēđ ṽēļ ēŋĩḿ ḟēļĩš. xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxx]`
           NO 0 0
@@ -33,6 +33,7 @@ translations
           NO 0 0
     20    21 100 21 test &nbsp; NO 0 0
     21    22 101 22 test `[ḟőő &mdash; ḃáŕ&nbsp;ḃáž xxxxxxxxxx ]` NO 0
+          0
     22    23 102 23 test {0} NO 0 0
     23    24 103 24 test `[ḟőő {0} ḃáŕ{1}ḃáž{123} xxxxxxxxxx]` NO 0 0
     24    25 104 25 test ${0} NO 0 0
@@ -43,6 +44,7 @@ translations
           `[ḟőő /var/www ḃáŕ /etc/pwd ḃáž /x xxxxxxxxxx xxxx]` NO 0 0
     28    29 108 29 test http://foo.bar/baz.etc NO 0 0
     29    30 109 30 test https://var/www/?foo=bar&baz=e+t%20c#pwd NO 0
+          0
     30    31 110 31 test mailto:foo@bar NO 0 0
     31    32 111 32 test mailto:foo@bar.baz NO 0 0
     32    33 112 33 test ftp://var/www NO 0 0
@@ -51,6 +53,7 @@ translations
           `[ḟőő http://foo.bar/baz.etc mailto:foo@bar.baz ḃáž xxxxxxxxxx xxxxxxxxxx x]`
           NO 0 0
     35    36 115 36 test `[{CHOICE:{A} aaa|{B} bbb} xxxxxxxxxx ]` NO 0
+          0
     36    37 116 37 test
           `[foo {CHOICE:{A} aaa|{B} bbb} bar xxxxxxxxxx xxxx]` NO 0 0
     37    38 117 38 test `([0] xx)` NO 0 0

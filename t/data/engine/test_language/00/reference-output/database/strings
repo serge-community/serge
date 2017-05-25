@@ -41,6 +41,7 @@ strings
     32    33 66 ftp://var/www NO 0
     33    34 68 ssh://foo@bar.baz/etc NO 0
     34    35 70 `foo http://foo.bar/baz.etc mailto:foo@bar.baz baz` NO
+          0
     35    36 72 `{CHOICE:{A} aaa|{B} bbb}` NO 0
     36    37 74 `foo {CHOICE:{A} aaa|{B} bbb} bar` NO 0
     37    38 76 [0] NO 0
