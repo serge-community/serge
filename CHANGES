@@ -17,6 +17,19 @@ Revision history
           This will help easily identify issues both from the command line
           and when analyzing logs
 
+        - JSON parser now supports parsing nested HTML-formatted values
+          (like XML parser already does)
+
+        - PHP/XHTML parser now treats bare HTML strings (with no wrapper tag)
+          as translatable by default. This is useful when parsing nested
+          HTML snippets inside XML or JSON
+
+        - Parsing errors in nested HTML values inside JSON or XML are now
+          exposed to the parent parser for proper error reporting
+
+        - `test-parser` command now accepts `--as-object` flag to produce
+          a more verbose and self-descriptive output (an array of objects)
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
