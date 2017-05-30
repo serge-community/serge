@@ -34,20 +34,6 @@ sub init {
     $self->add('after_job', \&report_errors);
 }
 
-sub validate_data {
-    my $self = shift;
-
-    $self->SUPER::validate_data;
-
-    if (!defined $self->{data}->{email_from}) {
-        print "WARNING: 'email_from' is not defined. Will skip sending any reports.\n";
-    }
-
-    if (!defined $self->{data}->{email_to}) {
-        print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
-    }
-}
-
 sub validate_output {
     my ($self, $phase, $file, $lang, $textref) = @_;
 
@@ -68,19 +54,23 @@ sub validate_output {
 sub report_errors {
     my ($self, $phase) = @_;
 
+    return if !scalar keys %{$self->{errors}};
+
     my $email_from = $self->{data}->{email_from};
-    if (!$email_from) {
-        $self->{errors} = {};
-        return;
-    }
-
     my $email_to = $self->{data}->{email_to};
-    if (!$email_to) {
+
+    if (!$email_from || !$email_to) {
+        my @a;
+        push @a, "'email_from'" unless $email_from;
+        push @a, "'email_to'" unless $email_to;
+        my $fields = join(' and ', @a);
+        my $are = scalar @a > 1 ? 'are' : 'is';
+        print "WARNING: there are some parsing errors, but $fields $are not defined, so can't send an email.\n";
         $self->{errors} = {};
         return;
     }
 
-    my $email_subject = $self->{data}->{email_subject} || ("[".$self->{parent}->{id}.']: XML Parse Errors');
+    my $email_subject = $self->{data}->{email_subject} || ("[".$self->{parent}->{id}.']: PHP/XHTML Parse Errors');
 
     my $text;
     foreach my $key (sort keys %{$self->{errors}}) {

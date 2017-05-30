@@ -39,14 +39,6 @@ sub validate_data {
 
     $self->SUPER::validate_data;
 
-    if (!defined $self->{data}->{email_from}) {
-        print "WARNING: 'email_from' is not defined. Will skip sending any reports.\n";
-    }
-
-    if (!defined $self->{data}->{email_to}) {
-        print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
-    }
-
     if (exists $self->{data}->{xml_kind} && ($self->{data}->{xml_kind} !~ m/^(generic|android|indesign)$/)) {
         die "Unsupported xml_kind: '$self->{data}->{xml_kind}'. You can use 'generic' (default), 'android' or 'indesign'";
     }
@@ -58,14 +50,29 @@ sub validate_data {
 sub report_errors {
     my ($self, $phase) = @_;
 
-    my $email_from = $self->{data}->{email_from};
-    if (!$email_from) {
-        $self->{errors} = {};
-        return;
+    # copy over errors from the child parser, if any
+    if ($self->{html_parser}) {
+        my @keys = keys %{$self->{html_parser}->{errors}};
+        if (scalar @keys > 0) {
+            map {
+                $self->{errors}->{$_} = $self->{html_parser}->{errors}->{$_};
+            } @keys;
+            $self->{html_parser}->{errors} = {};
+        }
     }
 
+    return if !scalar keys %{$self->{errors}};
+
+    my $email_from = $self->{data}->{email_from};
     my $email_to = $self->{data}->{email_to};
-    if (!$email_to) {
+
+    if (!$email_from || !$email_to) {
+        my @a;
+        push @a, "'email_from'" unless $email_from;
+        push @a, "'email_to'" unless $email_to;
+        my $fields = join(' and ', @a);
+        my $are = scalar @a > 1 ? 'are' : 'is';
+        print "WARNING: there are some parsing errors, but $fields $are not defined, so can't send an email.\n";
         $self->{errors} = {};
         return;
     }
@@ -370,6 +377,7 @@ sub process_text_node {
             # if node is html, pass its text to html parser for string extraction
             # if html_parser fails to parse the XML due to errors,
             # it will die(), and this will be catched in main application
+            $self->{html_parser}->{current_file_rel} = $self->{parent}->{engine}->{current_file_rel}.":$path";
             if ($lang) {
                 $$strref = $self->{html_parser}->parse($strref, $callbackref, $lang);
                 if (defined $$strref) {
