@@ -31,11 +31,15 @@ msgstr "ţēšţ9"
 msgid "test10"
 msgstr "ţēšţ10"
 
-#. /sub/html
 #: File: mixed.json
-#: ID: 36a53f3918086ebce898c21026313d36
-msgid "<p>test7</p><p>test8</p>"
-msgstr "<p>ţēšţ7</p><p>ţēšţ8</p>"
+#: ID: ea2fe7f6421f3c7b37503aeaca03122d
+msgid "&lsquo;test7&rsquo;"
+msgstr "&lsquo;ţēšţ7&rsquo;"
+
+#: File: mixed.json
+#: ID: 76d3f29f6f62fbe2fd3cf3105c7841e2
+msgid "test8"
+msgstr "ţēšţ8"
 
 #. /sub/plaintext
 #: File: mixed.json

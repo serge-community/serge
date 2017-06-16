@@ -5,6 +5,7 @@ strings
     2    3 6 <p>test1</p><p>test2</p> NO 0
     3    4 8 test9 NO 0
     4    5 10 test10 NO 0
-    5    6 12 <p>test7</p><p>test8</p> NO 0
-    6    7 14 <p>test5</p><p>test6</p> NO 0
+    5    6 12 &lsquo;test7&rsquo; NO 0
+    6    7 14 test8 NO 0
+    7    8 16 <p>test5</p><p>test6</p> NO 0
 }

@@ -11,7 +11,7 @@ jobs
 
             data {
                 path_html                        ^html$     # root 'html' node
-                                                 ^\/html$   # any non-root 'html' node
+                                                 \/html$    # any non-root 'html' node
                                                  _html$     # any node ending with '_html'
             }
         }
