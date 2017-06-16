@@ -30,6 +30,12 @@ Revision history
         - `test-parser` command now accepts `--as-object` flag to produce
           a more verbose and self-descriptive output (an array of objects)
 
+        - JSON and XML parsers can now have a nested HTML parser configured
+          via `html_parser` parameter (one can specify both parser name
+          and its parameters). If this parameter is not provided, parsers
+          fall back to a previous behavior by using `parse_php_xhtml`
+          with the default parameters as a nested parser
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

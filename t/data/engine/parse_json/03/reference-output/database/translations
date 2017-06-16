@@ -1,0 +1,11 @@
+translations
+{
+    0    1 18 1 test ţēšţ3 NO 0 0
+    1    2 19 2 test ţēšţ4 NO 0 0
+    2    3 20 3 test <p>ţēšţ1</p><p>ţēšţ2</p> NO 0 0
+    3    4 21 4 test ţēšţ9 NO 0 0
+    4    5 22 5 test ţēšţ10 NO 0 0
+    5    6 23 6 test ‘ţēšţ7’ NO 0 0
+    6    7 24 7 test ţēšţ8 NO 0 0
+    7    8 25 8 test <p>ţēšţ5</p><p>ţēšţ6</p> NO 0 0
+}

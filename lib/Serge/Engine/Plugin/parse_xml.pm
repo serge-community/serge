@@ -1,5 +1,6 @@
 package Serge::Engine::Plugin::parse_xml;
 use parent Serge::Engine::Plugin::Base::Parser;
+use parent Serge::Interface::PluginHost;
 
 use strict;
 
@@ -29,6 +30,14 @@ sub init {
         email_from    => 'STRING',
         email_to      => 'ARRAY',
         email_subject => 'STRING',
+
+        html_parser   => {
+            plugin    => 'STRING',
+
+            data      => {
+               '*'    => 'DATA',
+            }
+        },
     });
 
     $self->add('after_job', \&report_errors);
@@ -128,14 +137,6 @@ sub parse {
     my $node_match = $self->{data}->{node_match} || [];
     my $node_exclude = $self->{data}->{node_exclude} || [];
     my $node_html = $self->{data}->{node_html} || [];
-
-    # If node_html parameter is defined, load PHP/XHTML parser plugin (parse_php_xhtml)
-
-    if (exists $self->{data}->{node_html} && (!$self->{html_parser})) {
-        eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
-        ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
-        print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
-    }
 
     # Make a copy of the string as we will change it
 
@@ -377,6 +378,22 @@ sub process_text_node {
             # if node is html, pass its text to html parser for string extraction
             # if html_parser fails to parse the XML due to errors,
             # it will die(), and this will be catched in main application
+
+            # lazy-load html parser plugin
+            # (parse_php_xhtml or the one specified in html_parser config node)
+            if (!$self->{html_parser}) {
+                if (exists $self->{data}->{html_parser}) {
+                    $self->{html_parser} = $self->load_plugin_from_node(
+                        'Serge::Engine::Plugin', $self->{data}->{html_parser}
+                    );
+                } else {
+                    # fallback to loading parse_php_xhtml with default parameters
+                    eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
+                    ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
+                    print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
+                }
+            }
+
             $self->{html_parser}->{current_file_rel} = $self->{parent}->{engine}->{current_file_rel}.":$path";
             if ($lang) {
                 $$strref = $self->{html_parser}->parse($strref, $callbackref, $lang);
