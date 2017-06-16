@@ -36,6 +36,9 @@ Revision history
           fall back to a previous behavior by using `parse_php_xhtml`
           with the default parameters as a nested parser
 
+        - New `rewrite_source` callback to rewrite source strings on the fly
+          before they are passed through the translation pipeline
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

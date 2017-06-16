@@ -820,6 +820,11 @@ sub parse_source_file_callback {
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
 
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, undef, \$string, \$hint);
+
+    # normalize once again, in case the string was changed
+    $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
     my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, undef, \$string, \$hint, $context, $key));
@@ -1541,6 +1546,11 @@ sub generate_localized_files_for_file_lang_callback {
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint);
+
+    # normalize once again, in case the string was changed
+    $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 

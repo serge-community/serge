@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string1">Test Translation 1</string>
+    <string name="string2">Test Translation 2</string>
+    <string name="string3">Test Translation 3</string>
+    <string name="string4">value-#4</string>
+    <string name="string5">value-#5</string>
+    <string name="string6">value-#6</string>
+    <string name="string7">value-#7</string>
+</resources>
