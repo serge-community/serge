@@ -309,27 +309,6 @@ sub parse_localized_file_callback {
 
     my $item_id = $data->{item};
 
-    $self->_notice("Translation is the same as the source for key '$key'", "\t\t\t");
-    if ($self->{save_report}) {
-        if ($data->{string} ne $translation) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                lang => $lang,
-                source => $data->{string},
-                translation => $translation
-            };
-        } else {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                lang => $lang,
-                severity => 'notice',
-                error_status => 'SERGE_NOTICE_SAME_TRANSLATION',
-                source => $data->{string},
-                translation => $translation
-            };
-        }
-    }
-
     if (($translation eq '') && ($data->{string} ne '')) {
         $self->_notice("Translation for key '$key' is blank, skipping", "\t\t\t");
         if ($self->{save_report}) {
@@ -340,6 +319,29 @@ sub parse_localized_file_callback {
             };
         }
         return;
+    }
+
+    if ($data->{string} ne $translation) {
+        if ($self->{save_report}) {
+            push @{$self->{current_report_key}}, {
+                key => $key,
+                lang => $lang,
+                source => $data->{string},
+                translation => $translation
+            };
+        }
+    } else {
+        $self->_notice("Translation is the same as the source for key '$key'", "\t\t\t");
+        if ($self->{save_report}) {
+            push @{$self->{current_report_key}}, {
+                key => $key,
+                lang => $lang,
+                severity => 'notice',
+                error_status => 'SERGE_NOTICE_SAME_TRANSLATION',
+                source => $data->{string},
+                translation => $translation
+            };
+        }
     }
 
     print "\t\t\t::localized file [$lang]: '$key' => '$translation'\n" if $self->{debug};
