@@ -39,6 +39,10 @@ Revision history
         - New `rewrite_source` callback to rewrite source strings on the fly
           before they are passed through the translation pipeline
 
+        - If the parser does not return key names for `serge import`, it is now
+          possible to use `--disambiguate-keys` to auto-generate unique key names
+          and do the import
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

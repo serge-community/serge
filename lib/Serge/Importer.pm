@@ -176,8 +176,9 @@ sub disambiguate_key {
 sub parse_source_file_callback {
     my ($self, $string, $context, $hint, $flagsref, $lang, $key) = @_;
 
-    if ($key eq '') {
-        $self->_error("Parser plugin didn't provide a key value in a callback. Importing translations with this plugin is not possible.", "\t\t\t");
+    if ($key eq '' && !$self->{disambiguate_keys}) {
+        $self->_error("Parser plugin didn't provide a key value in a callback. ".
+        "Importing translations with this plugin is not possible, unless you use `--disambiguate-keys` option.", "\t\t\t");
     }
 
     if ($string eq '') {
