@@ -376,6 +376,7 @@ sub analyze_tag_recursively {
     my $can_translate = undef;
     my $will_translate = undef;
     my $contains_translatables = undef;
+    my $prohibit_children_translation = undef;
 
     # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated;
     # bare HTML (content of the root node) is also considered translated by default (provided there are no inner tags
@@ -419,9 +420,10 @@ sub analyze_tag_recursively {
                 $str =~ s/^[\r\n\t ]+//sg;
                 $str =~ s/[\r\n\t ]+$//sg;
 
-                # Only non-empty strings (which are not php blocks) can be translated
+                # Only non-empty strings which do not contain php blocks can be translated by default
 
-                $contains_translatables = 1 if ($str ne '') && ($str !~ m/^__PHP__BLOCK__(\d+)__$/);
+                $contains_translatables = 1 if $str ne '';
+                $prohibit_children_translation = 1 if $str =~ m/\b__PHP__BLOCK__(\d+)__\b/;
 
                 #print "** [$name: can=$can_translate, ctr=$contains_translatables] [$str]\n" if $self->{parent}->{debug};
             }
@@ -429,7 +431,7 @@ sub analyze_tag_recursively {
     }
 
     $will_translate = 1 if $can_translate && $contains_translatables;
-    $will_translate = undef if $prohibit_translation or $some_child_will_translate;
+    $will_translate = undef if $prohibit_translation or $prohibit_children_translation or $some_child_will_translate;
 
     #print "[2][$name: can=$can_translate, ctr=$contains_translatables, some=$some_child_will_translate, will=$will_translate]\n" if $self->{parent}->{debug};
 
@@ -441,7 +443,7 @@ sub analyze_tag_recursively {
         $attrs->{'.prohibit'} = 1;
     }
 
-    return ($will_translate or $some_child_will_translate or $prohibit_translation, $contains_translatables);
+    return ($will_translate or $some_child_will_translate or $prohibit_translation or $prohibit_children_translation, $contains_translatables);
 }
 
 sub render_tag_recursively {

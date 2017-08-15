@@ -21,8 +21,8 @@ Revision history
           (like XML parser already does)
 
         - PHP/XHTML parser now treats bare HTML strings (with no wrapper tag)
-          as translatable by default. This is useful when parsing nested
-          HTML snippets inside XML or JSON
+          as translatable by default, except when they contain PHP tags.
+          This is useful when parsing nested HTML snippets inside XML or JSON
 
         - Parsing errors in nested HTML values inside JSON or XML are now
           exposed to the parent parser for proper error reporting

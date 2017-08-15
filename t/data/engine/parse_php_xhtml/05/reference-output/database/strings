@@ -1,0 +1,7 @@
+strings
+{
+    0    1 4 foo3 NO 0
+    1    2 6 bar3 NO 0
+    2    3 8 baz3 NO 0
+    3    4 11 `<?php ?> foo4` NO 0
+}
