@@ -43,6 +43,9 @@ Revision history
           possible to use `--disambiguate-keys` to auto-generate unique key names
           and do the import
 
+        - Qt Linguist TS Parser can now be used in `serge import --disambiguate-keys`
+          mode
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
