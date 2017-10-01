@@ -992,7 +992,7 @@ sub update_database_from_ts_files_lang_file {
 
             # sanity check: fuzzy flag with empty translation makes no sense
 
-            if (!$unit->{target} && $unit->{fuzzy}) {
+            if ($unit->{target} eq '' && $unit->{fuzzy}) {
                 print "\t\t? [empty translation marked as fuzzy] $unit->{key}\n";
                 $unit->{fuzzy} = 0; # clear the fuzzy flag
             }
@@ -1015,7 +1015,7 @@ sub update_database_from_ts_files_lang_file {
             # because the values could have been removed in the callback;
             # also, if translation already exists (translation_id is defined),
             # we must update the record as well
-            if ($unit->{target} or $unit->{comment} or $translation_id) {
+            if ($unit->{target} ne '' or $unit->{comment} ne '' or $translation_id) {
                 print "\t\t> $unit->{key} => [$item_id/$lang]=[$translation_id]\n";
                 $self->{db}->set_translation($item_id, $lang, $unit->{target}, $unit->{fuzzy}, $unit->{comment}, 0);
             }

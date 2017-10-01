@@ -28,3 +28,9 @@ msgstr "Ṽáļũē 3"
 #: ID: bf5a11014de06a379dcb4fda0faa156d
 msgid "Value 4"
 msgstr "Ṽáļũē 4"
+
+#. string5
+#: File: strings.txt
+#: ID: 3a9c7161dfd4991eb57ee72859221baf
+msgid "0"
+msgstr "0"

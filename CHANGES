@@ -46,6 +46,9 @@ Revision history
         - Qt Linguist TS Parser can now be used in `serge import --disambiguate-keys`
           mode
 
+        - Translations containing just one '0' symbol are now properly saved to
+          database.
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
