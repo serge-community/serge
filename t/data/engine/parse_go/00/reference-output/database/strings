@@ -1,0 +1,14 @@
+strings
+{
+    0    1 2 `Ú are welcome!` NO 0
+    1    2 4 `Hello, {NAME}!` NO 0
+    2    3 6
+         `{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?`
+         NO 0
+    3    4 8 John NO 0
+    4    5 10 John's genitive 0
+    5    6 12 `foo "bar" baz` NO 0
+    6    7 14 `Line 1
+"Line 2"
+Line 3` NO 0
+}
