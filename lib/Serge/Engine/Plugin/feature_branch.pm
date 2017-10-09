@@ -38,7 +38,7 @@ sub validate_data {
 
     $self->{master_mode} = $self->{parent}->{id} eq $self->{data}->{master_job};
 
-    die "You must set 'source_path_prefix' parameter for the slave job that uses 'overlay_mode' plugin" if $self->{parent}->{source_path_prefix} eq '' && !$self->{master_mode};
+    die "You must set 'source_path_prefix' parameter for the slave job that uses 'feature_branch' plugin" if $self->{parent}->{source_path_prefix} eq '' && !$self->{master_mode};
 }
 
 sub adjust_phases {
@@ -63,24 +63,24 @@ sub before_job {
     #$self->{master_mode} = $self->{parent}->{id} eq $master_job_id;
 
     if ($self->{master_mode}) {
-        print "Running overlay_mode plugin in master mode\n" if $self->{debug};
+        print "Running feature_branch plugin in master mode\n";
 
         # initialize engine-wide plugin data structure for the current job
         $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
-        $engine->{plugin_data}->{overlay_mode} = {} unless exists $engine->{plugin_data}->{overlay_mode};
-        $self->{cache} = $engine->{plugin_data}->{overlay_mode}->{$master_job_id} = {};
+        $engine->{plugin_data}->{feature_branch} = {} unless exists $engine->{plugin_data}->{feature_branch};
+        $self->{cache} = $engine->{plugin_data}->{feature_branch}->{$master_job_id} = {};
         $self->{cache}->{''} = {};
 
     } else {
-        print "Running overlay_mode plugin in slave mode\n" if $self->{debug};
+        print "Running feature_branch plugin in slave mode\n";
 
         if (!exists $engine->{plugin_data} ||
-            !exists $engine->{plugin_data}->{overlay_mode} ||
-            !exists $engine->{plugin_data}->{overlay_mode}->{$master_job_id}) {
-            die "Can't run job with overlay_mode plugin in slave mode before (or without) the master job\n";
+            !exists $engine->{plugin_data}->{feature_branch} ||
+            !exists $engine->{plugin_data}->{feature_branch}->{$master_job_id}) {
+            die "Can't run job with feature_branch plugin in slave mode before (or without) the master job\n";
         }
 
-        $self->{cache} = $engine->{plugin_data}->{overlay_mode}->{$master_job_id};
+        $self->{cache} = $engine->{plugin_data}->{feature_branch}->{$master_job_id};
     }
 }
 
