@@ -175,12 +175,12 @@ jobs
 
         # (ARRAY) List of regular expressions for the file name
         # to match the files that should be processed.
-        # This matches case-insensitively agains the file name (without path)
+        # This matches case-insensitively against the file name (without path)
         source_match                \.rc$
 
         # (ARRAY) [OPTIONAL] List of regular expressions for the file name
         # to match the files that should be skipped.
-        # This matches case-insensitively agains the file name (without path)
+        # This matches case-insensitively against the file name (without path)
         # Default behavior: no exclusion takes place
         source_exclude              ``
 
