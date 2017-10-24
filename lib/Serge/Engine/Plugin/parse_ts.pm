@@ -34,7 +34,7 @@ sub parse {
     if ($self->{import_mode}) {
         $translated_text =~ s|(<source>.*?</source>\s*<translation.*?>)(.*?)(</translation>)|$1.$self->parse_callback($callbackref, $2, undef, undef, undef, $lang).$3|sgie;
     } else {
-        $translated_text =~ s|(<source>)(.*?)(</source>)(\s*)(<translation type="unfinished">)(</translation>)|$1.$2.$3.$4.'<translation>'.$self->parse_callback($callbackref, $2, undef, undef, undef, $lang).$6|sgie;
+        $translated_text =~ s|(<source>)(.*?)(</source>)(\s*)(<translation.*?>.*?)(</translation>)|$1.$2.$3.$4.'<translation>'.$self->parse_callback($callbackref, $2, undef, undef, undef, $lang).$6|sgie;
     }
 
 
