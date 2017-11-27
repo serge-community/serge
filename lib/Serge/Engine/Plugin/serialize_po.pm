@@ -93,15 +93,8 @@ sub deserialize {
     #  "line2"
     #  ...
 
-    # join the multi-line entries
-
+    # join multi-line entries
     $$textref =~ s/"\n"//sg;
-
-    # get current namespace
-
-    my $ns = $self->{job}->{db_namespace};
-
-    # do the search
 
     my @blocks = split(/\n\n/, $$textref);
     foreach my $block (@blocks) {
