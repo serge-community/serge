@@ -190,7 +190,10 @@ sub deserialize {
 
         # sanity check: skip blocks that have no ID defined
 
-        next unless $key ne '';
+        if ($key eq '') {
+            print "\t\t? [empty key]\n";
+            next;
+        }
 
         # sanity check: the extracted key should match the generated one for given string/context
 
