@@ -6,16 +6,24 @@ msgstr ""
 "Generated-By: Serge 1.2\n"
 
 #: File: strings.ts
-#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+#: ID: 77462addd00dc319e23d7c2478336dd5
+msgctxt "sample"
 msgid "Value 1"
 msgstr "Ṽáļũē 1"
 
 #: File: strings.ts
-#: ID: 3fa07f98de1fb810037bfde267c704d1
+#: ID: 086bdb1113d9087e5d71d6d74af51a0f
+msgctxt "sample"
 msgid "Value 2"
 msgstr "Ṽáļũē 2"
 
 #: File: strings.ts
-#: ID: f6b24ad725daf0bbe9b2e53e81ceaa7b
+#: ID: 8ab723e882af911a24b4a19581fed722
+msgctxt "sample"
 msgid "\"Value1\" <> \"&Value2\""
 msgstr "\"Ṽáļũē1\" <> \"&Ṽáļũē2\""
+
+#: File: strings.ts
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+msgid "Value 3"
+msgstr "Ṽáļũē 3"
