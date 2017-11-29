@@ -49,6 +49,9 @@ Revision history
         - Translations containing just one '0' symbol are now properly saved to
           database.
 
+        - Rendering of units with notices/warnings/errors is now fixed
+          in `serge import` HTML reports.
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
