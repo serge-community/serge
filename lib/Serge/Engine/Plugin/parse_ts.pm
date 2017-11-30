@@ -159,7 +159,9 @@ sub parse_message {
     my $translation = &$callbackref($text, $context, undef, undef, $lang, $key);
 
     if ($lang) {
-        $node->first_child('translation')->set_text($translation);
+        my $el = $node->first_child('translation');
+        $el->set_text($translation);
+        $el->strip_att('type'); # remove type attr (e.g. "unfinished")
     }
 }
 
