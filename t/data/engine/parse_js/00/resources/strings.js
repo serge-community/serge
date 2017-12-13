@@ -10,7 +10,7 @@ foo({
     "value1" : "value1",
 
     // line comments are extracted as hints as well
-    "key5" : "value1", // this is a comment
+    "key5" : "value1", // this is a comment "with quotes" and forward slashes: // test
 
     // bad strings
     "bad_key1" : 'bad_value1',
