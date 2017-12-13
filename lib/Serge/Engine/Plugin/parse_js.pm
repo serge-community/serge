@@ -21,7 +21,7 @@ sub parse {
     #   "key":"value",
     #   "key": "value", // comment
 
-    $translated_text =~ s|^(\h*")(.+?)("\h*:\h*")(.+)("\h*(?:,\h*)?(?://\h*(.*?)\h*)?)$|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, $2, $6, $lang).$5|mgie;
+    $translated_text =~ s!^(\h*")(.+?)("\h*:\h*")((?:\\\\|\\"|[^"])+?)("\h*(?:,\h*)?(?://\h*(.*)\h*)?)$!$1.$2.$3.$self->parse_callback($callbackref, $4, undef, $2, $6, $lang).$5!mgie;
 
     return $translated_text;
 }

@@ -52,6 +52,10 @@ Revision history
         - Rendering of units with notices/warnings/errors is now fixed
           in `serge import` HTML reports.
 
+        - parse_js plugin now correctly handles lines with end-of-line comments
+          containing quotes.
+
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)

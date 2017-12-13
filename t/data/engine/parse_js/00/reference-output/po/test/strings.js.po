@@ -36,7 +36,7 @@ msgid "value1"
 msgstr "ṽáļũē1"
 
 #. key5
-#. this is a comment
+#. this is a comment "with quotes" and forward slashes: // test
 #: File: strings.js
 #: ID: b37932e128ce3529d5b0f30bbaf970ab
 msgctxt "key5"
