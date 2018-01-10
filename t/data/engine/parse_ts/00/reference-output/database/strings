@@ -1,7 +1,8 @@
 strings
 {
-    0    1 2 `Value 1` sample 0
-    1    2 4 `Value 2` sample 0
-    2    3 6 `"Value1" <> "&Value2"` sample 0
+    0    1 2 `Value 1` `block-level context
+message-level context` 0
+    1    2 4 `Value 2` `block-level context` 0
+    2    3 6 `"Value1" <> "&Value2"` `block-level context` 0
     3    4 8 `Value 3` NO 0
 }

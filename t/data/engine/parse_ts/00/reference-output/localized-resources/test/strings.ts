@@ -1,9 +1,11 @@
 <!DOCTYPE TS>
-<TS language="test_TEST" version="2.0">
+<TS language="test_TEST" version="5.0">
     <context>
-        <name>sample</name>
+        <name>block-level context</name>
         <message>
             <source>Value 1</source>
+            <comment>message-level context</comment>
+            <extracomment>This is a comment for Value 1</extracomment>
             <translation>Ṽáļũē 1</translation>
         </message>
         <message>

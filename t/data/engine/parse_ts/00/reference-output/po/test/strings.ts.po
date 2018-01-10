@@ -5,21 +5,24 @@ msgstr ""
 "Language: test\n"
 "Generated-By: Serge 1.2\n"
 
+#. This is a comment for Value 1
 #: File: strings.ts
-#: ID: 77462addd00dc319e23d7c2478336dd5
-msgctxt "sample"
+#: ID: 542291f0aa67d22a0af650a4c835f516
+msgctxt ""
+"block-level context\n"
+"message-level context"
 msgid "Value 1"
 msgstr "Ṽáļũē 1"
 
 #: File: strings.ts
-#: ID: 086bdb1113d9087e5d71d6d74af51a0f
-msgctxt "sample"
+#: ID: 06222400febe66b9bff606a9059e7c91
+msgctxt "block-level context"
 msgid "Value 2"
 msgstr "Ṽáļũē 2"
 
 #: File: strings.ts
-#: ID: 8ab723e882af911a24b4a19581fed722
-msgctxt "sample"
+#: ID: 864092672935e5a150d60a8578b55b7f
+msgctxt "block-level context"
 msgid "\"Value1\" <> \"&Value2\""
 msgstr "\"Ṽáļũē1\" <> \"&Ṽáļũē2\""
 
