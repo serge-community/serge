@@ -44,7 +44,8 @@ Revision history
           and do the import
 
         - Qt Linguist TS Parser has been rewritten as a proper validating
-          XML parser. It now also extracts context name and supports import mode
+          XML parser. It now also extracts context name, comments,
+          and supports import mode
 
         - Translations containing just one '0' symbol are now properly saved to
           database.

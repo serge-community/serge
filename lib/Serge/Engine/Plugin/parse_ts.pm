@@ -152,11 +152,12 @@ sub parse_message {
     my $source = $node->first_child('source')->text;
     my $translation = $node->first_child('translation')->text;
     my $context = $self->get_context($node);
+    my $hint = $self->get_hint($node);
     my $key = $context.':'.$node->first_child('source')->text;
 
     my $text = ($self->{import_mode} && $has_translation) ? $translation : $source;
 
-    my $translation = &$callbackref($text, $context, undef, undef, $lang, $key);
+    my $translation = &$callbackref($text, $context, $hint, undef, $lang, $key);
 
     if ($lang) {
         my $el = $node->first_child('translation');
@@ -168,9 +169,34 @@ sub parse_message {
 sub get_context {
     my ($self, $node) = @_;
 
+    my @ctx;
+
     my $parent = $node->parent;
     if ($parent->tag eq 'context') {
-        return $parent->first_child('name')->text;
+        push @ctx, $parent->first_child('name')->text;
+    }
+
+    # according to Qt Linguist TS file format spec,
+    # (http://doc.qt.io/qt-5/linguist-ts-file-format.html)
+    # <extracomment> is used to hold a comment, and <comment>
+    # is used to hold the context (sic!)
+
+    my $comment_node = $node->first_child('comment');
+    if ($comment_node) {
+        push @ctx, $comment_node->text;
+    }
+
+    return length(@ctx) > 0 ? join("\n", @ctx) : '';
+}
+
+sub get_hint {
+    my ($self, $node) = @_;
+
+    # see the note above on <comment> vs <extracomment>
+
+    my $comment_node = $node->first_child('extracomment');
+    if ($comment_node) {
+        return $comment_node->text;
     }
 
     return '';
