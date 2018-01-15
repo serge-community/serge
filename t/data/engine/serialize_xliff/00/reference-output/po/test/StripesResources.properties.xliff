@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="javapropertyresourcebundle" original="StripesResources.properties" source-language="en" target-language="test">
+        <body>
+            <trans-unit id="05c382b374518cc317f4ec0f98409fa0" resname="foo">
+                <source xml:lang="en">bar</source>
+                <target xml:lang="test">ḃáŕ</target>
+            </trans-unit>
+            <trans-unit id="e5f2adbdbe00c558062db891f2072489" resname="foo2">
+                <source xml:lang="en">bar2</source>
+                <target xml:lang="test">ḃáŕ2</target>
+            </trans-unit>
+            <trans-unit id="3fe4481f751cc3733375d9b0a5902031" resname="foo3">
+                <source xml:lang="en">bar3</source>
+                <target xml:lang="test">ḃáŕ3</target>
+            </trans-unit>
+            <trans-unit id="a257f7b12d48b49db500386f8a356a6c" resname="foo4">
+                <source xml:lang="en">bar4</source>
+                <target xml:lang="test">ḃáŕ4</target>
+            </trans-unit>
+            <trans-unit id="b3f8891da76b3364f7212ee8bcdea7cc" resname="foo5">
+                <source xml:lang="en">bar5</source>
+                <target xml:lang="test">ḃáŕ5</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
