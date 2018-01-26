@@ -26,6 +26,7 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
+        clone_params => 'STRING',
         name => 'STRING',
         email => 'STRING'
     });
@@ -110,7 +111,7 @@ sub status {
 sub init_repo {
     my ($self, $local_path, $remote_path, $branch) = @_;
 
-    $self->run_in($local_path, qq|git clone $remote_path --branch $branch .|);
+    $self->run_in($local_path, qq|git clone $remote_path --branch $branch $self->{data}->{clone_params} .|);
 
     # if email is provided, set it up as an override for this local repository
     if (exists $self->{data}->{email}) {
