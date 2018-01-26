@@ -56,6 +56,9 @@ Revision history
         - parse_js plugin now correctly handles lines with end-of-line comments
           containing quotes.
 
+        - Git sync plugin now supports `clone_params` configuration parameter
+          that allows one to pass extra parameters on initial project checkout
+          (useful for e.g. shallow cloning).
 
 1.2     October 29, 2016
 
