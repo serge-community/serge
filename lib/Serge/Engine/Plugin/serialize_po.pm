@@ -93,6 +93,9 @@ sub deserialize {
     #  "line2"
     #  ...
 
+    # normalize line breaks (Windows->Unix)
+    $$textref =~ s/\r\n/\n/sg;
+
     # join multi-line entries
     $$textref =~ s/"\n"//sg;
 

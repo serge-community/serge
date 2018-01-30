@@ -60,6 +60,9 @@ Revision history
           that allows one to pass extra parameters on initial project checkout
           (useful for e.g. shallow cloning).
 
+        - .PO serializer now normalizes line endings prior to parsing the file.
+          This allows one to import .PO files with Windows-style line endings.
+
 1.2     October 29, 2016
 
         - Make TS File serialization pluggable (see #11)
