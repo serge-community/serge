@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: test\n"
-"Generated-By: Serge 1.2\n"
+"Generated-By: Serge 1.3\n"
 
 #: File: 2.html
 #: ID: 5e120ef2867f51f8230f4fb667f6dfd5

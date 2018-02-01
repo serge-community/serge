@@ -6,16 +6,16 @@ properties
     3     4 items:1 1,2,3,4,5
     4     5 ts:1:test:count 5
     5     6 usn:1:test 16
-    6     7 ts:1:test 729fd93dca708287677b3c997c9f7ba1
+    6     7 ts:1:test f3718580f2dd365aafcc0035dd375fa0
     7     8 target:1:test_job:test 1014ad811e98702a5e8ac91a61eda3a3
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test 38cb5e9ec4f5de9050d8a9825e79f8d2
     10    11 source:ts:1:test_job:test
-          729fd93dca708287677b3c997c9f7ba1
+          f3718580f2dd365aafcc0035dd375fa0
     11    12 job-hash:test_namespace:test_job
           a5091f2119476cf73d70128c222ffc91
     12    13 job-plugin:test_namespace:test_job parse_properties.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    14    15 job-engine:test_namespace:test_job 1.2
+    14    15 job-engine:test_namespace:test_job 1.3
 }

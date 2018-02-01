@@ -1,6 +1,8 @@
 Revision history
 
-1.3     Pending release
+1.4     Pending release
+
+1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the
           original comment is not blank
