@@ -11,7 +11,7 @@ and scalable fashion.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2008-2015, Evernote Corp.
+Copyright (C) 2008-2018, Evernote Corp.
 
 =head1 SEE ALSO
 
