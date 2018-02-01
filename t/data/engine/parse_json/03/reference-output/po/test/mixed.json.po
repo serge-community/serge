@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: test\n"
-"Generated-By: Serge 1.2\n"
+"Generated-By: Serge 1.3\n"
 
 #: File: mixed.json
 #: ID: f7202a0b7d95fde965f44bfb8e979bef

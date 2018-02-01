@@ -7,16 +7,16 @@ properties
           1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
     4     5 ts:4:test:count 21
     5     6 usn:4:test 67
-    6     7 ts:4:test 3125bc9a2ee5df3a41ba85068093ce13
+    6     7 ts:4:test f1803c097a3450de3360f6ee8fcb29fd
     7     8 target:4:test_job:test 83ee5768900a2bfa7312cbd8bbb08b89
     8     9 target:mtime:4:test_job:test 12345678
     9     10 source:4:test_job:test 7b5e59f8bb7ad3023335abd269b539b1
     10    11 source:ts:4:test_job:test
-          3125bc9a2ee5df3a41ba85068093ce13
+          f1803c097a3450de3360f6ee8fcb29fd
     11    12 job-hash:test_namespace:test_job
           80c52c3ab8cfc898775493c6842093a7
     12    13 job-plugin:test_namespace:test_job parse_php_xhtml.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    14    15 job-engine:test_namespace:test_job 1.2
+    14    15 job-engine:test_namespace:test_job 1.3
 }

@@ -6,16 +6,16 @@ properties
     3     4 items:1 1
     4     5 ts:1:test:count 1
     5     6 usn:1:test 4
-    6     7 ts:1:test 37710b1c55d1fb98d1a8d4f02cc7a8da
+    6     7 ts:1:test f1d425e152c3bad8e4ecc1d8cb494695
     7     8 target:1:test_job:test a6423897f3bf3d8d781f5ca512c611c1
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test f5667e6a183795be2ca316d5263f252b
     10    11 source:ts:1:test_job:test
-          37710b1c55d1fb98d1a8d4f02cc7a8da
+          f1d425e152c3bad8e4ecc1d8cb494695
     11    12 job-hash:test_namespace:test_job
           90f0aa1e620b83a901b94e1e0d5aad61
     12    13 job-plugin:test_namespace:test_job parse_android.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    14    15 job-engine:test_namespace:test_job 1.2
+    14    15 job-engine:test_namespace:test_job 1.3
 }
