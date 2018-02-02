@@ -13,7 +13,7 @@ look up for .serge files in the current directory.
 
 =head1 DESCRIPTION
 
-Based on each configuration file's B<job> section, push translation files
+Based on each configuration file's B<sync> section, push translation files
 to remote translation server.
 
 =head1 OPTIONS
@@ -27,8 +27,8 @@ and force update data from all translation files.
 
 =item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
 
-See C<< L<serge localize --lang|serge-localize> >>.
-Will also completely skip processing configs where no target languages are found.
+An optional comma-separated list of target languages.
+If not specified, all the available languages are supposed to be synchronized.
 
 =item B<--echo-commands>
 
