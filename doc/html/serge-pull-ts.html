@@ -30,7 +30,7 @@
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p>Based on each configuration file&#39;s <b>job</b> section, pull updated translation files from remote translation server into the local directory.</p>
+<p>Based on each configuration file&#39;s <b>sync</b> section, pull updated translation files from remote translation server into the local directory.</p>
 
 <h1 id="OPTIONS">OPTIONS</h1>
 
@@ -45,7 +45,7 @@
 <dt><b>--lang=xx[,yy][,zz]</b>, <b>--language=xx[,yy][,zz]</b> <b>--languages=xx[,yy][,zz]</b></dt>
 <dd>
 
-<p>See <code><a href="serge-localize.html">serge localize --lang</a></code>. Will also completely skip processing configs where no target languages are found.</p>
+<p>An optional comma-separated list of target languages. If not specified, all the available languages are supposed to be synchronized.</p>
 
 </dd>
 <dt><b>--echo-commands</b></dt>
