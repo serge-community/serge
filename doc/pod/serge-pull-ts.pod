@@ -24,6 +24,11 @@ from remote translation server into the local directory.
 
 Instruct the remote party to skip any optimizations and force update all translation files.
 
+=item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+See C<< L<serge localize --lang|serge-localize> >>.
+Will also completely skip processing configs where no target languages are found.
+
 =item B<--echo-commands>
 
 Echo system commands about to be executed (useful for debugging)
