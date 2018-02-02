@@ -2,6 +2,12 @@ Revision history
 
 1.4     Pending release
 
+        - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
+          (gives an ability to specify one or more languages which should be
+          synchronized with the translation service). Previously this parameter
+          worked only for `serge sync` and `serge localize` and only affected
+          the localization step.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the

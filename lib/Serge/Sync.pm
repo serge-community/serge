@@ -115,7 +115,7 @@ sub do_sync {
     } else {
         print "\nPulling translation files from external translation service...\n\n";
         my $start = [gettimeofday];
-        $self->{ts}->pull_ts; # update all languages
+        $self->{ts}->pull_ts($self->{languages}); # update all languages
         print "'pull-ts' step took ", tv_interval($start), " seconds\n";
     }
 
@@ -142,7 +142,7 @@ sub do_sync {
     } else {
         print "\nPushing translation files to external translation service...\n\n";
         my $start = [gettimeofday];
-        $self->{ts}->push_ts; # update all languages
+        $self->{ts}->push_ts($self->{languages}); # update all languages
         print "'push-ts' step took ", tv_interval($start), " seconds\n";
     }
 

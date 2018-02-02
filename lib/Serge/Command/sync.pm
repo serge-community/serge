@@ -37,6 +37,7 @@ sub init {
     if ($command =~ m/^(pull-ts|localize|push-ts|sync)$/) {
         GetOptions(
             "force"         => \$self->{force},
+            "lang|language|languages=s" => \$self->{languages},
         ) or die $error_msg;
     }
 
@@ -55,7 +56,6 @@ sub init {
 
     if ($command =~ m/^(localize|sync)$/) {
         GetOptions(
-            "lang|language|languages=s" => \$self->{languages},
             "job|jobs=s"                => \$self->{jobs},
             "rebuild-ts-files"           => \$self->{rebuild_ts_files},
             "output-only-mode"          => \$self->{output_only_mode},
@@ -89,6 +89,7 @@ sub run {
     my %limit_languages;
     if ($self->{languages}) {
         my @l = split(/,/, $self->{languages});
+        $sync->{languages} = \@l;
         $engine->{limit_destination_languages} = \@l;
         @limit_languages{@l} = @l;
     }

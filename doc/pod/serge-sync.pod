@@ -36,13 +36,13 @@ Has the same effect as C<< L<serge localize --output-only-mode|serge-localize> >
 
 =item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
 
-See C<< L<serge localize --lang|serge-localize> >>. Will also completely skip processing configs where
-no target languages are found.
+See C<< L<serge localize --lang|serge-localize> >>.
+Will also completely skip processing configs where no target languages are found.
 
 =item B<--job=xx[,yy][,zz]>, B<--jobs=xx[,yy][,zz]>
 
-See C<< L<serge localize --job|serge-localize> >>. Will also completely skip processing configs where
-no target jobs are found.
+See C<< L<serge localize --job|serge-localize> >>.
+Will also completely skip processing configs where no target jobs are found.
 
 =item B<--message="commit message">
 
