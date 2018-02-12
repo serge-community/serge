@@ -25,14 +25,16 @@ sub serialize {
             version => "1.2",
         });
 
-    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => 'en', 'target-language' => $locale, datatype => 'javapropertyresourcebundle'}, '');
+    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => 'en', 'target-language' => $locale, datatype => 'x-unknown'}, '');
 
     my $body_element = $file_element->insert_new_elt('body');
 
     my @reversed_units = reverse(@$units);
 
     foreach my $unit (@reversed_units) {
-        my $unit_element = $body_element->insert_new_elt('trans-unit' => {id => $unit->{key}}, '');
+        my $approved = $unit->{fuzzy} ? "no" : "yes";
+
+        my $unit_element = $body_element->insert_new_elt('trans-unit' => {approved => $approved, id => $unit->{key}}, '');
 
         if ($unit->{hint}) {
             my $resname = ($unit->{hint} =~ /\A(.*?)$/ms)[0];
@@ -90,7 +92,7 @@ sub deserialize {
                 context => '',
                 target => $tran_unit->first_child('target')->text,
                 comment => $tran_unit->att('resname'),
-                fuzzy => 0,
+                fuzzy => $tran_unit->att('approved') eq "no",
                 flags => \(),
             };
     }
