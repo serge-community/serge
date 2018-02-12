@@ -36,10 +36,14 @@ sub serialize {
 
         my $unit_element = $body_element->insert_new_elt('trans-unit' => {approved => $approved, id => $unit->{key}}, '');
 
-        if ($unit->{hint}) {
-            my $resname = ($unit->{hint} =~ /\A(.*?)$/ms)[0];
+        my $dev_comment = $unit->{hint};
 
-            $unit_element->set_att(resname => $resname)
+        if ($dev_comment ne '') {
+            my @dev_comment_lines = split('\n', $dev_comment);
+
+            foreach my $dev_comment_line (reverse(@dev_comment_lines)) {
+                $unit_element->insert_new_elt('note' => {'from' => 'developer'}, $dev_comment_line);
+            }
         }
 
         $unit_element->insert_new_elt('target' => {'xml:lang' => $locale}, $unit->{target});
@@ -91,13 +95,28 @@ sub deserialize {
                 source => $tran_unit->first_child('source')->text,
                 context => '',
                 target => $tran_unit->first_child('target')->text,
-                comment => $tran_unit->att('resname'),
+                comment => $self->get_comment($tran_unit),
                 fuzzy => $tran_unit->att('approved') eq "no",
                 flags => \(),
             };
     }
 
     return \@units;
+}
+
+sub get_comment {
+    my ($self, $node) = @_;
+
+    my $first_note_node = $node->first_child('note');
+
+    my @notes;
+
+    if (defined $first_note_node) {
+        map {
+            push @notes, $_->text;
+        } $node->children('note');
+    }
+    return join(@notes,'\n');
 }
 
 
