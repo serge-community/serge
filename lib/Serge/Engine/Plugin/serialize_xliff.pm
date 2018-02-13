@@ -50,7 +50,7 @@ sub serialize {
             if ($dev_comment_lines_size > 1) {
                 shift(@dev_comment_lines);
             } else {
-                @dev_comment_lines = ();
+                @dev_comment_lines = \();
             }
 
             foreach my $dev_comment_line (reverse(@dev_comment_lines)) {
@@ -62,7 +62,19 @@ sub serialize {
             $unit_element->set_att('extradata' => $unit->{context});
         }
 
-        $unit_element->insert_new_elt('target' => {'xml:lang' => $locale}, $unit->{target});
+        my $target_element = $unit_element->insert_new_elt('target' => {'xml:lang' => $locale}, $unit->{target});
+
+        my $state = '';
+
+        if ($unit->{target} ne '') {
+            $state = $self->get_state($unit->{flags});
+        } else {
+            $state = 'new';
+        }
+
+        if ($state ne '') {
+            $target_element->set_att('state' => $state);
+        }
 
         $unit_element->insert_new_elt('source' => {'xml:lang' => 'en'}, $unit->{source});
     }
@@ -72,6 +84,29 @@ sub serialize {
     $tidy_obj->tidy('    ');
 
     return $tidy_obj->toString();
+}
+
+sub get_state {
+    my ($self, $unitflags) = @_;
+
+    return 'translated' unless defined $unitflags;
+
+    my @flags = @$unitflags;
+
+    my $state = 'translated';
+
+    if (is_flag_set(\@flags, 'state-final')) {
+        $state = 'final';
+    } elsif (is_flag_set(\@flags, 'state-new')) {
+        $state = 'new';
+    } elsif (is_flag_set(\@flags, 'state-translated')) {
+        $state = 'translated';
+    } elsif (is_flag_set(\@flags, 'state-signed-off')) {
+        $state = 'signed-off';
+    } else {
+    }
+
+    return $state;
 }
 
 sub deserialize {
@@ -115,14 +150,23 @@ sub deserialize {
 
         $comment .= $self->get_comment($tran_unit);
 
+        my $target = $tran_unit->first_child('target');
+
+        my @flags = \();
+        my $state = $target->att('state');
+
+        if ($state ne '') {
+            push @flags, 'state-'.$state;
+        }
+
         push @units, {
                 key => $tran_unit->att('id'),
                 source => $tran_unit->first_child('source')->text,
                 context => $tran_unit->att('extradata'),
-                target => $tran_unit->first_child('target')->text,
+                target => $target->text,
                 comment => $comment,
                 fuzzy => $tran_unit->att('approved') eq "no",
-                flags => \(),
+                flags => @flags,
             };
     }
 
