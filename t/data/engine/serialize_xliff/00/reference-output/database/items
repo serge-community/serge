@@ -13,4 +13,6 @@ this is a comment for foo4 (line 1 of 2)
 this is a comment for foo4 (line 2 of 2)`
          NO 0
     4    5 11 1 5 foo5 NO 0
+    5    6 13 1 6 `bar
+this is a comment for bar` NO 0
 }

@@ -24,9 +24,14 @@
                 <note from="developer">this is a comment for foo4 (line 1 of 2)</note>
                 <note from="developer">this is a comment for foo4 (line 2 of 2)</note>
             </trans-unit>
-            <trans-unit approved="yes" id="b3f8891da76b3364f7212ee8bcdea7cc" resname="foo5">
+            <trans-unit approved="yes" extradata="etc" id="b3f8891da76b3364f7212ee8bcdea7cc" resname="foo5">
                 <source xml:lang="en">bar5</source>
                 <target xml:lang="test">ḃáŕ5</target>
+            </trans-unit>
+            <trans-unit approved="yes" extradata="bar" id="2c5fde62c6eaf3281007175ff722fac8" resname="bar">
+                <source xml:lang="en">bar</source>
+                <target xml:lang="test">ḃáŕ</target>
+                <note from="developer">this is a comment for bar</note>
             </trans-unit>
         </body>
     </file>

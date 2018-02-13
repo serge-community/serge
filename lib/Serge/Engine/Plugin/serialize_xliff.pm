@@ -58,6 +58,10 @@ sub serialize {
             }
         }
 
+        if ($unit->{context} ne '') {
+            $unit_element->set_att('extradata' => $unit->{context});
+        }
+
         $unit_element->insert_new_elt('target' => {'xml:lang' => $locale}, $unit->{target});
 
         $unit_element->insert_new_elt('source' => {'xml:lang' => 'en'}, $unit->{source});
@@ -114,7 +118,7 @@ sub deserialize {
         push @units, {
                 key => $tran_unit->att('id'),
                 source => $tran_unit->first_child('source')->text,
-                context => '',
+                context => $tran_unit->att('extradata'),
                 target => $tran_unit->first_child('target')->text,
                 comment => $comment,
                 fuzzy => $tran_unit->att('approved') eq "no",
