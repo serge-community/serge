@@ -41,6 +41,18 @@ sub serialize {
         if ($dev_comment ne '') {
             my @dev_comment_lines = split('\n', $dev_comment);
 
+            my $resname = $dev_comment_lines[0];
+
+            $unit_element->set_att('resname' => $resname);
+
+            my $dev_comment_lines_size = scalar @dev_comment_lines;
+
+            if ($dev_comment_lines_size > 1) {
+                shift(@dev_comment_lines);
+            } else {
+                @dev_comment_lines = ();
+            }
+
             foreach my $dev_comment_line (reverse(@dev_comment_lines)) {
                 $unit_element->insert_new_elt('note' => {'from' => 'developer'}, $dev_comment_line);
             }
@@ -90,12 +102,21 @@ sub deserialize {
 
     my @tran_units = $tree->findnodes('//'.$unit_tag);
     foreach my $tran_unit (@tran_units) {
+        my $comment = '';
+
+        if ($tran_unit->att('resname') ne '') {
+            $comment = $tran_unit->att('resname');
+            $comment .= '\n';
+        }
+
+        $comment .= $self->get_comment($tran_unit);
+
         push @units, {
                 key => $tran_unit->att('id'),
                 source => $tran_unit->first_child('source')->text,
                 context => '',
                 target => $tran_unit->first_child('target')->text,
-                comment => $self->get_comment($tran_unit),
+                comment => $comment,
                 fuzzy => $tran_unit->att('approved') eq "no",
                 flags => \(),
             };

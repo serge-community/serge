@@ -9,8 +9,8 @@ this is a comment for foo2
 #specialFlagWithValue=value` NO 0
     3    4 9 1 4
          `foo4
-this is a comment for foo3 (line 1 of 2)
-this is a comment for foo3 (line 2 of 2)`
+this is a comment for foo4 (line 1 of 2)
+this is a comment for foo4 (line 2 of 2)`
          NO 0
     4    5 11 1 5 foo5 NO 0
 }

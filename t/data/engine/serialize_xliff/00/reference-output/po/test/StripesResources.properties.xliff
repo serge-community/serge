@@ -2,36 +2,31 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file datatype="x-unknown" original="StripesResources.properties" source-language="en" target-language="test">
         <body>
-            <trans-unit approved="yes" id="05c382b374518cc317f4ec0f98409fa0">
+            <trans-unit approved="yes" id="05c382b374518cc317f4ec0f98409fa0" resname="foo">
                 <source xml:lang="en">bar</source>
                 <target xml:lang="test">ḃáŕ</target>
-                <note from="developer">foo</note>
                 <note from="developer">this is a comment for foo</note>
             </trans-unit>
-            <trans-unit approved="yes" id="e5f2adbdbe00c558062db891f2072489">
+            <trans-unit approved="yes" id="e5f2adbdbe00c558062db891f2072489" resname="foo2">
                 <source xml:lang="en">bar2</source>
                 <target xml:lang="test">ḃáŕ2</target>
-                <note from="developer">foo2</note>
                 <note from="developer">this is a comment for foo2</note>
                 <note from="developer">#specialFlag</note>
             </trans-unit>
-            <trans-unit approved="yes" id="3fe4481f751cc3733375d9b0a5902031">
+            <trans-unit approved="yes" id="3fe4481f751cc3733375d9b0a5902031" resname="foo3">
                 <source xml:lang="en">bar3</source>
                 <target xml:lang="test">ḃáŕ3</target>
-                <note from="developer">foo3</note>
                 <note from="developer">#specialFlagWithValue=value</note>
             </trans-unit>
-            <trans-unit approved="yes" id="a257f7b12d48b49db500386f8a356a6c">
+            <trans-unit approved="yes" id="a257f7b12d48b49db500386f8a356a6c" resname="foo4">
                 <source xml:lang="en">bar4</source>
                 <target xml:lang="test">ḃáŕ4</target>
-                <note from="developer">foo4</note>
-                <note from="developer">this is a comment for foo3 (line 1 of 2)</note>
-                <note from="developer">this is a comment for foo3 (line 2 of 2)</note>
+                <note from="developer">this is a comment for foo4 (line 1 of 2)</note>
+                <note from="developer">this is a comment for foo4 (line 2 of 2)</note>
             </trans-unit>
-            <trans-unit approved="yes" id="b3f8891da76b3364f7212ee8bcdea7cc">
+            <trans-unit approved="yes" id="b3f8891da76b3364f7212ee8bcdea7cc" resname="foo5">
                 <source xml:lang="en">bar5</source>
                 <target xml:lang="test">ḃáŕ5</target>
-                <note from="developer">foo5</note>
             </trans-unit>
         </body>
     </file>
