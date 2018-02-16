@@ -103,6 +103,8 @@ sub get_state {
         $state = 'translated';
     } elsif (is_flag_set(\@flags, 'state-signed-off')) {
         $state = 'signed-off';
+    } elsif (is_flag_set(\@flags, 'state-needs-translation')) {
+        $state = 'needs-translation';
     } else {
     }
 
@@ -111,6 +113,8 @@ sub get_state {
 
 sub deserialize {
     my ($self, $textref) = @_;
+
+    my @valid_states = split(' ', 'translated final signed-off');
 
     my @units;
 
@@ -130,16 +134,9 @@ sub deserialize {
     my $version = $tree->root->att('version');
     ($version =~ m/^(\d+)/) && ($version = $1);
 
-    my $unit_tag;
-    if ($version == 1) {
-        $unit_tag = 'trans-unit';
-    } elsif ($version == 2) {
-        $unit_tag = 'unit';
-    } else {
-        die "Unsupported XLIFF version: '$version'";
-    }
+    die "Unsupported XLIFF version: '$version'" unless $version eq 1;
 
-    my @tran_units = $tree->findnodes('//'.$unit_tag);
+    my @tran_units = $tree->findnodes('//trans-unit');
     foreach my $tran_unit (@tran_units) {
         my $comment = '';
 
@@ -150,22 +147,45 @@ sub deserialize {
 
         $comment .= $self->get_comment($tran_unit);
 
-        my $target = $tran_unit->first_child('target');
+        my $target_element = $tran_unit->first_child('target');
 
         my @flags = \();
-        my $state = $target->att('state');
+        my $state = $target_element->att('state');
 
         if ($state ne '') {
             push @flags, 'state-'.$state;
         }
 
+        my $key = $tran_unit->att('id');
+
+        my $source = $tran_unit->first_child('source')->text;
+        my $target = $target_element->text;
+        my $context = $tran_unit->att('extradata');
+        my $fuzzy = $tran_unit->att('approved') eq "no";
+
+        next unless ($target or $comment);
+
+        if ($state ne '' and @valid_states) {
+            my $is_valid_state = $state ~~ @valid_states;
+
+            if (not $is_valid_state) {
+                print "\t\t? [invalid state] for $key for with state $state\n";
+                next;
+            }
+        }
+
+        if ($key ne generate_key($source, $context)) {
+            print "\t\t? [bad key] $key for context $context\n";
+            next;
+        }
+
         push @units, {
-                key => $tran_unit->att('id'),
-                source => $tran_unit->first_child('source')->text,
-                context => $tran_unit->att('extradata'),
-                target => $target->text,
+                key => $key,
+                source => $source,
+                context => $context,
+                target => $target,
                 comment => $comment,
-                fuzzy => $tran_unit->att('approved') eq "no",
+                fuzzy => $fuzzy,
                 flags => @flags,
             };
     }
@@ -185,7 +205,7 @@ sub get_comment {
             push @notes, $_->text;
         } $node->children('note');
     }
-    return join(@notes,'\n');
+    return join('\n', @notes);
 }
 
 
