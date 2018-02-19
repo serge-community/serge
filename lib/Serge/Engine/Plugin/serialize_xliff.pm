@@ -138,6 +138,8 @@ sub deserialize {
 
     my @tran_units = $tree->findnodes('//trans-unit');
     foreach my $tran_unit (@tran_units) {
+        my $key = $tran_unit->att('id');
+
         my $comment = '';
 
         if ($tran_unit->att('resname') ne '') {
@@ -147,19 +149,30 @@ sub deserialize {
 
         $comment .= $self->get_comment($tran_unit);
 
+        my $source_element = $tran_unit->first_child('source');
         my $target_element = $tran_unit->first_child('target');
 
         my @flags = \();
-        my $state = $target_element->att('state');
+        my $state = '';
+        my $target = '';
+
+        if ($target_element) {
+            $state = $target_element->att('state');
+            $target = $target_element->text;
+        } else {
+            print "\t\t? [missing target] for $key\n";
+        }
 
         if ($state ne '') {
             push @flags, 'state-'.$state;
         }
 
-        my $key = $tran_unit->att('id');
+        my $source = '';
 
-        my $source = $tran_unit->first_child('source')->text;
-        my $target = $target_element->text;
+        if ($source_element) {
+            $source = $source_element->text;
+        }
+
         my $context = $tran_unit->att('extradata');
         my $fuzzy = $tran_unit->att('approved') eq "no";
 
