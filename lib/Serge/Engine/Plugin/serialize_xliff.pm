@@ -27,7 +27,9 @@ sub init {
         file_datatype => 'STRING',
         source_language => 'STRING',
         state_translated => 'STRING',
-        state_new => 'STRING'
+        state_translated_fuzzy => 'STRING',
+        state_untranslated => 'STRING',
+        no_target_for_untranslated => 'BOOLEAN'
     });
 }
 
@@ -50,7 +52,11 @@ sub validate_data {
 
     $self->{data}->{state_translated} = 'translated' unless defined $self->{data}->{state_translated};
 
-    $self->{data}->{state_new} = 'new' unless defined $self->{data}->{state_new};
+    $self->{data}->{state_translated_fuzzy} = $self->{data}->{state_translated} unless defined $self->{data}->{state_translated_fuzzy};
+
+    $self->{data}->{state_untranslated} = 'new' unless defined $self->{data}->{state_untranslated};
+
+    $self->{data}->{no_target_for_untranslated} = 1 unless defined $self->{data}->{no_target_for_untranslated};
 }
 
 sub serialize {
@@ -58,14 +64,15 @@ sub serialize {
 
     my $use_hint_for_resname = $self->{data}->{use_hint_for_resname};
 
-    my $locale = locale_from_lang($lang);
+    my $source_locale = locale_from_lang($self->{data}->{source_language});
+    my $target_locale = locale_from_lang($lang);
 
     my $root_element = XML::Twig::Elt->new('xliff', {
             'xmlns' => "urn:oasis:names:tc:xliff:document:1.2",
             version => "1.2",
         });
 
-    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => $self->{data}->{source_language}, 'target-language' => $locale, datatype => $self->{data}->{file_datatype}}, '');
+    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => $source_locale, 'target-language' => $target_locale, datatype => $self->{data}->{file_datatype}}, '');
 
     my $body_element = $file_element->insert_new_elt('body');
 
@@ -113,20 +120,25 @@ sub serialize {
             }
         }
 
-        my $target_element = $unit_element->insert_new_elt('target' => {'xml:lang' => $locale}, $unit->{target});
+        if ($unit->{target} eq '' and $self->{data}->{no_target_for_untranslated}) {
+        } else {
+            my $target_element = $unit_element->insert_new_elt('target' => {'xml:lang' => $target_locale}, $unit->{target});
 
-        my $state = '';
+            my $state = '';
 
-        if ($self->{data}->{source_language} ne $lang) {
-            if ($unit->{target} ne '') {
-                $state = $self->get_state($unit->{flags});
-            } else {
-                $state = $self->{data}->{state_new};
+            if ($self->{data}->{source_language} ne $lang) {
+                if ($unit->{target} ne '') {
+                    my $default_state = $unit->{fuzzy} ? $self->{data}->{state_translated_fuzzy} : $self->{data}->{state_translated};
+
+                    $state = $self->get_state($unit->{flags}, $default_state);
+                } else {
+                    $state = $self->{data}->{state_untranslated};
+                }
             }
-        }
 
-        if ($state ne '') {
-            $target_element->set_att('state' => $state);
+            if ($state ne '') {
+                $target_element->set_att('state' => $state);
+            }
         }
 
         $unit_element->insert_new_elt('source' => {'xml:lang' => 'en'}, $unit->{source});
@@ -140,13 +152,13 @@ sub serialize {
 }
 
 sub get_state {
-    my ($self, $unitflags) = @_;
+    my ($self, $unitflags, $default_state) = @_;
 
-    return $self->{data}->{state_translated} unless defined $unitflags;
+    return $default_state unless defined $unitflags;
 
     my @flags = @$unitflags;
 
-    my $state = $self->{data}->{state_translated};
+    my $state = $default_state;
 
     if (is_flag_set(\@flags, 'state-final')) {
         $state = 'final';
@@ -158,6 +170,8 @@ sub get_state {
         $state = 'signed-off';
     } elsif (is_flag_set(\@flags, 'state-needs-translation')) {
         $state = 'needs-translation';
+    } elsif (is_flag_set(\@flags, 'state-new')) {
+        $state = 'new';        
     } else {
     }
 
