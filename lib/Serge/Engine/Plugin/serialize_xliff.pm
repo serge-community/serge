@@ -27,7 +27,6 @@ sub init {
         file_datatype => 'STRING',
         source_language => 'STRING',
         state_translated => 'STRING',
-        state_translated_fuzzy => 'STRING',
         state_untranslated => 'STRING',
         no_target_for_untranslated => 'BOOLEAN'
     });
@@ -44,15 +43,13 @@ sub validate_data {
 
     $self->{data}->{file_datatype} = 'x-unknown' unless defined $self->{data}->{file_datatype};
 
-    if (($self->{data}->{context_strategy} ne 'id') and ($self->{data}->{context_strategy} ne 'extradata')) {
-        die "'context_strategy', which is set to $self->{data}->{context_strategy}, is not one of the valid options: 'id' or 'extradata'";
+    if (($self->{data}->{context_strategy} ne 'id') and ($self->{data}->{context_strategy} ne 'extradata') and ($self->{data}->{context_strategy} ne 'resname')) {
+        die "'context_strategy', which is set to $self->{data}->{context_strategy}, is not one of the valid options: 'id' or 'extradata' or 'resname'";
     }
 
     $self->{data}->{source_language} = 'en' unless defined $self->{data}->{source_language};
 
     $self->{data}->{state_translated} = 'translated' unless defined $self->{data}->{state_translated};
-
-    $self->{data}->{state_translated_fuzzy} = $self->{data}->{state_translated} unless defined $self->{data}->{state_translated_fuzzy};
 
     $self->{data}->{state_untranslated} = 'new' unless defined $self->{data}->{state_untranslated};
 
@@ -88,6 +85,8 @@ sub serialize {
         if ($unit->{context} ne '') {
             if ($self->{data}->{context_strategy} eq 'extradata') {
                 $unit_element->set_att('extradata' => $unit->{context});
+            } elsif ($self->{data}->{context_strategy} eq 'resname') {
+                $unit_element->set_att('resname' => $unit->{context});
             } elsif ($self->{data}->{context_strategy} eq 'id') {
                 $key .= ':'.$unit->{context};
             }
@@ -100,7 +99,7 @@ sub serialize {
         if ($dev_comment ne '') {
             my @dev_comment_lines = split('\n', $dev_comment);
 
-            if ($use_hint_for_resname) {
+            if ($use_hint_for_resname and ($self->{data}->{context_strategy} eq 'extradata')) {
                 my $resname = $dev_comment_lines[0];
 
                 $unit_element->set_att('resname' => $resname);
@@ -128,7 +127,7 @@ sub serialize {
 
             if ($self->{data}->{source_language} ne $lang) {
                 if ($unit->{target} ne '') {
-                    my $default_state = $unit->{fuzzy} ? $self->{data}->{state_translated_fuzzy} : $self->{data}->{state_translated};
+                    my $default_state = $self->{data}->{state_translated};
 
                     $state = $self->get_state($unit->{flags}, $default_state);
                 } else {
@@ -141,7 +140,7 @@ sub serialize {
             }
         }
 
-        $unit_element->insert_new_elt('source' => {'xml:lang' => 'en'}, $unit->{source});
+        $unit_element->insert_new_elt('source' => {'xml:lang' => $source_locale}, $unit->{source});
     }
 
     my $tidy_obj = XML::Tidy->new('xml' => $root_element->sprint);
@@ -211,11 +210,22 @@ sub deserialize {
     foreach my $tran_unit (@tran_units) {
         my $key = '';
         my $context = '';
+        my $comment = '';
 
         if ($self->{data}->{context_strategy} eq 'extradata') {
             $key = $tran_unit->att('id');
 
             $context = $tran_unit->att('extradata');
+
+            if ($tran_unit->att('resname') ne '') {
+                $comment = $tran_unit->att('resname');
+                $comment .= '\n';
+            }
+        }
+        elsif ($self->{data}->{context_strategy} eq 'resname') {
+            $key = $tran_unit->att('id');
+
+            $context = $tran_unit->att('resname');
         } elsif ($self->{data}->{context_strategy} eq 'id') {
             my @id_parts = split(/:/, $tran_unit->att('id'));
 
@@ -226,13 +236,6 @@ sub deserialize {
             if ($id_parts_size > 0) {
                 $context = join(':', @id_parts);
             }
-        }
-
-        my $comment = '';
-
-        if ($tran_unit->att('resname') ne '') {
-            $comment = $tran_unit->att('resname');
-            $comment .= '\n';
         }
 
         $comment .= $self->get_comment($tran_unit);
@@ -263,8 +266,6 @@ sub deserialize {
 
         my $fuzzy = $tran_unit->att('approved') eq "no";
 
-        next unless ($target or $comment);
-
         if ($key eq '') {
             print "\t\t? [empty key]\n";
             next;
@@ -280,9 +281,11 @@ sub deserialize {
 
             if (not $is_valid_state) {
                 print "\t\t? [invalid state] for $key for with state $state\n";
-                next;
+                $target = '';
             }
         }
+
+        next unless ($target or $comment);
 
         push @units, {
                 key => $key,
