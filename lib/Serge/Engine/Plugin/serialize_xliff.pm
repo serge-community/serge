@@ -47,8 +47,6 @@ sub validate_data {
         die "'context_strategy', which is set to $self->{data}->{context_strategy}, is not one of the valid options: 'id' or 'extradata' or 'resname'";
     }
 
-    $self->{data}->{source_language} = 'en' unless defined $self->{data}->{source_language};
-
     $self->{data}->{state_translated} = 'translated' unless defined $self->{data}->{state_translated};
 
     $self->{data}->{state_untranslated} = 'new' unless defined $self->{data}->{state_untranslated};
@@ -61,7 +59,9 @@ sub serialize {
 
     my $use_hint_for_resname = $self->{data}->{use_hint_for_resname};
 
-    my $source_locale = locale_from_lang($self->{data}->{source_language});
+    my $source_lang = $self->{parent}->{source_language};
+
+    my $source_locale = locale_from_lang($source_lang);
     my $target_locale = locale_from_lang($lang);
 
     my $root_element = XML::Twig::Elt->new('xliff', {
