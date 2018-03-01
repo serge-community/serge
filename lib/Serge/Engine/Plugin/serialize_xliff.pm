@@ -25,7 +25,6 @@ sub init {
         context_strategy => 'STRING',
         valid_states => 'STRING',
         file_datatype => 'STRING',
-        source_language => 'STRING',
         state_translated => 'STRING',
         state_untranslated => 'STRING',
         no_target_for_untranslated => 'BOOLEAN'
