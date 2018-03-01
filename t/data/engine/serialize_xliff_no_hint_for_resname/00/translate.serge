@@ -15,8 +15,7 @@ jobs
             plugin                               serialize_xliff
 
             data {
-                file_datatype                    x-test
-                state_translated                 signed-off
+                use_hint_for_resname             NO
             }
         }
 

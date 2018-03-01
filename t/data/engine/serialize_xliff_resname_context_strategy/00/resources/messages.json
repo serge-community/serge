@@ -1,0 +1,10 @@
+{
+  "string1": {
+    "message": "Value 1",
+    "description": "Description 1"
+  },
+  "string2": {
+    "message": "Value 2",
+    "description": "Description 2"
+  }
+}

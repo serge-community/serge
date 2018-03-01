@@ -15,8 +15,7 @@ jobs
             plugin                               serialize_xliff
 
             data {
-                file_datatype                    x-test
-                state_translated                 signed-off
+                context_strategy                 id
             }
         }
 

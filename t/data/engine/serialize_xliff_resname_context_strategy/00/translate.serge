@@ -3,11 +3,11 @@ jobs
     {
         @inherit                                 ../../common.serge#job_template
 
-        source_match                             \.properties$
+        source_match                             ^messages\.json$
 
         parser
         {
-            plugin                               parse_properties
+            plugin                               parse_chrome_json
         }
 
         serializer
@@ -15,8 +15,7 @@ jobs
             plugin                               serialize_xliff
 
             data {
-                file_datatype                    x-test
-                state_translated                 signed-off
+                context_strategy                 resname
             }
         }
 
