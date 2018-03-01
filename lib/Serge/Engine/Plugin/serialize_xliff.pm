@@ -127,9 +127,7 @@ sub serialize {
 
             if ($self->{data}->{source_language} ne $lang) {
                 if ($unit->{target} ne '') {
-                    my $default_state = $self->{data}->{state_translated};
-
-                    $state = $self->get_state($unit->{flags}, $default_state);
+                    $state = $self->{data}->{state_translated};
                 } else {
                     $state = $self->{data}->{state_untranslated};
                 }
@@ -148,33 +146,6 @@ sub serialize {
     $tidy_obj->tidy('    ');
 
     return $tidy_obj->toString();
-}
-
-sub get_state {
-    my ($self, $unitflags, $default_state) = @_;
-
-    return $default_state unless defined $unitflags;
-
-    my @flags = @$unitflags;
-
-    my $state = $default_state;
-
-    if (is_flag_set(\@flags, 'state-final')) {
-        $state = 'final';
-    } elsif (is_flag_set(\@flags, 'state-new')) {
-        $state = 'new';
-    } elsif (is_flag_set(\@flags, 'state-translated')) {
-        $state = 'translated';
-    } elsif (is_flag_set(\@flags, 'state-signed-off')) {
-        $state = 'signed-off';
-    } elsif (is_flag_set(\@flags, 'state-needs-translation')) {
-        $state = 'needs-translation';
-    } elsif (is_flag_set(\@flags, 'state-new')) {
-        $state = 'new';        
-    } else {
-    }
-
-    return $state;
 }
 
 sub deserialize {
