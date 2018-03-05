@@ -21,12 +21,26 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
+        # specifies if the first line of the serge hint is to be used to determine the resname attribute of the xliff trans-unit
+        # Useful for parsers that translate the key into the serge hint. Default YES
         use_hint_for_resname => 'BOOLEAN',
+        # used to determine how to store serge context into xliff
+        # extradata: (default) stores serge context on the extradata attribute of trans-unit
+        # resname: stores serge context on the resname attribute of trans-unit. To be used when using parsers that always output serge context or when
+        #          the translation provider does not support the extradata attribute
+        # id: stores serge context on the id attribute of trans-unit after the serge key (so trans-unit id will be <serge.key>:<serge.context>). To be used as a last resort,
+        #          when the translation provider does not support any additional attribute outside the id one.
         context_strategy => 'STRING',
+        # specifies what are the state where a translation is considered translated. To be specified like a list of xliff 1.2 states separated by spaces.
+        # If none are specified then all the states are valid
         valid_states => 'STRING',
+        # xliff file file-datatype. Default x-unknown
         file_datatype => 'STRING',
+        # xliff trans-unit state when the string is translated. Default 'translated'
         state_translated => 'STRING',
+        # xliff trans-unit state when the string is not translated (empty). Default 'new'
         state_untranslated => 'STRING',
+        # specifies if xliff trans-unit element is omitted when the string is not translated (empty). Default YES
         no_target_for_untranslated => 'BOOLEAN'
     });
 }
