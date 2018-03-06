@@ -1,0 +1,8 @@
+strings
+{
+    0    1 2 bar NO 0
+    1    2 4 bar2 NO 0
+    2    3 6 bar3 NO 0
+    3    4 8 bar4 NO 0
+    4    5 10 bar5 etc 0
+}

@@ -16,6 +16,7 @@ sub init {
 
     $self->merge_schema({
         escaped_quotes => 'BOOLEAN',
+        skip_untranslated => 'BOOLEAN',
     });
 }
 
@@ -28,6 +29,7 @@ sub parse {
 
     die 'callbackref not specified' unless $callbackref;
 
+    my $property_str;
     my $translated_text;
     my $skip;
     my $context_line;
@@ -136,21 +138,29 @@ sub parse {
             $str =~ s/''/'/g; # unescape single quotes (always, disregarding the 'escaped_quotes' parameter)
 
             $translated_str = &$callbackref($str, $context, $hint, undef, $lang, $property_key);
-        }
 
-        if ($lang) {
-            if ($translated_str) {
-                # Per prior research: turns out Java/JSP is inconsistent.
-                # We can probably say that anything that has {#} will have ''
-                # Others will have '
-                my $need_escape = $self->{data}->{escaped_quotes} || ($orig_str =~ m/\{\d+\}/);
-                if ($need_escape) {
-                    $translated_str =~ s/'/''/g; # escape single quotes
+            if ($lang) {
+                if ($translated_str) {
+                    # Per prior research: turns out Java/JSP is inconsistent.
+                    # We can probably say that anything that has {#} will have ''
+                    # Others will have '
+                    my $need_escape = $self->{data}->{escaped_quotes} || ($orig_str =~ m/\{\d+\}/);
+                    if ($need_escape) {
+                        $translated_str =~ s/'/''/g; # escape single quotes
+                    }
+                    $translated_str =~ s/\n/\\n/g;
+                    $line =~ s/\Q$orig_str\E$/$translated_str/;
+                    $property_str .= $line."\n";
+                    $translated_text .= $property_str;
+                } elsif (not $self->{data}->{skip_untranslated}) {
+                    $property_str .= $line."\n";
+                    $translated_text .= $property_str;
                 }
-                $translated_str =~ s/\n/\\n/g;
-                $line =~ s/\Q$orig_str\E$/$translated_str/;
             }
-            $translated_text .= $line."\n";
+
+            $property_str = '';
+        } else {
+            $property_str .= $line."\n";
         }
     }
 

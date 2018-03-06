@@ -15,12 +15,12 @@ properties
     12    13 source:1:test_job:test 38cb5e9ec4f5de9050d8a9825e79f8d2
     13    14 source:ts:1:test_job:test
           f3718580f2dd365aafcc0035dd375fa0
-    14    15 target:1:test_job:de 38cb5e9ec4f5de9050d8a9825e79f8d2
+    14    15 target:1:test_job:de d41d8cd98f00b204e9800998ecf8427e
     15    16 target:mtime:1:test_job:de 12345678
     16    17 source:1:test_job:de 38cb5e9ec4f5de9050d8a9825e79f8d2
     17    18 source:ts:1:test_job:de 13a8232426c9a238002f3fd82a66795e
     18    19 job-hash:test_namespace:test_job
-          c0dff59c879f049e2b17c826d26830f7
+          ed77f09715707f507ada2e5f277e2f28
     19    20 job-plugin:test_namespace:test_job parse_properties.
     20    21 job-serializer-plugin:test_namespace:test_job
           serialize_po.

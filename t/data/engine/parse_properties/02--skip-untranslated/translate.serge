@@ -1,0 +1,20 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+
+            data {
+                skip-untranslated                YES
+            }
+        }
+
+        leave_untranslated_blank                 YES    # this is needed to remove untranslated entries later
+        +destination_languages                   de     # add some real language in which all strings will remain untranslated (and thus, removed later with `replace_strings`)
+    }
+}
