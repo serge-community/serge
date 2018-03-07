@@ -34,8 +34,7 @@ jobs
             plugin                               serialize_xliff
 
             data {
-                context_strategy                 resname
-                untranslated_strategy            notarget
+                untranslated_strategy            emptytarget
             }
         }
 

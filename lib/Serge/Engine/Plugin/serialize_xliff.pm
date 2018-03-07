@@ -36,12 +36,15 @@ sub init {
         valid_states => 'STRING',
         # xliff file file-datatype. Default x-unknown
         file_datatype => 'STRING',
-        # xliff trans-unit state when the string is translated. Default 'translated'
+        # xliff target state when the string is translated. Default 'translated'
         state_translated => 'STRING',
-        # xliff trans-unit state when the string is not translated (empty). Default 'new'
+        # xliff target state when the string is not translated (empty). Default 'new'
         state_untranslated => 'STRING',
-        # specifies if xliff trans-unit element is omitted when the string is not translated (empty). Default YES
-        no_target_for_untranslated => 'BOOLEAN'
+        # specifies how to deal with untranslated strings
+        # emptytarget: (default) target element is present with empty text and state state_untranslated
+        # notarget: target element is omitted
+        # notransunit: trans-unit element is omitted. This should only be used with translation providers that are using a master file approach
+        untranslated_strategy => 'STRING',
     });
 }
 
@@ -52,9 +55,9 @@ sub validate_data {
 
     $self->{data}->{use_hint_for_resname} = 1 unless defined $self->{data}->{use_hint_for_resname};
 
-    $self->{data}->{context_strategy} = 'extradata' unless defined $self->{data}->{context_strategy};
-
     $self->{data}->{file_datatype} = 'x-unknown' unless defined $self->{data}->{file_datatype};
+
+    $self->{data}->{context_strategy} = 'extradata' unless defined $self->{data}->{context_strategy};
 
     if (($self->{data}->{context_strategy} ne 'id') and ($self->{data}->{context_strategy} ne 'extradata') and ($self->{data}->{context_strategy} ne 'resname')) {
         die "'context_strategy', which is set to $self->{data}->{context_strategy}, is not one of the valid options: 'id' or 'extradata' or 'resname'";
@@ -64,7 +67,11 @@ sub validate_data {
 
     $self->{data}->{state_untranslated} = 'new' unless defined $self->{data}->{state_untranslated};
 
-    $self->{data}->{no_target_for_untranslated} = 1 unless defined $self->{data}->{no_target_for_untranslated};
+    $self->{data}->{untranslated_strategy} = 'emptytarget' unless defined $self->{data}->{untranslated_strategy};
+
+    if (($self->{data}->{untranslated_strategy} ne 'notarget') and ($self->{data}->{untranslated_strategy} ne 'emptytarget') and ($self->{data}->{untranslated_strategy} ne 'notransunit')) {
+        die "'untranslated_strategy', which is set to $self->{data}->{untranslated_strategy}, is not one of the valid options: 'notarget' or 'emptytarget' or 'notransunit'";
+    }
 }
 
 sub serialize {
@@ -89,6 +96,10 @@ sub serialize {
     my @reversed_units = reverse(@$units);
 
     foreach my $unit (@reversed_units) {
+        if (not $unit->{target} and $self->{data}->{untranslated_strategy} eq 'notransunit') {
+            next;
+        }
+
         my $approved = $unit->{fuzzy} ? "no" : "yes";
 
         my $unit_element = $body_element->insert_new_elt('trans-unit' => {approved => $approved}, '');
@@ -132,7 +143,7 @@ sub serialize {
             }
         }
 
-        if ($unit->{target} eq '' and $self->{data}->{no_target_for_untranslated}) {
+        if ($unit->{target} eq '' and $self->{data}->{untranslated_strategy} eq 'notarget') {
         } else {
             my $target_element = $unit_element->insert_new_elt('target' => {'xml:lang' => $target_locale}, $unit->{target});
 
@@ -167,7 +178,7 @@ sub deserialize {
     my @valid_states = \();
 
     if ($self->{data}->{valid_states} ne '') {
-        @valid_states = split(' ', $self->{data}->{valid_states}); # translated final signed-off
+        @valid_states = split(' ', $self->{data}->{valid_states});
     }
 
     my @units;

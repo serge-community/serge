@@ -35,8 +35,7 @@ jobs
 
             data {
                 context_strategy                 resname
-                state_untranslated               needs-translation
-                no_target_for_untranslated       NO
+                untranslated_strategy            notransunit
             }
         }
 
