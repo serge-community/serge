@@ -10,7 +10,7 @@ jobs
             plugin                               parse_properties
 
             data {
-                skip-untranslated                YES
+                skip_untranslated                YES
             }
         }
 
