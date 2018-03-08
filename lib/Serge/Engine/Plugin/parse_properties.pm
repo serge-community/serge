@@ -139,17 +139,15 @@ sub parse {
         }
 
         if ($lang) {
-            if ($translated_str) {
-                # Per prior research: turns out Java/JSP is inconsistent.
-                # We can probably say that anything that has {#} will have ''
-                # Others will have '
-                my $need_escape = $self->{data}->{escaped_quotes} || ($orig_str =~ m/\{\d+\}/);
-                if ($need_escape) {
-                    $translated_str =~ s/'/''/g; # escape single quotes
-                }
-                $translated_str =~ s/\n/\\n/g;
-                $line =~ s/\Q$orig_str\E$/$translated_str/;
+            # Per prior research: turns out Java/JSP is inconsistent.
+            # We can probably say that anything that has {#} will have ''
+            # Others will have '
+            my $need_escape = $self->{data}->{escaped_quotes} || ($orig_str =~ m/\{\d+\}/);
+            if ($need_escape) {
+                $translated_str =~ s/'/''/g; # escape single quotes
             }
+            $translated_str =~ s/\n/\\n/g;
+            $line =~ s/\Q$orig_str\E$/$translated_str/;
             $translated_text .= $line."\n";
         }
     }
