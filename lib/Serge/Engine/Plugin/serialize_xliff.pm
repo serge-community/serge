@@ -89,7 +89,11 @@ sub serialize {
             version => "1.2",
         });
 
-    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => $source_locale, 'target-language' => $target_locale, datatype => $self->{data}->{file_datatype}}, '');
+    my $file_element = $root_element->insert_new_elt('file' => {original => $file, 'source-language' => $source_locale, datatype => $self->{data}->{file_datatype}}, '');
+
+    if ($source_lang ne $lang) {
+        $file_element->set_att('target-language' => $target_locale);
+    }
 
     my $body_element = $file_element->insert_new_elt('body');
 
@@ -100,9 +104,13 @@ sub serialize {
             next;
         }
 
-        my $approved = $unit->{fuzzy} ? "no" : "yes";
+        my $unit_element = $body_element->insert_new_elt('trans-unit' => {}, '');
 
-        my $unit_element = $body_element->insert_new_elt('trans-unit' => {approved => $approved}, '');
+        if ($source_lang ne $lang) {
+            my $approved = $unit->{fuzzy} ? "no" : "yes";
+
+            $unit_element->set_att(approved => $approved);
+        }
 
         my $key = $unit->{key};
 
@@ -144,7 +152,7 @@ sub serialize {
         }
 
         if ($unit->{target} eq '' and $self->{data}->{untranslated_strategy} eq 'notarget') {
-        } else {
+        } elsif ($source_lang ne $lang) {
             my $target_element = $unit_element->insert_new_elt('target' => {'xml:lang' => $target_locale}, $unit->{target});
 
             my $state = '';
