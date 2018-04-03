@@ -13,6 +13,9 @@ Revision history
           untranslated strings in the generated localized files leaving source
           string values instead).
 
+        - POT parser can now generate compiled .mo files in addition to producing
+          localized .po files.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the

@@ -1,0 +1,18 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.pot$
+
+        parser
+        {
+            plugin                               parse_pot
+
+            data
+            {
+                output_mo_path                   ./test-output/localized-resources/%LOCALE%/%NAME%.mo
+            }
+        }
+    }
+}
