@@ -16,11 +16,27 @@ sub new {
     $self = {} unless defined $self;
 
     $self->{css} = 'media/pod.css' unless exists $self->{css};
-    $self->{pod_root} = catfile(dirname(__FILE__), '../../doc/pod') unless exists $self->{pod_root};
-    $self->{html_root} = catfile(dirname(__FILE__), '../../doc/html') unless exists $self->{html_root};
+
+    $self->{root} = _find_doc_root();
+    $self->{pod_root} = catfile($self->{root}, 'pod') unless exists $self->{pod_root};
+    $self->{html_root} = catfile($self->{root}, 'html') unless exists $self->{html_root};
 
     bless $self, $class;
     return $self;
+}
+
+sub _find_doc_root {
+    my @trydirs = (
+        catfile(dirname(__FILE__), '../../doc'),
+        '/usr/local/share/serge/doc',
+        '/usr/share/serge/doc'
+    );
+
+    map {
+        return $_ if -d $_;
+    } @trydirs;
+
+    return '.';
 }
 
 sub save_html {
