@@ -19,5 +19,5 @@ properties
     12    13 job-plugin:test_namespace:parse_csv_02 parse_csv.
     13    14 job-serializer-plugin:test_namespace:parse_csv_02
           serialize_po.
-    14    15 job-engine:test_namespace:parse_csv_02 1.3
+    14    15 job-engine:test_namespace:parse_csv_02 1.3.2
 }

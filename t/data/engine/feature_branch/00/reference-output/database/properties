@@ -19,7 +19,7 @@ properties
     12    13 job-plugin:test_namespace:test_job.master parse_keyvalue.
     13    14 job-serializer-plugin:test_namespace:test_job.master
           serialize_po.
-    14    15 job-engine:test_namespace:test_job.master 1.3
+    14    15 job-engine:test_namespace:test_job.master 1.3.2
     15    16 source:2 ba6ac8bc9b978634dc861fc654e13a43
     16    17 hash:2 ba6ac8bc9b978634dc861fc654e13a43
     17    18 size:2 119
@@ -40,7 +40,7 @@ properties
           parse_keyvalue.
     28    29 job-serializer-plugin:test_namespace:test_job.feature1
           serialize_po.
-    29    30 job-engine:test_namespace:test_job.feature1 1.3
+    29    30 job-engine:test_namespace:test_job.feature1 1.3.2
     30    31 source:3 fe7974f9d8a225d065cfcd48e5069d90
     31    32 hash:3 fe7974f9d8a225d065cfcd48e5069d90
     32    33 size:3 72
@@ -61,5 +61,5 @@ properties
           parse_keyvalue.
     43    44 job-serializer-plugin:test_namespace:test_job.feature2
           serialize_po.
-    44    45 job-engine:test_namespace:test_job.feature2 1.3
+    44    45 job-engine:test_namespace:test_job.feature2 1.3.2
 }
