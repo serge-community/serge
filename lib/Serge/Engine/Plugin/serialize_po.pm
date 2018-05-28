@@ -17,12 +17,18 @@ sub serialize {
 
     my $locale = locale_from_lang($lang);
 
+    # Only show MAJOR.MINOR version in the header to reduce noise
+    my $version = $Serge::VERSION;
+    if ($version =~ m/^(\d+\.\d+)(\.\d+)+$/) {
+        $version = $1;
+    }
+
     my $text = qq|msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Language: $locale\\n"
-"Generated-By: Serge $Serge::VERSION\\n"
+"Generated-By: Serge $version\\n"
 |;
 
     foreach my $unit (@$units) {

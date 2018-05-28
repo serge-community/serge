@@ -8,6 +8,16 @@ Revision history
           worked only for `serge sync` and `serge localize` and only affected
           the localization step.
 
+        - Properly handle `leave_untranslated_blank` job option in .properties,
+          .ts, .rrc and .strings parsers (previously this option wouldn't affect
+          untranslated strings in the generated localized files leaving source
+          string values instead).
+
+        - POT parser can now generate compiled .mo files in addition to producing
+          localized .po files.
+
+        - Make Serge installable via `./Build install`
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the

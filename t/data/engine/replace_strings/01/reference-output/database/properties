@@ -29,5 +29,5 @@ properties
     23    24 job-plugin:test_namespace:test_job parse_android.
     24    25 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    25    26 job-engine:test_namespace:test_job 1.3
+    25    26 job-engine:test_namespace:test_job 1.3.2
 }

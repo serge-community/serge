@@ -90,11 +90,9 @@ sub parse {
         }
 
         if ($lang) {
-            if ($translated_str) {
-                $translated_str =~ s/"/""/g;
-                $translated_str =~ s/\n/\\n/g;
-                $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
-            }
+            $translated_str =~ s/"/""/g;
+            $translated_str =~ s/\n/\\n/g;
+            $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
             $translated_text .= $line."\n";
         }
     }

@@ -86,7 +86,7 @@ sub show_help_on_topic {
 
         my $podfile = $pod->get_pod_path($command);
         if (!-f $podfile) {
-            print "Sorry, but there's no help available for '$command'\n";
+            print "Sorry, but there's no help available for '$command' in '$pod->{root}'\n";
             exit(2);
         }
 
