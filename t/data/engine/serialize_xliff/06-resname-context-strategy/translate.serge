@@ -1,0 +1,24 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             ^messages\.json$
+
+        parser
+        {
+            plugin                               parse_chrome_json
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+
+            data {
+                context_strategy                 resname
+            }
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

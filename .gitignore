@@ -16,3 +16,4 @@ Build.bat
 *.sw[op]
 .DS_Store
 !t/data/engine/**/reference-output/**
+/_Deparsed_XSubs.pm

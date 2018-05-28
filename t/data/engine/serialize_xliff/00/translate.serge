@@ -1,0 +1,25 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+
+            data {
+                file_datatype                    x-test
+                state_translated                 signed-off
+            }
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

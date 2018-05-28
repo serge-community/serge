@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="x-unknown" original="messages.json" source-language="en" target-language="test">
+        <body>
+            <trans-unit approved="yes" extradata="string1" id="37881f5ca702bb268877e4edb0edc83d" resname="Description 1">
+                <source xml:lang="en">Value 1</source>
+                <target state="new" xml:lang="test" />
+            </trans-unit>
+            <trans-unit approved="yes" extradata="string2" id="7d8ec73df55728a29c38a9f7741aefa6" resname="Description 2">
+                <source xml:lang="en">Value 2</source>
+                <target state="translated" xml:lang="test">Test Translation Two</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
