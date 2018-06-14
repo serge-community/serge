@@ -35,6 +35,8 @@ sub open {
     };
 
     $self->{cache} = {
+        job => {},
+        properties => {},
         translations => {}
     };
 
@@ -68,12 +70,12 @@ sub get_string_id {
 
     my $key = 'string_id:'.generate_key($string, $context);
 
-    if (exists $self->{cache}->{$key}) {
-        my $id = $self->{cache}->{$key};
+    if (exists $self->{cache}->{job}->{$key}) {
+        my $id = $self->{cache}->{job}->{$key};
         return $id if $id or $nocreate;
     }
 
-    return $self->{cache}->{$key} = $self->SUPER::get_string_id($string, $context, $nocreate);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_string_id($string, $context, $nocreate);
 }
 
 sub update_string_props {
@@ -81,8 +83,8 @@ sub update_string_props {
 
     my $key = "string:$string_id";
 
-    my $h = $self->{cache}->{$key};
-    $h = $self->{cache}->{$key} = $self->SUPER::get_string_props($string_id) unless $h;
+    my $h = $self->{cache}->{job}->{$key};
+    $h = $self->{cache}->{job}->{$key} = $self->SUPER::get_string_props($string_id) unless $h;
 
     return $self->SUPER::update_string_props($string_id, $props) if $self->_copy_props($h, $props);
 }
@@ -92,9 +94,9 @@ sub get_string_props {
 
     my $key = "string:$string_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
 
-    return $self->{cache}->{$key} = $self->SUPER::get_string_props($string_id);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_string_props($string_id);
 }
 
 #
@@ -106,8 +108,8 @@ sub get_item_id {
 
     my $key = "item_id:$file_id:$string_id";
 
-    if (exists $self->{cache}->{$key}) {
-        my $id = $self->{cache}->{$key};
+    if (exists $self->{cache}->{job}->{$key}) {
+        my $id = $self->{cache}->{job}->{$key};
         return $id if $id or $nocreate;
     }
 
@@ -117,13 +119,13 @@ sub get_item_id {
 
     my $file_key = "file:$file_id";
 
-    if (exists $self->{cache}->{$file_key}) {
+    if (exists $self->{cache}->{job}->{$file_key}) {
         return undef if $nocreate;
     }
 
     $hint = undef if $hint eq '';
 
-    return $self->{cache}->{$key} = $self->SUPER::get_item_id($file_id, $string_id, $hint, $nocreate);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_item_id($file_id, $string_id, $hint, $nocreate);
 }
 
 sub update_item_props {
@@ -131,8 +133,8 @@ sub update_item_props {
 
     my $key = "item:$item_id";
 
-    my $h = $self->{cache}->{$key};
-    $h = $self->{cache}->{$key} = $self->SUPER::get_item_props($item_id) unless $h;
+    my $h = $self->{cache}->{job}->{$key};
+    $h = $self->{cache}->{job}->{$key} = $self->SUPER::get_item_props($item_id) unless $h;
 
     return $self->SUPER::update_item_props($item_id, $props) if $self->_copy_props($h, $props);
 }
@@ -142,9 +144,9 @@ sub get_item_props {
 
     my $key = "item:$item_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
 
-    return $self->{cache}->{$key} = $self->SUPER::get_item_props($item_id);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_item_props($item_id);
 }
 
 #
@@ -156,12 +158,12 @@ sub get_file_id {
 
     my $key = 'file_id:'.md5(encode_utf8(join("\001", ($namespace, $job, $path))));
 
-    if (exists $self->{cache}->{$key}) {
-        my $id = $self->{cache}->{$key};
+    if (exists $self->{cache}->{job}->{$key}) {
+        my $id = $self->{cache}->{job}->{$key};
         return $id if $id or $nocreate;
     }
 
-    return $self->{cache}->{$key} = $self->SUPER::get_file_id($namespace, $job, $path, $nocreate);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_file_id($namespace, $job, $path, $nocreate);
 }
 
 sub update_file_props {
@@ -169,8 +171,8 @@ sub update_file_props {
 
     my $key = "file:$file_id";
 
-    my $h = $self->{cache}->{$key};
-    $h = $self->{cache}->{$key} = $self->SUPER::get_file_props($file_id) unless $h;
+    my $h = $self->{cache}->{job}->{$key};
+    $h = $self->{cache}->{job}->{$key} = $self->SUPER::get_file_props($file_id) unless $h;
 
     return $self->SUPER::update_file_props($file_id, $props) if $self->_copy_props($h, $props);
 }
@@ -180,9 +182,9 @@ sub get_file_props {
 
     my $key = "file:$file_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
 
-    return $self->{cache}->{$key} = $self->SUPER::get_file_props($file_id);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_file_props($file_id);
 }
 
 #
@@ -194,12 +196,12 @@ sub get_translation_id {
 
     my $key = "translation_id:$item_id:$lang";
 
-    if (exists $self->{cache}->{$key}) {
-        my $id = $self->{cache}->{$key};
+    if (exists $self->{cache}->{job}->{$key}) {
+        my $id = $self->{cache}->{job}->{$key};
         return $id if $id or $nocreate;
     }
 
-    return $self->{cache}->{$key} = $self->SUPER::get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge, $nocreate);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge, $nocreate);
 }
 
 sub update_translation_props {
@@ -207,8 +209,8 @@ sub update_translation_props {
 
     my $key = "translation:$translation_id";
 
-    my $h = $self->{cache}->{$key};
-    $h = $self->{cache}->{$key} = $self->SUPER::get_translation_props($translation_id) unless $h;
+    my $h = $self->{cache}->{job}->{$key};
+    $h = $self->{cache}->{job}->{$key} = $self->SUPER::get_translation_props($translation_id) unless $h;
 
     return $self->SUPER::update_translation_props($translation_id, $props) if $self->_copy_props($h, $props);
 }
@@ -218,9 +220,9 @@ sub get_translation_props {
 
     my $key = "translation:$translation_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
 
-    return $self->{cache}->{$key} = $self->SUPER::get_translation_props($translation_id);
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_translation_props($translation_id);
 }
 
 sub set_translation {
@@ -272,8 +274,8 @@ sub get_property_id {
 
     my $key = "property_id:$property";
 
-    if (exists $self->{cache}->{$key}) {
-        my $id = $self->{cache}->{$key};
+    if (exists $self->{cache}->{properties}->{$key}) {
+        my $id = $self->{cache}->{properties}->{$key};
         return $id if $id or $nocreate;
     }
 
@@ -285,8 +287,8 @@ sub update_property_props {
 
     my $key = "property:$property_id";
 
-    my $h = $self->{cache}->{$key};
-    $h = $self->{cache}->{$key} = $self->SUPER::get_property_props($property_id) unless $h;
+    my $h = $self->{cache}->{properties}->{$key};
+    $h = $self->{cache}->{properties}->{$key} = $self->SUPER::get_property_props($property_id) unless $h;
 
     return $self->SUPER::update_property_props($property_id, $props) if $self->_copy_props($h, $props);
 }
@@ -296,8 +298,8 @@ sub get_property_props {
 
     my $key = "property:$property_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
-    return $self->{cache}->{$key} = $self->SUPER::get_property_props($property_id);
+    return $self->{cache}->{properties}->{$key} if exists $self->{cache}->{properties}->{$key};
+    return $self->{cache}->{properties}->{$key} = $self->SUPER::get_property_props($property_id);
 }
 
 sub get_property {
@@ -329,8 +331,8 @@ sub get_all_items_for_file {
 
     my $key = "all_items:$file_id";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
-    return $self->{cache}->{$key} = $self->SUPER::get_all_items_for_file($file_id);
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_all_items_for_file($file_id);
 }
 
 sub get_file_completeness_ratio {
@@ -338,8 +340,8 @@ sub get_file_completeness_ratio {
 
     my $key = "completeness:$file_id:$lang:$total";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
-    return $self->{cache}->{$key} = $self->SUPER::get_file_completeness_ratio($file_id, $lang, $total);
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_file_completeness_ratio($file_id, $lang, $total);
 }
 
 sub get_all_files_for_job {
@@ -347,8 +349,8 @@ sub get_all_files_for_job {
 
     my $key = "all_files:$namespace:$job";
 
-    return $self->{cache}->{$key} if exists $self->{cache}->{$key};
-    return $self->{cache}->{$key} = $self->SUPER::get_all_files_for_job($namespace, $job);
+    return $self->{cache}->{job}->{$key} if exists $self->{cache}->{job}->{$key};
+    return $self->{cache}->{job}->{$key} = $self->SUPER::get_all_files_for_job($namespace, $job);
 }
 
 sub get_translation {
@@ -424,6 +426,8 @@ __END__
 sub preload_cache_for_job {
     my ($self, $namespace, $job, $langs) = @_;
 
+    $self->{cache}->{job} = {}; # clear the previously populated cache
+
     print "Preloading cache for job '$job' in namespace '$namespace'...\n";
 
     my $languages_sql = $langs ? "AND (translations.language IS NULL OR translations.language IN ('".join("','", @$langs)."')) " : "";
@@ -462,13 +466,15 @@ sub preload_cache_for_job {
     $sth->bind_param(2, $job) || die $sth->errstr;
     $sth->execute || die $sth->errstr;
 
+    my $job_cache = $self->{cache}->{job};
+
     while (my $hr = $sth->fetchrow_hashref()) {
 
         # cache 'item:<ITEM_ID>'
 
         my $key = 'item:'.$hr->{item_id};
 
-        $self->{cache}->{$key} = {
+        $job_cache->{$key} = {
             file_id => $hr->{file_id},
             string_id => $hr->{string_id},
             hint => $hr->{item_hint},
@@ -481,13 +487,13 @@ sub preload_cache_for_job {
             # cache 'translation_id:<ITEM_ID>:<LANG>'
 
             $key = 'translation_id:'.$hr->{item_id}.':'.$hr->{language};
-            $self->{cache}->{$key} = $hr->{translation_id};
+            $job_cache->{$key} = $hr->{translation_id};
 
             # cache 'translation:<TRANSLATION_ID>'
 
             $key = 'translation:'.$hr->{translation_id};
 
-            $self->{cache}->{$key} = {
+            $job_cache->{$key} = {
                 string => $hr->{translation},
                 fuzzy => $hr->{fuzzy},
                 comment => $hr->{comment},
@@ -499,7 +505,7 @@ sub preload_cache_for_job {
         # cache 'file:<FILE_ID>'
 
         $key = 'file:'.$hr->{file_id};
-        $self->{cache}->{$key} = {
+        $job_cache->{$key} = {
             job => $hr->{job},
             namespace => $hr->{namespace},
             path => $hr->{path},
@@ -509,7 +515,7 @@ sub preload_cache_for_job {
         # cache 'all_files:<NAMESPACE>:<JOB>'
 
         $key = 'all_files:'.$hr->{namespace}.':'.$hr->{job};
-        my $h = (exists $self->{cache}->{$key}) ? $self->{cache}->{$key} : ($self->{cache}->{$key} = {});
+        my $h = (exists $job_cache->{$key}) ? $job_cache->{$key} : ($job_cache->{$key} = {});
         if (!exists $h->{$hr->{path}}) {
             $h->{$hr->{path}} = {
                 id => $hr->{file_id},
@@ -521,24 +527,24 @@ sub preload_cache_for_job {
 
         if ($hr->{item_id}) {
             $key = 'all_items:'.$hr->{file_id};
-            my $h = (exists $self->{cache}->{$key}) ? $self->{cache}->{$key} : ($self->{cache}->{$key} = {});
+            my $h = (exists $job_cache->{$key}) ? $job_cache->{$key} : ($job_cache->{$key} = {});
             $h->{$hr->{item_id}} = $hr->{item_orphaned};
         }
 
         # cache 'file_id:<HASH>'
 
         $key = 'file_id:'.md5(encode_utf8(join("\001", ($namespace, $job, $hr->{path}))));
-        $self->{cache}->{$key} = $hr->{file_id};
+        $job_cache->{$key} = $hr->{file_id};
 
         # cache 'string_id:<HASH>'
 
         $key = 'string_id:'.generate_key($hr->{string}, $hr->{context});
-        $self->{cache}->{$key} = $hr->{string_id};
+        $job_cache->{$key} = $hr->{string_id};
 
         # cache 'string:<STRING_ID>'
 
         $key = 'string:'.$hr->{string_id};
-        $self->{cache}->{$key} = {
+        $job_cache->{$key} = {
             string => $hr->{string},
             context => $hr->{context},
             skip => $hr->{skip}
@@ -547,7 +553,7 @@ sub preload_cache_for_job {
         # cache 'item_id:<FILE_ID>:<STRING_ID>'
 
         $key = 'item_id:'.$hr->{file_id}.':'.$hr->{string_id};
-        $self->{cache}->{$key} = $hr->{item_id};
+        $job_cache->{$key} = $hr->{item_id};
     }
 
     $sth->finish;
@@ -557,7 +563,9 @@ sub preload_cache_for_job {
 sub preload_properties {
     my ($self) = @_;
 
-    return if $self->{cache}->{properties_preloaded};
+    return if $self->{cache}->{properties};
+
+    my $props_cache = $self->{cache}->{properties} = {};
 
     print "Preloading properties...\n";
 
@@ -573,21 +581,19 @@ sub preload_properties {
         # cache 'property_id:<PROPERTY>'
 
         my $key = 'property_id:'.$hr->{property};
-        $self->{cache}->{$key} = $hr->{id};
+        $props_cache->{$key} = $hr->{id};
 
         # cache 'property:<PROPERTY_ID>'
 
         $key = 'property:'.$hr->{id};
 
-        $self->{cache}->{$key} = {
+        $props_cache->{$key} = {
             value => $hr->{value},
         };
     }
 
     $sth->finish;
     $sth = undef;
-
-    $self->{cache}->{properties_preloaded} = 1;
 }
 
 sub find_best_translation {
