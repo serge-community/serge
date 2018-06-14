@@ -90,7 +90,8 @@ sub switch_to_branch {
     }
 
     $self->run_in($local_path, qq|git checkout $branch|);
-    $self->run_in($local_path, qq|git rebase origin/$branch|);
+    # reset to remote state
+    $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
 
 sub get_last_revision {
@@ -162,7 +163,8 @@ sub checkout {
 
     # pull changes from remote server
     $self->run_in($local_path, qq|git fetch|);
-    $self->run_in($local_path, qq|git rebase origin/$branch|);
+    # reset to remote state
+    $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
 
 sub _update_message {
