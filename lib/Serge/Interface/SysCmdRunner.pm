@@ -22,12 +22,12 @@ sub run_cmd {
     }
     my $error_code = unpack 'c', pack 'C', $? >> 8; # error code
 
-    if (($error_code != 0) && $ignore_codes && (ref(\$ignore_codes) eq 'SCALAR' || (grep($_ eq $error_code, @$ignore_codes) > 0))) {
+    if (($error_code > 0) && $ignore_codes && (ref(\$ignore_codes) eq 'SCALAR' || (grep($_ eq $error_code, @$ignore_codes) > 0))) {
         print "Exit code: $error_code (ignored)\n" if $self->{debug};
         $error_code = 0;
     }
 
-    die $result."\nExit code: $error_code\n" if $error_code != 0;
+    die $result."\nExit code: $error_code; last error: $!\n" if $error_code != 0;
 
     return $result;
 }
