@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Generated-By: Serge 1.3\n"
+
+#. foo
+#. 1st
+#: File: StripesResources.properties
+#: ID: f1bab58f0303667b6cf6a5f24e05a88f
+msgid "first"
+msgstr "ersten"
+
+#. foo2
+#: File: StripesResources.properties
+#: ID: 1e37e373c0b0a4981c9943b6cec34a79
+msgid "second"
+msgstr "zweite"
+
+#. foo3
+#. 3rd line 1
+#. 3rd line 2
+#: File: StripesResources.properties
+#: ID: 6adcf47f5d5e138188187f3260dd2b99
+msgid "third"
+msgstr "dritten"

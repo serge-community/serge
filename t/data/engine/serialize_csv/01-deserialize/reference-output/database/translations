@@ -1,0 +1,12 @@
+translations
+{
+    0    1 10 1 de Acme-Kontoaktivierung NO 0 0
+    1    2 11 2 de
+         `Diese e-Mail bestätigt ihre letzte Aktivierungsanfrage für den Acme-Account.`
+         NO 0 0
+    2    3 12 3 de
+         `Folgen Sie dem untenstehenden Link und wir aktivieren Ihre
+Konto mit Benutzername $ {username}:`
+         NO 0 0
+    3    4 13 4 de `Das Acme Team` NO 0 0
+}

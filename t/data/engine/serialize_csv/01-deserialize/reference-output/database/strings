@@ -1,0 +1,12 @@
+strings
+{
+    0    1 2 `ACME account activation` NO 0
+    1    2 4
+         `This email confirms your recent ACME account activation request.`
+         NO 0
+    2    3 6
+         `Follow the link below, and we will activate your
+account with username ${username}:`
+         NO 0
+    3    4 8 `The ACME team` NO 0
+}
