@@ -1,0 +1,57 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.master$
+        destination_languages                    de
+
+        parser
+        {
+            plugin                               parse_master
+        }
+
+        serializer
+        {
+            plugin                               serialize_csv
+        }
+
+        callback_plugins
+        {
+            # for each localized file (on file save), copy the reference .po file with translation to the destination
+            :copy-resources
+            {
+                plugin                            run_command
+
+                data
+                {
+                    command                       perl ../../cp.pl ./resources/po/%LOCALE%/%FILE%.csv ./test-output/po/%LOCALE%/%FILE%.csv
+                }
+            }
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.csv
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
+    },
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.master$
+        destination_languages                    de
+
+        parser
+        {
+            plugin                               parse_master
+        }
+
+        serializer
+        {
+            plugin                               serialize_csv
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.csv
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
+    }
+}

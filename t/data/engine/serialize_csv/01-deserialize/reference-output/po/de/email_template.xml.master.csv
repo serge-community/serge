@@ -1,0 +1,7 @@
+ID,Context,Hint,Source,Translation,Needs Work,Translator's Comment
+b27b28fa4633c77743f378907ae13b73,,Email subject,ACME account activation,Acme-Kontoaktivierung,,
+af300c8e3833226f5fbff115e8e56cb8,,Please wrap the lines so their widths will be under 72 characters,This email confirms your recent ACME account activation request.,Diese e-Mail bestätigt ihre letzte Aktivierungsanfrage für den Acme-Account.,,
+6e922b8c59c24316c394e956398662f0,,Please wrap the lines so their widths will be under 72 characters,"Follow the link below, and we will activate your
+account with username ${username}:","Folgen Sie dem untenstehenden Link und wir aktivieren Ihre
+Konto mit Benutzername $ {username}:",,
+3fd521e005eae6802f087c09d18a058d,,Please wrap the lines so their widths will be under 72 characters,The ACME team,Das Acme Team,,

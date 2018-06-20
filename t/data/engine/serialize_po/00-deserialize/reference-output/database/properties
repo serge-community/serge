@@ -1,0 +1,20 @@
+properties
+{
+    0     1 source:1 9661066d730466dd061071069339f222
+    1     2 hash:1 9661066d730466dd061071069339f222
+    2     3 size:1 89
+    3     4 items:1 1,2,3
+    4     5 ts:1:de:count 3
+    5     6 usn:1:de 10
+    6     7 ts:1:de 2ab9ea67e041454f952a3920de33d503
+    7     8 target:1:test_job:de bbbd8700c73e083d59f8e74ba659d308
+    8     9 target:mtime:1:test_job:de 12345678
+    9     10 source:1:test_job:de 9661066d730466dd061071069339f222
+    10    11 source:ts:1:test_job:de 2ab9ea67e041454f952a3920de33d503
+    11    12 job-hash:test_namespace:test_job
+          20a801c8af7a297a17d91c24b4fcb591
+    12    13 job-plugin:test_namespace:test_job parse_properties.
+    13    14 job-serializer-plugin:test_namespace:test_job
+          serialize_po.
+    14    15 job-engine:test_namespace:test_job 1.3.2
+}
