@@ -26,9 +26,12 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        clone_params => 'STRING',
-        name => 'STRING',
-        email => 'STRING'
+        clone_params  => 'STRING',
+        name          => 'STRING',
+        email         => 'STRING',
+        commit_params => 'STRING',
+        push_params   => 'STRING',
+        fetch_params  => 'STRING'
     });
 }
 
@@ -162,7 +165,7 @@ sub checkout {
     $self->run_in($local_path, qq|git remote prune origin|);
 
     # pull changes from remote server
-    $self->run_in($local_path, qq|git fetch|);
+    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
     # reset to remote state
     $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
@@ -197,10 +200,10 @@ sub commit {
     my $msg_parameters = join(' ', map { "-m \"$_\"" } split(/\n+/s, $message));
 
     # commit locally
-    $self->run_in($local_path, qq|git commit $msg_parameters|);
+    $self->run_in($local_path, qq|git commit $msg_parameters $self->{data}->{commit_params}|);
 
     # fetch changes from remote server
-    $self->run_in($local_path, qq|git fetch|);
+    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
 
     # rebase (do not merge, since merges are incompatible with Gerrit).
     $self->run_in($local_path, qq|git rebase origin/$branch|);
@@ -215,7 +218,7 @@ sub _push {
 
     ($remote_path, my $branch) = $self->split_remote_path_branch($remote_path);
 
-    $self->run_in($local_path, qq|git push origin $branch|);
+    $self->run_in($local_path, qq|git push origin $branch $self->{data}->{push_params}|);
 }
 
 1;
