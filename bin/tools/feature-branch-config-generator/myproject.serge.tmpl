@@ -1,0 +1,58 @@
+sync
+{
+    ts
+    {
+        #...
+    }
+
+    vcs
+    {
+        plugin                        git
+
+        data
+        {
+            add_unversioned           YES
+            email                     l10n@example.com
+            name                      L10N Robot
+        }
+
+        data
+        {
+            local_path                ./data/myproject
+
+            remote_path
+            {
+                master                ssh://user@git.example.com:7999/myproject.git
+
+                # feature branches
+
+/* FBCGEN_BRANCH_REMOTES
+                $FBCGEN_DIR_PADDED    ssh://user@git.example.com:7999/myproject.git#$FBCGEN_BRANCH
+*/
+            }
+        }
+    }
+}
+
+jobs
+{
+    :master-job
+    {
+        @inherit                      myproject.inc#job-template
+    }
+
+    # feature branch jobs
+/* FBCGEN_BRANCH_JOBS
+
+    :$FBCGEN_DIR
+    {
+        @inherit                      myproject.inc#job-template
+                                      $FBCGEN_EXTRA_INCLUDE
+        name                          JSON file processing ('$FBCGEN_BRANCH' branch)
+        id                            myproject.json.$FBCGEN_DIR
+        source_dir                    ./data/myproject/$FBCGEN_DIR/res/en
+        output_file_path              ./data/myproject/$FBCGEN_DIR/res/%LANG%/%FILE%
+        source_path_prefix            $FBCGEN_BRANCH/
+    }
+*/
+}
