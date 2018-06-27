@@ -84,6 +84,12 @@ sub run_callbacks {
 sub adjust_destination_languages {
     my ($self, $job) = @_;
 
+    # add source language to the list if `output_default_lang_file` is defined
+    if ($job->{output_default_lang_file}) {
+        push @{$job->{destination_languages}}, $job->{source_language};
+    }
+
+    # deduplicate the list
     my @j = @{$job->{destination_languages}};
     my %job_langs;
     @job_langs{@j} = @j;
@@ -99,10 +105,11 @@ sub adjust_destination_languages {
         foreach my $lang (keys %job_langs) {
             delete $job_langs{$lang} unless exists $limit_langs{$lang};
         }
-
-        my @a = sort keys %job_langs;
-        $job->{destination_languages} = \@a;
     }
+
+    # update the list with a deduplicated sorted version of it
+    my @a = sort keys %job_langs;
+    $job->{destination_languages} = \@a;
 
     if (@{$job->{destination_languages}} == 0) {
         print "List of destination languages is empty\n";
@@ -1123,6 +1130,9 @@ sub generate_ts_files_for_file {
 sub generate_ts_files_for_file_lang {
     my ($self, $file, $lang) = @_;
 
+    # skip generating TS files for source language (it is added in `output_default_lang_file` mode implicitly)
+    return if ($lang eq $self->{job}->{source_language});
+
     my $fullpath = $self->{job}->get_full_ts_file_path($file, $lang);
 
     my $result = combine_and(1, $self->run_callbacks('can_generate_ts_file', $file, $lang));
@@ -1355,12 +1365,6 @@ sub generate_localized_files_for_file {
     # sanity check
 
     die "ERROR: CURRENT_FILE_ID is not defined\n" unless $self->{current_file_id};
-
-    # Generating localized file for the source language, if needed
-
-    if ($self->{job}->{output_default_lang_file}) {
-        $self->generate_localized_files_for_file_lang($file, $self->{job}->{source_language});
-    }
 
     my $target_langs;
     if (!$modified) {
