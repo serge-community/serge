@@ -1,0 +1,10 @@
+properties
+{
+    0    1 source:1 dc077fcc9cca7b2a3a350952d54201fa
+    1    2 hash:1 dc077fcc9cca7b2a3a350952d54201fa
+    2    3 size:1 212
+    3    4 items:1 1,2,3
+    4    5 ts:1:test:count 3
+    5    6 usn:1:test 10
+    6    7 ts:1:test a429c823492b02e12e9af68f97b33850
+}

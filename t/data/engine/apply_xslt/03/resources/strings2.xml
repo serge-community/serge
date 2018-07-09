@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string3" comment="third">Value 3</string>
+    <string name="string4">Value 4</string>
+    <string name="string5">Value 5</string>
+    <string name="string6" comment="six">Value 6</string>
+</resources>

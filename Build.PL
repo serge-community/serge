@@ -19,6 +19,8 @@ my $builder = Module::Build->new(
         'Text::CSV_XS'       => 0,
         'Text::Diff'         => 0,
         'XML::Tidy'          => 0,
+        'XML::LibXSLT'        => 0,
+        'XML::LibXML'         => 0,
     },
     requires => {
         'perl'               => '5.10.0',

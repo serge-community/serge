@@ -1,0 +1,1 @@
+Test for 'apply_xslt' plugin, 'before_save_localized_file' phase, multiple resources

@@ -1,0 +1,43 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+        leave_untranslated_blank                 YES
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value 1`                `Translation 1`
+                        `Value 2`                `Translation 2`
+                        `Value 3`                `Translation 3`
+                    }
+                }
+            }
+
+            {
+                plugin                           apply_xslt
+                phase                            before_save_localized_file
+
+                data
+                {
+                    apply                        ./filter_untranslated.xslt
+                    apply                        ./remove_comment.xslt
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="string1">Test Translation 1</string>
+  <string name="string2">Test Translation 2</string>
+  <string name="string3" comment="translate">Test Translation 3</string>
+</resources>
