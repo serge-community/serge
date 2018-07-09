@@ -1,0 +1,10 @@
+strings
+{
+    0    1 2 Gadget NO 0
+    1    2 4 test NO 0
+    2    3 6 <p>&lt;foo/&gt;</p> NO 0
+    3    4 8 <foo/> NO 0
+    4    5 10 `Buy Now` NO 0
+    5    6 12 `Gadget Website` NO 0
+    6    7 14 `Gadget Support` NO 0
+}

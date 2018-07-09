@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. /item/name
+#: File: strings.xml
+#: ID: ef0b50fa37872c3f752a75fdca3b5bcd
+msgid "Gadget"
+msgstr "Dispositivo"
+
+#. /item/name
+#: File: strings.xml
+#: ID: d4962e0a3426ad69a6e8a923fbc9adfe
+msgid "test"
+msgstr "prova"
+
+#. /item/test
+#: File: strings.xml
+#: ID: dfbb07e029b8f90afe16df3dbaf45f31
+msgid "<p>&lt;foo/&gt;</p>"
+msgstr "<p>&lt;nuovo/&gt;</p>"
+
+#. /item/test
+#: File: strings.xml
+#: ID: ba1635ce734ccfcb4eb3e41dcac46620
+msgid "<foo/>"
+msgstr "<foo/>"
+
+#. /item/linknames/activation
+#: File: strings.xml
+#: ID: 7235172da113bf7d254a0797cb983db9
+msgid "Buy Now"
+msgstr "Acquista adesso"
+
+#. /item/linknames/homepage
+#: File: strings.xml
+#: ID: 3c2e2bd05e342a28845dc2d60a01fd90
+msgid "Gadget Website"
+msgstr ""
+
+#. /item/linknames/support
+#: File: strings.xml
+#: ID: 69420d1c485befa6a92df45c43d0aa28
+msgid "Gadget Support"
+msgstr ""
