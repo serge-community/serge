@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="x-unknown" original="StripesResources.properties" source-language="en" target-language="de">
+        <body>
+            <trans-unit approved="yes" id="f1bab58f0303667b6cf6a5f24e05a88f" xml:space="preserve">
+                <source xml:lang="en">first</source>
+                <target state="translated" xml:lang="de">ersten</target>
+                <note from="developer">foo</note>
+                <note from="developer">1st</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">1</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="1e37e373c0b0a4981c9943b6cec34a79" xml:space="preserve">
+                <source xml:lang="en">second</source>
+                <target state="translated" xml:lang="de">zweite</target>
+                <note from="developer">foo2</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">2</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="6adcf47f5d5e138188187f3260dd2b99" xml:space="preserve">
+                <source xml:lang="en">third</source>
+                <target state="translated" xml:lang="de">dritten</target>
+                <note from="developer">foo3</note>
+                <note from="developer">3rd line 1</note>
+                <note from="developer">3rd line 2</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">3</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="973ff8ad7d1514cba9d5f821e2d99224" xml:space="preserve">
+                <source xml:lang="en">fourth</source>
+                <target state="new" xml:lang="de" />
+                <note from="developer">foo4</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">4</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
