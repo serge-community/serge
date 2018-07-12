@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="x-unknown" original="StripesResources.properties" source-language="en" target-language="test">
+        <body>
+            <trans-unit approved="yes" id="05c382b374518cc317f4ec0f98409fa0" xml:space="preserve">
+                <source xml:lang="en">bar</source>
+                <target state="translated" xml:lang="test">ḃáŕ</target>
+                <note from="developer">foo</note>
+                <note from="developer">this is a comment for foo</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">1</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="e5f2adbdbe00c558062db891f2072489" xml:space="preserve">
+                <source xml:lang="en">bar2</source>
+                <target state="translated" xml:lang="test">ḃáŕ2</target>
+                <note from="developer">foo2</note>
+                <note from="developer">this is a comment for foo2</note>
+                <note from="developer">#specialFlag</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">2</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="3fe4481f751cc3733375d9b0a5902031" xml:space="preserve">
+                <source xml:lang="en">bar3</source>
+                <target state="translated" xml:lang="test">ḃáŕ3</target>
+                <note from="developer">foo3</note>
+                <note from="developer">#specialFlagWithValue=value</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">3</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="a257f7b12d48b49db500386f8a356a6c" xml:space="preserve">
+                <source xml:lang="en">bar4</source>
+                <target state="translated" xml:lang="test">ḃáŕ4</target>
+                <note from="developer">foo4</note>
+                <note from="developer">this is a comment for foo4 (line 1 of 2)</note>
+                <note from="developer">this is a comment for foo4 (line 2 of 2)</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">4</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="b3f8891da76b3364f7212ee8bcdea7cc" xml:space="preserve">
+                <source xml:lang="en">bar5</source>
+                <target state="translated" xml:lang="test">ḃáŕ5</target>
+                <note from="developer">foo5</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">5</context>
+                    <context context-type="x-serge-file-id">1</context>
+                    <context context-type="x-serge-context">etc</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="2c5fde62c6eaf3281007175ff722fac8" xml:space="preserve">
+                <source xml:lang="en">bar</source>
+                <target state="translated" xml:lang="test">ḃáŕ</target>
+                <note from="developer">bar</note>
+                <note from="developer">this is a comment for bar</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">6</context>
+                    <context context-type="x-serge-file-id">1</context>
+                    <context context-type="x-serge-context">bar</context>
+                </context-group>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

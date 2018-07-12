@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="x-unknown" original="StripesResources.properties" source-language="en" target-language="de">
+        <body>
+            <trans-unit approved="yes" id="05c382b374518cc317f4ec0f98409fa0" xml:space="preserve">
+                <source xml:lang="en">bar</source>
+                <target state="translated" xml:lang="de">bar-one</target>
+                <note from="developer">this is a comment for foo</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="e5f2adbdbe00c558062db891f2072489" xml:space="preserve">
+                <source xml:lang="en">bar2</source>
+                <target state="translated" xml:lang="de">bar-two</target>
+                <note from="developer">this is a comment for foo2</note>
+                <note from="developer">#specialFlag</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="b2ec9e2f7eb5151d3db4591441d4e0d1" xml:space="preserve">
+                <source xml:lang="en">bar3</source>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-context">etc</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="no" id="2c5fde62c6eaf3281007175ff722fac8" xml:space="preserve">
+                <source xml:lang="en">bar</source>
+                <target state="translated" xml:lang="de">bar-new</target>
+                <note from="developer">this is a comment for bar</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-context">bar</context>
+                    <context context-type="x-serge-file-id">1</context>
+                </context-group>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,53 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    de
+
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+
+        callback_plugins
+        {
+            # for each localized file (on file save), copy the reference .po file with translation to the destination
+            :copy-resources
+            {
+                plugin                            run_command
+
+                data
+                {
+                    command                       perl ../../cp.pl ./resources/po/%LOCALE%/%FILE%.xliff ./test-output/po/%LOCALE%/%FILE%.xliff
+                }
+            }
+        }
+    },
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    de
+
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

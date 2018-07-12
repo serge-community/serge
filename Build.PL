@@ -18,6 +18,7 @@ my $builder = Module::Build->new(
         'Test::More'         => '0.94',
         'Text::CSV_XS'       => 0,
         'Text::Diff'         => 0,
+        'XML::Tidy'          => 0,
     },
     requires => {
         'perl'               => '5.10.0',
