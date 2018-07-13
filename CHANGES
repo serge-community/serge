@@ -18,6 +18,26 @@ Revision history
 
         - Make Serge installable via `./Build install`
 
+        - Git plugin now always uses `reset --hard` instead of `rebase`
+          when doing updates so that it can recover from history rewrites
+          on a remote server.
+
+        - Better error reporting when spawning child processes.
+
+        - `output_default_lang_file` config setting now works correctly with
+          the `limit_languages` plugin. Additionally, the list of target
+          languages is now de-duplicated and sorted before job runs.
+
+        - Implemented cache eviction optimizations to make sure the process
+          uses less memory on large databases.
+
+        - Implemented four different caching strategies ('db', 'namespace',
+          'file', and 'string') that can be set with SERGE_DB_CACHING_STRATEGY
+          environment variable. The more granular the level, the less memory
+          Serge uses, at the potential expense of longer execution time.
+          The default is 'db', which is backward-compatible with the old
+          behavior where the entire database would be cached in memory.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the
