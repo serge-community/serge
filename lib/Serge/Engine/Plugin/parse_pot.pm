@@ -124,7 +124,6 @@ sub parse {
                 next;
             }
 
-            #print ":: [$2] [$3]\n";
             $msgstr_idx = $2;
             $msgstr[$msgstr_idx] = $3;
             push @out, $orig_line if $self->{import_mode};
@@ -188,7 +187,6 @@ sub parse {
                         my $translation = &$callbackref($str, $msgctxt, $comment, undef, $lang, $key);
                         push @out, po_serialize_msgstr($translation);
                         if (exists $self->{strings}) {
-                            print ":: translation=[$translation]\n";
                             $self->_add_string(\@msgid, $msgctxt, [split_plural_string($translation)]);
                         }
                     }
