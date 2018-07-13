@@ -12,6 +12,12 @@ use Time::HiRes qw(gettimeofday tv_interval);
 
 our $DEBUG = $ENV{CI} ne ''; # use debug mode from under CI environment to ensure better coverage
 
+our $CACHING_STRATEGY = lc($ENV{SERGE_DB_CACHING_STRATEGY}) || "db";
+if ($CACHING_STRATEGY !~ m/^(db|namespace|file|string)$/) {
+    die "Invalid SERGE_DB_CACHING_STRATEGY value: [$ENV{SERGE_DB_CACHING_STRATEGY}]. ".
+        "Valid values are: 'db' (default), 'namespace', 'file' and 'string'.\n";
+}
+
 sub open {
     my ($self, $source, $username, $password) = @_;
 
@@ -34,6 +40,8 @@ sub open {
         password => $password
     };
 
+    $self->{dsn_hash} = generate_hash($source, $username, $password);
+
     $self->{cache} = {
         job => {},
         properties => {},
@@ -47,6 +55,7 @@ sub close {
     my ($self) = @_;
     $self->{cache} = {};
     delete $self->{dsn};
+    delete $self->{dsn_hash};
     return $self->SUPER::close;
 }
 
@@ -368,14 +377,48 @@ sub get_translation {
     }
 }
 
-sub preload_translation_candidates_lang {
-    my ($self, $lang) = @_;
+sub preload_full_cache_items {
+    my ($self, $lang_cache, $lang, $extra_params) = @_;
 
-    return if exists $self->{cache}->{translations}->{$lang}; # return if cache is already preloaded for the same lang
 
-    my $start = [gettimeofday];
+    my $extra_query;
+    if ($CACHING_STRATEGY eq 'db') {
+        $extra_query = '';
+    } elsif ($CACHING_STRATEGY eq 'namespace') {
+        $extra_query = <<__END__;
+		AND s.id IN (
+			SELECT DISTINCT s.id
 
-    my $cache = $self->{cache}->{translations}->{$lang} = {};
+        	FROM strings s
+
+        	JOIN items i ON i.string_id = s.id
+        	JOIN files f ON i.file_id = f.id
+
+			WHERE s.skip = 0
+			AND f.namespace = ?
+		)
+__END__
+    } elsif ($CACHING_STRATEGY eq 'file') {
+        $extra_query = <<__END__;
+		AND s.id IN (
+			SELECT DISTINCT s.id
+
+        	FROM strings s
+
+        	JOIN items i ON i.string_id = s.id
+        	JOIN files f ON i.file_id = f.id
+
+			WHERE s.skip = 0
+			AND f.namespace = ?
+            AND f.path = ?
+		)
+__END__
+    } elsif ($CACHING_STRATEGY eq 'string') {
+        $extra_query = <<__END__;
+		AND s.skip = 0
+        AND s.string = ?
+__END__
+    }
 
     my $sqlquery = <<__END__;
         SELECT s.id AS string_id, s.string, s.context, i.id as item_id, i.orphaned,
@@ -389,19 +432,21 @@ sub preload_translation_candidates_lang {
         JOIN files f ON i.file_id = f.id
 
         WHERE t.language = ?
-        AND s.skip = 0
+        $extra_query
 __END__
 
     my $sth = $self->prepare($sqlquery);
-    $sth->bind_param(1, $lang) || die $sth->errstr;
+    my $n = 1;
+    $sth->bind_param($n++, $lang) || die $sth->errstr;
+    map { $sth->bind_param($n++, $_) || die $sth->errstr } @$extra_params;
     $sth->execute || die $sth->errstr;
 
     while (my $hr = $sth->fetchrow_hashref()) {
         my $item_id = $hr->{item_id};
         my $skey = generate_key($hr->{string});
 
-        $cache->{$skey} = {} unless exists $cache->{$skey};
-        $cache->{$skey}->{$item_id} = {
+        $lang_cache->{$skey} = {} unless exists $lang_cache->{$skey};
+        $lang_cache->{$skey}->{$item_id} = {
             namespace => $hr->{namespace},
             path => $hr->{path},
             context => $hr->{context},
@@ -414,10 +459,54 @@ __END__
 
     $sth->finish;
     $sth = undef;
+}
 
-    my $delta = tv_interval($start);
-    $self->{preload_translation_candidates_total_time} += $delta;
-    print "preload_translation_candidates_lang($lang) took $delta seconds ($self->{preload_translation_candidates_total_time} total seconds)\n";
+sub preload_translation_cache_for_lang {
+    my ($self, $lang, $namespace, $filepath, $string) = @_;
+
+    my $lang_cache = $self->{cache}->{translations}->{$lang};
+    if (!$lang_cache) {
+        $lang_cache = $self->{cache}->{translations}->{$lang} = {};
+    }
+
+    my $key;
+    if ($CACHING_STRATEGY eq 'db') {
+        $key = generate_hash('db', $self->{dsn_hash});
+    } elsif ($CACHING_STRATEGY eq 'namespace') {
+        $key = generate_hash('namespace', $namespace);
+    } elsif ($CACHING_STRATEGY eq 'file') {
+        $key = generate_hash('file', $namespace, $filepath);
+    } elsif ($CACHING_STRATEGY eq 'string') {
+        $key = generate_hash('string', $string);
+    }
+
+    if ($lang_cache->{key} ne $key) {
+        $lang_cache = $self->{cache}->{translations}->{$lang} = {};
+        $lang_cache->{key} = $key;
+
+        # loading the cache
+
+        print "Loading the cache ($lang, $CACHING_STRATEGY)\n" if $DEBUG;
+
+        my $extra_params;
+        if ($CACHING_STRATEGY eq 'db') {
+            $extra_params = [];
+        } elsif ($CACHING_STRATEGY eq 'namespace') {
+            $extra_params = [$namespace];
+        } elsif ($CACHING_STRATEGY eq 'file') {
+            $extra_params = [$namespace, $filepath];
+        } elsif ($CACHING_STRATEGY eq 'string') {
+            $extra_params = [$string];
+        }
+
+        my $start = [gettimeofday];
+
+        $self->preload_full_cache_items($lang_cache, $lang, $extra_params);
+
+        my $delta = tv_interval($start);
+        $self->{preload_translation_candidates_total_time} += $delta;
+        print "preload_translation_cache_for_lang($lang, $CACHING_STRATEGY) took $delta seconds ($self->{preload_translation_candidates_total_time} total seconds)\n";
+    }
 }
 
 #
@@ -601,9 +690,9 @@ sub find_best_translation {
     my ($namespace, $filepath, $string, $context, $lang, $allow_orphaned, $allow_multiple_variants) = @_;
 
     # Now that we hit the item we have no translation for, and need to query
-    # the database for the best translation, preload the cache for the target language
-    # if we didn't do so already
-    $self->preload_translation_candidates_lang($lang);
+    # the database for the best translation, preload the portion of the cache
+    # for the target language based on the current caching strategy.
+    $self->preload_translation_cache_for_lang($lang, $namespace, $filepath, $string);
 
     my $cache = $self->{cache}->{translations}->{$lang};
     my $skey = generate_key($string);
