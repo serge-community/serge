@@ -408,6 +408,13 @@ jobs
         # separate format)
         output_lang_files           YES
 
+        # (BOOLEAN) [OPTIONAL] Should the ts files be created
+        # for the default language (see `source_language` parameter) as well?
+        # YES - the files needs to be created
+        # NO - do not create the files (default)
+        # Note: This option is required when the the translation software needs a source file
+        ts_default_lang_file        NO
+
         # (BOOLEAN) [OPTIONAL] Should the localized files be created
         # for the default language (see `source_language` parameter) as well?
         # YES - the files needs to be created

@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Generated-By: Serge 1.3\n"
+
+#. Description 1
+#: File: messages.json
+#: ID: 37881f5ca702bb268877e4edb0edc83d
+msgctxt "string1"
+msgid "Value 1"
+msgstr "Value 1"
+
+#. Description 2
+#: File: messages.json
+#: ID: 7d8ec73df55728a29c38a9f7741aefa6
+msgctxt "string2"
+msgid "Value 2"
+msgstr "Value 2"

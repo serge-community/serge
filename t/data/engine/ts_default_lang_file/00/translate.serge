@@ -1,0 +1,14 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        ts_default_lang_file                     YES
+
+        source_match                             ^messages\.json$
+
+        parser
+        {
+            plugin                               parse_chrome_json
+        }
+    }
+}
