@@ -12,3 +12,4 @@ setup.pl^MYMETA\.yml$
 ^MYMETA\.json$
 ^MYMETA\.yml$
 \.tar\.gz$
+^docker\/
