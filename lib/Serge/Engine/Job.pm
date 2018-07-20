@@ -143,12 +143,16 @@ sub load_plugin_and_register_callbacks {
     return $p;
 }
 
+sub has_callbacks {
+    my ($self, $phase) = @_;
+    return exists $self->{callback_phases}->{$phase};
+}
+
 sub run_callbacks {
     my ($self, $phase, @params) = @_;
 
-    if (exists $self->{callback_phases}->{$phase}) {
+    if ($self->has_callbacks($phase)) {
         print "::phase '$phase' has callbacks, running...\n" if $self->{debug};
-
 
         my @result;
 
