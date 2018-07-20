@@ -31,7 +31,7 @@ sub init {
     });
 
     $self->add({
-        add_dev_comment => \&add_dev_comment
+        add_hint => \&add_hint
     });
 }
 
@@ -52,26 +52,26 @@ sub validate_data {
 sub adjust_phases {
     my ($self, $phases) = @_;
 
-    # always tie to 'add_dev_comment' phase
-    set_flag($phases, 'add_dev_comment');
+    # always tie to 'add_hint' phase
+    set_flag($phases, 'add_hint');
 }
 
 sub process_then_block {
-    my ($self, $phase, $block, $file, $lang, $strref, $commentref, $aref) = @_;
+    my ($self, $phase, $block, $filepath, $lang, $strref, $commentref, $aref) = @_;
 
-    if ($phase eq 'add_dev_comment') {
+    if ($phase eq 'add_hint') {
         foreach my $message (@{$block->{message}}) {
-            push @$aref, $self->{parent}->render_full_output_path($message, $file, $lang);
+            push @$aref, $self->{parent}->render_full_output_path($message, $filepath, $lang);
         }
     }
 
     return (shift @_)->SUPER::process_then_block(@_);
 }
 
-sub add_dev_comment {
-    my ($self, $phase, $file, $lang, $strref, $aref) = @_;
+sub add_hint {
+    my ($self, $phase, $string, $context, $namespace, $filepath, $source_key, $lang, $aref) = @_;
 
-    return $self->SUPER::check($phase, $file, $lang, $strref, undef, $aref);
+    return $self->SUPER::check($phase, $filepath, $lang, \$string, undef, $aref);
 }
 
 1;
