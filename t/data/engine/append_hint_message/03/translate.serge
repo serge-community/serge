@@ -48,7 +48,7 @@ jobs
 
             {
                 plugin                           append_hint_message
-                phase                            add_dev_comment
+                phase                            add_hint
 
                 data
                 {
