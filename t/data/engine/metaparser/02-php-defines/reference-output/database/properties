@@ -13,7 +13,7 @@ properties
     10    11 source:ts:1:test_job:test
           e0c647348cbf2d8a4ce502ef348db3de
     11    12 job-hash:test_namespace:test_job
-          407854e158fd486ffd8a4c4b5e01bbb1
+          80b3cc21c3ff5541306766ad06fe2c75
     12    13 job-plugin:test_namespace:test_job metaparser.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.

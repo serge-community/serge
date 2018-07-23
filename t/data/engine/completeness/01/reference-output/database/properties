@@ -8,7 +8,7 @@ properties
     5     6 usn:1:test 5
     6     7 ts:1:test 31b5264528ad6b73273e30da55c3a529
     7     8 job-hash:test_namespace:test_job
-          952c12589d281ffaf54ca886f56f4926
+          f2b7d11d111b9b6d22f4f83704387eaa
     8     9 job-plugin:test_namespace:test_job parse_android.
     9     10 job-serializer-plugin:test_namespace:test_job
           serialize_po.

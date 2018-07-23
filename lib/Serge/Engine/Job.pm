@@ -90,10 +90,12 @@ sub expand_env_vars {
     my ($self) = @_;
 
     map {
-        $self->{$_} = subst_macros($self->{$_});
+        if (exists $self->{$_}) {
+            $self->{$_} = subst_macros($self->{$_});
+        }
     } qw(
         db_source db_username db_password db_namespace
-        source_dir ts_file_path output_file_path
+        source_dir ts_file_path output_file_path source_ts_file_path
     );
 }
 
@@ -101,8 +103,10 @@ sub expand_paths {
     my ($self) = @_;
 
     map {
-        $self->{$_} = $self->abspath($self->{$_});
-    } qw(source_dir ts_file_path output_file_path);
+        if (exists $self->{$_}) {
+            $self->{$_} = $self->abspath($self->{$_});
+        }
+    } qw(source_dir ts_file_path output_file_path source_ts_file_path);
 }
 
 sub load_plugin_and_register_callbacks {
@@ -178,7 +182,13 @@ sub abspath {
 sub get_full_ts_file_path {
     my ($self, $file, $lang) = @_;
 
-    return subst_macros($self->{ts_file_path}, $file, $lang, $self->{source_language});
+    my $ts_file_path = $self->{ts_file_path};
+
+    if ($lang eq $self->{source_language} and exists $self->{source_ts_file_path}) {
+        $ts_file_path = $self->{source_ts_file_path};
+    }
+
+    return subst_macros($ts_file_path, $file, $lang, $self->{source_language});
 }
 
 sub render_full_output_path {

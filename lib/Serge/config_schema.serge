@@ -89,6 +89,7 @@ jobs                                ARRAY
         }
 
         ts_file_path                STRING
+        source_ts_file_path         STRING
         ts_default_lang_file        BOOLEAN
         output_lang_files           BOOLEAN
         output_default_lang_file    BOOLEAN

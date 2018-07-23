@@ -49,7 +49,7 @@ properties
     43    44 source:ts:4:test_job:test
           918c8263ebc9f4c58eece3ecf105a55f
     44    45 job-hash:test_namespace:test_job
-          ea488ef7fef16678428e146f0a1e0dc2
+          2be08bd7b7059323d12113aa64c67e62
     45    46 job-plugin:test_namespace:test_job parse_xliff.
     46    47 job-serializer-plugin:test_namespace:test_job
           serialize_po.

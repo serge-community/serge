@@ -349,6 +349,9 @@ sub process_job {
     print "Source dir: [".$job->{source_dir}."]\n";
     print "DB source: [".$job->{db_source}."]\n";
     print "TS file path: [".$job->{ts_file_path}."]\n";
+    if (defined $job->{source_ts_file_path}) {
+        print "Source TS file path: [".$job->{source_ts_file_path}."]\n";
+    }
     print "Output path: [".$job->{output_file_path}."]\n";
     print "Destination languages: [".join(',', sort @{$job->{destination_languages}})."]\n";
     print "Modified languages: [".join(',', sort @{$job->{modified_languages}})."]\n";

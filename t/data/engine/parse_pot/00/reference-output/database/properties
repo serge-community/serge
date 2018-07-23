@@ -37,7 +37,7 @@ properties
     32    33 source:ts:3:test_job:test
           4666641bf7d73519b3422cec262c23bf
     33    34 job-hash:test_namespace:test_job
-          831060d0350c0cd2672bf309a05a4d2e
+          78fd65d344fe081dd2ff196fc5645932
     34    35 job-plugin:test_namespace:test_job parse_pot.
     35    36 job-serializer-plugin:test_namespace:test_job
           serialize_po.

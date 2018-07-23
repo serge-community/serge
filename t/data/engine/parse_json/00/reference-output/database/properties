@@ -25,7 +25,7 @@ properties
     21    22 source:ts:2:test_job:test
           98ce3ff601e84af91a1aec934a50053c
     22    23 job-hash:test_namespace:test_job
-          cf5bed984d4a113f8c89374df04d42c7
+          6e9d76c3adf914819619b051d05c18bf
     23    24 job-plugin:test_namespace:test_job parse_json.
     24    25 job-serializer-plugin:test_namespace:test_job
           serialize_po.

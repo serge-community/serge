@@ -13,7 +13,7 @@ properties
     10    11 source:ts:1:test_job:test
           8b12a0b491dd6e80ba034adc5691d463
     11    12 job-hash:test_namespace:test_job
-          e335ddc8a2d58847c21b0b7e82d8f712
+          ec775d3573259a0e707087eeb976ae9a
     12    13 job-plugin:test_namespace:test_job parse_android.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.

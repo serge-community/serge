@@ -16,7 +16,7 @@ properties
     13    14 source:ts:1:test_job:test
           97dc7539d660e6b535a8770ac7fb2eb5
     14    15 job-hash:test_namespace:test_job
-          71708eae8e1e811913e84be2ed7b4a63
+          d55086b991831187cd24eb1756bc3c2a
     15    16 job-plugin:test_namespace:test_job parse_chrome_json.
     16    17 job-serializer-plugin:test_namespace:test_job
           serialize_po.
