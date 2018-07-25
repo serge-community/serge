@@ -15,7 +15,7 @@ properties
     10    11 source:ts:1:test_job:xx-keys
           49c62cd8ec72473e95a91dfc24ba145f
     11    12 job-hash:test_namespace:test_job
-          b8895748e183c90b09d91740b77e2dc7
+          c96a33a751f92fab4a9bf624ff4372d1
     12    13 job-plugin:test_namespace:test_job parse_keyvalue.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.
