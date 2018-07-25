@@ -803,7 +803,7 @@ sub disambiguate_string {
         $context_counter++;
     }
 
-    $self->{current_file_keys}->{$key} = 1;
+    $self->{current_file_keys}->{$key} = $source_key;
 
     return $context;
 }
@@ -1225,6 +1225,8 @@ sub generate_ts_files_for_file_lang {
 
         my $string = $string_props->{string};
         my $context = $string_props->{context};
+        my $key = generate_key($string, $context);
+        my $source_key = $self->{current_file_keys}->{$key};
 
         my $hint = $item_props->{hint};
         my $item_comment = $item_props->{comment};
@@ -1246,17 +1248,22 @@ sub generate_ts_files_for_file_lang {
         # to the original string (i.e. all strings in the default language are already 'translated')
 
         my ($translation, $fuzzy, $comments) = $self->get_translation($string, $context, $namespace,
-            $file, $lang, undef, $item_id);
-
-        my $key = generate_key($string, $context);
+            $file, $lang, undef, $item_id, $source_key);
 
         my @hint_lines;
 
         push @hint_lines, $hint if ($hint ne '') && ($hint ne $string);
 
         # run callbacks that might want to modify the hint (developer comment)
-        # TODO: rename 'add_dev_comment' to 'add_hint'
-        $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
+        if ($self->{job}->has_callbacks('add_dev_comment')) {
+            print "Deprecation notice: add_dev_comment phase is deprecated. Use add_hint phase instead\n";
+            $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
+        } else {
+            $self->run_callbacks(
+                'add_hint',
+                $string, $context, $namespace, $file, $source_key, $lang, \@hint_lines
+            );
+        }
 
         if ($item_comment ne '') {
             push @hint_lines, '' if @hint_lines > 0; # add extra line break between hint and extra item comment
@@ -1607,7 +1614,7 @@ sub generate_localized_files_for_file_lang_callback {
         }
     }
 
-    print "::[$item_id] >> [$self->{current_file_rel}]::[$string], [$context], [$hint], [$lang]\n" if $self->{debug};
+    print "::[$item_id] >> [$self->{current_file_rel}]::[$string], [$context], [$hint], [$lang], [$key]\n" if $self->{debug};
 
     my ($translation, $fuzzy) = $self->get_translation($string, $context, $self->{job}->{db_namespace}, $self->{current_file_rel}, $lang, undef, $item_id, $key);
 

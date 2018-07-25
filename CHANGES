@@ -38,6 +38,14 @@ Revision history
           The default is 'db', which is backward-compatible with the old
           behavior where the entire database would be cached in memory.
 
+        - `add_dev_comment` callback is now deprecated in favor of `add_hint`
+          callback which provides more parameters than the old one.
+
+        - New `keys_language` plugin that allows one to generate globally
+          unique keys in place of translation. An ability to uniquely address
+          any string opens possibilities for some advanced techniques
+          like dynamic localization and integration with external tools.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the

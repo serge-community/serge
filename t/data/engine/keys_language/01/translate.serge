@@ -1,0 +1,29 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        destination_languages                    keys
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            :keys_language
+            {
+                plugin                           keys_language
+                phase                            get_translation_pre
+
+                data
+                {
+                    save_translations            YES
+                    seed                         db1
+                }
+            }
+        }
+    }
+}

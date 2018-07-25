@@ -1,0 +1,256 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: keys\n"
+"Generated-By: Serge 1.3\n"
+
+#. string1
+#: File: strings.ini
+#: ID: b51857520f95b6bde870958d212a72d7
+msgid "a"
+msgstr "b8015886d3154cd61d4f08200d9eedd7"
+
+#. string2
+#: File: strings.ini
+#: ID: bf897b18b45a8a2c2029a5ceb57d3cb4
+msgid "OK"
+msgstr "a1603a76d91dd41f145907d412898f63"
+
+#. string3
+#: File: strings.ini
+#: ID: 2fdea6b7c16fb81dc680510d695992c2
+msgid "Cancel"
+msgstr "7100ec5a20c5a74e98e7ed40ddc26657"
+
+#. string4
+#: File: strings.ini
+#: ID: 1aaef4a310d7e56153f80ed30a17b19a
+msgid "Upgrade"
+msgstr "0ddd74499fcf5d07ffade0d43b7d7210"
+
+#. string5
+#: File: strings.ini
+#: ID: c3688add09d3faf02eb66acafac8c86d
+msgid "Internationalization"
+msgstr "62788b9ebffa2528fec41ce84ac19143"
+
+#. string6
+#: File: strings.ini
+#: ID: 46faa2f6c0cd3e9480e13db2d79ab801
+msgid "Lorem ispsum dolor sit amet"
+msgstr "51f28b677983220a21a652cbfb469891"
+
+#. string7
+#: File: strings.ini
+#: ID: b2c8c3252262a9d1b9df79938d2b8bd3
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim felis."
+msgstr "d9aec3b4cffff715cfec19d28159b429"
+
+#. string8
+#: File: strings.ini
+#: ID: 9ab24f84618b2d77dede167a6f05cbee
+msgid ""
+"Ut est orci, bibendum ut mi ut, feugiat gravida ligula. Curabitur auctor "
+"eget leo a rutrum. Suspendisse tempor velit id dui volutpat condimentum."
+msgstr "7d4cc82cd597e97c7f47ff9ce48db7b6"
+
+#. string9
+#: File: strings.ini
+#: ID: 23674dccb1ad26f51305b03fb64de906
+msgid ""
+"Proin in odio odio. Curabitur quis arcu iaculis, convallis quam ac, dictum "
+"eros. Phasellus sollicitudin consequat risus, id eleifend risus dapibus in. "
+"Quisque porta porttitor condimentum. Phasellus aliquam dapibus dolor, et "
+"mattis turpis lobortis vitae. Nulla facilisi. In ut bibendum orci. Sed mi "
+"eros, efficitur vel ligula vitae, lobortis rhoncus libero. Suspendisse "
+"maximus, lectus et feugiat venenatis, libero est vestibulum justo, in tempor "
+"massa erat non libero. Etiam arcu nibh, ultricies id faucibus in, convallis "
+"eu diam. Phasellus facilisis sed metus vitae ornare. Vestibulum ante ipsum "
+"primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus "
+"posuere ut mi et mattis. Integer sed tortor porta, cursus diam eu, placerat "
+"nulla. Mauris congue a lorem sit amet feugiat. Sed elementum malesuada eros, "
+"sed finibus urna malesuada vel."
+msgstr "e08a98015a8da021ce1189bf0ffa49e6"
+
+#. string_sprintf1
+#: File: strings.ini
+#: ID: a0528c795544ba0a06e30a596df8c6d5
+msgid "%s"
+msgstr "739ca631a12457010f2a469a54fad3c3"
+
+#. string_sprintf2
+#: File: strings.ini
+#: ID: 43e6a32789fa88f1a9c082f8d9bed412
+msgid "foo %s bar %d baz%.2f"
+msgstr "9a1ac727d878bbd5d02f6d321902986e"
+
+#. string_escape1
+#: File: strings.ini
+#: ID: 76f50558289e425da4321a4170886623
+msgid "\\n"
+msgstr "468f4b913d4fccb66764227a3feca05b"
+
+#. string_escape2
+#: File: strings.ini
+#: ID: 509036793506b81ae4b320d7504a15ea
+msgid ""
+"foo \\n"
+" bar \\t baz\\x"
+msgstr "b0d104fc4e9ec7ddf62df686562828ab"
+
+#. string_var1
+#: File: strings.ini
+#: ID: 5617e403a852e35a33ec637b0bb99777
+msgid "%FOO%"
+msgstr "8cfbb127d3e439c2d9cf49f478808b53"
+
+#. string_var2
+#: File: strings.ini
+#: ID: eb31959f9b0c820efc4e95c0f911686e
+msgid "foo %FOO% bar %bar% baz%_baz_%"
+msgstr "7dcc743a10ca4510c10b58be6eb8dc61"
+
+#. string_tag1
+#: File: strings.ini
+#: ID: 7e79812eb98b396887ef85822f975134
+msgid "<tag>"
+msgstr "c515e2fdaab0546336076828d59d22a2"
+
+#. string_tag2
+#: File: strings.ini
+#: ID: f77df8d03e5d138afdb598803586ecf9
+msgid "foo <tag>bar</tag> baz<etc/>"
+msgstr "15fa537bd1e8867efac013cd897af129"
+
+#. string_php1
+#: File: strings.ini
+#: ID: d9bc3f8267d121528f833b0c68e91410
+msgid "<?php echo foo(); ?>"
+msgstr "fe21c5e4e37309535afdce69d004ab14"
+
+#. string_php2
+#: File: strings.ini
+#: ID: f14cc8cae0a61e043b2db597b4083e0b
+msgid "<?= foo(); ?>"
+msgstr "321385ad9691a1a0e5b6f2b165aafb62"
+
+#. string_php3
+#: File: strings.ini
+#: ID: d10a5ad9aae6c17579195f2390dc561e
+msgid "foo <?php echo foo(); ?> bar<?= foo(); ?>baz"
+msgstr "25d72925941e23bc88c583748de42637"
+
+#. string_entity1
+#: File: strings.ini
+#: ID: f98c7a784bbfb093c8957aac3777aed7
+msgid "&nbsp;"
+msgstr "21be6451d9cb469db76bd5e65acb450c"
+
+#. string_entity2
+#: File: strings.ini
+#: ID: 9bff2d40f28a7b7b4f691d5d177e5920
+msgid "foo &mdash; bar&nbsp;baz"
+msgstr "e96bb73de3d3c877373bee1793320045"
+
+#. string_javafmt1
+#: File: strings.ini
+#: ID: c538b4bc0cd6c5a05219446b0f06e202
+msgid "{0}"
+msgstr "0d01c5751e27c11ecd176564a966e4ad"
+
+#. string_javafmt2
+#: File: strings.ini
+#: ID: 9fbe3ac9bcc38dfaadfeb36d587b2af3
+msgid "foo {0} bar{1}baz{123}"
+msgstr "c0908bc2dd9ff273bb8e2d0e39f60c71"
+
+#. string_tplfmt1
+#: File: strings.ini
+#: ID: 8325cbe128f7b64773cb8061bcdddb58
+msgid "${0}"
+msgstr "c3bdb73c426885b88a225f1b5d70f1b1"
+
+#. string_tplfmt2
+#: File: strings.ini
+#: ID: c37b3174e18051091153e04ea1df0a57
+msgid "foo ${0} bar${ab.cd}baz${ef$g}"
+msgstr "eaf3262791dd12810c41a4ae52246a5b"
+
+#. string_unixpath1
+#: File: strings.ini
+#: ID: d9aff9c70fe1be113428e851af536802
+msgid "/var/www"
+msgstr "5079ece25d315324dc34cdb9f5f105bd"
+
+#. string_unixpath2
+#: File: strings.ini
+#: ID: f831068141aa2ba9daac0160339652c1
+msgid "foo /var/www bar /etc/pwd baz /x"
+msgstr "e3d7bd86848abddf3cdebd84e8a10d41"
+
+#. string_url1
+#: File: strings.ini
+#: ID: acea8364a43da4157a275245c59a32cb
+msgid "http://foo.bar/baz.etc"
+msgstr "86fdf2141ed20b3ce9c831c8c59a1238"
+
+#. string_url2
+#: File: strings.ini
+#: ID: 22b9bb16ca3d69a682c69af05882e3ce
+msgid "https://var/www/?foo=bar&baz=e+t%20c#pwd"
+msgstr "a8a434e786c218aeefe19eb3bb5b88a1"
+
+#. string_url3
+#: File: strings.ini
+#: ID: b3da46279fbc4d2a05b0f72aa8468788
+msgid "mailto:foo@bar"
+msgstr "2a12e8500aaecffb4be9aa4db6f25e21"
+
+#. string_url4
+#: File: strings.ini
+#: ID: 7df06ff1bd505459f6c76e43a5d65be5
+msgid "mailto:foo@bar.baz"
+msgstr "a3143f35084880154ee9630dcf28ecfc"
+
+#. string_url5
+#: File: strings.ini
+#: ID: 4f4f08bf9d00dd064cdc5277612e32c1
+msgid "ftp://var/www"
+msgstr "d959830ee4e7b9672af810f74a46c7da"
+
+#. string_url6
+#: File: strings.ini
+#: ID: 8b24b05f8e228ddf41b91ff6b1fdb107
+msgid "ssh://foo@bar.baz/etc"
+msgstr "edb12c4fc90b84f61c8241e07f857095"
+
+#. string_url7
+#: File: strings.ini
+#: ID: 5a4075b8b0ccf3e125c5e80166958694
+msgid "foo http://foo.bar/baz.etc mailto:foo@bar.baz baz"
+msgstr "87ee480d6ca8866355a752a0b7803a2a"
+
+#. string_plurr1
+#: File: strings.ini
+#: ID: b826868dfe2dedf4f2e10b40f6f3b1f3
+msgid "{CHOICE:{A} aaa|{B} bbb}"
+msgstr "3db7d05221fc5b640b12dc25e5ea7937"
+
+#. string_plurr2
+#: File: strings.ini
+#: ID: b85ba459861ecc8b9a69077f26468fc9
+msgid "foo {CHOICE:{A} aaa|{B} bbb} bar"
+msgstr "1aa498d6afc5daecea439da457053b28"
+
+#. string_square_brackets1
+#: File: strings.ini
+#: ID: 5d8b239c4197efb80f68d470da553d92
+msgid "[0]"
+msgstr "e18e578b7ee6c52960a311ae9a55bfbf"
+
+#. string_square_brackets2
+#: File: strings.ini
+#: ID: 2122d1511ab3406c805603b1b31567d7
+msgid "foo [bar] baz"
+msgstr "858a8a735a5d1aa0f543edf98e921f9a"

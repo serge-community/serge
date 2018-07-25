@@ -6,7 +6,7 @@ use parent Serge::Plugin::Base::Callback;
 use strict;
 use warnings;
 
-use Serge::Util qw(set_flags);
+use Serge::Util qw(is_flag_set set_flags);
 
 our $LANG = 'test';
 our $LANGID = 0xffff;
@@ -56,8 +56,12 @@ sub adjust_phases {
     # always tie to 'can_process_ts_file' phase
     set_flags($phases, 'can_generate_ts_file', 'can_process_ts_file');
 
-    # this plugin makes sense only when applied to a single phase (in addition to 'can_generate_ts_file' and 'can_process_ts_file')
-    die "This plugin needs to be attached to only one phase at a time" unless @$phases == 3;
+    # this plugin makes sense only when applied to either
+    # get_translation_pre or get_translation phase, but not both
+    my $f1 = is_flag_set($phases, 'get_translation_pre');
+    my $f2 = is_flag_set($phases, 'get_translation');
+    die "This plugin needs to be attached to either get_translation_pre or get_translation phase" if !$f1 && !$f2;
+    die "This plugin needs to be attached to either get_translation_pre or get_translation phase, but not both" if $f1 && $f2;
 }
 
 # public static method
@@ -199,8 +203,8 @@ sub _expand_string {
 sub get_translation {
     my ($self, $phase, $string, $context, $namespace, $filepath, $lang) = @_;
 
-    return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations}) if $self->is_test_language($lang);
-    return (); # otherwise, return an empty array
+    return () unless $self->is_test_language($lang);
+    return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations});
 }
 
 sub can_process_ts_file {

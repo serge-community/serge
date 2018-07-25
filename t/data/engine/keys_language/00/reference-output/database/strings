@@ -1,0 +1,49 @@
+strings
+{
+    0     1 2 a NO 0
+    1     2 4 OK NO 0
+    2     3 6 Cancel NO 0
+    3     4 8 Upgrade NO 0
+    4     5 10 Internationalization NO 0
+    5     6 12 `Lorem ispsum dolor sit amet` NO 0
+    6     7 14
+          `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim felis.`
+          NO 0
+    7     8 16
+          `Ut est orci, bibendum ut mi ut, feugiat gravida ligula. Curabitur auctor eget leo a rutrum. Suspendisse tempor velit id dui volutpat condimentum.`
+          NO 0
+    8     9 18
+          `Proin in odio odio. Curabitur quis arcu iaculis, convallis quam ac, dictum eros. Phasellus sollicitudin consequat risus, id eleifend risus dapibus in. Quisque porta porttitor condimentum. Phasellus aliquam dapibus dolor, et mattis turpis lobortis vitae. Nulla facilisi. In ut bibendum orci. Sed mi eros, efficitur vel ligula vitae, lobortis rhoncus libero. Suspendisse maximus, lectus et feugiat venenatis, libero est vestibulum justo, in tempor massa erat non libero. Etiam arcu nibh, ultricies id faucibus in, convallis eu diam. Phasellus facilisis sed metus vitae ornare. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus posuere ut mi et mattis. Integer sed tortor porta, cursus diam eu, placerat nulla. Mauris congue a lorem sit amet feugiat. Sed elementum malesuada eros, sed finibus urna malesuada vel.`
+          NO 0
+    9     10 20 %s NO 0
+    10    11 22 `foo %s bar %d baz%.2f` NO 0
+    11    12 24 \n NO 0
+    12    13 26 `foo \n bar \t baz\x` NO 0
+    13    14 28 %FOO% NO 0
+    14    15 30 `foo %FOO% bar %bar% baz%_baz_%` NO 0
+    15    16 32 <tag> NO 0
+    16    17 34 `foo <tag>bar</tag> baz<etc/>` NO 0
+    17    18 36 `<?php echo foo(); ?>` NO 0
+    18    19 38 `<?= foo(); ?>` NO 0
+    19    20 40 `foo <?php echo foo(); ?> bar<?= foo(); ?>baz` NO 0
+    20    21 42 &nbsp; NO 0
+    21    22 44 `foo &mdash; bar&nbsp;baz` NO 0
+    22    23 46 {0} NO 0
+    23    24 48 `foo {0} bar{1}baz{123}` NO 0
+    24    25 50 ${0} NO 0
+    25    26 52 `foo ${0} bar${ab.cd}baz${ef$g}` NO 0
+    26    27 54 /var/www NO 0
+    27    28 56 `foo /var/www bar /etc/pwd baz /x` NO 0
+    28    29 58 http://foo.bar/baz.etc NO 0
+    29    30 60 https://var/www/?foo=bar&baz=e+t%20c#pwd NO 0
+    30    31 62 mailto:foo@bar NO 0
+    31    32 64 mailto:foo@bar.baz NO 0
+    32    33 66 ftp://var/www NO 0
+    33    34 68 ssh://foo@bar.baz/etc NO 0
+    34    35 70 `foo http://foo.bar/baz.etc mailto:foo@bar.baz baz` NO
+          0
+    35    36 72 `{CHOICE:{A} aaa|{B} bbb}` NO 0
+    36    37 74 `foo {CHOICE:{A} aaa|{B} bbb} bar` NO 0
+    37    38 76 [0] NO 0
+    38    39 78 `foo [bar] baz` NO 0
+}
