@@ -25,6 +25,7 @@ RUN set -ex \
     && rm /tmp/prereq
 
 ENV PATH="/serge/bin:${PATH}"
+ENV PERL5LIB="/serge/lib${PERL5LIB:+:}${PERL5LIB}"
 VOLUME /data
 WORKDIR /data
 ENTRYPOINT ["/serge/bin/serge"]
