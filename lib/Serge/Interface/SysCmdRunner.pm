@@ -3,6 +3,7 @@ package Serge::Interface::SysCmdRunner;
 use strict;
 
 use Cwd;
+use File::chdir;
 
 sub run_cmd {
     my ($self, $command, $capture, $ignore_codes) = @_;
@@ -38,17 +39,13 @@ sub run_in {
     die "directory parameter shouldn't be empty" if $directory eq '';
 
     my $result;
-    my $curdir = getcwd(); # preserve current directory
-    if (chdir($directory)) {
-        print "RUN IN: $directory\n" if $self->{echo_commands};
-        eval {
-            $result = $self->run_cmd($command, $capture, $ignore_codes);
-        };
-        chdir($curdir); # restore current directory
-        die $@ if $@;
-    } else {
-        die "Failed to chdir to '$directory': $!";
+
+    {
+        local $CWD = $directory;
+
+        $result = $self->run_cmd($command, $capture, $ignore_codes);
     }
+
     return $result;
 }
 

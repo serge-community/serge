@@ -24,6 +24,7 @@ my $builder = Module::Build->new(
         'Authen::SASL'       => 0,
         'Config::Neat'       => '1.302',
         'DBD::SQLite'        => 0,
+        'File::chdir'        => 0,
         'JSON'               => 0,
         'JSON::XS'           => 0,
         'MIME::Lite'         => 0,
