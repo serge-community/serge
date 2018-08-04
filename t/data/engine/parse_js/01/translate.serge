@@ -1,0 +1,20 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.js$
+
+        parser
+        {
+            plugin                               parse_js
+        }
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME%_%LOCALE%.%EXT%
+
+        callback_plugins
+        {
+            -:test_language
+        }
+    }
+}

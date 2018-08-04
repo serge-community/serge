@@ -1,0 +1,199 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. key1
+#: File: strings.js
+#: ID: 9c670db549a1a1f42b7b2176dd3fe0af
+msgid ""
+"foo\\n"
+"bar"
+msgstr ""
+
+#. key2
+#: File: strings.js
+#: ID: 49b03abed897fd1635a2c873866e27e0
+msgid ""
+"foo\\\n"
+"bar"
+msgstr ""
+
+#. key3
+#: File: strings.js
+#: ID: 03387e0c51e87ed581622f7c5a5c1244
+msgid ""
+"foo\\\\n"
+"bar"
+msgstr ""
+
+#. key4a
+#: File: strings.js
+#: ID: 65ed3e16c17c3144d29333a11c6d641b
+msgid "foo \"bar\""
+msgstr ""
+
+#. key4b
+#: File: strings.js
+#: ID: 22509abe5623039830bdd48ad270c9df
+msgid "foo \\\"bar\""
+msgstr ""
+
+#. key5a
+#: File: strings.js
+#: ID: e23404f405e108aa47d7f8ed6425787f
+msgid "foo 'bar'"
+msgstr ""
+
+#. key5b
+#: File: strings.js
+#: ID: 9f601800c7a1943dbf329019d2eb9f8b
+msgid "foo \\'bar'"
+msgstr ""
+
+#. key6
+#. \101 = 'A' (ASCII), octal form
+#: File: strings.js
+#: ID: bbed30132fe17c0d16556ec60a8dc854
+msgid "fooAbar"
+msgstr ""
+
+#. key7
+#. \x41 = 'A' (ASCII), hexadecimal form
+#: File: strings.js
+#: ID: 552964d15d5c6b13117f377fd5be917f
+msgctxt "key7"
+msgid "fooAbar"
+msgstr ""
+
+#. key8a
+#. \u{41} = 'A' (ASCII), hexadecimal form
+#: File: strings.js
+#: ID: 71c3ac68be11c61d9430ec32ce399b68
+msgctxt "key8a"
+msgid "fooAbar"
+msgstr ""
+
+#. key8b
+#. \u{041} = 'A' (ASCII), hexadecimal form
+#: File: strings.js
+#: ID: b9b0645212fb22050243ae72484a02b9
+msgctxt "key8b"
+msgid "fooAbar"
+msgstr ""
+
+#. key8c
+#. \u{0041} = 'A' (ASCII), hexadecimal form
+#: File: strings.js
+#: ID: ef10a6c56916c2001bddea8b8bcdff19
+msgctxt "key8c"
+msgid "fooAbar"
+msgstr ""
+
+#. key8d
+#. \u{00041} = 'A' (ASCII), hexadecimal form
+#: File: strings.js
+#: ID: 259dcc189404f0a16e935915d4f75b92
+msgctxt "key8d"
+msgid "fooAbar"
+msgstr ""
+
+#. key9
+#. \u0102 = 'Ă' // Unicode
+#: File: strings.js
+#: ID: efad6a3a87658dd3d6f969e3f55c1935
+msgid "fooĂbar"
+msgstr ""
+
+#. key10
+#. \u0466 = 'Ѧ' // Unicode
+#: File: strings.js
+#: ID: 6d1c04f8d246f4c1edc6097d919f14ec
+msgid "fooѦbar"
+msgstr ""
+
+#. key11
+#. \u{1F600} = '😀' // Unicode, emoji
+#: File: strings.js
+#: ID: dd12fbd386712fa6328588c5eac71b8c
+msgid "foo😀bar"
+msgstr ""
+
+#. key12a
+#: File: strings.js
+#: ID: 9d9a6a7617aceb29b4a0a46d31488bdb
+msgid "foo\\bbar"
+msgstr ""
+
+#. key12b
+#: File: strings.js
+#: ID: 0a53539ef3def49f9e5e5b5cda1d339d
+msgid "foo\\b\\bbar"
+msgstr ""
+
+#. key13a
+#: File: strings.js
+#: ID: f31ac9be6830c02dd2b9134c5116f9a4
+msgid "foo\\fbar"
+msgstr ""
+
+#. key13b
+#: File: strings.js
+#: ID: b0d9b5c27c34916ec3f9a33fe31cdad8
+msgid "foo\\f\\fbar"
+msgstr ""
+
+#. key14a
+#: File: strings.js
+#: ID: 64b6e5705a42a959032038f1a9b319c9
+msgid ""
+"foo\n"
+"bar"
+msgstr ""
+
+#. key14b
+#: File: strings.js
+#: ID: 7491e3f29bd898b3e7f5d1c9465421a4
+msgid ""
+"foo\n"
+"\n"
+"bar"
+msgstr ""
+
+#. key15a
+#: File: strings.js
+#: ID: ef3f9f9ec8ef10cae3a3a242b57abe8b
+msgid "foo\\rbar"
+msgstr ""
+
+#. key15b
+#: File: strings.js
+#: ID: 5e496c1a38495441d822d6bab64bc302
+msgid "foo\\r\\rbar"
+msgstr ""
+
+#. key16a
+#: File: strings.js
+#: ID: 72f87e9b9b99df52db8c508e1086638d
+msgid "foo\tbar"
+msgstr ""
+
+#. key16b
+#: File: strings.js
+#: ID: 02b326da5c4aa2b33ed6b6457ba4f256
+msgid "foo\t\tbar"
+msgstr ""
+
+#. key17a
+#: File: strings.js
+#: ID: ec74c9b72dfe9cbe81f650f54ecf4ddc
+msgid "foo\\vbar"
+msgstr ""
+
+#. key17b
+#: File: strings.js
+#: ID: de0a204a2c0c87ebb3bf32bac2823350
+msgid "foo\\v\\vbar"
+msgstr ""
