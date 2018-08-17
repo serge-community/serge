@@ -184,7 +184,7 @@ if (!$branch_list_file) {
     while (my $line = <CFG>) {
         $line =~ s/^\s+//sg;
         $line =~ s/\s+$//sg;
-        next if $line =~ m/^\#/;
+        next if $line eq '' || $line =~ m/^\#/;
         my $skip = $line =~ m/^-/;
         $line =~ s/^-//;
         $line =~ s!^$upstream_name/!!;
@@ -215,6 +215,11 @@ foreach my $branch (sort keys %$branch_candidates) {
 
     print "$branch - ";
 
+    if ($skip) {
+        print "marked in the config as skipped\n";
+        next;
+    }
+
     my $out = `git log --pretty=format:"$commit_format" --max-count=$commit_depth $upstream_name/$branch`;
     my @commits = parse_lines($out);
     my ($upd, $upd_str);
@@ -232,11 +237,6 @@ foreach my $branch (sort keys %$branch_candidates) {
         }
     } else {
         print "can't find any recent qualifying commit, skipping\n";
-        next;
-    }
-
-    if ($skip) {
-        print "marked in the config as skipped\n";
         next;
     }
 

@@ -1,0 +1,14 @@
+# Provide the list of branches here, one per line.
+# lines starting with `#` are considered comments.
+
+# This is the list of branches that will be explicitly
+# added to the list of candidates:
+
+bugfix/foo
+my-custom-branch-name
+
+# This is the list of branches that will be explicitly
+# excluded (they have `-` before the branch name):
+
+-release/1.1
+-release/1.2
