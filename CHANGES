@@ -51,6 +51,9 @@ Revision history
           \NNN, \xNN, \uNNNN, \u{NNNNN}. \n and \t sequences are properly
           converted to raw line breaks and tabulation symbols, respectively.
 
+        - parse_master can now be configured to use custom opening/closing
+          markers and delimiters.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the

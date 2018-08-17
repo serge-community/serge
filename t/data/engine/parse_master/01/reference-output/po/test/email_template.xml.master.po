@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. Email subject
+#: File: email_template.xml.master
+#: ID: b27b28fa4633c77743f378907ae13b73
+msgid "ACME account activation"
+msgstr "ĀĆḾĒ áççőũŋţ áçţĩṽáţĩőŋ"
+
+#. Please wrap the lines so their widths will be under 72 characters
+#: File: email_template.xml.master
+#: ID: af300c8e3833226f5fbff115e8e56cb8
+msgid "This email confirms your recent ACME account activation request."
+msgstr "Ŧĥĩš ēḿáĩļ çőŋḟĩŕḿš ŷőũŕ ŕēçēŋţ ĀĆḾĒ áççőũŋţ áçţĩṽáţĩőŋ ŕēǫũēšţ."
+
+#. Please wrap the lines so their widths will be under 72 characters
+#: File: email_template.xml.master
+#: ID: 6e922b8c59c24316c394e956398662f0
+msgid ""
+"Follow the link below, and we will activate your\n"
+"account with username ${username}:"
+msgstr ""
+"Ḟőļļőŵ ţĥē ļĩŋķ ḃēļőŵ, áŋđ ŵē ŵĩļļ áçţĩṽáţē ŷőũŕ\n"
+"áççőũŋţ ŵĩţĥ ũšēŕŋáḿē ${username}:"
+
+#. Please wrap the lines so their widths will be under 72 characters
+#: File: email_template.xml.master
+#: ID: 3fd521e005eae6802f087c09d18a058d
+msgid "The ACME team"
+msgstr "Ŧĥē ĀĆḾĒ ţēáḿ"
