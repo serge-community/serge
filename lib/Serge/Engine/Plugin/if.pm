@@ -3,7 +3,7 @@ use parent Serge::Plugin::Base::Callback;
 
 use strict;
 
-use Serge::Util qw(set_flag);
+use Serge::Util qw(set_flag subst_macros_strref);
 
 # if multiple 'if' blocks are provided, at least one of them must match:
 #   result = (block1 || block2 || block3 || ...)
@@ -32,8 +32,17 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        if => {''                    => 'LIST',
+        set_flag                     => 'ARRAY',
+        remove_flag                  => 'ARRAY',
+        capture                      => {'' => 'LIST',
+            '*' => {
+                match                => 'ARRAY',
+                prefix               => 'STRING',
+            }
+        },
+        return                       => 'BOOLEAN',
 
+        if => {''                    => 'LIST',
             '*' => {
                 file_matches         => 'ARRAY',
                 file_doesnt_match    => 'ARRAY',
@@ -51,9 +60,19 @@ sub init {
                 has_no_flag          => 'ARRAY',
                 has_all_flags        => 'ARRAY',
 
+                has_capture          => 'ARRAY',
+                has_no_capture       => 'ARRAY',
+                has_all_captures     => 'ARRAY',
+
                 then => {
                     set_flag         => 'ARRAY',
                     remove_flag      => 'ARRAY',
+                    capture          => {'' => 'LIST',
+                        '*' => {
+                            match    => 'ARRAY',
+                            prefix   => 'STRING',
+                        }
+                    },
                     return           => 'BOOLEAN',
                 },
             },
@@ -90,11 +109,12 @@ sub adjust_phases {
 sub before_job {
     my ($self) = @_;
 
-    # clear flags for each job
+    # initialize/clear plugin data for each job
     my $job = $self->{parent};
     $job->{plugin_data} = {} unless exists $job->{plugin_data};
     $job->{plugin_data}->{check_if} = {} unless exists $job->{plugin_data}->{check_if};
     $job->{plugin_data}->{check_if}->{flags} = {};
+    $job->{plugin_data}->{check_if}->{captures} = {};
 }
 
 sub after_load_source_file_for_processing {
@@ -106,6 +126,11 @@ sub after_load_source_file_for_processing {
 sub flags {
     my $self = shift;
     return $self->{parent}->{plugin_data}->{check_if}->{flags};
+}
+
+sub captures {
+    my $self = shift;
+    return $self->{parent}->{plugin_data}->{check_if}->{captures};
 }
 
 sub check {
@@ -165,12 +190,22 @@ sub check_block {
     return 0 unless $self->_check_statement($block->{comment_matches},      1,     $$commentref);
     return 0 unless $self->_check_statement($block->{comment_doesnt_match}, undef, $$commentref);
 
-    return 0 unless $self->_check_flag($block->{has_flag},             1);
-    return 0 unless $self->_check_flag($block->{has_no_flag},          undef);
+    my $flags = $self->flags;
+    return 0 unless $self->_check_has_member($flags, $block->{has_flag},    1);
+    return 0 unless $self->_check_has_member($flags, $block->{has_no_flag}, undef);
+    return 0 unless $self->_check_has_all_members($flags, $block->{has_all_flags});
 
-    return 0 unless $self->_check_has_all_flags($block->{has_all_flags});
+    my $captures = $self->captures;
+    return 0 unless $self->_check_has_member($captures, $block->{has_capture},    1);
+    return 0 unless $self->_check_has_member($captures, $block->{has_no_capture}, undef);
+    return 0 unless $self->_check_has_all_members($captures, $block->{has_all_captures});
 
     return 1;
+}
+
+sub _key {
+    my $self = shift;
+    return $self->{parent}->{engine}->{current_file_rel};
 }
 
 sub _check_statement {
@@ -186,11 +221,11 @@ sub _check_statement {
     return !$positive;
 }
 
-sub _check_flag {
-    my ($self, $flagset, $positive) = @_;
+sub _check_has_member {
+    my ($self, $memberset, $flagset, $positive) = @_;
 
     return 1 unless defined $flagset;
-    my $f = $self->flags->{$self->{parent}->{engine}->{current_file_rel}} || {};
+    my $f = $memberset->{$self->_key} || {};
 
     foreach my $flag (@$flagset) {
         if (exists $f->{$flag}) {
@@ -200,12 +235,12 @@ sub _check_flag {
     return !$positive;
 }
 
-sub _check_has_all_flags {
-    my ($self, $flagset) = @_;
+sub _check_has_all_members {
+    my ($self, $memberset, $flagset) = @_;
 
     return 1 unless defined $flagset;
 
-    my $f = $self->flags->{$self->{parent}->{engine}->{current_file_rel}} || {};
+    my $f = $memberset->{$self->_key} || {};
 
     foreach my $flag (@$flagset) {
         if (!exists $f->{$flag}) {
@@ -218,11 +253,12 @@ sub _check_has_all_flags {
 sub process_then_block {
     my ($self, $phase, $block, $file, $lang, $strref, $commentref) = @_;
 
-    my $flags = $self->flags;
+    my $key = $self->_key;
 
     # deal with flags only when set_flag/remove_flag directives are defined
     if (exists $block->{set_flag} || exists $block->{remove_flag}) {
-        my $key = $self->{parent}->{engine}->{current_file_rel};
+        my $flags = $self->flags;
+
         $flags->{$key} = {} unless exists $flags->{$key};
 
         if (exists $block->{set_flag}) {
@@ -238,11 +274,53 @@ sub process_then_block {
         }
     }
 
+    if (exists $block->{capture}) {
+        my $captures = $self->captures;
+
+        $captures->{$key} = {} unless exists $captures->{$key};
+
+        my $rules = $block->{capture};
+        foreach my $rule (@$rules) {
+            my ($from, $modifiers) = @{$rule->{match}};
+            my $prefix = $rule->{prefix};
+
+            my $output_lang = $lang;
+            my $r = $self->{parent}->{output_lang_rewrite};
+            $output_lang = $r->{$lang} if defined $r && exists($r->{$lang});
+
+            subst_macros_strref(\$from, $file, $output_lang);
+
+            my @matches;
+            my $eval_line = "\@matches = \$\$strref =~ m/$from/$modifiers;";
+            eval($eval_line);
+            die "eval() failed on: '$eval_line'\n$@" if $@;
+
+            for (my $i = 0; $i <= $#matches; $i++) {
+                my $name = $prefix.($i+1);
+                my $value = $matches[$i];
+                print "::captured for [$key]: [$name]=>[$value]\n" if $self->{parent}->{debug};
+                $captures->{$key}->{$name} = $value;
+            }
+        }
+    }
+
     if (exists $block->{return}) {
         return $block->{return} ? 1 : 0;
     }
 
     return undef;
+}
+
+sub subst_captures {
+    my ($self, $message) = @_;
+
+    my $key = $self->_key;
+    my $captures = $self->captures;
+    return $message unless exists $captures->{$key};
+
+    $message =~ s/%CAPTURE:(\S+)%/$captures->{$key}->{$1}/ge;
+
+    return $message;
 }
 
 1;
