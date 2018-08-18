@@ -60,8 +60,15 @@ sub process_then_block {
     my ($self, $phase, $block, $filepath, $lang, $strref, $commentref, $aref) = @_;
 
     if ($phase eq 'add_hint') {
-        foreach my $message (@{$block->{message}}) {
-            push @$aref, $self->{parent}->render_full_output_path($message, $filepath, $lang);
+        my @m = @{$block->{message}}; # make a copy
+        foreach my $message (@m) {
+            # use render_full_output_path as a higher-level substitution for
+            # subst_macros which can also deal with filepath-based macros
+            $message = $self->{parent}->render_full_output_path($message, $filepath, $lang);
+            # additionally, substitute captures
+            $message = $self->subst_captures($message);
+            # push the message to the array of hints
+            push @$aref, $message;
         }
     }
 
