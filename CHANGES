@@ -54,7 +54,7 @@ Revision history
         - parse_master can now be configured to use custom opening/closing
           markers and delimiters.
 
-        - added feature branch config generator tool (see
+        - Added feature branch config generator tool (see
           `bin/tools/feature-branch-config-generator` folder for the tool itself,
           examples and documentation). This tool scans your Git repository,
           determines the list of actively maintained branches that match the
