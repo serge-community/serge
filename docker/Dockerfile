@@ -26,6 +26,7 @@ RUN set -ex \
 
 ENV PATH="/serge/bin:${PATH}"
 ENV PERL5LIB="/serge/lib${PERL5LIB:+:}${PERL5LIB}"
+ENV SERGE_DATA_DIR=/data
 VOLUME /data
 WORKDIR /data
 ENTRYPOINT ["/serge/bin/serge"]
