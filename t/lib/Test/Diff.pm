@@ -67,6 +67,13 @@ sub dir_diff {
 
             files_diff($t1, $t2, { base_dir => $base }) if (-f $t1);
         }, $d1);
+
+        find(sub {
+            my $t1 = $File::Find::name;
+            my $t2 = catfile($d1, abs2rel($t1, $d2));
+
+            files_diff($t1, $t2, { base_dir => $base }) if (-f $t1);
+        }, $d2);
     };
 }
 
