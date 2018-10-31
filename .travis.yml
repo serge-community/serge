@@ -10,6 +10,8 @@ script:
 after_success:
   - cover -report codecov
 perl:
+  - "5.28"
+  - "5.26"
   - "5.24"
   - "5.22"
   - "5.18"
