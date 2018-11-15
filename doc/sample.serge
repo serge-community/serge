@@ -6,7 +6,7 @@
     See https://github.com/iafan/Config-Neat for more information.
 */
 
-# `sync` block contains all synchroinzation-related settings
+# `sync` block contains all synchronization-related settings
 sync
 {
     # `ts` defines which translation service
@@ -175,12 +175,18 @@ jobs
 
         # (ARRAY) List of regular expressions for the file name
         # to match the files that should be processed.
-        # This matches case-insensitively against the file name (without path)
+        # This matches case-sensitively against the file name (without path)
         source_match                \.rc$
+
+        # (ARRAY) [OPTIONAL] List of regular expressions for the relative directory path or directory name
+        # to match relative directory paths or directory names that should be skipped.
+        # This matches case-sensitively against the relative directory path or directory name (without file name)
+        # Default behavior: Exclude `.svn', `.git', `.hg' (Mercurial), '.bzr' (Bazaar) and `CVS' dirs
+        source_exclude_dirs ^(\.svn|\.git|\.hg|\.bzr|CVS)$
 
         # (ARRAY) [OPTIONAL] List of regular expressions for the file name
         # to match the files that should be skipped.
-        # This matches case-insensitively against the file name (without path)
+        # This matches case-sensitively against the file name (without path)
         # Default behavior: no exclusion takes place
         source_exclude              ``
 
