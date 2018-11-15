@@ -6,10 +6,14 @@ before_script:
 script:
   - perl Build.PL && ./Build && ./Build test
   - cover -delete
+  - perl -MDevel::Cover t/compile.t
   - perl -MDevel::Cover t/engine.t
+  - perl -MDevel::Cover t/plugins.t
 after_success:
   - cover -report codecov
 perl:
+  - "5.28"
+  - "5.26"
   - "5.24"
   - "5.22"
   - "5.18"
