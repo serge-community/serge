@@ -1,0 +1,14 @@
+sync
+{
+    ts
+    {
+        plugin                      pootle
+
+        data
+        {
+            project_id              SergeTest
+
+            manage_py_path          ./pootle/not-found.py
+        }
+    }
+}

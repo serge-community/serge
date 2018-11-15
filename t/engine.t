@@ -43,6 +43,7 @@ sub Serge::Engine::file_mtime {
 }
 
 my $thisdir = dirname(abs_path(__FILE__));
+my $tests_dir = catfile($thisdir, 'data', 'engine');
 
 my @confs;
 
@@ -58,12 +59,12 @@ if (my $env_dirs = $ENV{SERGE_ENGINE_TESTS}) {
 unless (@dirs) {
     find(sub {
         push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-    }, $thisdir);
+    }, $tests_dir);
 } else {
     for my $dir (@dirs) {
         find(sub {
             push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-        }, catfile($thisdir, "data/engine", $dir));
+        }, catfile($tests_dir, $dir));
     }
 }
 
