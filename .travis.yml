@@ -6,6 +6,7 @@ before_script:
 script:
   - perl Build.PL && ./Build && ./Build test
   - cover -delete
+  - perl -MDevel::Cover t/compile.t
   - perl -MDevel::Cover t/engine.t
 after_success:
   - cover -report codecov
