@@ -156,7 +156,7 @@ for my $config_file (@confs) {
             }
 
             my $ts;
-            my $plugin = '';
+            my $plugin = 'unknown';
 
             eval {
                 $plugin = $cfg->{data}->{sync}->{ts}->{plugin};
