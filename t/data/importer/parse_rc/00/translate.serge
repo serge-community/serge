@@ -1,0 +1,13 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.rc$
+
+        parser
+        {
+            plugin                               parse_rc
+        }
+    }
+}
