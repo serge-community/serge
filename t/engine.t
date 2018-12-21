@@ -9,7 +9,7 @@ use strict;
 # script or assign them to the environment variable SERGE_ENGINE_TESTS as a
 # comma-separated list.  The following two examples are equivalent:
 #
-# perl t/enigne.t parse_json parse_strings
+# perl t/engine.t parse_json parse_strings
 # SERGE_ENGINE_TESTS=parse_json,parse_strings prove t/engine.t
 
 BEGIN {
@@ -42,7 +42,8 @@ sub Serge::Engine::file_mtime {
     return 12345678;
 }
 
-my $thisdir = dirname(abs_path(__FILE__));
+my $this_dir = dirname(abs_path(__FILE__));
+my $tests_dir = catfile($this_dir, 'data', 'engine');
 
 my @confs;
 
@@ -58,12 +59,12 @@ if (my $env_dirs = $ENV{SERGE_ENGINE_TESTS}) {
 unless (@dirs) {
     find(sub {
         push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-    }, $thisdir);
+    }, $tests_dir);
 } else {
     for my $dir (@dirs) {
         find(sub {
             push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-        }, catfile($thisdir, "data/engine", $dir));
+        }, catfile($tests_dir, $dir));
     }
 }
 
