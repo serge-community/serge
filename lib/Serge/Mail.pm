@@ -42,10 +42,15 @@ sub _send {
 
     my $smtp;
     if ($use_ssl) {
-        $smtp = Net::SMTP::SSL->new($host, Port => $port, Debug => $debug) or die $@;
+        $smtp = Net::SMTP::SSL->new($host, Port => $port, Debug => $debug);
     } else {
-        $smtp = Net::SMTP->new($host, Port => $port, Debug => $debug) or die $@;
+        $smtp = Net::SMTP->new($host, Port => $port, Debug => $debug);
     }
+    if ($@) {
+        warn "Failed to send the following email:\n$data\n";
+        warn $@;
+    }
+
     if ($user) {
         $smtp->auth($user, $pass) or die "auth() call failed for user '$user'";
     }
