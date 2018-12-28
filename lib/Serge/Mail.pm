@@ -6,7 +6,6 @@ no warnings qw(uninitialized);
 
 use MIME::Lite;
 use Net::SMTP;
-use Net::SMTP::SSL;
 
 our $debug    = $ENV{SMTP_DEBUG} == 1;
 our $disable  = $ENV{SMTP_DISABLE} == 1;
@@ -40,12 +39,7 @@ sub _send {
         return;
     }
 
-    my $smtp;
-    if ($use_ssl) {
-        $smtp = Net::SMTP::SSL->new($host, Port => $port, Debug => $debug);
-    } else {
-        $smtp = Net::SMTP->new($host, Port => $port, Debug => $debug);
-    }
+    my $smtp = Net::SMTP->new($host, Port => $port, SSL => $use_ssl, Debug => $debug);
     if ($@) {
         warn "Failed to send the following email:\n$data\n";
         warn $@;
