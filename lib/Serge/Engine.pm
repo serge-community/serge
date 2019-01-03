@@ -147,9 +147,9 @@ sub open_database {
 
     return if
         ($self->{db_source} ne '') &&
-        ($self->{db_source} eq $job->{db_source}) &&
-        ($self->{db_username} eq $job->{db_username}) &&
-        ($self->{db_password} eq $job->{db_password});
+            ($self->{db_source} eq $job->{db_source}) &&
+            ($self->{db_username} eq $job->{db_username}) &&
+            ($self->{db_password} eq $job->{db_password});
 
     # open the database (this will also close previous connection and commit the transaction, if any)
     $self->{db}->open($job->{db_source}, $job->{db_username}, $job->{db_password});
@@ -580,8 +580,8 @@ sub update_database_from_source_files {
     }
 
     print scalar keys %$new, " files are new, ",
-          scalar keys %$orphaned, " were orphaned and ",
-          scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
+        scalar keys %$orphaned, " were orphaned and ",
+        scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
     if (scalar keys %$rename) {
         print "The following files were renamed:\n";
         map {
@@ -941,6 +941,8 @@ sub update_database_from_ts_files_lang_file {
     my $text = decode_utf8(join('', <TS>));
     close(TS);
 
+    $self->run_callbacks('before_deserialize_ts_file', $self->{current_file_rel}, \$text);
+
     my $current_hash = generate_hash($text);
 
     if ($self->{job}->{optimizations} and ($current_hash eq $self->{db}->get_property("ts:$self->{current_file_id}:$lang"))) {
@@ -1280,6 +1282,8 @@ sub generate_ts_files_for_file_lang {
         return undef;
     }
 
+    $self->run_callbacks('after_serialize_ts_file', $file, \$text);
+
     # update translation file item counter property
 
     $self->{ts_items_count}->{$ts_items_count_key} = $count;
@@ -1429,11 +1433,11 @@ sub generate_localized_files_for_file_lang {
 
     if ($self->{force_flags}->{"$self->{current_file_id}.$lang"} == 0) { # if not forced
         if ($self->{job}->{optimizations}
-                and $file_exists
-                and ($current_mtime eq $old_mtime)
-                and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
-                and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
-            ) {
+            and $file_exists
+            and ($current_mtime eq $old_mtime)
+            and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
+            and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
+        ) {
             print "\t\tSkip generating $fullpath because source file and translations did not change, target file exists and has the same modification time\n" if $self->{debug};
             return;
         }
@@ -1489,9 +1493,9 @@ sub generate_localized_files_for_file_lang {
     my $old_hash = $self->{db}->get_property("target:$filekey:$lang");
 
     if ($self->{job}->{optimizations}
-            and $file_exists
-            and ($current_hash eq $old_hash)
-            and ($current_mtime eq $old_mtime)) {
+        and $file_exists
+        and ($current_hash eq $old_hash)
+        and ($current_mtime eq $old_mtime)) {
         print "\t\tSkip saving $fullpath: content hash and file modification time are the same\n" if $self->{debug};
     } else {
         my @reasons;
@@ -1665,9 +1669,9 @@ sub internal_get_translation { # from database
     # try to get translation by calling registered plugin callbacks
     # (phase 1, before even looking for existing translations)
     my ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation_pre',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
+        'get_translation_pre',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
     $translation = NFC($translation) if $translation ne '';
     return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
@@ -1709,9 +1713,9 @@ sub internal_get_translation { # from database
     # try to get translation by calling registered plugin callbacks
     # (phase 2, after looking up the database)
     ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
+        'get_translation',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
     $translation = NFC($translation) if $translation ne '';
     return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
