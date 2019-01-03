@@ -147,9 +147,9 @@ sub open_database {
 
     return if
         ($self->{db_source} ne '') &&
-        ($self->{db_source} eq $job->{db_source}) &&
-        ($self->{db_username} eq $job->{db_username}) &&
-        ($self->{db_password} eq $job->{db_password});
+            ($self->{db_source} eq $job->{db_source}) &&
+            ($self->{db_username} eq $job->{db_username}) &&
+            ($self->{db_password} eq $job->{db_password});
 
     # open the database (this will also close previous connection and commit the transaction, if any)
     $self->{db}->open($job->{db_source}, $job->{db_username}, $job->{db_password});
@@ -580,8 +580,8 @@ sub update_database_from_source_files {
     }
 
     print scalar keys %$new, " files are new, ",
-          scalar keys %$orphaned, " were orphaned and ",
-          scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
+        scalar keys %$orphaned, " were orphaned and ",
+        scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
     if (scalar keys %$rename) {
         print "The following files were renamed:\n";
         map {
@@ -912,7 +912,7 @@ sub update_database_from_ts_files_lang_file {
     $self->{current_file_rel} = $relfile;
     $self->{current_file_id} = undef;
 
-    my $fullpath = $self->{job}->get_full_ts_file_path($relfile, $lang);
+    my $fullpath = $self->get_full_ts_file_path($relfile, $lang);
 
     if (!-f $fullpath) {
         print "\tFile does not exist: $fullpath\n" if $self->{debug};
@@ -1127,22 +1127,37 @@ sub generate_ts_files_for_file {
     }
 }
 
+sub get_full_ts_file_path {
+    my ($self, $file, $lang) = @_;
+
+    my $ts_file = $file;
+
+    my ($f) = $self->run_callbacks('rewrite_relative_ts_file_path', $file, $lang);
+    $ts_file = $f if $f;
+
+    my $fullpath = $self->{job}->get_full_ts_file_path($ts_file, $lang);
+
+    ($f) = $self->run_callbacks('rewrite_absolute_ts_file_path', $fullpath, $lang);
+    $fullpath = $f if $f;
+
+    return $fullpath;
+}
+
 sub generate_ts_files_for_file_lang {
     my ($self, $file, $lang) = @_;
 
     # skip generating TS files for source language (it is added in `output_default_lang_file` mode implicitly)
     return if ($lang eq $self->{job}->{source_language});
 
-    my $fullpath = $self->{job}->get_full_ts_file_path($file, $lang);
-
     my $result = combine_and(1, $self->run_callbacks('can_generate_ts_file', $file, $lang));
     if ($result eq '0') {
-        print "\t\tSkip generating $fullpath because at least one callback returned 0\n" if $self->{debug};
+        print "\t\tSkip generating TS file for $file:$lang because at least one callback returned 0\n" if $self->{debug};
         return;
     }
 
+    my $fullpath = $self->get_full_ts_file_path($file, $lang);
+
     my $namespace = $self->{job}->{db_namespace};
-    my $locale = locale_from_lang($lang);
 
     my $dir = dirname($fullpath);
 
@@ -1429,11 +1444,11 @@ sub generate_localized_files_for_file_lang {
 
     if ($self->{force_flags}->{"$self->{current_file_id}.$lang"} == 0) { # if not forced
         if ($self->{job}->{optimizations}
-                and $file_exists
-                and ($current_mtime eq $old_mtime)
-                and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
-                and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
-            ) {
+            and $file_exists
+            and ($current_mtime eq $old_mtime)
+            and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
+            and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
+        ) {
             print "\t\tSkip generating $fullpath because source file and translations did not change, target file exists and has the same modification time\n" if $self->{debug};
             return;
         }
@@ -1489,9 +1504,9 @@ sub generate_localized_files_for_file_lang {
     my $old_hash = $self->{db}->get_property("target:$filekey:$lang");
 
     if ($self->{job}->{optimizations}
-            and $file_exists
-            and ($current_hash eq $old_hash)
-            and ($current_mtime eq $old_mtime)) {
+        and $file_exists
+        and ($current_hash eq $old_hash)
+        and ($current_mtime eq $old_mtime)) {
         print "\t\tSkip saving $fullpath: content hash and file modification time are the same\n" if $self->{debug};
     } else {
         my @reasons;
@@ -1665,9 +1680,9 @@ sub internal_get_translation { # from database
     # try to get translation by calling registered plugin callbacks
     # (phase 1, before even looking for existing translations)
     my ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation_pre',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
+        'get_translation_pre',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
     $translation = NFC($translation) if $translation ne '';
     return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
@@ -1709,9 +1724,9 @@ sub internal_get_translation { # from database
     # try to get translation by calling registered plugin callbacks
     # (phase 2, after looking up the database)
     ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
+        'get_translation',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
     $translation = NFC($translation) if $translation ne '';
     return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
