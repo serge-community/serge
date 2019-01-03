@@ -71,6 +71,18 @@ Revision history
 
         - Net::SMTP is now used instead of deprecated Net::SMTP::SSL.
 
+        - An ability to use XLIFF 1.2 as a translation interchange format
+          added (previously the only supported interchange format was .po).
+          Using XLIFF for translation might come in handy when working with
+          certain CAT tools or online services.
+
+        - Added `rewrite_relative_ts_file_path` and `rewrite_absolute_ts_file_path`
+          phases that allow one to manipulate TS file names with plugins.
+
+        - Added `after_serialize_ts_file` and `before_deserialize_ts_file`
+          phases that allow one to manipulate the translation interchange
+          file contents.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the
