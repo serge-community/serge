@@ -1,0 +1,28 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    de
+
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           replace_strings
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    replace                      `Serge 1.3` `Serge` g
+                }
+            }
+        }
+    }
+}

@@ -55,7 +55,7 @@ sub adjust_phases {
     my ($self, $phases) = @_;
 
     # remove unused flags added by default by the parent 'if' plugin
-    remove_flags($phases, qw(after_load_file after_load_source_file_for_processing before_save_localized_file));
+    remove_flags($phases, qw(after_load_file after_load_source_file_for_processing before_save_localized_file before_deserialize_ts_file after_serialize_ts_file));
 
     # always tie to 'after_save_localized_file' phase
     set_flag($phases, 'after_save_localized_file');

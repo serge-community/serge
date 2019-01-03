@@ -82,7 +82,9 @@ sub init {
     $self->add({
         before_job => \&before_job,
         after_load_file => \&check,
-        after_load_source_file_for_processing => \&after_load_source_file_for_processing,
+        after_load_source_file_for_processing => \&check_file_content,
+        before_deserialize_ts_file => \&check_file_content,
+        after_serialize_ts_file => \&check_file_content,
         before_save_localized_file => \&check,
     });
 }
@@ -117,7 +119,7 @@ sub before_job {
     $job->{plugin_data}->{check_if}->{captures} = {};
 }
 
-sub after_load_source_file_for_processing {
+sub check_file_content {
     my ($self, $phase, $file, $strref) = @_;
 
     $self->check($phase, $file, undef, $strref);

@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Generated-By: Serge 1.3\n"
+
+#. first
+#: File: strings.txt
+#: ID: 8c436f35a56b62109ae23016b1c6a367
+msgid "First"
+msgstr "1"
+
+#. second
+#: File: strings.txt
+#: ID: 56b4c9af99660e9e237394f30a86b5f9
+msgid "Second"
+msgstr "zwei"
