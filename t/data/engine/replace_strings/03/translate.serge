@@ -1,0 +1,51 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \d\.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+                    translations
+                    {
+                        `Value 1`                `Test Translation 1`
+                        `Value 2`                `Test Translation 2`
+                        `Value 3`                `Test Translation 3`
+                    }
+                }
+            }
+
+            {
+                plugin                           replace_strings
+                phase                            rewrite_relative_ts_file_path
+
+                data
+                {
+                   replace              strings ts
+                }
+            }
+
+            {
+                plugin                           replace_strings
+                phase                            rewrite_absolute_ts_file_path
+
+                data
+                {
+                    replace              xml\.po po
+                }
+            }
+        }
+    }
+}

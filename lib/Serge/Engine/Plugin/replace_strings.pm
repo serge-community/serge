@@ -38,7 +38,9 @@ sub init {
         rewrite_translation => \&check,
         rewrite_path => \&rewrite_path,
         rewrite_relative_output_file_path => \&rewrite_path,
-        rewrite_absolute_output_file_path => \&rewrite_path
+        rewrite_absolute_output_file_path => \&rewrite_path,
+        rewrite_relative_ts_file_path => \&rewrite_path,
+        rewrite_absolute_ts_file_path => \&rewrite_path
     });
 }
 
