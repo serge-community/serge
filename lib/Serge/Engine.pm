@@ -941,6 +941,8 @@ sub update_database_from_ts_files_lang_file {
     my $text = decode_utf8(join('', <TS>));
     close(TS);
 
+    $self->run_callbacks('before_deserialize_ts_file', $self->{current_file_rel}, \$text);
+
     my $current_hash = generate_hash($text);
 
     if ($self->{job}->{optimizations} and ($current_hash eq $self->{db}->get_property("ts:$self->{current_file_id}:$lang"))) {
@@ -1294,6 +1296,8 @@ sub generate_ts_files_for_file_lang {
         print "\t\tReason: $@\n";
         return undef;
     }
+
+    $self->run_callbacks('after_serialize_ts_file', $file, \$text);
 
     # update translation file item counter property
 
