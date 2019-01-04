@@ -28,7 +28,7 @@ for (@tests) {
         eval { $output = do $_ };
         ok(!$@ && $output, "'do' $_");
     } else {
-        $output = `perl -I "$libpath" -c $_ 2>&1`;
+        $output = `$^X -I "$libpath" -c $_ 2>&1`;
         my $ok = ($? >> 8 == 0);
         ok($ok, "$_ syntax check");
     }
