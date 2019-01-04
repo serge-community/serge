@@ -1,0 +1,1 @@
+Test for 'apply_xslt' plugin for the xliff serializer, first note to resname

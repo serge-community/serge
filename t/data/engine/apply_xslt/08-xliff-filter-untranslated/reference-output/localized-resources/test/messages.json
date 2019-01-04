@@ -1,0 +1,18 @@
+{
+   "string1" : {
+      "description" : "Description 1",
+      "message" : "翻译"
+   },
+   "string2" : {
+      "description" : "Description 2",
+      "message" : "Übersetzung über Straße  "
+   },
+   "string3" : {
+      "description" : "Description 3",
+      "message" : "Value 3"
+   },
+   "string4" : {
+      "description" : "Description 4",
+      "message" : "Là récente et la plus sûre"
+   }
+}
