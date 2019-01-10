@@ -1,0 +1,5 @@
+[
+   {
+      "command" : "./pootle/manage.py sync_stores --skip-missing --project=SergeTest --language=es --language=fr_CA"
+   }
+]

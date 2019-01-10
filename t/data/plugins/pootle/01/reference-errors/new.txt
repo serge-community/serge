@@ -1,0 +1,1 @@
+Data validation failed for plugin 'Serge::Sync::Plugin::TranslationService::pootle': 'manage_py_path', which is set to './pootle/not-found.py', does not point to a valid file.

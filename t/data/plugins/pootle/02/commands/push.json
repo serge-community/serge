@@ -1,0 +1,5 @@
+[
+   {
+      "command" : "./pootle/manage.py update_stores --project=SergeTest --language=es --language=fr_CA"
+   }
+]
