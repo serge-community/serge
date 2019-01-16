@@ -6,7 +6,7 @@ use strict;
 use Serge::Util qw(subst_macros);
 
 sub name {
-    return 'Pootle translation server (http://pootle.translatehouse.org/) .po synchronization plugin';
+    return 'Pootle translation server (http://pootle.translatehouse.org/) synchronization plugin';
 }
 
 sub init {
