@@ -26,6 +26,7 @@ sub init {
         after_job => \&after_job,
         can_extract => \&can_extract,
         get_translation_pre => \&get_translation_pre,
+        get_translation => \&get_translation,
     });
 
     $self->{cache} = {};
@@ -47,9 +48,9 @@ sub adjust_phases {
     $self->SUPER::adjust_phases($phases);
 
     # always tie to these phases
-    set_flags($phases, 'before_job', 'after_job', 'can_extract', 'get_translation_pre');
+    set_flags($phases, 'before_job', 'after_job', 'can_extract', 'get_translation_pre', 'get_translation');
 
-    die "This plugin attaches itself to specific phases; please don't specify phases in the configuration file" unless @$phases == 4;
+    die "This plugin attaches itself to specific phases; please don't specify phases in the configuration file" unless @$phases == 5;
 }
 
 sub before_job {
@@ -119,7 +120,7 @@ sub load_translations {
     # many string+context duplicates, but calculating keys for these extra pairs
     # shouldn't be much of a problem)
     my $sqlquery = <<__END__;
-        SELECT s.string, s.context, t.language, t.string as translation
+        SELECT s.string, s.context, i.orphaned, t.language, t.string as translation
         FROM items i
 
         JOIN strings s
@@ -152,10 +153,16 @@ __END__
         $n++;
         my $lang = $hr->{language};
         my $skey = generate_key($hr->{string}, $hr->{context});
+
         # save string+context key (to know the string exists in master job
         # even if it doesn't have a translation)
         $cache->{''} = {} unless defined $cache->{''};
-        $cache->{''}->{$skey} = 1;
+
+        # mark the master string as existing unless it is orphaned:
+        # this will expose such string in translation interchange files
+        # for feature branches
+        $cache->{''}->{$skey} = 1 unless $hr->{orphaned};
+
         # save translation
         if ($lang ne '') {
             $cache->{$lang} = {} unless defined $cache->{$lang};
@@ -174,9 +181,34 @@ sub get_translation_pre {
 
     return () if $self->{master_mode}; # do nothing in master mode
 
-    # otherwise, return current translation (or empty array if there's no matching translation)
     my $key = generate_key($string, $context);
-    return exists $self->{cache}->{$lang}->{$key} ? ($self->{cache}->{$lang}->{$key}, undef, undef, undef) : ();
+
+    # if the item in a master branch is orphaned,
+    # don't return the translation yet, because such items
+    # are exposed in feature branch translation interchange files
+    # and thus may already have explicit translations set
+
+    return () unless exists $self->{cache}->{''}->{$key}; # orphaned
+
+    # return current translation from master branch, if any
+    # (or an empty array if there's no matching translation)
+    return () unless exists $self->{cache}->{$lang}->{$key}; # no translation
+
+    return ($self->{cache}->{$lang}->{$key}, undef, undef, undef); # return translation
+}
+
+sub get_translation {
+    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
+
+    return () if $self->{master_mode}; # do nothing in master mode
+
+    my $key = generate_key($string, $context);
+
+    # return current translation from master branch, if any,
+    # including the translations for orphaned items
+    return () unless exists $self->{cache}->{$lang}->{$key}; # no translation
+
+    return ($self->{cache}->{$lang}->{$key}, undef, undef, undef); # return translation
 }
 
 sub string_exists {
