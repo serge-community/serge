@@ -214,6 +214,7 @@ sub get_translation {
 sub string_exists {
     my ($self, $stringref, $context) = @_;
 
+    # string must exist
     return exists $self->{cache}->{''}->{generate_key($$stringref, $context)};
 }
 
@@ -228,11 +229,13 @@ sub can_extract {
 
     # otherwise, we're in a slave job
 
-    # if we're generating localized files, $lang will be set
-    return 1 if defined $lang; # extract everything to translate all the strings, not just overlay ones
+    # if we're generating localized files, $lang will be set;
+    # extract everything to translate all the strings, not just overlay ones
+    return 1 if defined $lang;
 
-    # otherwise (when $lang is not set) we're parsing the source file
-    return $self->string_exists($stringref, $context, ) ? 0 : 1; # extract only strings which are missing from the master job
+    # otherwise (when $lang is not set) we're parsing the source file;
+    # extract only strings which are missing from the master job
+    return $self->string_exists($stringref, $context, ) ? 0 : 1;
 }
 
 1;
