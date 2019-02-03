@@ -66,7 +66,7 @@ sub init {
     {
         # generic rule to limit translation only to a certain set of languages
         # example: L10N_LIMIT_DESTINATION_LANGUAGES=es-latam,zh-tw
-        content_matches    \\bL10N_LIMIT_DESTINATION_LANGUAGES=([\\w,-]*)
+        content_matches    \\bL10N_LIMIT_DESTINATION_LANGUAGES=([\\w,-]*\\w+)?
 
         then
         {
@@ -79,7 +79,7 @@ sub init {
     {
         # generic rule to exclude a certain set of languages
         # example: L10N_EXCLUDE_DESTINATION_LANGUAGES=ar
-        content_matches    \\bL10N_EXCLUDE_DESTINATION_LANGUAGES=([\\w,-]*)
+        content_matches    \\bL10N_EXCLUDE_DESTINATION_LANGUAGES=([\\w,-]*\\w+)?
 
         then
         {
