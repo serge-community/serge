@@ -100,14 +100,16 @@ sub validate_data {
     $self->SUPER::validate_data;
 
     # merge rules from the default config
+    # (default rules should go before the custom ones
+    # so that they can be overridden)
 
     if (!exists $self->{data}->{if}) {
         $self->{data}->{if} = Config::Neat::Array->new();
     }
 
     map {
-        push @{$self->{data}->{if}}, $_;
-    } @{$self->{default_if_rules}->{if}};
+        unshift @{$self->{data}->{if}}, $_;
+    } reverse @{$self->{default_if_rules}->{if}};
 
     # check each rule
 
