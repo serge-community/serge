@@ -62,10 +62,13 @@ sub run {
 
     print "\nScanning translation files...";
     my @ts_files;
+
+    my $wanted = sub {
+        push @ts_files, $File::Find::name if (-f $_ && /\.po$/); # TODO: refactor; file extensions should not be hard-coded
+    };
+
     foreach my $dir (sort keys %{$scanner->{ts_directories}}) {
-        finddepth(sub {
-            push @ts_files, $File::Find::name if (-f $_ && /\.po$/); # TODO: refactor; file extensions should not be hard-coded
-        }, $dir);
+        finddepth({wanted => $wanted, follow => 1}, $dir);
     }
     $n = scalar(@ts_files);
     print " $n files found\n\n";
