@@ -1,0 +1,6 @@
+files
+{
+    0    1 1 test_job test_namespace first/strings.xml 0
+    1    2 10 test_job test_namespace second/alpha.xml 0
+    2    3 13 test_job test_namespace second/strings.xml 0
+}

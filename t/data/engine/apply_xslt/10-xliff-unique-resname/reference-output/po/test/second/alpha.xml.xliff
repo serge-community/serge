@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="x-unknown" original="second/alpha.xml" source-language="en" target-language="test">
+    <body>
+      <trans-unit resname="alpha.string8" approved="yes" id="38d81039195c716fec25256386e74ef3" xml:space="preserve">
+        <source xml:lang="en">Value 8</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 8</target>
+        <note from="developer">string8</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

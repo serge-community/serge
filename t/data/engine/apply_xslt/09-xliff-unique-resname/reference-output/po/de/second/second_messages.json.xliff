@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="x-unknown" original="second/second_messages.json" source-language="en" target-language="de">
+    <body>
+      <trans-unit extradata="first" resname="second_messages.first" approved="yes" id="86c62a908d2b453075c5cab4844a010c" xml:space="preserve">
+        <source xml:lang="en">First Value</source>
+        <target state="new" xml:lang="de"/>
+        <note from="developer">Description 1</note>
+      </trans-unit>
+      <trans-unit extradata="second" resname="second_messages.second" approved="yes" id="9b49ffda5c43ad91db07594595bc5eb7" xml:space="preserve">
+        <source xml:lang="en">Second Value</source>
+        <target state="new" xml:lang="de"/>
+        <note from="developer">Description 2</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

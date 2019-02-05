@@ -1,0 +1,10 @@
+{
+   "first" : {
+      "description" : "Description 1",
+      "message" : "First Value"
+   },
+   "second" : {
+      "description" : "Description 2",
+      "message" : "Second Value"
+   }
+}

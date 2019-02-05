@@ -20,13 +20,19 @@ sub init {
 
     $self->merge_schema({
         apply => {'' => 'LIST',
-            '*'        => 'STRING'
+            '*'        => 'STRING',
+        },
+        params => {
+            '*'           => 'STRING'
         },
         if => {
             '*' => {
                 then => {
                     apply => {'' => 'LIST',
-                        '*'        => 'STRING'
+                        '*'        => 'STRING',
+                    },
+                    params => {
+                        '*'           => 'STRING'
                     },
                 },
             },
@@ -81,6 +87,7 @@ sub process_then_block {
     my $source = $parser->parse_string($$strref);
 
     my $apply_list = $block->{apply};
+
     foreach my $xslt_filepath (@$apply_list) {
 
         if (not exists $self->{stylesheets}->{$xslt_filepath}) {
@@ -94,7 +101,14 @@ sub process_then_block {
 
         my $stylesheet = $self->{stylesheets}->{$xslt_filepath};
 
-        $source = $stylesheet->transform($source);
+        if (defined $block->{params}) {
+            my $params_list = $block->{params};
+            my %params = $self->to_xslt_params($params_list);
+
+            $source = $stylesheet->transform($source, %params);
+        } else {
+            $source = $stylesheet->transform($source);
+        }
 
         my $source_as_string = $stylesheet->output_string($source);
 
@@ -104,6 +118,24 @@ sub process_then_block {
     }
 
     return $self->SUPER::process_then_block(shift @_);
+}
+
+sub to_xslt_params {
+    my ($self, $params) = @_;
+
+    my %xslt_params;
+
+    foreach my $key (keys %{$params}) {
+        my $value = $params->{$key};
+
+        $value = $self->subst_captures($value);
+
+        $xslt_params{$key} = $value;
+    }
+
+    my %transformed_params = XML::LibXSLT::xpath_to_string(%xslt_params);
+
+    return %transformed_params;
 }
 
 sub check {

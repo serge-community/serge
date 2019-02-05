@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OUTPUT_COMMENT="translated" -->
+<resources>
+    <string name="string1">Value 1</string>
+    <string name="string2">Value 2</string>
+    <string name="string3" comment="translate">Value 3</string>
+    <string name="string4">Value 4</string>
+</resources>

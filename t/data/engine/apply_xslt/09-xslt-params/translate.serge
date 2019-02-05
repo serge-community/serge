@@ -1,0 +1,72 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value 1`                `Test Translation 1`
+                        `Value 2`                `Test Translation 2`
+                        `Value 3`                `Test Translation 3`
+                    }
+                }
+            }
+
+            :capture
+            {
+                plugin                           if
+                phase                            after_load_source_file_for_processing
+
+                data
+                {
+                    capture
+                    {
+                        match                    OUTPUT_COMMENT="(.*?)"
+                        prefix                   COMMENT:
+                    }
+                }
+            }
+
+            :filter_only
+            {
+                plugin                           apply_xslt
+                phase                            after_load_file
+
+                data
+                {
+                    if
+                    {
+                        has_capture             COMMENT:1
+
+                        then
+                        {
+                            apply  ./filter_only.xslt
+
+                            params
+                            {
+                                filter_comment translate
+                                output_comment %CAPTURE:COMMENT:1%
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

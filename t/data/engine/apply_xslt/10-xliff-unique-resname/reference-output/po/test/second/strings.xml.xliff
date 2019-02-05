@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="x-unknown" original="second/strings.xml" source-language="en" target-language="test">
+    <body>
+      <trans-unit resname="second.string5" approved="yes" id="94ccaa970592240abdb17d60eda93e2f" xml:space="preserve">
+        <source xml:lang="en">Value 5</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 5</target>
+        <note from="developer">string5</note>
+      </trans-unit>
+      <trans-unit resname="second.string6" approved="yes" id="033f70ded0bee8c0b721dd3a6d87129f" xml:space="preserve">
+        <source xml:lang="en">Value 6</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 6</target>
+        <note from="developer">string6</note>
+      </trans-unit>
+      <trans-unit resname="second.string7" approved="yes" id="cf87626660328addac27a006a2109e53" xml:space="preserve">
+        <source xml:lang="en">Value 7</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 7</target>
+        <note from="developer">string7</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

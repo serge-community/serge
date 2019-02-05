@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="x-unknown" original="first/strings.xml" source-language="en" target-language="test">
+    <body>
+      <trans-unit resname="first.string1" approved="yes" id="52b8425aa485a7e3b7a02e1b586f9cef" xml:space="preserve">
+        <source xml:lang="en">Value 1</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 1</target>
+        <note from="developer">string1</note>
+      </trans-unit>
+      <trans-unit resname="first.string2" approved="yes" id="3fa07f98de1fb810037bfde267c704d1" xml:space="preserve">
+        <source xml:lang="en">Value 2</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 2</target>
+        <note from="developer">string2</note>
+      </trans-unit>
+      <trans-unit resname="first.string3" approved="yes" id="2e920fe719df0296f38564a3a624f4fa" xml:space="preserve">
+        <source xml:lang="en">Value 3</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 3</target>
+        <note from="developer">string3</note>
+      </trans-unit>
+      <trans-unit resname="first.string4" approved="yes" id="bf5a11014de06a379dcb4fda0faa156d" xml:space="preserve">
+        <source xml:lang="en">Value 4</source>
+        <target state="translated" xml:lang="test">Ṽáļũē 4</target>
+        <note from="developer">string4</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

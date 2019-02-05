@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. string5
+#: File: strings2.xml
+#: ID: 94ccaa970592240abdb17d60eda93e2f
+msgid "Value 5"
+msgstr ""
+
+#. string6
+#: File: strings2.xml
+#: ID: 033f70ded0bee8c0b721dd3a6d87129f
+msgid "Value 6"
+msgstr ""
+
+#. string7
+#: File: strings2.xml
+#: ID: cf87626660328addac27a006a2109e53
+msgid "Value 7"
+msgstr ""
