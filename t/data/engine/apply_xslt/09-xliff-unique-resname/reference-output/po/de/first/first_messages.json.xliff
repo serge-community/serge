@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="x-unknown" original="first/first_messages.json" source-language="en" target-language="de">
+    <body>
+      <trans-unit extradata="string1" resname="first_messages.string1" approved="yes" id="37881f5ca702bb268877e4edb0edc83d" xml:space="preserve">
+        <source xml:lang="en">Value 1</source>
+        <target state="new" xml:lang="de"/>
+        <note from="developer">Description 1</note>
+      </trans-unit>
+      <trans-unit extradata="string2" resname="first_messages.string2" approved="yes" id="7d8ec73df55728a29c38a9f7741aefa6" xml:space="preserve">
+        <source xml:lang="en">Value 2</source>
+        <target state="new" xml:lang="de"/>
+        <note from="developer">Description 2</note>
+      </trans-unit>
+      <trans-unit extradata="string3" resname="first_messages.string3" approved="yes" id="8d1512246f4e8f44726fbe2f99e7e8b8" xml:space="preserve">
+        <source xml:lang="en">Value 3</source>
+        <target state="new" xml:lang="de"/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

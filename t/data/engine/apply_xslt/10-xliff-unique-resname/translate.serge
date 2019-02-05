@@ -1,0 +1,54 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        callback_plugins
+        {
+            :capture
+            {
+                plugin                           if
+                phase                            after_load_source_file_for_processing
+
+                data
+                {
+                    capture
+                    {
+                        match                    ALIAS="(.*?)"
+                        prefix                   FILE_ALIAS:
+                    }
+                }
+            }
+
+            {
+                plugin                           apply_xslt
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    apply                        ./xliff_unique_resname.xslt
+
+                    params
+                    {
+                        prefix %CAPTURE:FILE_ALIAS:1%
+                    }
+                }
+            }
+        }
+
+        source_process_subdirs                   YES
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

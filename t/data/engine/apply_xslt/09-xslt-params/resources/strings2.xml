@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OUTPUT_COMMENT="signed-off" -->
+<resources>
+    <string name="string5">Value 5</string>
+    <string name="string6" comment="translate">Value 6</string>
+    <string name="string7" comment="exclude">Value 7</string>
+</resources>
