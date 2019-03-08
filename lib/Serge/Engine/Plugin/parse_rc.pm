@@ -71,7 +71,8 @@ sub parse {
         # STRINGTABLE BEGIN...END block contents
         } elsif ($stringtable && $blocklevel) {
             if ($line =~ m/^[\t ]*(\w+)[\t ]+"((.*?("")*)*?)"/) { # test for one-line string definitions
-                $hint = $1;
+                $idstr = $1;
+                $hint = $idstr;
                 $orig_str = $2;
             } elsif ($line =~ m/^[\t ]*(\w+)[\t ]*(\/\/.*)*$/) { # test for the first line (id) of the two-line string definitions
                 $idstr = $1;

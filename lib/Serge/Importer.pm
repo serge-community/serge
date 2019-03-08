@@ -104,7 +104,7 @@ sub parse_localized_files_for_file_lang {
 
     $self->{current_lang} = $lang;
 
-    my $fullpath = $self->get_full_output_path($file, $lang);
+    my $fullpath = $self->get_full_source_path($file, $lang);
 
     $self->{stats}->{$lang} = {} unless exists $self->{stats}->{$lang};
 

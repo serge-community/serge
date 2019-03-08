@@ -36,9 +36,9 @@ $| = 1; # disable output buffering
 
 # to get the same results between tests,
 # we override the `file_mtime` function to return a constant value;
-# Serge::Importer automatically imports this function from Serge::Util
+# Serge::Engine automatically imports this function from Serge::Util
 # (this is why it actually appears in Serge::Importer namespace)
-sub Serge::Importer::file_mtime {
+sub Serge::Engine::file_mtime {
     return 12345678;
 }
 
@@ -112,6 +112,7 @@ for my $config_file (@importer_confs) {
             foreach my $job_data (@{$cfg->{data}->{jobs}}) {
                 my $job;
 
+                $engine->{debug} = $job_data->{debug};
                 eval {
                     $job = Serge::Engine::Job->new($job_data, $engine, $cfg->{base_dir});
                     $engine->process_job($job);
