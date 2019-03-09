@@ -57,6 +57,7 @@ sub parse {
         if ($dialog && !$blocklevel) {
 
             if ($line =~ m/^[\t ]*(CAPTION)[\t ]+"((.*?("")*)*?)"/) {
+                $idstr = $1;
                 $hint = $1;
                 $orig_str = $2;
             }
@@ -64,6 +65,7 @@ sub parse {
         # MENU and DIALOGEX BEGIN...END block contents
         } elsif (($menu || $dialog) && $blocklevel) {
             if ($line =~ m/^[\t ]*(\w+)[\t ]+"((.*?("")*)*?)"(,[\t ]*(\w+)){0,1}/) {
+                $idstr = $6 ? $6 : $1;
                 $hint = $6 ? "$1 $6" : $1;
                 $orig_str = $2;
             }
