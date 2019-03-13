@@ -120,13 +120,7 @@ sub parse_localized_files_for_file_lang {
     print "\t\t$fullpath\n";
 
     if (!-f $fullpath) {
-        $self->_notice("Missing localized file for '$lang' language", "\t\t\t");
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                severity => 'notice',
-                error_status => 'SERGE_NOTICE_FILE_MISSING'
-            };
-        }
+        $self->_notice("Missing localized file for '$lang' language", "\t\t\t", 'SERGE_NOTICE_FILE_MISSING');
         return;
     }
 
@@ -146,13 +140,7 @@ sub parse_localized_files_for_file_lang {
     };
 
     if ($@) {
-        $self->_error("File parsing failed; the file will not be processed in full; reason: $@", "\t\t\t", 1); # non-fatal
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                severity => 'error',
-                error_status => 'SERGE_ERROR_PARSING_FAILED'
-            };
-        }
+        $self->_error("File parsing failed; the file will not be processed in full; reason: $@", "\t\t\t", 1, 'SERGE_ERROR_PARSING_FAILED', '', $lang); # non-fatal
     }
 }
 
@@ -178,18 +166,11 @@ sub parse_source_file_callback {
 
     if ($key eq '' && !$self->{disambiguate_keys}) {
         $self->_error("Parser plugin didn't provide a key value in a callback. ".
-        "Importing translations with this plugin is not possible, unless you use `--disambiguate-keys` option.", "\t\t\t");
+        "Importing translations with this plugin is not possible, unless you use `--disambiguate-keys` option.", "\t\t\t", '', $key, $string, '', $lang);
     }
 
     if ($string eq '') {
-        $self->_notice("Source string for key '$key' is blank, skipping", "\t\t");
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                severity => 'error',
-                error_status => 'SERGE_NOTICE_EMPTY_SOURCE'
-            };
-        }
+        $self->_notice("Source string for key '$key' is blank, skipping [$lang]", "\t\t", 'SERGE_NOTICE_EMPTY_SOURCE', $key);
         return;
     }
 
@@ -200,18 +181,9 @@ sub parse_source_file_callback {
         if ($self->{disambiguate_keys}) {
             my $orig_key = $key;
             $key = $self->disambiguate_key($keys, $key);
-            $self->_notice("Duplicate key '$orig_key' found in source file, changed to '$key'", "\t\t\t");
+            $self->_notice("Duplicate key '$orig_key' found in source file, changed to '$key' [$lang]", "\t\t\t", 'SERGE_NOTICE_DUPLICATE_KEY', $key, $string, '', $lang);
         } else {
-            $self->_error("Duplicate key '$key' found in source file", "\t\t\t", 1); # non-fatal
-
-            if ($self->{save_report}) {
-                push @{$self->{current_report_key}}, {
-                    key => $key,
-                    source => $string,
-                    severity => 'error',
-                    error_status => 'SERGE_ERROR_DUPLICATE_KEY'
-                };
-            }
+            $self->_error("Duplicate key '$key' found in source file [$lang]", "\t\t\t", 1, 'SERGE_ERROR_DUPLICATE_KEY', $key, $string, '', $lang); # non-fatal
         }
     }
 
@@ -251,30 +223,9 @@ sub parse_localized_file_callback {
             $source = $data->{string} if $data;
 
             if ($translation eq $self->{previous_translation}->{$key}) {
-                $self->_warning("Duplicate key '$key' with the same translation found in localized file [$lang]", "\t\t\t", 1); # non-fatal
-
-                if ($self->{save_report}) {
-                    push @{$self->{current_report_key}}, {
-                        key => $key,
-                        source => $source,
-                        translation => $translation,
-                        severity => 'warning',
-                        error_status => 'SERGE_WARNING_DUPLICATE_KEY'
-                    };
-                }
-
+                $self->_warning("Duplicate key '$key' with the same translation found in localized file [$lang]", "\t\t\t", 'SERGE_WARNING_DUPLICATE_KEY', $key, $source, $translation, $lang);
             } else {
-                $self->_error("Duplicate key '$key' with different translations found in localized file [$lang]", "\t\t\t", 1); # non-fatal
-
-                if ($self->{save_report}) {
-                    push @{$self->{current_report_key}}, {
-                        key => $key,
-                        source => $source,
-                        translation => $translation,
-                        severity => 'error',
-                        error_status => 'SERGE_ERROR_MULTIPLE_TRANSLATIONS'
-                    };
-                }
+                $self->_error("Duplicate key '$key' with different translations found in localized file [$lang]", "\t\t\t", 1, 'SERGE_ERROR_MULTIPLE_TRANSLATIONS', $key, $source); # non-fatal
             }
 
             return $translation;
@@ -292,17 +243,7 @@ sub parse_localized_file_callback {
     my $data = $self->{job}->{source_keys}->{$self->{current_file_rel}}->{$key};
 
     if (!$data) {
-        $self->_warning("Unknown key '$key'", "\t\t\t");
-
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                lang => $lang,
-                severity => 'warning',
-                error_status => 'SERGE_WARNING_UNKNOWN_KEY',
-                translation => $translation
-            };
-        }
+        $self->_warning("Unknown key '$key' [$lang]", "\t\t\t", 'SERGE_WARNING_UNKNOWN_KEY', $key, '', $translation, $lang);
 
         return $translation;
     }
@@ -310,38 +251,14 @@ sub parse_localized_file_callback {
     my $item_id = $data->{item};
 
     if (($translation eq '') && ($data->{string} ne '')) {
-        $self->_notice("Translation for key '$key' is blank, skipping", "\t\t\t");
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                severity => 'notice',
-                error_status => 'SERGE_NOTICE_EMPTY_TRANSLATION'
-            };
-        }
+        $self->_notice("Translation for key '$key' is blank, skipping [$lang]", "\t\t\t", 'SERGE_NOTICE_EMPTY_TRANSLATION', $key);
         return;
     }
 
     if ($data->{string} ne $translation) {
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                lang => $lang,
-                source => $data->{string},
-                translation => $translation
-            };
-        }
+        $self->_save_report($key, $lang, $data->{string}, $translation);
     } else {
-        $self->_notice("Translation is the same as the source for key '$key'", "\t\t\t");
-        if ($self->{save_report}) {
-            push @{$self->{current_report_key}}, {
-                key => $key,
-                lang => $lang,
-                severity => 'notice',
-                error_status => 'SERGE_NOTICE_SAME_TRANSLATION',
-                source => $data->{string},
-                translation => $translation
-            };
-        }
+        $self->_notice("Translation is the same as the source for key '$key' [$lang]", "\t\t\t", 'SERGE_NOTICE_SAME_TRANSLATION', $key, $data->{string}, $translation, $lang);
     }
 
     print "\t\t\t::localized file [$lang]: '$key' => '$translation'\n" if $self->{debug};
@@ -352,25 +269,54 @@ sub parse_localized_file_callback {
 }
 
 sub _notice {
-    my ($self, $s, $indent_prefix) = @_;
+    my ($self, $s, $indent_prefix, $error_status, $key, $source, $translation, $lang) = @_;
 
     print $indent_prefix."NOTICE: $s\n";
     $self->{stats}->{$self->{current_lang}}->{notices}++;
+    
+    $self->_save_report($key, $lang, $source, $translation, 'notice', $error_status);
 }
 
 sub _warning {
-    my ($self, $s, $indent_prefix) = @_;
+    my ($self, $s, $indent_prefix, $error_status, $key, $source, $translation, $lang) = @_;
 
     print $indent_prefix."WARNING: $s\n";
     $self->{stats}->{$self->{current_lang}}->{warnings}++;
+    
+    $self->_save_report($key, $lang, $source, $translation, 'warning', $error_status);
 }
 
 sub _error {
-    my ($self, $s, $indent_prefix, $nonfatal) = @_;
+    my ($self, $s, $indent_prefix, $nonfatal, $error_status, $key, $source, $translation, $lang) = @_;
 
     print $indent_prefix."ERROR: $s\n";
     $self->{stats}->{$self->{current_lang}}->{errors}++;
+    
+    $self->_save_report($key, $lang, $source, $translation, 'error', $error_status);
+    
     exit(1) unless $nonfatal;
+}
+
+sub _save_report {
+    my ($self, $key, $lang, $source, $translation, $severity, $error_status) = @_;
+    
+    if (!$self->{save_report}) {
+        return;
+    }
+    
+    $self->{report} = {} unless exists $self->{report};
+    $self->{report}->{$self->{current_lang}} = {} unless exists $self->{report}->{$self->{current_lang}};
+    $self->{report}->{$self->{current_lang}}->{$self->{current_file_rel}} = [] unless exists $self->{report}->{$self->{current_lang}}->{$self->{current_file_rel}};
+    $self->{current_report_key} = $self->{report}->{$self->{current_lang}}->{$self->{current_file_rel}};
+    
+    push @{$self->{current_report_key}}, {
+            key => $key,
+            lang => $lang,
+            source => $source,
+            translation => $translation,
+            severity => $severity,
+            error_status => $error_status
+        };
 }
 
 1;
