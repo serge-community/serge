@@ -283,8 +283,9 @@ Revision history
           for embedded HTML nodes)
 
         - `limit_languages` plugin now properly matches languages followed by `-->`
-          (when they are embedded as HTML comments). It also now has its default
-          matching rules properly overridable.
+          (when they are embedded as HTML comments) and correctly works with
+          negative rules (`file_doesnt_match`, `content_doesnt_match`).
+          It also now has its default matching rules properly overridable.
 
         - `serge clean-ts` now properly initializes job defaults so its behavior
           now matches that of `serge localize` and `serge import`, and also
