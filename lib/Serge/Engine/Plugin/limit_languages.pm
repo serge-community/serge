@@ -196,7 +196,7 @@ sub check_block {
 
         foreach my $rule (@$ruleset) {
             if ($value =~ m/$rule/s) {
-                return 1;
+                return $positive;
             }
         }
         return !$positive;
