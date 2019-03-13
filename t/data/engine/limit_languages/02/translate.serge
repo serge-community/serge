@@ -1,0 +1,62 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value`                  `Test Translation`
+                    }
+                }
+            }
+
+            :limit_languages
+            {
+                plugin                           limit_languages
+
+                data
+                {
+                    if
+                    {
+                        # Do not localize a file if it doesn't contain
+                        # 'IS_LOCALIZABLE' marker
+                        content_doesnt_match     IS_LOCALIZABLE
+
+                        then
+                        {
+                            exclude_all_languages
+                        }
+                    }
+
+                    if
+                    {
+                        # Do not localize a file if it doesn't contain
+                        # '.localizable.' in its file name
+                        file_doesnt_match       \.localizable\.
+
+                        then
+                        {
+                            exclude_all_languages
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
