@@ -192,6 +192,8 @@ sub check_block {
     sub _check_rule {
         my ($ruleset, $positive, $value) = @_;
 
+        # if ruleset is not defined, skip the rule by always returning
+        # a true value (regardless of what $positive is set to)
         return 1 unless defined $ruleset;
 
         foreach my $rule (@$ruleset) {
