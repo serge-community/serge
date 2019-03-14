@@ -52,7 +52,7 @@ sub process_job {
 
     $self->run_callbacks('before_update_database_from_source_files');
 
-    $self->{current_lang} = '';
+    $self->{current_lang} = $job->{source_language};
 
     $self->update_database_from_source_files;
 
@@ -79,8 +79,8 @@ sub parse_localized_files {
 sub parse_localized_files_for_file {
     my ($self, $file) = @_;
 
-    $self->{stats}->{''} = {} unless exists $self->{stats}->{''};
-    $self->{stats}->{''}->{files}++;
+    $self->{stats}->{$self->{job}->{source_language}} = {} unless exists $self->{stats}->{$self->{job}->{source_language}};
+    $self->{stats}->{$self->{job}->{source_language}}->{files}++;
 
     print "\t$file\n";
 
