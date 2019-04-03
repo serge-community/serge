@@ -292,6 +292,9 @@ Revision history
           works properly with symlinked files/folders when scanning the directory
           tree.
 
+        - Fixed %LOCALE:LC% and %LOCALE:UC% macros that would be affected by
+          iOS-specific language remappings (e.g. pt and pt-br).
+
         - Fixed typos in embedded documentation
 
 1.0     October 15, 2015
