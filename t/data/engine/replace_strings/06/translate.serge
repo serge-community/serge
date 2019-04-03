@@ -1,0 +1,28 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    pt pt-br
+
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           replace_strings
+                phase                            before_save_localized_file
+
+                data
+                {
+                    replace                      `# header` `# LANG=%LANG%\n# LOCALE=%LOCALE%\n# LOCALE:LC=%LOCALE:LC%\n# LOCALE:UC=%LOCALE:UC%` g
+                }
+            }
+        }
+    }
+}

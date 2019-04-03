@@ -1,0 +1,7 @@
+# LANG=pt
+# LOCALE=pt
+# LOCALE:LC=pt
+# LOCALE:UC=PT
+
+first=First
+second=Second
