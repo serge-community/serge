@@ -14,19 +14,15 @@ sync
     ts
     {
         # (STRING) TS plugin name
-        plugin                      pootle
+        plugin                      zing
 
         # [OPTIONAL] Plugin data. Each plugin may have specific parameters
         # inside the `data` block. See the documentation for each specific
         # plugin for more information.
         data
         {
-            # Unique project id (folder name) in Pootle
+            # Unique project id (folder name) in Zing
             project_id              my_project
-
-            # Path to Pootle's `manage.py` utility that is used to sync
-            # local translation files with its internal database
-            manage_py_path          /path/to/pootle/manage.py
         }
     }
 
