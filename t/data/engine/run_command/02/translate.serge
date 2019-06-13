@@ -11,14 +11,14 @@ jobs
 
         callback_plugins
         {
-            :gzip
+            :calculate-md5-and-copy
             {
                 plugin                           run_command
 
                 data
                 {
-                    command                      gzip -n <%OUTFILE% >%OUTFILE%.gz
-                    command                      perl ../../cp.pl %OUTFILE%.gz %OUTFILE%.gz.copy
+                    command                      perl ../../md5.pl <%OUTFILE% >%OUTFILE%.md5
+                    command                      perl ../../cp.pl %OUTFILE%.md5 %OUTFILE%.md5.copy
                 }
             }
         }
