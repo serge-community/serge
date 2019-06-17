@@ -197,8 +197,6 @@ sub find_solution {
     print "Finding solution to transform '$a' into '$b'\n" if $self->{parent}->{debug};
 
     foreach my $sequence (@combinations) {
-        my @c = split('', $sequence);
-
         my $result = $self->apply_solution($a, $b, $sequence);
 
         if ($result && ($result eq $b)) {
