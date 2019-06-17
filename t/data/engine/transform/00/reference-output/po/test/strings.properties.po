@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. string1
+#: File: strings.properties
+#: ID: 40c581188023744d07f8d269be827cb2
+msgid "Foo Bar Baz"
+msgstr "zaB raB ooF"
+
+#. string2
+#: File: strings.properties
+#: ID: d1204a1c093b11b3a9e016c84db2d756
+#, fuzzy
+msgid "FOO BAR BAZ."
+msgstr "ZAB RAB OOF."
+
+#. string3
+#: File: strings.properties
+#: ID: 2b28ebef3bccc1523bf04921102cff3e
+#, fuzzy
+msgid "foo bar baz!"
+msgstr "zab rab oof!"
+
+#. string4
+#: File: strings.properties
+#: ID: 2fe7ffd70784e05fbd6e8b67b878aebf
+#, fuzzy
+msgid "<strong>Foo Bar Baz</strong>"
+msgstr "<strong>zaB raB ooF</strong>"
+
+#. string5
+#: File: strings.properties
+#: ID: 54c4e4788489bd1efbb2c8548cf2c049
+#, fuzzy
+msgid "<strong>FOO BAR BAZ.</strong>"
+msgstr "<strong>ZAB RAB OOF.</strong>"
+
+#. string6
+#: File: strings.properties
+#: ID: 790f9db6bf253c8283cda1cb66531cf3
+#, fuzzy
+msgid "<strong>foo bar baz!</strong>"
+msgstr "<strong>zab rab oof!</strong>"
