@@ -230,11 +230,14 @@ sub guess_translation {
     my $candidates = $mappings->{$key};
     # filter out candidates that have no translations (or have multiple translations and reuse_uncertain is disabled)
     foreach my $candidate (keys %$candidates) {
-        my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{parent}->{engine}->{db}->find_best_translation($namespace, $filepath, $candidate, $context, $lang);
+        my ($translation, $fuzzy, $comment, $multiple_variants) =
+            $self->{parent}->{engine}->{db}->find_best_translation(
+                $namespace, $filepath, $candidate, $context, $lang,
+                $self->{parent}->{reuse_orphaned}, $self->{parent}->{reuse_uncertain}
+            );
 
         if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
             print "Multiple translations found, will skip the candidate because 'reuse_uncertain' mode is set to NO\n" if $self->{parent}->{debug};
-            undef $translation;
         }
 
         if ($translation eq '') {
@@ -258,10 +261,14 @@ sub guess_translation {
                 my $solution_text = join(' -> ', map { $transforms[$_] } split(//, $solution));
                 print "\nSolution: '$candidate' -> $solution_text\n" if $self->{parent}->{debug};
 
-                my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{parent}->{engine}->{db}->find_best_translation($namespace, $filepath, $candidate, $context, $lang);
+                my ($translation, $fuzzy, $comment, $multiple_variants) =
+                    $self->{parent}->{engine}->{db}->find_best_translation(
+                        $namespace, $filepath, $candidate, $context, $lang,
+                        $self->{parent}->{reuse_orphaned}, $self->{parent}->{reuse_uncertain}
+                    );
+
                 if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
                     print "Multiple translations found, won't reuse any because 'reuse_uncertain' mode is set to NO\n" if $self->{parent}->{debug};
-                    undef $translation;
                 }
 
                 if ($translation ne '') {
