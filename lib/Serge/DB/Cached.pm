@@ -721,7 +721,14 @@ sub find_best_translation {
         }
     }
 
-    return ($translation, $fuzzy, $comment, keys %$variants > 1);
+    my $multiple_variants = keys %$variants > 1;
+    if ($multiple_variants && !$allow_multiple_variants) {
+        # return an empty translation along with the $multiple_variants flag
+        # so that the parent code can understand the reason
+        return (undef, undef, undef, $multiple_variants);
+    }
+
+    return ($translation, $fuzzy, $comment, $multiple_variants);
 }
 
 # helper function used in tools/import_from_ttx.pl
