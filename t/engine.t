@@ -90,7 +90,7 @@ sub delete_directory {
 }
 
 
-for my $config_file (@confs) {
+for my $config_file (sort @confs) {
 
     subtest "Test config: $config_file" => sub {
         my $cfg = Test::Config->new($config_file);
