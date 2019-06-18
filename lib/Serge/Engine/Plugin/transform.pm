@@ -231,7 +231,9 @@ sub guess_translation {
         my ($translation, $fuzzy, $comment, $multiple_variants) =
             $self->{parent}->{engine}->{db}->find_best_translation(
                 $namespace, $filepath, $candidate, $context, $lang,
-                $self->{parent}->{reuse_orphaned}, $self->{parent}->{reuse_uncertain}
+                $self->{parent}->{reuse_orphaned},
+                $self->{parent}->{reuse_fuzzy},
+                $self->{parent}->{reuse_uncertain}
             );
 
         if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
@@ -262,7 +264,9 @@ sub guess_translation {
                 my ($translation, $fuzzy, $comment, $multiple_variants) =
                     $self->{parent}->{engine}->{db}->find_best_translation(
                         $namespace, $filepath, $candidate, $context, $lang,
-                        $self->{parent}->{reuse_orphaned}, $self->{parent}->{reuse_uncertain}
+                        $self->{parent}->{reuse_orphaned},
+                        $self->{parent}->{reuse_fuzzy},
+                        $self->{parent}->{reuse_uncertain}
                     );
 
                 if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {

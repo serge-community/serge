@@ -39,6 +39,7 @@ sub new {
         output_bom => 1,
         reuse_translations => 1,
         reuse_orphaned => 1,
+        reuse_fuzzy => 1,
         reuse_as_fuzzy_default => 1,
         reuse_as_fuzzy => [],
         reuse_as_not_fuzzy => [],
@@ -228,6 +229,7 @@ sub adjust_job_defaults {
         output_bom
         reuse_translations
         reuse_orphaned
+        reuse_fuzzy
         reuse_as_fuzzy_default
         reuse_as_fuzzy
         reuse_as_not_fuzzy
@@ -1703,7 +1705,10 @@ sub internal_get_translation { # from database
     if ($self->{job}->{reuse_translations}) {
         # Find the best match from other files or namespaces
         my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{db}->find_best_translation(
-            $namespace, $filepath, $string, $context, $lang, $self->{job}->{reuse_orphaned}, $self->{job}->{reuse_uncertain}
+            $namespace, $filepath, $string, $context, $lang,
+            $self->{job}->{reuse_orphaned},
+            $self->{job}->{reuse_fuzzy},
+            $self->{job}->{reuse_uncertain}
         );
 
         if ($multiple_variants && !$self->{job}->{reuse_uncertain}) {

@@ -292,6 +292,13 @@ jobs
         # NO - do not reuse such uncertain translations at all (default)
         reuse_uncertain             NO
 
+        # (BOOLEAN) [OPTIONAL] Should the fuzzy translations be reused?
+        # Note that for the translation to be reusable, it must satisfy
+        # all the reuse_* criteria at the same time.
+        # YES - reuse fuzzy translations (default)
+        # NO - do not reuse fuzzy translations
+        reuse_fuzzy                 YES
+
         # (BOOLEAN) [OPTIONAL] Should the fuzzy flag be set on translations
         # which are copied from other strings?
         # Fuzzy flag indicates that the translation is not final and needs review.

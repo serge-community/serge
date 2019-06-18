@@ -687,7 +687,8 @@ sub preload_properties {
 
 sub find_best_translation {
     my $self = shift;
-    my ($namespace, $filepath, $string, $context, $lang, $allow_orphaned, $allow_multiple_variants) = @_;
+    my ($namespace, $filepath, $string, $context, $lang,
+        $allow_orphaned, $allow_fuzzy, $allow_multiple_variants) = @_;
 
     # Now that we hit the item we have no translation for, and need to query
     # the database for the best translation, preload the portion of the cache
@@ -706,6 +707,7 @@ sub find_best_translation {
     my $variants = {};
     foreach my $hr (values %{$cache->{$skey}}) {
         next if $hr->{orphaned} && !$allow_orphaned;
+        next if $hr->{fuzzy} && !$allow_fuzzy;
         $variants->{$hr->{string}}++;
 
         my $fitness = 0;

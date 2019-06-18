@@ -74,6 +74,7 @@ jobs                                ARRAY
         reuse_translations          BOOLEAN
         reuse_orphaned              BOOLEAN
         reuse_uncertain             BOOLEAN
+        reuse_fuzzy                 BOOLEAN
         reuse_as_fuzzy_default      BOOLEAN
         reuse_as_fuzzy              ARRAY
         reuse_as_not_fuzzy          ARRAY
