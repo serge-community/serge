@@ -21,12 +21,15 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        save_translations => 'BOOLEAN',
-        language          => 'STRING',
-        transliterate     => 'BOOLEAN',
-        expand_length     => 'BOOLEAN',
+        save_translations  => 'BOOLEAN',
+        language           => 'STRING',
+        transliterate      => 'BOOLEAN',
+        expand_length      => 'BOOLEAN',
+        fuzzy_translations => {
+            '*'            => 'STRING'
+        },
         translations => {
-            '*'           => 'STRING'
+            '*'            => 'STRING'
         }
     });
 
@@ -74,6 +77,10 @@ sub is_test_language {
 sub _fake_translate_string {
     my ($self, $s) = @_;
 
+    # check 'fuzzy_translations' map and return such translations with a fuzzy flag set
+    return ($self->{data}->{fuzzy_translations}->{$s}, 1) if exists $self->{data}->{fuzzy_translations};
+
+    # check 'translations' map and return such translations with no fuzzy flag set
     return $self->{data}->{translations}->{$s} if exists $self->{data}->{translations};
 
     my $out = $s;
