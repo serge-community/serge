@@ -700,7 +700,7 @@ sub find_best_translation {
     return unless $cache->{$skey};
 
     my $best_fitness = -1;
-    my $translation;
+    my @translations;
     my $fuzzy;
     my $comment;
     my $variants = {};
@@ -715,9 +715,11 @@ sub find_best_translation {
         $fitness++ if !$hr->{orphaned};
         if ($fitness > $best_fitness) {
             $best_fitness = $fitness;
-            $translation = $hr->{string};
+            @translations = ($hr->{string});
             $fuzzy = $hr->{fuzzy};
             $comment = $hr->{comment};
+        } elsif ($fitness == $best_fitness) {
+            push @translations, $hr->{string};
         }
     }
 
@@ -728,7 +730,12 @@ sub find_best_translation {
         return (undef, undef, undef, $multiple_variants);
     }
 
-    return ($translation, $fuzzy, $comment, $multiple_variants);
+    # for multiple translations of the same fitness,
+    # return the first one in alphabetical sort order
+    # to make sure the same translation is picked
+    # every time, and not a random one
+
+    return ((sort @translations)[0], $fuzzy, $comment, $multiple_variants);
 }
 
 # helper function used in tools/import_from_ttx.pl
