@@ -30,7 +30,7 @@ jobs
 
                     params
                     {
-                        prefix %CAPTURE:FILE_ALIAS:1%
+                        prefix                   %CAPTURE:FILE_ALIAS:1%
                     }
                 }
             }

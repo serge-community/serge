@@ -56,12 +56,12 @@ jobs
 
                         then
                         {
-                            apply  ./filter_only.xslt
+                            apply               ./filter_only.xslt
 
                             params
                             {
-                                filter_comment translate
-                                output_comment %CAPTURE:COMMENT:1%
+                                filter_comment  translate
+                                output_comment  %CAPTURE:COMMENT:1%
                             }
                         }
                     }
