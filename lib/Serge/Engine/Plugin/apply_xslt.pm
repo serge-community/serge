@@ -19,20 +19,22 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        apply => {'' => 'LIST',
-            '*'        => 'STRING',
+        apply => {''             => 'LIST',
+            '*'                  => 'STRING',
         },
+
         params => {
-            '*'           => 'STRING'
+            '*'                  => 'STRING'
         },
+
         if => {
             '*' => {
                 then => {
                     apply => {'' => 'LIST',
-                        '*'        => 'STRING',
+                        '*'      => 'STRING',
                     },
                     params => {
-                        '*'           => 'STRING'
+                        '*'      => 'STRING'
                     },
                 },
             },
