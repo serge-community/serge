@@ -177,11 +177,11 @@ sub get_translation {
     }
 
     if (defined $key && exists $mappings->{$key}) {
-        my ($guessed, $fuzzy) = $self->guess_translation($string, $context, $namespace, $filepath, $lang);
-        if (defined $guessed) {
-            print "Guessed translation: '$guessed'\n" if $self->{parent}->{debug};
-            # return: (translation, fuzzy_state, comment, db_save_flag)
-            return ($guessed, $fuzzy, undef, 1); # save to database
+        my $guessed_translation = $self->guess_translation($string, $context, $namespace, $filepath, $lang);
+        if (defined $guessed_translation) {
+            print "Guessed translation: '$guessed_translation'\n" if $self->{parent}->{debug};
+            # guessed translations are always returned as fuzzy
+            return ($guessed_translation, 1, undef, 1); # fuzzy; empty comment; save to database
         } else {
             print "Failed to guess translation\n" if $self->{parent}->{debug};
         }
@@ -275,19 +275,7 @@ sub guess_translation {
 
                 if ($translation ne '') {
                     print "Applying this solution to translation '$translation'\n" if $self->{parent}->{debug};
-                    $translation = $self->apply_solution($translation, $source, $solution, $lang);
-
-                    if ($fuzzy) {
-                        # if the fuzzy flag is already set, always leave it as is,
-                        # even if the language is listed under `as_not_fuzzy` list
-                    } else {
-                        # the fuzzy flag is not set, but we might want to raise it here
-                        my $lang_as_fuzzy = is_flag_set($self->{as_fuzzy}, $lang);
-                        my $lang_as_not_fuzzy = is_flag_set($self->{as_not_fuzzy}, $lang);
-                        $fuzzy = 1 if $lang_as_fuzzy || ($self->{as_fuzzy_default} && !$lang_as_not_fuzzy);
-                    }
-
-                    return ($translation, $fuzzy);
+                    return $self->apply_solution($translation, $source, $solution, $lang);
                 } else {
                     print "There's no translation for the candidate string\n" if $self->{parent}->{debug};
                 }
