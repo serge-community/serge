@@ -5,7 +5,7 @@ use strict;
 
 no warnings qw(uninitialized);
 
-use Serge::Util qw(generate_key set_flags);
+use Serge::Util qw(generate_hash set_flags);
 use Time::HiRes qw(gettimeofday tv_interval);
 
 sub name {
@@ -23,13 +23,12 @@ sub init {
 
     $self->add({
         before_job => \&before_job,
-        after_job => \&after_job,
         can_extract => \&can_extract,
         get_translation_pre => \&get_translation_pre,
-        get_translation => \&get_translation,
+        log_translation => \&log_translation,
     });
 
-    $self->{cache} = {};
+    $self->{master_translations} = {};
 }
 
 sub validate_data {
@@ -48,9 +47,9 @@ sub adjust_phases {
     $self->SUPER::adjust_phases($phases);
 
     # always tie to these phases
-    set_flags($phases, 'before_job', 'after_job', 'can_extract', 'get_translation_pre', 'get_translation');
+    set_flags($phases, 'before_job', 'can_extract', 'get_translation_pre', 'log_translation');
 
-    die "This plugin attaches itself to specific phases; please don't specify phases in the configuration file" unless @$phases == 5;
+    die "This plugin attaches itself to specific phases; please don't specify phases in the configuration file" unless @$phases == 4;
 }
 
 sub before_job {
@@ -69,8 +68,7 @@ sub before_job {
         # initialize engine-wide plugin data structure for the current job
         $engine->{plugin_data} = {} unless exists $engine->{plugin_data};
         $engine->{plugin_data}->{feature_branch} = {} unless exists $engine->{plugin_data}->{feature_branch};
-        $self->{cache} = $engine->{plugin_data}->{feature_branch}->{$master_job_id} = {};
-        $self->{cache}->{''} = {};
+        $self->{master_translations} = $engine->{plugin_data}->{feature_branch}->{$master_job_id} = {};
 
     } else {
         print "Running feature_branch plugin in slave mode\n";
@@ -81,151 +79,39 @@ sub before_job {
             die "Can't run job with feature_branch plugin in slave mode before (or without) the master job\n";
         }
 
-        $self->{cache} = $engine->{plugin_data}->{feature_branch}->{$master_job_id};
+        $self->{master_translations} = $engine->{plugin_data}->{feature_branch}->{$master_job_id};
     }
 }
 
-sub after_job {
-   my ($self, $phase) = @_;
-
-    return unless $self->{master_mode}; # do nothing in slave mode
-
-    # cache translations for slave jobs
-    $self->load_translations;
+# Make the key that best describes a given string;
+# if the source key is extracted from the file, then use filepath+key+string+context,
+# otherwise, use filepath+string+context. This will allow to expose for translation
+# strings in feature branches that have the same key in the same file,
+# but a different string or context.
+sub _make_cache_key {
+    my ($self, $lang, $file, $key, $stringref, $context) = @_;
+    return $key ne '' ?
+        generate_hash($lang, $file, $key, $$stringref, $context) :
+        generate_hash($lang, $file, $$stringref, $context);
 }
 
-sub load_translations {
-    my ($self) = @_;
-
-    my $start = [gettimeofday];
-
-    my $job_id = $self->{parent}->{id}; # we're the master job
-    my $engine = $self->{parent}->{engine};
-    my $db = $engine->{db};
-    my $cache = $self->{cache};
-
-
-    my @languages = @{$self->{parent}->{destination_languages}};
-    my $sql_lang_filter = '';
-    if (@languages > 0) {
-        my $placeholders = join(', ', ('?') x @languages);
-        $sql_lang_filter = "AND (t.language is NULL OR t.language IN ($placeholders))";
-    }
-    print "feature_branch plugin: caching strings and known translations...\n";
-
-    # in our query we want to include orphaned translations because some items
-    # or files that are already orphaned on the master branch can still be there
-    # in the slave (feature) branch, and we want to reuse them;
-    # we will also select non-translated items here at once (though there will be
-    # many string+context duplicates, but calculating keys for these extra pairs
-    # shouldn't be much of a problem)
-    my $sqlquery = <<__END__;
-        SELECT s.string, s.context, i.orphaned, t.language, t.string as translation
-        FROM items i
-
-        JOIN strings s
-        ON i.string_id = s.id
-
-        JOIN files f
-        ON i.file_id = f.id
-
-        LEFT OUTER JOIN translations t
-        ON t.item_id = i.id
-
-        WHERE s.skip = 0
-        AND f.namespace = ?
-        AND f.job = ?
-        $sql_lang_filter
-__END__
-
-    my $sth = $db->prepare($sqlquery);
-
-    my $n = 1;
-    $sth->bind_param($n++, $self->{parent}->{db_namespace}) || die $sth->errstr;
-    $sth->bind_param($n++, $job_id) || die $sth->errstr;
-    map {
-        $sth->bind_param($n++, $_) || die $sth->errstr;
-    } @languages;
-    $sth->execute || die $sth->errstr;
-
-    my $n = 0;
-    while (my $hr = $sth->fetchrow_hashref()) {
-        $n++;
-        my $lang = $hr->{language};
-        my $skey = generate_key($hr->{string}, $hr->{context});
-
-        # save string+context key (to know the string exists in master job
-        # even if it doesn't have a translation)
-        $cache->{''} = {} unless defined $cache->{''};
-
-        # mark the master string as existing unless it is orphaned:
-        # this will expose such string in translation interchange files
-        # for feature branches
-        $cache->{''}->{$skey} = 1 unless $hr->{orphaned};
-
-        # save translation
-        if ($lang ne '') {
-            $cache->{$lang} = {} unless defined $cache->{$lang};
-            $cache->{$lang}->{$skey} = $hr->{translation};
-        }
-    }
-    $sth->finish;
-    $sth = undef;
-
-    my $delta = tv_interval($start);
-    print "feature_branch::load_translations() took $delta seconds\n";
-}
-
-sub get_translation_pre {
-    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
-
-    return () if $self->{master_mode}; # do nothing in master mode
-
-    my $key = generate_key($string, $context);
-
-    # if the item in a master branch is orphaned,
-    # don't return the translation yet, because such items
-    # are exposed in feature branch translation interchange files
-    # and thus may already have explicit translations set
-
-    return () unless exists $self->{cache}->{''}->{$key}; # orphaned
-
-    # return current translation from master branch, if any
-    # (or an empty array if there's no matching translation)
-    return () unless exists $self->{cache}->{$lang}->{$key}; # no translation
-
-    return ($self->{cache}->{$lang}->{$key}, undef, undef, undef); # return translation
-}
-
-sub get_translation {
-    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
-
-    return () if $self->{master_mode}; # do nothing in master mode
-
-    my $key = generate_key($string, $context);
-
-    # return current translation from master branch, if any,
-    # including the translations for orphaned items
-    return () unless exists $self->{cache}->{$lang}->{$key}; # no translation
-
-    return ($self->{cache}->{$lang}->{$key}, undef, undef, undef); # return translation
-}
-
-sub string_exists {
-    my ($self, $stringref, $context) = @_;
-
-    # string must exist
-    return exists $self->{cache}->{''}->{generate_key($$stringref, $context)};
+# Remove the virtual prefix to get the 'base' filepath of a given file
+# for both master and slave jobs for better file/string alignment.
+# Slave jobs are always expected to set a `source_path_prefix`
+# to disambiguate file paths between files in branches;
+# setting `source_path_prefix` for the master job is optional.
+sub _get_base_filepath {
+    my ($self, $filepath) = @_;
+    my $prefix = $self->{parent}->{source_path_prefix};
+    $filepath =~ s/^\Q$prefix\E// if $prefix ne '';
+    return $filepath;
 }
 
 sub can_extract {
-    my ($self, $phase, $file, $lang, $stringref, $hintref, $context, $key) = @_;
+    my ($self, $phase, $filepath, $lang, $stringref, $hintref, $context, $key) = @_;
 
-    # extract everything for master job, and collect string+context pairs
-    if ($self->{master_mode}) {
-        $self->{cache}->{''}->{generate_key($$stringref, $context)} = 1;
-        return 1;
-    }
+    # extract everything for a master job
+    return 1 if $self->{master_mode};
 
     # otherwise, we're in a slave job
 
@@ -233,9 +119,49 @@ sub can_extract {
     # extract everything to translate all the strings, not just overlay ones
     return 1 if defined $lang;
 
-    # otherwise (when $lang is not set) we're parsing the source file;
+    # when $lang is not set, this means we're parsing the source file;
     # extract only strings which are missing from the master job
-    return $self->string_exists($stringref, $context, ) ? 0 : 1;
+    # so that translation interchange files will contain only these
+    # extra overlay strings
+    my $base_filepath = $self->_get_base_filepath($filepath);
+    my $cache_key = $self->_make_cache_key(undef, $base_filepath, $key, $stringref, $context);
+    return exists $self->{master_translations}->{$cache_key} ? 0 : 1;
+}
+
+sub get_translation_pre {
+    my ($self, $phase, $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key) = @_;
+
+    return () if $self->{master_mode}; # do nothing in master mode
+
+    my $base_filepath = $self->_get_base_filepath($filepath);
+    my $cache_key = $self->_make_cache_key($lang, $base_filepath, $key, \$string, $context);
+
+    # if the string is not present in the master job, return
+    # an empty array, so the translation can be resolved
+    # from .po files / plugins / database
+    return () unless defined $self->{master_translations}->{$cache_key};
+
+    # otherwise, return the actual translation as not fuzzy,
+    # and do not save it do the database
+    return ($self->{master_translations}->{$cache_key}, undef, undef, undef)
+}
+
+sub log_translation {
+    my ($self, $phase, $string, $context, $hint, $flags,
+        $lang, $key, $translation, $namespace, $filepath) = @_;
+
+    return () unless $self->{master_mode}; # do nothing in slave mode
+
+    # save master translation into the cache for later exact string retrieval
+    # in get_translation_pre()
+    my $base_filepath = $self->_get_base_filepath($filepath);
+    my $cache_key = $self->_make_cache_key($lang, $base_filepath, $key, \$string, $context);
+    $self->{master_translations}->{$cache_key} = $translation;
+
+    # also, save a 'source string exists' flag for can_extract(),
+    # where $lang is undefined
+    $cache_key = $self->_make_cache_key(undef, $base_filepath, $key, \$string, $context);
+    $self->{master_translations}->{$cache_key} = 1;
 }
 
 1;
