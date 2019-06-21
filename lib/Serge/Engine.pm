@@ -1637,7 +1637,10 @@ sub generate_localized_files_for_file_lang_callback {
         $translation = sprintf('%*s', -$n, $translation); # pad with spaces (spaces are appended to the end)
     }
 
-    $self->run_callbacks('log_translation', $string, $context, $hint, $flagsref, $lang, $key, $translation);
+    $self->run_callbacks('log_translation',
+        $string, $context, $hint, $flagsref, $lang, $key, $translation,
+        $self->{job}->{db_namespace}, $self->{current_file_rel}
+    );
 
     return $translation;
 }
