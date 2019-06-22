@@ -124,8 +124,6 @@ sub after_save_localized_file {
 
     return () unless $self->{master_mode}; # do nothing in slave mode
 
-    print "::after_save_localized_file()\n";
-
     # disable optimizations again
     $self->{parent}->{optimizations} = undef;
 }
