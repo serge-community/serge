@@ -20,14 +20,35 @@ You need to run `docker` from the parent (root) project directory:
 
 This will create an image called `serge`.
 
+## Organizing your data
+
+Serge is expected to run against configuration files, data directories and a database (typically an SQLite database). So this data needs to be exposed to Serge via a volume. The recommended solution would be to create the following folder structure on the host machine:
+
+    /var
+        /serge
+            /data
+                /db                      <= Serge database file will be stored here
+                /vcs                     <= directory for source code checkouts
+                /ts                      <= directory for generated translation interchange files
+                /configs                 <= folder with Serge configuration files
+                        config1.serge
+                        config2.serge
+                        ...
+
 ## Running Serge
 
-    $ docker run serge [parameters]
+Inside the Docker image, the data volume is defined as `/data`. If you have a directory structure on your host machine as suggested above, under `/var/serge/data`, Serge can be run as follows:
+
+    $ docker run -v /var/serge/data:/data serge [parameters]
+
+Example:
+
+    $ docker run -v /var/serge/data:/data serge localize /data/configs/config1.serge
 
 ## Creating a wrapper
 
-    $ sudo echo -e "#!/bin/sh\ndocker run serge \"\$@\"" >/usr/local/bin/serge
+    $ sudo echo -e "#!/bin/sh\ndocker run -v /var/serge/data:/data serge \"\$@\"" >/usr/local/bin/serge
 
     $ sudo chmod +x /usr/local/bin/serge
 
-Assuming you're using a Unix-like OS, the commands above will create a helper executable script, `/usr/local/bin/serge`, which you can then simply run as `serge` from any directory, instead of having to type `docker run serge`.
+Assuming you're using a Unix-like OS, the commands above will create a helper executable script, `/usr/local/bin/serge`, which you can then simply run as `serge`, instead of having to type `docker run -v /var/serge/data:/data serge`.
