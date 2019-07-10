@@ -89,6 +89,36 @@ Revision history
 
         - Split `pootle` and `zing` translation plugins for better clarity.
 
+        - Git sync plugin now supports 'fetch_params',
+          `commit_params` and `push_params` configuration parameters
+          in addition to a previously existed `clone_params`. This
+          allows one to pass extra parameters to `git` during different
+          stages of its work. This is useful for e.g. shallow cloning
+          and fetching, or for bypassing commit and push hooks.
+
+        - Improved `transform` plugin logic to make trailing punctuation
+          detection more smart when it is combined with wrapper tags.
+          It also deals better with whitespace, reducing the list of
+          candidates to guess transformations for.
+
+        - `transform` plugin now always returns guessed translations as fuzzy;
+          its previous configuration parameters (`as_fuzzy_default`,
+          `as_fuzzy` and `as_not_fuzzy`) are now deprecated. You will see
+          a corresponding notice in the command line output if you still
+          have these parameters in your configuration file.
+
+        - Fixed a bug where `reuse_orphaned` job parameter would not be passed down
+          to the code that expected it, which resulted in not reusing orphaned
+          translations in the `transform` plugin.
+
+        - Refactored `feature_branch` plugin to more accurately reuse
+          master branch translations in dependent branches.
+          This required to selectively disable optimizations when localizing
+          master files, so handling localization with `feature_branch`
+          might become a bit slower.
+
+        - Miscellaneous smaller fixes and improvements.
+
 1.3     February 1, 2018
 
         - Fix bug when extra item comment would be appended only if the
