@@ -26,15 +26,12 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        as_fuzzy_default => 'BOOLEAN',
-        as_fuzzy         => 'ARRAY',
-        as_not_fuzzy     => 'ARRAY'
+        as_fuzzy_default => 'BOOLEAN', # DEPRECATED; kept for backward compatibility for a while
+        as_fuzzy         => 'ARRAY',   # DEPRECATED; kept for backward compatibility for a while
+        as_not_fuzzy     => 'ARRAY'    # DEPRECATED; kept for backward compatibility for a while
     });
 
     $self->{keys} = {};
-    $self->{as_fuzzy_default} = 1; # by default, all guessed translations are returned as fuzzy
-    $self->{as_fuzzy} = []; # list of languages for which guessed translations are always returned as fuzzy (despite the `as_fuzzy_default` setting)
-    $self->{as_not_fuzzy} = []; # list of languages for which guessed translations are always returned as NOT fuzzy (despite the `as_fuzzy_default` setting)
 
     $self->add('get_translation', \&get_translation);
 }
@@ -45,7 +42,9 @@ sub validate_data {
     $self->SUPER::validate_data;
 
     map {
-        $self->{$_} = $self->{data}->{$_} if exists $self->{data}->{$_};
+        if (exists $self->{data}->{$_}) {
+            warn "NOTICE: $_ parameter is deprecated; please remove it from the config";
+        };
     } qw(
         as_fuzzy_default
         as_fuzzy
