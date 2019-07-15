@@ -47,7 +47,7 @@ Example:
 
 ## Creating a wrapper
 
-    $ sudo echo -e "#!/bin/sh\ndocker run -v /var/serge/data:/data serge \"\$@\"" >/usr/local/bin/serge
+    $ sudo sh -c 'echo "#!/bin/sh\ndocker run -v /var/serge/data:/data serge \"\$@\"" >/usr/local/bin/serge'
 
     $ sudo chmod +x /usr/local/bin/serge
 
