@@ -26,10 +26,12 @@ for (@tests) {
     my $output;
     if (m/\.pm$/) {
         eval { $output = do $_ };
+        print $@ if $@;
         ok(!$@ && $output, "'do' $_");
     } else {
         $output = `$^X -I "$libpath" -c $_ 2>&1`;
         my $ok = ($? >> 8 == 0);
+        print $output unless $ok;
         ok($ok, "$_ syntax check");
     }
 }
