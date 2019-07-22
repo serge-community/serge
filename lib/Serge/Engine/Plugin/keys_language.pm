@@ -88,7 +88,12 @@ sub is_keys_language {
 sub generate_raw_key {
     my ($self, $namespace, $filepath, $source_key, $string, $context) = @_;
 
+    # add initial seed, namespace and filepath as base disambiguation
+    # factors, so that keys in all namespaces / files are different;
+    # having an initial seed allows to control key uniqueness across
+    # multiple Serge databases
     my @a = ($self->{data}->{seed}, $namespace, $filepath);
+
     if (defined $source_key && $source_key ne '') {
         # when source key is defined, use it as a string identifier
         push @a, $source_key;
