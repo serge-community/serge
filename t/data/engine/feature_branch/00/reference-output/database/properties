@@ -41,18 +41,18 @@ properties
     28    29 job-serializer-plugin:test_namespace:test_job.feature1
           serialize_po.
     29    30 job-engine:test_namespace:test_job.feature1 1.3.2
-    30    31 source:3 fe7974f9d8a225d065cfcd48e5069d90
-    31    32 hash:3 fe7974f9d8a225d065cfcd48e5069d90
-    32    33 size:3 72
+    30    31 source:3 8c2ecd04833cca4feb265a89d4882f36
+    31    32 hash:3 8c2ecd04833cca4feb265a89d4882f36
+    32    33 size:3 32
     33    34 items:3 9,10
     34    35 ts:3:test:count 2
     35    36 usn:3:test 33
     36    37 ts:3:test ea87635ff4189483737a8badeceb4204
     37    38 target:3:test_job.feature2:test
-          a39b5ac856b7c664c2f60ba4ca6b0cb9
+          82a1e5d1568d2764492609ace49d695d
     38    39 target:mtime:3:test_job.feature2:test 12345678
     39    40 source:3:test_job.feature2:test
-          fe7974f9d8a225d065cfcd48e5069d90
+          8c2ecd04833cca4feb265a89d4882f36
     40    41 source:ts:3:test_job.feature2:test
           ea87635ff4189483737a8badeceb4204
     41    42 job-hash:test_namespace:test_job.feature2
