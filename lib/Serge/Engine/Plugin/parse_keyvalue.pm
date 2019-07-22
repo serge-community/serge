@@ -28,7 +28,7 @@ sub parse {
 sub parse_callback {
     my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang) = @_;
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang, $hint);
 
     $translated_string =~ s/\n/\\n/sg;
 
