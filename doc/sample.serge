@@ -229,6 +229,17 @@ jobs
         # NO - the string is extracted as is (default)
         normalize_strings           NO
 
+        # (BOOLEAN) [OPTIONAL] Should the string keys reported by a parser
+        # be copied into a context field?
+        # Note that original context in this case becomes overwritten,
+        # unless the returned key is empty.
+        # Changing this setting on an existing previously translated project
+        # will change all the string signatures and may require one to re-apply
+        # and review translations once.
+        # YES - extracted keys should be used as context
+        # NO - keep the original extracted context (default)
+        use_keys_as_context         NO
+
         # (BOOLEAN) [OPTIONAL] Should untranslated strings appear blank
         # in the output file, or have source strings as their "translation"?
         # Rendering source string when a translation is missing may simplify

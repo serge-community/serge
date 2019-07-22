@@ -1,0 +1,62 @@
+inc
+{
+    job-common
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            -:test_language
+
+            :feature_branch
+            {
+                plugin                           feature_branch
+
+                data
+                {
+                    master_job                   test_job.master
+                }
+            }
+
+            :test_language_lower_priority
+            {
+                plugin                           test_language
+                phase                            get_translation_pre
+
+                data
+                {
+                    save_translations            YES
+                }
+            }
+        }
+    }
+}
+
+jobs
+{
+    # 'master branch' resources
+    :master
+    {
+        @inherit                                 .#inc/job-common
+        source_dir                               ./resources/master
+        id                                       test_job.master
+    }
+
+    # 'feature branch #1' resources
+    # (will only extract strings which are not in the 'test_job.master' job)
+    :feature1
+    {
+        @inherit                                 .#inc/job-common
+        source_dir                               ./resources/feature1
+        source_path_prefix                       feature1/
+        output_file_path                         ./test-output/localized-resources/feature1/%LOCALE%/%FILE%
+        id                                       test_job.feature1
+    }
+
+}

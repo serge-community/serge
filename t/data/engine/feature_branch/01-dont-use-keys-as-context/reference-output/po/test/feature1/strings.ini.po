@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. key0
+#: File: feature1/strings.ini
+#: ID: b9654bb58db28f9c09099c29f2897d78
+msgid "foo"
+msgstr "ḟőő"
+
+#. key1
+#: File: feature1/strings.ini
+#: ID: 55cf3629c1cbfb182802ff6c106b88ee
+msgctxt "key1"
+msgid "foo"
+msgstr "ḟőő"

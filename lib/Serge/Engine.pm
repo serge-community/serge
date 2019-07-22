@@ -773,6 +773,14 @@ sub disambiguate_string {
         $self->{current_file_source_keys}->{$source_key} = 1;
     }
 
+    # if job's `use_keys_as_context` option is turned on,
+    # and the context has not been provided explicitly,
+    # copy the key into the context before disambiguating
+
+    if ($context eq '' && $self->{job}->{use_keys_as_context} && $source_key ne '') {
+        $context = $source_key;
+    }
+
     # see if the item was already found in this file and
     # alter context if necessary to disambiguate the string
 

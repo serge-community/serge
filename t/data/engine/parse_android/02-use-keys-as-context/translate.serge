@@ -1,0 +1,15 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             strings\.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        use_keys_as_context                      YES
+    }
+}
