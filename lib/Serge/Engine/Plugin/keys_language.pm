@@ -133,8 +133,9 @@ sub get_translation {
 sub can_process_ts_file {
     my ($self, $phase, $file, $lang) = @_;
 
-    # if this is a key language, do not import anything from translation file unless `save_translations' flag is on
-    return 0 if $self->is_keys_language($lang) && !$self->{data}->{save_translations};
+    # if this is a keys language, do not generate or process translation files:
+    # keys are not meant to be modified externally
+    return 0 if $self->is_keys_language($lang);
 
     # by default, allow to process any translation files for any given target language
     return 1;
