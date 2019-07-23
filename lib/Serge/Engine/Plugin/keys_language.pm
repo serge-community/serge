@@ -28,10 +28,7 @@ sub init {
         seed              => 'STRING',
         seed_with_string  => 'BOOLEAN',
         string_format     => 'STRING',
-        hint_format       => 'STRING',
-        translations => {
-            '*'           => 'STRING'
-        }
+        hint_format       => 'STRING'
     });
 
     $self->add({
@@ -55,11 +52,11 @@ sub validate_data {
     $self->{seed_with_string} = exists $d->{seed_with_string} ? $d->{seed_with_string} : $SEED_WITH_STRING;
 
     if ($self->{string_format} !~ m/%HASH%/) {
-        die "`format` parameter value must have a %HASH% macro"
+        die "`string_format` parameter value must have a %HASH% macro"
     }
 
     if ($self->{hint_format} !~ m/%HASH%/) {
-        die "`format` parameter value must have a %HASH% macro"
+        die "`hint_format` parameter value must have a %HASH% macro"
     }
 }
 
