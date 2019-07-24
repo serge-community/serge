@@ -1,0 +1,88 @@
+# This is an example file that could've been produced by `fbcgen.pl myproject.cfg`
+# on a hypothetical Git repository that has `feature/A`, `feature/B` and `release/1.0`
+# qualifying branches.
+
+# -----------------------------------
+
+# THIS FILE IS GENERATED AUTOMATICALLY
+
+sync
+{
+    ts
+    {
+        #...
+    }
+
+    vcs
+    {
+        plugin                        git
+
+        data
+        {
+            add_unversioned           YES
+            email                     l10n@example.com
+            name                      L10N Robot
+        }
+
+        data
+        {
+            local_path                ./data/myproject
+
+            remote_path
+            {
+                master                ssh://user@git.example.com:7999/myproject.git
+
+                # feature branches
+
+                branch-feature-A      ssh://user@git.example.com:7999/myproject.git#feature/A
+                branch-feature-B      ssh://user@git.example.com:7999/myproject.git#feature/B
+                branch-release-1.0    ssh://user@git.example.com:7999/myproject.git#release/1.0
+            }
+        }
+    }
+}
+
+jobs
+{
+    :master-job
+    {
+        @inherit                      myproject.inc#job-template
+    }
+
+    # feature branch jobs
+
+    :branch-feature-A
+    {
+        @inherit                      myproject.inc#job-template
+                                      myproject.inc#skip-saving-localized-files
+
+        name                          JSON file processing ('feature/A' branch)
+        id                            myproject.json.branch-feature-A
+        source_dir                    ./data/myproject/branch-feature-A/res/en
+        output_file_path              ./data/myproject/branch-feature-A/res/%LANG%/%FILE%
+        source_path_prefix            feature/A/
+    }
+
+    :branch-feature-B
+    {
+        @inherit                      myproject.inc#job-template
+                                      myproject.inc#skip-saving-localized-files
+
+        name                          JSON file processing ('feature/B' branch)
+        id                            myproject.json.branch-feature-B
+        source_dir                    ./data/myproject/branch-feature-B/res/en
+        output_file_path              ./data/myproject/branch-feature-B/res/%LANG%/%FILE%
+        source_path_prefix            feature/B/
+    }
+
+    :branch-release-1.0
+    {
+        @inherit                      myproject.inc#job-template
+
+        name                          JSON file processing ('release/1.0' branch)
+        id                            myproject.json.branch-release-1.0
+        source_dir                    ./data/myproject/branch-release-1.0/res/en
+        output_file_path              ./data/myproject/branch-release-1.0/res/%LANG%/%FILE%
+        source_path_prefix            release/1.0/
+    }
+}

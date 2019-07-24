@@ -1,0 +1,41 @@
+skip_tags: true
+
+image: Visual Studio 2017
+platform: x64
+
+environment:
+  matrix:
+  - version: 5.28.0.1
+  - version: 5.26.2.1
+  - version: 5.24.4.1
+  - version: 5.22.3.1
+  - version: 5.18.4.1
+
+cache:
+  - C:\strawberry
+
+install:
+  - if not exist "C:\strawberry" choco install strawberryperl --version %version%
+  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
+  - perl -v
+  - cpanm -n -q --skip-satisfied --installdeps .
+
+before_build:
+  - cpanm -n -q --skip-satisfied Devel::Cover Devel::Cover::Report::Codecov
+
+build_script:
+  - perl Build.PL
+  - Build
+
+before_test:
+  - cover -delete
+
+test_script:
+  - Build test
+  - perl -MDevel::Cover t/compile.t
+  - perl -MDevel::Cover t/engine.t
+
+after_test:
+  - cover -report codecov
+

@@ -11,13 +11,13 @@ jobs
 
         callback_plugins
         {
-            :gzip
+            :calculate-md5
             {
                 plugin                           run_command
 
                 data
                 {
-                    command                      gzip -n <%OUTFILE% >%OUTFILE%.gz
+                    command                      perl ../../md5.pl <%OUTFILE% >%OUTFILE%.md5
                 }
             }
         }

@@ -24,13 +24,13 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<p><code>serge push-ts [configuration-files] [--force] [--echo-commands] [--echo-output]</code></p>
+<p><code>serge push-ts [configuration-files] [--force] [--lang=aa,bb,cc] [--echo-commands] [--echo-output]</code></p>
 
 <p>Where <code>[configuration-files]</code> is a path to a specific .serge file, or a directory to scan .serge files in. You can specify multiple paths as separate command-line parameters. If no paths provided, Serge will look up for .serge files in the current directory.</p>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p>Based on each configuration file&#39;s <b>job</b> section, push translation files to remote translation server.</p>
+<p>Based on each configuration file&#39;s <b>sync</b> section, push translation files to remote translation server.</p>
 
 <h1 id="OPTIONS">OPTIONS</h1>
 
@@ -40,6 +40,12 @@
 <dd>
 
 <p>Instruct the remote party to skip any optimizations and force update data from all translation files.</p>
+
+</dd>
+<dt><b>--lang=xx[,yy][,zz]</b>, <b>--language=xx[,yy][,zz]</b> <b>--languages=xx[,yy][,zz]</b></dt>
+<dd>
+
+<p>An optional comma-separated list of target languages. If not specified, all the available languages are supposed to be synchronized.</p>
 
 </dd>
 <dt><b>--echo-commands</b></dt>
@@ -65,7 +71,7 @@
 
         <div class="footer">
             <div class="copyright">
-                &copy; 2014&ndash;2015 Evernote Corporation.<br/>
+                &copy; 2014&ndash;2018 Evernote Corporation.<br/>
                 All rights reserved.
             </div>
             <div class="license">

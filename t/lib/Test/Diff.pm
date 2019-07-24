@@ -13,6 +13,7 @@ use Digest::MD5;
 use File::Find qw/find/;
 use File::Spec::Functions qw/abs2rel catfile/;
 use Test::More;
+use Text::Diff;
 
 sub file_md5 {
     my $filepath = shift;
@@ -40,7 +41,8 @@ sub files_diff {
     $ok &= fail "File '$f1' should exist" unless -f $f1;
     $ok &= fail "File '$f2' should exist" unless -f $f2;
 
-    ok(file_md5($f1) eq file_md5($f2), "Files '$fr1' and '$fr2' should be equal") if $ok;
+    $ok &= ok(file_md5($f1) eq file_md5($f2), "Files '$fr1' and '$fr2' should be equal") if $ok;
+    diag(diff($f1, $f2, { STYLE => "Table", FILENAME_A => $fr1, FILENAME_B => $fr2} )) if !$ok;
 }
 
 sub dir_diff {
@@ -65,6 +67,13 @@ sub dir_diff {
 
             files_diff($t1, $t2, { base_dir => $base }) if (-f $t1);
         }, $d1);
+
+        find(sub {
+            my $t1 = $File::Find::name;
+            my $t2 = catfile($d1, abs2rel($t1, $d2));
+
+            files_diff($t1, $t2, { base_dir => $base }) if (-f $t1);
+        }, $d2);
     };
 }
 

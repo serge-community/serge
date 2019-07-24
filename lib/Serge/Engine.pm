@@ -26,7 +26,7 @@ sub new {
     my ($class) = @_;
 
     my $self = {
-        debug_mode => undef, # enable debug output
+        debug => $ENV{CI} ne '', # use debug mode from under CI environment to ensure better coverage
         debug_nosave_ts => undef, # disable generation of translation files
         debug_nosave_loc => undef, # disable generation of localized files
 
@@ -39,6 +39,7 @@ sub new {
         output_bom => 1,
         reuse_translations => 1,
         reuse_orphaned => 1,
+        reuse_fuzzy => 1,
         reuse_as_fuzzy_default => 1,
         reuse_as_fuzzy => [],
         reuse_as_not_fuzzy => [],
@@ -84,6 +85,12 @@ sub run_callbacks {
 sub adjust_destination_languages {
     my ($self, $job) = @_;
 
+    # add source language to the list if `output_default_lang_file` is defined
+    if ($job->{output_default_lang_file}) {
+        push @{$job->{destination_languages}}, $job->{source_language};
+    }
+
+    # deduplicate the list
     my @j = @{$job->{destination_languages}};
     my %job_langs;
     @job_langs{@j} = @j;
@@ -99,10 +106,11 @@ sub adjust_destination_languages {
         foreach my $lang (keys %job_langs) {
             delete $job_langs{$lang} unless exists $limit_langs{$lang};
         }
-
-        my @a = sort keys %job_langs;
-        $job->{destination_languages} = \@a;
     }
+
+    # update the list with a deduplicated sorted version of it
+    my @a = sort keys %job_langs;
+    $job->{destination_languages} = \@a;
 
     if (@{$job->{destination_languages}} == 0) {
         print "List of destination languages is empty\n";
@@ -140,9 +148,9 @@ sub open_database {
 
     return if
         ($self->{db_source} ne '') &&
-        ($self->{db_source} eq $job->{db_source}) &&
-        ($self->{db_username} eq $job->{db_username}) &&
-        ($self->{db_password} eq $job->{db_password});
+            ($self->{db_source} eq $job->{db_source}) &&
+            ($self->{db_username} eq $job->{db_username}) &&
+            ($self->{db_password} eq $job->{db_password});
 
     # open the database (this will also close previous connection and commit the transaction, if any)
     $self->{db}->open($job->{db_source}, $job->{db_username}, $job->{db_password});
@@ -221,6 +229,7 @@ sub adjust_job_defaults {
         output_bom
         reuse_translations
         reuse_orphaned
+        reuse_fuzzy
         reuse_as_fuzzy_default
         reuse_as_fuzzy
         reuse_as_not_fuzzy
@@ -299,8 +308,7 @@ sub init_job {
 
     $self->{job} = $job;
 
-    $self->{debug} = $self->{debug_mode} || $job->{debug};
-    $job->{debug} = $self->{debug};
+    $job->{debug} = $job->{debug} || $self->{debug};
 
     if (exists $job->{debug_nosave}) {
         $self->{debug_nosave_loc} = $self->{debug_nosave_ts} = $job->{debug_nosave};
@@ -574,8 +582,8 @@ sub update_database_from_source_files {
     }
 
     print scalar keys %$new, " files are new, ",
-          scalar keys %$orphaned, " were orphaned and ",
-          scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
+        scalar keys %$orphaned, " were orphaned and ",
+        scalar keys %$no_longer_orphaned, " are no longer orphaned since last run\n";
     if (scalar keys %$rename) {
         print "The following files were renamed:\n";
         map {
@@ -765,6 +773,14 @@ sub disambiguate_string {
         $self->{current_file_source_keys}->{$source_key} = 1;
     }
 
+    # if job's `use_keys_as_context` option is turned on,
+    # and the context has not been provided explicitly,
+    # copy the key into the context before disambiguating
+
+    if ($context eq '' && $self->{job}->{use_keys_as_context} && $source_key ne '') {
+        $context = $source_key;
+    }
+
     # see if the item was already found in this file and
     # alter context if necessary to disambiguate the string
 
@@ -794,7 +810,7 @@ sub disambiguate_string {
         $context_counter++;
     }
 
-    $self->{current_file_keys}->{$key} = 1;
+    $self->{current_file_keys}->{$key} = $source_key;
 
     return $context;
 }
@@ -820,6 +836,11 @@ sub parse_source_file_callback {
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, undef, \$string, \$hint);
+
+    # normalize once again, in case the string was changed
+    $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
@@ -901,7 +922,7 @@ sub update_database_from_ts_files_lang_file {
     $self->{current_file_rel} = $relfile;
     $self->{current_file_id} = undef;
 
-    my $fullpath = $self->{job}->get_full_ts_file_path($relfile, $lang);
+    my $fullpath = $self->get_full_ts_file_path($relfile, $lang);
 
     if (!-f $fullpath) {
         print "\tFile does not exist: $fullpath\n" if $self->{debug};
@@ -929,6 +950,8 @@ sub update_database_from_ts_files_lang_file {
     binmode(TS);
     my $text = decode_utf8(join('', <TS>));
     close(TS);
+
+    $self->run_callbacks('before_deserialize_ts_file', $self->{current_file_rel}, \$text);
 
     my $current_hash = generate_hash($text);
 
@@ -988,7 +1011,7 @@ sub update_database_from_ts_files_lang_file {
 
             # sanity check: fuzzy flag with empty translation makes no sense
 
-            if (!$unit->{target} && $unit->{fuzzy}) {
+            if ($unit->{target} eq '' && $unit->{fuzzy}) {
                 print "\t\t? [empty translation marked as fuzzy] $unit->{key}\n";
                 $unit->{fuzzy} = 0; # clear the fuzzy flag
             }
@@ -1011,7 +1034,7 @@ sub update_database_from_ts_files_lang_file {
             # because the values could have been removed in the callback;
             # also, if translation already exists (translation_id is defined),
             # we must update the record as well
-            if ($unit->{target} or $unit->{comment} or $translation_id) {
+            if ($unit->{target} ne '' or $unit->{comment} ne '' or $translation_id) {
                 print "\t\t> $unit->{key} => [$item_id/$lang]=[$translation_id]\n";
                 $self->{db}->set_translation($item_id, $lang, $unit->{target}, $unit->{fuzzy}, $unit->{comment}, 0);
             }
@@ -1116,19 +1139,37 @@ sub generate_ts_files_for_file {
     }
 }
 
+sub get_full_ts_file_path {
+    my ($self, $file, $lang) = @_;
+
+    my $ts_file = $file;
+
+    my ($f) = $self->run_callbacks('rewrite_relative_ts_file_path', $file, $lang);
+    $ts_file = $f if $f;
+
+    my $fullpath = $self->{job}->get_full_ts_file_path($ts_file, $lang);
+
+    ($f) = $self->run_callbacks('rewrite_absolute_ts_file_path', $fullpath, $lang);
+    $fullpath = $f if $f;
+
+    return $fullpath;
+}
+
 sub generate_ts_files_for_file_lang {
     my ($self, $file, $lang) = @_;
 
-    my $fullpath = $self->{job}->get_full_ts_file_path($file, $lang);
+    # skip generating TS files for source language (it is added in `output_default_lang_file` mode implicitly)
+    return if ($lang eq $self->{job}->{source_language});
 
     my $result = combine_and(1, $self->run_callbacks('can_generate_ts_file', $file, $lang));
     if ($result eq '0') {
-        print "\t\tSkip generating $fullpath because at least one callback returned 0\n" if $self->{debug};
+        print "\t\tSkip generating TS file for $file:$lang because at least one callback returned 0\n" if $self->{debug};
         return;
     }
 
+    my $fullpath = $self->get_full_ts_file_path($file, $lang);
+
     my $namespace = $self->{job}->{db_namespace};
-    my $locale = locale_from_lang($lang);
 
     my $dir = dirname($fullpath);
 
@@ -1193,6 +1234,8 @@ sub generate_ts_files_for_file_lang {
 
         my $string = $string_props->{string};
         my $context = $string_props->{context};
+        my $key = generate_key($string, $context);
+        my $source_key = $self->{current_file_keys}->{$key};
 
         my $hint = $item_props->{hint};
         my $item_comment = $item_props->{comment};
@@ -1214,20 +1257,25 @@ sub generate_ts_files_for_file_lang {
         # to the original string (i.e. all strings in the default language are already 'translated')
 
         my ($translation, $fuzzy, $comments) = $self->get_translation($string, $context, $namespace,
-            $file, $lang, undef, $item_id);
-
-        my $key = generate_key($string, $context);
+            $file, $lang, undef, $item_id, $source_key);
 
         my @hint_lines;
 
         push @hint_lines, $hint if ($hint ne '') && ($hint ne $string);
 
         # run callbacks that might want to modify the hint (developer comment)
-        # TODO: rename 'add_dev_comment' to 'add_hint'
-        $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
+        if ($self->{job}->has_callbacks('add_dev_comment')) {
+            print "Deprecation notice: add_dev_comment phase is deprecated. Use add_hint phase instead\n";
+            $self->run_callbacks('add_dev_comment', $file, $lang, \$string, \@hint_lines);
+        } else {
+            $self->run_callbacks(
+                'add_hint',
+                $string, $context, $namespace, $file, $source_key, $lang, \@hint_lines
+            );
+        }
 
-        if (@hint_lines > 0 && $item_comment ne '') {
-            push @hint_lines, ''; # add extra line break between hint and extra item comment
+        if ($item_comment ne '') {
+            push @hint_lines, '' if @hint_lines > 0; # add extra line break between hint and extra item comment
             push @hint_lines, $item_comment;
         }
 
@@ -1258,6 +1306,8 @@ sub generate_ts_files_for_file_lang {
         print "\t\tReason: $@\n";
         return undef;
     }
+
+    $self->run_callbacks('after_serialize_ts_file', $file, \$text);
 
     # update translation file item counter property
 
@@ -1352,12 +1402,6 @@ sub generate_localized_files_for_file {
 
     die "ERROR: CURRENT_FILE_ID is not defined\n" unless $self->{current_file_id};
 
-    # Generating localized file for the source language, if needed
-
-    if ($self->{job}->{output_default_lang_file}) {
-        $self->generate_localized_files_for_file_lang($file, $self->{job}->{source_language});
-    }
-
     my $target_langs;
     if (!$modified) {
         print "\t\t*** File wasn't changed, will walk through modified languages only\n" if $self->{debug};
@@ -1414,11 +1458,11 @@ sub generate_localized_files_for_file_lang {
 
     if ($self->{force_flags}->{"$self->{current_file_id}.$lang"} == 0) { # if not forced
         if ($self->{job}->{optimizations}
-                and $file_exists
-                and ($current_mtime eq $old_mtime)
-                and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
-                and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
-            ) {
+            and $file_exists
+            and ($current_mtime eq $old_mtime)
+            and ($source_hash eq $self->{db}->get_property("source:$filekey:$lang"))
+            and ($source_ts_file_hash eq $self->{db}->get_property("source:ts:$filekey:$lang"))
+        ) {
             print "\t\tSkip generating $fullpath because source file and translations did not change, target file exists and has the same modification time\n" if $self->{debug};
             return;
         }
@@ -1474,9 +1518,9 @@ sub generate_localized_files_for_file_lang {
     my $old_hash = $self->{db}->get_property("target:$filekey:$lang");
 
     if ($self->{job}->{optimizations}
-            and $file_exists
-            and ($current_hash eq $old_hash)
-            and ($current_mtime eq $old_mtime)) {
+        and $file_exists
+        and ($current_hash eq $old_hash)
+        and ($current_mtime eq $old_mtime)) {
         print "\t\tSkip saving $fullpath: content hash and file modification time are the same\n" if $self->{debug};
     } else {
         my @reasons;
@@ -1543,6 +1587,11 @@ sub generate_localized_files_for_file_lang_callback {
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
 
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint);
+
+    # normalize once again, in case the string was changed
+    $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
     my $result = combine_and(1, $self->run_callbacks('can_extract', $self->{current_file_rel}, $lang, \$string, \$hint, $context, $key));
@@ -1576,7 +1625,7 @@ sub generate_localized_files_for_file_lang_callback {
         }
     }
 
-    print "::[$item_id] >> [$self->{current_file_rel}]::[$string], [$context], [$hint], [$lang]\n" if $self->{debug};
+    print "::[$item_id] >> [$self->{current_file_rel}]::[$string], [$context], [$hint], [$lang], [$key]\n" if $self->{debug};
 
     my ($translation, $fuzzy) = $self->get_translation($string, $context, $self->{job}->{db_namespace}, $self->{current_file_rel}, $lang, undef, $item_id, $key);
 
@@ -1596,7 +1645,10 @@ sub generate_localized_files_for_file_lang_callback {
         $translation = sprintf('%*s', -$n, $translation); # pad with spaces (spaces are appended to the end)
     }
 
-    $self->run_callbacks('log_translation', $string, $context, $hint, $flagsref, $lang, $key, $translation);
+    $self->run_callbacks('log_translation',
+        $string, $context, $hint, $flagsref, $lang, $key, $translation,
+        $self->{job}->{db_namespace}, $self->{current_file_rel}
+    );
 
     return $translation;
 }
@@ -1636,7 +1688,7 @@ sub get_translation { # either from cache or from database
 
     # return translation
 
-    return ($translation, $translation ? $fuzzy : undef, $comment, $need_save);
+    return ($translation, $translation ne '' ? $fuzzy : undef, $comment, $need_save);
 }
 
 sub internal_get_translation { # from database
@@ -1645,17 +1697,17 @@ sub internal_get_translation { # from database
     # try to get translation by calling registered plugin callbacks
     # (phase 1, before even looking for existing translations)
     my ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation_pre',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
-    $translation = NFC($translation) if $translation;
-    return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
+        'get_translation_pre',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
+    $translation = NFC($translation) if $translation ne '';
+    return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
     # Find exact match for given namespace, file path and context
 
     ($translation, $fuzzy, $comment, my $merge, my $skip) = $self->{db}->get_translation($item_id, $lang, 1); # allow skip
     return if $skip;
-    return ($translation, $fuzzy, $comment, undef) if ($translation || $comment);
+    return ($translation, $fuzzy, $comment, undef) if ($translation ne '' || $comment ne '');
 
     # check what the best translation is and if there are multiple translations
     # in the database for this exact string
@@ -1664,7 +1716,10 @@ sub internal_get_translation { # from database
     if ($self->{job}->{reuse_translations}) {
         # Find the best match from other files or namespaces
         my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{db}->find_best_translation(
-            $namespace, $filepath, $string, $context, $lang, $self->{job}->{reuse_orphaned}, $self->{job}->{reuse_uncertain}
+            $namespace, $filepath, $string, $context, $lang,
+            $self->{job}->{reuse_orphaned},
+            $self->{job}->{reuse_fuzzy},
+            $self->{job}->{reuse_uncertain}
         );
 
         if ($multiple_variants && !$self->{job}->{reuse_uncertain}) {
@@ -1683,17 +1738,17 @@ sub internal_get_translation { # from database
             my $lang_as_not_fuzzy = is_flag_set($self->{job}->{reuse_as_not_fuzzy}, $lang);
             $fuzzy = 1 if $lang_as_fuzzy || ($self->{job}->{reuse_as_fuzzy_default} && !$lang_as_not_fuzzy);
         }
-        return ($translation, $fuzzy, $comment, 1) if ($translation || $comment);
+        return ($translation, $fuzzy, $comment, 1) if ($translation ne '' || $comment ne '');
     }
 
     # try to get translation by calling registered plugin callbacks
     # (phase 2, after looking up the database)
     ($translation, $fuzzy, $comment, $need_save) = $self->run_callbacks(
-            'get_translation',
-            $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
-        );
-    $translation = NFC($translation) if $translation;
-    return ($translation, $fuzzy, $comment, $need_save) if ($translation || $comment);
+        'get_translation',
+        $string, $context, $namespace, $filepath, $lang, $disallow_similar_lang, $item_id, $key
+    );
+    $translation = NFC($translation) if $translation ne '';
+    return ($translation, $fuzzy, $comment, $need_save) if ($translation ne '' || $comment ne '');
 
     # Otherwise, try to look for a translation from a similar language
 
@@ -1706,7 +1761,7 @@ sub internal_get_translation { # from database
                         $self->get_translation($string, $context, $namespace, $filepath, $source_lang, 1, $item_id, $key);
                     # force fuzzy flag if $rule->{as_fuzzy} is true; otherwise, use the original fuzzy flag value
                     $fuzzy = $fuzzy || $rule->{as_fuzzy};
-                    return ($translation, $fuzzy, $comment, 1) if ($translation || $comment);
+                    return ($translation, $fuzzy, $comment, 1) if ($translation ne '' || $comment ne '');
                 }
             }
         }

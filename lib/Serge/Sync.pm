@@ -60,6 +60,13 @@ sub validate_config {
     }
 }
 
+sub reset_counters {
+    my ($self) = @_;
+    $self->{total_jobs} = 0;
+    $self->{skipped_jobs} = 0;
+    $self->{failed_jobs} = 0;
+}
+
 sub do_sync {
     my ($self, $engine, $config) = @_;
 
@@ -106,9 +113,9 @@ sub do_sync {
     if ($self->{no_pull_ts}) {
         print "Skip 'pull_ts' step\n" if $self->{debug};
     } else {
-        print "\nUpdating .po files from Pootle's internal database...\n\n";
+        print "\nPulling translation files from external translation service...\n\n";
         my $start = [gettimeofday];
-        $self->{ts}->pull_ts; # update all languages
+        $self->{ts}->pull_ts($self->{languages}); # update all languages
         print "'pull-ts' step took ", tv_interval($start), " seconds\n";
     }
 
@@ -122,6 +129,10 @@ sub do_sync {
         my $processor = Serge::Engine::Processor->new($engine, $config);
         $processor->run();
         print "'localize' step took ", tv_interval($start), " seconds\n";
+
+        $self->{total_jobs} += $processor->{total_jobs};
+        $self->{skipped_jobs} += $processor->{skipped_jobs};
+        $self->{failed_jobs} += $processor->{failed_jobs};
     }
 
     # step 4
@@ -129,9 +140,9 @@ sub do_sync {
     if ($self->{no_push_ts}) {
         print "Skip 'push_ts' step\n" if $self->{debug};
     } else {
-        print "\nUpdating Pootle's internal database from .po files...\n\n";
+        print "\nPushing translation files to external translation service...\n\n";
         my $start = [gettimeofday];
-        $self->{ts}->push_ts; # update all languages
+        $self->{ts}->push_ts($self->{languages}); # update all languages
         print "'push-ts' step took ", tv_interval($start), " seconds\n";
     }
 

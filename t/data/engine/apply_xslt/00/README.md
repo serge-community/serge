@@ -1,0 +1,1 @@
+Test for 'apply_xslt' plugin, 'after_load_file' phase

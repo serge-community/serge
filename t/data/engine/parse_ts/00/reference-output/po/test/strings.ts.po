@@ -3,19 +3,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: test\n"
-"Generated-By: Serge 1.2\n"
+"Generated-By: Serge 1.3\n"
 
+#. This is a comment for Value 1
 #: File: strings.ts
-#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+#: ID: 542291f0aa67d22a0af650a4c835f516
+msgctxt ""
+"block-level context\n"
+"message-level context"
 msgid "Value 1"
 msgstr "Ṽáļũē 1"
 
 #: File: strings.ts
-#: ID: 3fa07f98de1fb810037bfde267c704d1
+#: ID: 06222400febe66b9bff606a9059e7c91
+msgctxt "block-level context"
 msgid "Value 2"
 msgstr "Ṽáļũē 2"
 
 #: File: strings.ts
-#: ID: f6b24ad725daf0bbe9b2e53e81ceaa7b
+#: ID: 864092672935e5a150d60a8578b55b7f
+msgctxt "block-level context"
 msgid "\"Value1\" <> \"&Value2\""
 msgstr "\"Ṽáļũē1\" <> \"&Ṽáļũē2\""
+
+#: File: strings.ts
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+msgid "Value 3"
+msgstr "Ṽáļũē 3"

@@ -1,159 +1,147 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,300,300italic&subset=latin,cyrillic-ext);
 
 body {
-    font-family: "Roboto", sans-serif;
-    text-rendering: optimizeLegibility;
-    font-weight: 300;
-    line-height: 160%;
-    margin: 0;
-    background: #fbfbfb;
-    color: #000;
-    text-align: center;
-    overflow-y: scroll; /* to avoid horizontal jumps on short pages */
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+  line-height: 160%;
+  margin: 0;
+  background: #fbfbfb;
+  color: #000;
+  text-align: center;
+  overflow-y: scroll; /* to avoid horizontal jumps on short pages */
 }
 
-strong, b {
-    font-weight: 400;
+strong,
+b {
+  font-weight: 400;
 }
 
-a, a:visited {
-   color: rgb(95, 179, 54);
-   text-decoration: none;
-   font-weight: bolder;
+a,
+a:visited {
+  color: rgb(95, 179, 54);
+  text-decoration: none;
+  font-weight: bolder;
 }
 
 a {
-    display: inline-block;
-    padding: 0 0.3em;
-    border-radius: 0.3em;
-    margin: 0 -0.3em;
+  display: inline-block;
+  padding: 0 0.3em;
+  border-radius: 0.3em;
+  margin: 0 -0.3em;
 }
 
 a[href^="//"],
 a[href^="http://"],
 a[href^="https://"] {
-    color: #00a2dd;
+  color: #00a2dd;
 }
 
 a:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: #000;
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
 }
 
 .wrapper {
-    width: 940px;
-    display: inline-block;
-    text-align: left;
+  width: 940px;
+  display: inline-block;
+  text-align: left;
 }
 
 .header-bg {
-    background: rgb(204, 111, 60);
-    position: absolute;
-    height: 70px;
-    left: 0;
-    right: 0;
-         box-sizing: border-box;
-    -moz-box-sizing: border-box;
+  background: rgb(204, 111, 60);
+  position: absolute;
+  height: 70px;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .header {
-    position: relative;
-    height: 70px;
-    padding-top: 14px;
-         box-sizing: border-box;
-    -moz-box-sizing: border-box;
+  position: relative;
+  height: 70px;
+  padding-top: 14px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .header a.logo:hover {
-    background: none;
+  background: none;
 }
 
 .content {
-    margin: 0 3em;
+  margin: 0 3em;
 }
 
 h1 {
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 1.5em;
-    margin: 1.5em 0 0.5em -2em;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.5em;
+  margin: 1.5em 0 0.5em -2em;
 }
 
-code, dt {
-    font-family: "Inconsolata", monospace;
-    font-size: 110%;
-    font-weight: normal;
+code,
+dt {
+  font-family: 'Inconsolata', monospace;
+  font-size: 110%;
+  font-weight: normal;
 }
 
 dt b {
-    font-weight: normal;
+  font-weight: normal;
 }
 
-code, dt b {
-    color: rgb(204, 111, 60);
+code,
+dt b {
+  color: rgb(204, 111, 60);
 }
 
 .logo {
-    display: inline-block;
-    font-size: 2.3em;
-    text-decoration: none;
-    line-height: 40px;
+  display: inline-block;
+  font-size: 2.3em;
+  text-decoration: none;
+  line-height: 40px;
 }
 
 a.logo {
-    font-weight: lighter;
+  font-weight: lighter;
 }
 
 .logo,
 .logo:visited {
-    color: #fff;
+  color: #fff;
 }
 
 .logo img {
-    width: 43px;
-    height: 43px;
-    margin-right: 0.2em;
-    vertical-align: top;
+  width: 43px;
+  height: 43px;
+  margin-right: 0.2em;
+  vertical-align: top;
 }
 
 h1.command {
-    font-size: 2.5em;
-    font-weight: normal;
-    margin: 0;
-    padding-bottom: 0.5em;
-    padding-top: 1.3em;
+  font-size: 2.5em;
+  font-weight: normal;
+  margin: 0;
+  padding-bottom: 0.5em;
+  padding-top: 1.3em;
 }
 
 .footer {
-    clear: both;
-    margin: 4em 0;
-    font-size: 75%;
-    line-height: 1.4;
-    color: #999;
-    border-top: 1px solid #ccc;
-    padding: 1em 0;
+  clear: both;
+  margin: 4em 0;
+  font-size: 75%;
+  line-height: 1.4;
+  color: #999;
+  border-top: 1px solid #ccc;
+  padding: 1em 0;
 }
 
 .footer .copyright {
-    float: left;
+  float: left;
 }
 
 .footer .license {
-    float: right;
-}
-
-/* ========================== */
-
-
-.graphic-bg {
-    background: rgba(0, 0, 0, 0.1)  url(graphic.png) 50% 0 no-repeat;
-    position: absolute;
-    height: 200px;
-    left: 0;
-    right: 0;
-}
-.graphic {
-    height: 200px;
-    width: 940px;
-    b--ackground: url(graphic.png);
+  float: right;
 }

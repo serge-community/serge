@@ -1,0 +1,15 @@
+<mail>
+  <to><![CDATA[${name} <${email}>]]></to>
+  <from><![CDATA[${from}]]></from>
+  <subject>Acme-Kontoaktivierung</subject>
+  <plain><![CDATA[
+Diese e-Mail bestätigt ihre letzte Aktivierungsanfrage für den Acme-Account.
+
+Folgen Sie dem untenstehenden Link und wir aktivieren Ihre
+Konto mit Benutzername $ {username}:
+
+http://${url}/activate?username=${username}&secret=${secret}
+
+- Das Acme Team
+]]></plain>
+</mail>

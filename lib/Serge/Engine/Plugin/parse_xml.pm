@@ -1,5 +1,6 @@
 package Serge::Engine::Plugin::parse_xml;
 use parent Serge::Engine::Plugin::Base::Parser;
+use parent Serge::Interface::PluginHost;
 
 use strict;
 
@@ -29,6 +30,14 @@ sub init {
         email_from    => 'STRING',
         email_to      => 'ARRAY',
         email_subject => 'STRING',
+
+        html_parser   => {
+            plugin    => 'STRING',
+
+            data      => {
+               '*'    => 'DATA',
+            }
+        },
     });
 
     $self->add('after_job', \&report_errors);
@@ -38,14 +47,6 @@ sub validate_data {
     my $self = shift;
 
     $self->SUPER::validate_data;
-
-    if (!defined $self->{data}->{email_from}) {
-        print "WARNING: 'email_from' is not defined. Will skip sending any reports.\n";
-    }
-
-    if (!defined $self->{data}->{email_to}) {
-        print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
-    }
 
     if (exists $self->{data}->{xml_kind} && ($self->{data}->{xml_kind} !~ m/^(generic|android|indesign)$/)) {
         die "Unsupported xml_kind: '$self->{data}->{xml_kind}'. You can use 'generic' (default), 'android' or 'indesign'";
@@ -58,14 +59,29 @@ sub validate_data {
 sub report_errors {
     my ($self, $phase) = @_;
 
-    my $email_from = $self->{data}->{email_from};
-    if (!$email_from) {
-        $self->{errors} = {};
-        return;
+    # copy over errors from the child parser, if any
+    if ($self->{html_parser}) {
+        my @keys = keys %{$self->{html_parser}->{errors}};
+        if (scalar @keys > 0) {
+            map {
+                $self->{errors}->{$_} = $self->{html_parser}->{errors}->{$_};
+            } @keys;
+            $self->{html_parser}->{errors} = {};
+        }
     }
 
+    return if !scalar keys %{$self->{errors}};
+
+    my $email_from = $self->{data}->{email_from};
     my $email_to = $self->{data}->{email_to};
-    if (!$email_to) {
+
+    if (!$email_from || !$email_to) {
+        my @a;
+        push @a, "'email_from'" unless $email_from;
+        push @a, "'email_to'" unless $email_to;
+        my $fields = join(' and ', @a);
+        my $are = scalar @a > 1 ? 'are' : 'is';
+        print "WARNING: there are some parsing errors, but $fields $are not defined, so can't send an email.\n";
         $self->{errors} = {};
         return;
     }
@@ -111,26 +127,6 @@ $text
 
 }
 
-sub dump_debug_xml {
-    my ($self, $textref) = @_;
-
-    my $dir = $self->{parent}->{base_dir}.'/_debug_output';
-
-    eval { mkpath($dir) };
-    ($@) && die "Couldn't create $dir: $@";
-
-    my $file = $self->{parent}->{engine}->{current_file_rel};
-    $file =~ s/[^\w\.]/_/g;
-    $file = $dir.'/'.$file.'.xml';
-
-    print "***** Dumping XML to $file\n";
-
-    open (OUT, ">$file");
-    binmode (OUT, ":utf8");
-    print OUT $$textref;
-    close(OUT);
-}
-
 sub parse {
     my ($self, $textref, $callbackref, $lang) = @_;
 
@@ -141,14 +137,6 @@ sub parse {
     my $node_match = $self->{data}->{node_match} || [];
     my $node_exclude = $self->{data}->{node_exclude} || [];
     my $node_html = $self->{data}->{node_html} || [];
-
-    # If node_html parameter is defined, load PHP/XHTML parser plugin (parse_php_xhtml)
-
-    if (exists $self->{data}->{node_html} && (!$self->{html_parser})) {
-        eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
-        ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
-        print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
-    }
 
     # Make a copy of the string as we will change it
 
@@ -199,8 +187,6 @@ sub parse {
 
         $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $error_text;
 
-        $self->dump_debug_xml(\$text) if $self->{parent}->{debug};
-
         die $error_text;
     }
 
@@ -213,7 +199,6 @@ sub parse {
     my $out = $self->render_tag_recursively('', $tree, $callbackref, $lang, '');
 
     return $lang ? $out : undef;
-    return undef;
 }
 
 sub _escape_pi_and_comments {
@@ -393,6 +378,23 @@ sub process_text_node {
             # if node is html, pass its text to html parser for string extraction
             # if html_parser fails to parse the XML due to errors,
             # it will die(), and this will be catched in main application
+
+            # lazy-load html parser plugin
+            # (parse_php_xhtml or the one specified in html_parser config node)
+            if (!$self->{html_parser}) {
+                if (exists $self->{data}->{html_parser}) {
+                    $self->{html_parser} = $self->load_plugin_from_node(
+                        'Serge::Engine::Plugin', $self->{data}->{html_parser}
+                    );
+                } else {
+                    # fallback to loading parse_php_xhtml with default parameters
+                    eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
+                    ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
+                    print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
+                }
+            }
+
+            $self->{html_parser}->{current_file_rel} = $self->{parent}->{engine}->{current_file_rel}.":$path";
             if ($lang) {
                 $$strref = $self->{html_parser}->parse($strref, $callbackref, $lang);
                 if (defined $$strref) {

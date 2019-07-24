@@ -35,6 +35,7 @@ our %alias = (
 our $default_codepage = 1252; # ANSI Latin 1; Western European (Windows)
 
 our %map = (
+  ''        => {code => 0x0000, lang => 'LANG_NEUTRAL', sublang => 'SUBLANG_NEUTRAL', afx => 'AFX_TARG_ENU', cp => $default_codepage},  # reasonable defaults
 
   'af'      => {code => 0x0436, lang => 'LANG_AFRIKAANS', sublang => 'SUBLANG_AFRIKAANS_SOUTH_AFRICA', afx => 'AFX_TARG_AFK'},  # <AFK> <Afrikaans> <Afrikaans>
   'sq'      => {code => 0x041c, lang => 'LANG_ALBANIAN', sublang => 'SUBLANG_ALBANIAN_ALBANIA', afx => 'AFX_TARG_SQI'},  # <SQI> <Albanian> <Albanian>

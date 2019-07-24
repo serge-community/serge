@@ -9,6 +9,30 @@ sub name {
     return 'Master files parser plugin';
 }
 
+sub init {
+    my $self = shift;
+
+    $self->SUPER::init(@_);
+
+    $self->{errors} = {};
+
+    $self->merge_schema({
+        opening_marker => 'STRING',
+        closing_marker => 'STRING',
+        delimiter => 'STRING',
+    });
+}
+
+sub validate_data {
+    my $self = shift;
+
+    $self->SUPER::validate_data;
+
+    $self->{data}->{opening_marker} = '<%' unless $self->{data}->{opening_marker} ne '';
+    $self->{data}->{closing_marker} = '%>' unless $self->{data}->{closing_marker} ne '';
+    $self->{data}->{delimiter} = '%%' unless $self->{data}->{delimiter} ne '';
+}
+
 sub parse {
     my ($self, $textref, $callbackref, $lang) = @_;
 
@@ -24,20 +48,25 @@ sub parse {
     #            <%string%%%%hint%>
     #            <%string%%%%%%flags%>
 
+    my $o = $self->{data}->{opening_marker};
+    my $c = $self->{data}->{closing_marker};
+
     if ($lang) {
         # do a substitution (on a copy of the string)
         my $translated_text = $$textref;
-        $translated_text =~ s|<%(.*?)%>|&$callbackref(_split_params($1), $lang)|sge;
+        $translated_text =~ s|$o(.*?)$c|&$callbackref($self->_split_params($1), $lang)|sge;
         return $translated_text;
     } else {
         # just match strings (faster)
-        while ($$textref =~ m/<%(.*?)%>/sg) { &$callbackref(_split_params($1), undef); }
+        while ($$textref =~ m/$o(.*?)$c/sg) { &$callbackref($self->_split_params($1), undef); }
         return undef;
     }
 }
 
 sub _split_params {
-    my ($str, $context, $hint, $flags) = split(/%%/, shift);
+    my ($self, $text) = @_;
+    my $d = $self->{data}->{delimiter};
+    my ($str, $context, $hint, $flags) = split(/$d/, $text);
     my @flags_array = split(/,/, $flags);
     return ($str, $context, $hint, \@flags_array); # this will ensure we return exactly 4 values
 }

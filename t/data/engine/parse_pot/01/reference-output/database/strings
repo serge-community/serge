@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 `Value 1` NO 0
+    1    2 4 `Value 2` context 0
+    2    3 6 `Value 3 - SingularValue 3 - Plural` NO 0
+}

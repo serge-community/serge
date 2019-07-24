@@ -1,0 +1,29 @@
+properties
+{
+    0     1 source:1 c161ca36eeac229f00480ec3f3bbae20
+    1     2 hash:1 c161ca36eeac229f00480ec3f3bbae20
+    2     3 size:1 245
+    3     4 items:1 1,2,3
+    4     5 ts:1:test:count 3
+    5     6 usn:1:test 8
+    6     7 ts:1:test fcbf3c0825dc236c425c3e0106f7ddb3
+    7     8 ts:1:zh-cn:count 3
+    8     9 usn:1:zh-cn 7
+    9     10 ts:1:zh-cn a09d78f6ba3662a726b931eacff0cc72
+    10    11 target:1:test_job:test 27d3de8a47eb32e419366577e4100eb0
+    11    12 target:mtime:1:test_job:test 12345678
+    12    13 source:1:test_job:test c161ca36eeac229f00480ec3f3bbae20
+    13    14 source:ts:1:test_job:test
+          fcbf3c0825dc236c425c3e0106f7ddb3
+    14    15 target:1:test_job:zh-cn 12897f1555daf2bf1fac0ef3c4714a7c
+    15    16 target:mtime:1:test_job:zh-cn 12345678
+    16    17 source:1:test_job:zh-cn c161ca36eeac229f00480ec3f3bbae20
+    17    18 source:ts:1:test_job:zh-cn
+          a09d78f6ba3662a726b931eacff0cc72
+    18    19 job-hash:test_namespace:test_job
+          ceba159f21cfeb9eb1635aba8c5a2623
+    19    20 job-plugin:test_namespace:test_job parse_chrome_json.
+    20    21 job-serializer-plugin:test_namespace:test_job
+          serialize_xliff.
+    21    22 job-engine:test_namespace:test_job 1.3.2
+}

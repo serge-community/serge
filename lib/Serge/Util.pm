@@ -312,61 +312,38 @@ sub subst_macros_strref {
     }
 
     if ($lang) {
-        $$strref =~ s/%LANG%/$lang/ge;
-
         my $locale = locale_from_lang($lang);
-        $$strref =~ s/%LOCALE%/$locale/ge;
-
-        $locale = locale_android($lang);
-        $$strref =~ s/%LOCALE:ANDROID%/$locale/ge;
-
-        $locale = locale_iphone($lang);
-        $$strref =~ s/%LOCALE:IPHONE%/$locale/ge;
-
-        $locale = lc($locale);
-        $$strref =~ s/%LOCALE:LC%/$locale/ge;
-
-        $locale = uc($locale);
-        $$strref =~ s/%LOCALE:UC%/$locale/ge;
-
         my $full_locale = full_locale_from_lang($lang);
-        $$strref =~ s/%LOCALE:FULL%/$full_locale/ge;
-
-        $full_locale = lc($full_locale);
-        $$strref =~ s/%LOCALE:FULL:LC%/$full_locale/ge;
-
-        $full_locale = uc($full_locale);
-        $$strref =~ s/%LOCALE:FULL:UC%/$full_locale/ge;
-
         my $culture = culture_from_lang($lang);
-        $$strref =~ s/%CULTURE%/$culture/ge;
-
         my $langname = langname($lang);
-        $$strref =~ s/%LANGNAME%/$langname/g;
 
-        $langname = langname_iphone($lang);
-        $$strref =~ s/%LANGNAME:IPHONE%/$langname/g;
+        $$strref =~ s/%LANG%/$lang/ge;
+        $$strref =~ s/%LOCALE%/$locale/ge;
+        $$strref =~ s/%LOCALE:ANDROID%/locale_android($lang)/ge;
+        $$strref =~ s/%LOCALE:IPHONE%/locale_iphone($lang)/ge;
+        $$strref =~ s/%LOCALE:LC%/lc($locale)/ge;
+        $$strref =~ s/%LOCALE:UC%/uc($locale)/ge;
+        $$strref =~ s/%LOCALE:FULL%/$full_locale/ge;
+        $$strref =~ s/%LOCALE:FULL:LC%/lc($full_locale)/ge;
+        $$strref =~ s/%LOCALE:FULL:UC%/uc($full_locale)/ge;
+        $$strref =~ s/%CULTURE%/$culture/ge;
+        $$strref =~ s/%LANGNAME%/$langname/g;
+        $$strref =~ s/%LANGNAME:IPHONE%/langname_iphone($lang)/g;
 
         my $alias = $Serge::Util::LangID::alias{$lang};
         $lang = $alias if $alias;
-        my $h = $Serge::Util::LangID::map{$lang};
+        my $h = $Serge::Util::LangID::map{$lang} || $Serge::Util::LangID::map{''};
         if ($h) {
-            my $langid = $h->{code};
-            $$strref =~ s/%LANGID:DEC%/$langid/ge;
-            $lang = sprintf('%04x', $langid) if ($langid > 0);
-            $$strref =~ s/%LANGID%/$lang/ge;
-
-            my $langconst = $h->{lang};
-            $$strref =~ s/%LANGCONST%/$langconst/ge;
-
-            my $sublangconst = $h->{sublang};
-            $$strref =~ s/%SUBLANGCONST%/$sublangconst/ge;
-
-            my $afxtargconst = $h->{afx};
-            $$strref =~ s/%AFXTARGCONST%/$afxtargconst/ge;
-
+            my $langid_dec = $h->{code};
+            my $langid = sprintf('%04x', $langid_dec) if ($langid_dec > 0);
             my $codepage = $h->{cp};
             $codepage = $Serge::Util::LangID::default_codepage unless $codepage;
+
+            $$strref =~ s/%LANGID:DEC%/$langid_dec/ge;
+            $$strref =~ s/%LANGID%/$langid/ge;
+            $$strref =~ s/%LANGCONST%/$h->{lang}/ge;
+            $$strref =~ s/%SUBLANGCONST%/$h->{sublang}/ge;
+            $$strref =~ s/%AFXTARGCONST%/$h->{afx}/ge;
             $$strref =~ s/%CODEPAGE%/$codepage/ge;
         }
     }
@@ -545,7 +522,7 @@ sub wrap {
             $line .= $chunk;
         }
     }
-    push @lines, $line if $line;
+    push @lines, $line if $line ne '';
 
     return @lines;
 }

@@ -1,0 +1,35 @@
+strings
+{
+    0     1 2 foo\nbar NO 0
+    1     2 4 `foo\
+bar` NO 0
+    2     3 6 foo\\nbar NO 0
+    3     4 8 `foo "bar"` NO 0
+    4     5 10 `foo \"bar"` NO 0
+    5     6 12 `foo 'bar'` NO 0
+    6     7 14 `foo \'bar'` NO 0
+    7     8 16 fooAbar NO 0
+    8     9 18 fooAbar key7 0
+    9     10 20 fooAbar key8a 0
+    10    11 22 fooAbar key8b 0
+    11    12 24 fooAbar key8c 0
+    12    13 26 fooAbar key8d 0
+    13    14 28 fooĂbar NO 0
+    14    15 30 fooѦbar NO 0
+    15    16 32 foo😀bar NO 0
+    16    17 34 foo\bbar NO 0
+    17    18 36 foo\b\bbar NO 0
+    18    19 38 foo\fbar NO 0
+    19    20 40 foo\f\fbar NO 0
+    20    21 42 `foo
+bar` NO 0
+    21    22 44 `foo
+
+bar` NO 0
+    22    23 46 foo\rbar NO 0
+    23    24 48 foo\r\rbar NO 0
+    24    25 50 `foo	bar` NO 0
+    25    26 52 `foo		bar` NO 0
+    26    27 54 foo\vbar NO 0
+    27    28 56 foo\v\vbar NO 0
+}

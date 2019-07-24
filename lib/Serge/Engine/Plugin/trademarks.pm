@@ -19,7 +19,7 @@ sub init {
     });
 
     $self->add({
-        add_dev_comment => \&add_dev_comment
+        add_hint => \&add_hint
     });
 }
 
@@ -37,15 +37,15 @@ sub validate_data {
 sub adjust_phases {
     my ($self, $phases) = @_;
 
-    # always tie to 'add_dev_comment' phase
-    set_flag($phases, 'add_dev_comment');
+    # always tie to 'add_hint' phase
+    set_flag($phases, 'add_hint');
 }
 
-sub add_dev_comment {
-    my ($self, $phase, $file, $lang, $strref, $aref) = @_;
+sub add_hint {
+    my ($self, $phase, $string, $context, $namespace, $filepath, $source_key, $lang, $aref) = @_;
 
     my %found;
-    while ($$strref =~ m/$self->{re}/sgi) {
+    while ($string =~ m/$self->{re}/sgi) {
         $found{$1} = 1;
     }
     my $s = join(', ', sort keys %found);

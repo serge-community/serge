@@ -1,8 +1,193 @@
 Revision history
 
-v.next  (Not release yet)
+1.4     Pending release
 
+        - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
+          (gives an ability to specify one or more languages which should be
+          synchronized with the translation service). Previously this parameter
+          worked only for `serge sync` and `serge localize` and only affected
+          the localization step.
+
+        - Properly handle `leave_untranslated_blank` job option in .properties,
+          .ts, .rrc and .strings parsers (previously this option wouldn't affect
+          untranslated strings in the generated localized files leaving source
+          string values instead).
+
+        - POT parser can now generate compiled .mo files in addition to producing
+          localized .po files.
+
+        - Make Serge installable via `./Build install`
+
+        - Git plugin now always uses `reset --hard` instead of `rebase`
+          when doing updates so that it can recover from history rewrites
+          on a remote server.
+
+        - Better error reporting when spawning child processes.
+
+        - `output_default_lang_file` config setting now works correctly with
+          the `limit_languages` plugin. Additionally, the list of target
+          languages is now de-duplicated and sorted before job runs.
+
+        - Implemented cache eviction optimizations to make sure the process
+          uses less memory on large databases.
+
+        - Implemented four different caching strategies ('db', 'namespace',
+          'file', and 'string') that can be set with SERGE_DB_CACHING_STRATEGY
+          environment variable. The more granular the level, the less memory
+          Serge uses, at the potential expense of longer execution time.
+          The default is 'db', which is backward-compatible with the old
+          behavior where the entire database would be cached in memory.
+
+        - `add_dev_comment` callback is now deprecated in favor of `add_hint`
+          callback which provides more parameters than the old one.
+
+        - New `keys_language` plugin that allows one to generate globally
+          unique keys in place of translation. An ability to uniquely address
+          any string opens possibilities for some advanced techniques
+          like dynamic localization and integration with external tools.
+
+        - parse_ts parser improved to support proper string literal
+          escaping/unescaping, which now supports sequences like
+          \NNN, \xNN, \uNNNN, \u{NNNNN}. \n and \t sequences are properly
+          converted to raw line breaks and tabulation symbols, respectively.
+
+        - parse_master can now be configured to use custom opening/closing
+          markers and delimiters.
+
+        - Added feature branch config generator tool (see
+          `bin/tools/feature-branch-config-generator` folder for the tool itself,
+          examples and documentation). This tool scans your Git repository,
+          determines the list of actively maintained branches that match the
+          provided name masks, and generates a Serge config to localize all
+          these branches based on the provided config template.
+
+        - `if` plugin can now capture content using regular expressions
+          and keep it around for child plugin classes, as well as use them
+          in test statements (`has_capture`, `has_no_capture`, `has_all_captures`).
+          `append_hint_message` plugin can now replace `%CAPTURE:...%` macros
+          with the values of such captures. This is useful, for example, to extract
+          a specific string from the header of the source file and expose it
+          as a hint (comment) in all translation units.
+
+        - Net::SMTP is now used instead of deprecated Net::SMTP::SSL.
+
+        - An ability to use XLIFF 1.2 as a translation interchange format
+          added (previously the only supported interchange format was .po).
+          Using XLIFF for translation might come in handy when working with
+          certain CAT tools or online services.
+
+        - Added `rewrite_relative_ts_file_path` and `rewrite_absolute_ts_file_path`
+          phases that allow one to manipulate TS file names with plugins.
+
+        - Added `after_serialize_ts_file` and `before_deserialize_ts_file`
+          phases that allow one to manipulate the translation interchange
+          file contents.
+
+        - Added `apply_xslt` plugin, which allows one to apply XSLT transformations
+          to source or target XML resource files, as well as XLIFF
+          translation interchange files.
+
+        - Split `pootle` and `zing` translation plugins for better clarity.
+
+        - Git sync plugin now supports 'fetch_params',
+          `commit_params` and `push_params` configuration parameters
+          in addition to a previously existed `clone_params`. This
+          allows one to pass extra parameters to `git` during different
+          stages of its work. This is useful for e.g. shallow cloning
+          and fetching, or for bypassing commit and push hooks.
+
+        - Improved `transform` plugin logic to make trailing punctuation
+          detection more smart when it is combined with wrapper tags.
+          It also deals better with whitespace, reducing the list of
+          candidates to guess transformations for.
+
+        - `transform` plugin now always returns guessed translations as fuzzy;
+          its previous configuration parameters (`as_fuzzy_default`,
+          `as_fuzzy` and `as_not_fuzzy`) are now deprecated. You will see
+          a corresponding notice in the command line output if you still
+          have these parameters in your configuration file.
+
+        - Fixed a bug where `reuse_orphaned` job parameter would not be passed down
+          to the code that expected it, which resulted in not reusing orphaned
+          translations in the `transform` plugin.
+
+        - Refactored `feature_branch` plugin to more accurately reuse
+          master branch translations in dependent branches.
+          This required to selectively disable optimizations when localizing
+          master files, so handling localization with `feature_branch`
+          might become a bit slower.
+
+        - `parse_keyvalue` plugin now exports keys explicitly
+          (in addition to extracting them as translation hints).
+
+        - Added support for `use_keys_as_context` job parameter (#89).
+        
         - Added new `show` command to display expanded .serge configurations (#40).
+
+        - Miscellaneous smaller fixes and improvements.
+
+1.3     February 1, 2018
+
+        - Fix bug when extra item comment would be appended only if the
+          original comment is not blank
+
+        - In interactive console mode, `serge help` tries to use a pager,
+          e.g. `less` or `more` (#39)
+
+        - In POT parser, bypass non-standard comments that other tools
+          may produce (#41)
+
+        - Add summary at the end of the sync command: how many
+          jobs and configs were processed, how many configs and jobs
+          were skipped due to errors, and how many jobs ended abnormally.
+          This will help easily identify issues both from the command line
+          and when analyzing logs
+
+        - JSON parser now supports parsing nested HTML-formatted values
+          (like XML parser already does)
+
+        - PHP/XHTML parser now treats bare HTML strings (with no wrapper tag)
+          as translatable by default, except when they contain PHP tags.
+          This is useful when parsing nested HTML snippets inside XML or JSON
+
+        - Parsing errors in nested HTML values inside JSON or XML are now
+          exposed to the parent parser for proper error reporting
+
+        - `test-parser` command now accepts `--as-object` flag to produce
+          a more verbose and self-descriptive output (an array of objects)
+
+        - JSON and XML parsers can now have a nested HTML parser configured
+          via `html_parser` parameter (one can specify both parser name
+          and its parameters). If this parameter is not provided, parsers
+          fall back to a previous behavior by using `parse_php_xhtml`
+          with the default parameters as a nested parser
+
+        - New `rewrite_source` callback to rewrite source strings on the fly
+          before they are passed through the translation pipeline
+
+        - If the parser does not return key names for `serge import`, it is now
+          possible to use `--disambiguate-keys` to auto-generate unique key names
+          and do the import
+
+        - Qt Linguist TS Parser has been rewritten as a proper validating
+          XML parser. It now also extracts context name, comments,
+          and supports import mode
+
+        - Translations containing just one '0' symbol are now properly saved to
+          database.
+
+        - Rendering of units with notices/warnings/errors is now fixed
+          in `serge import` HTML reports.
+
+        - parse_js plugin now correctly handles lines with end-of-line comments
+          containing quotes.
+
+        - Git sync plugin now supports `clone_params` configuration parameter
+          that allows one to pass extra parameters on initial project checkout
+          (useful for e.g. shallow cloning).
+
+        - .PO serializer now normalizes line endings prior to parsing the file.
+          This allows one to import .PO files with Windows-style line endings.
 
 1.2     October 29, 2016
 
@@ -139,6 +324,19 @@ v.next  (Not release yet)
 
         - Fixed text unescaping in XML parser (it is now CDATA-aware and is also applied
           for embedded HTML nodes)
+
+        - `limit_languages` plugin now properly matches languages followed by `-->`
+          (when they are embedded as HTML comments) and correctly works with
+          negative rules (`file_doesnt_match`, `content_doesnt_match`).
+          It also now has its default matching rules properly overridable.
+
+        - `serge clean-ts` now properly initializes job defaults so its behavior
+          now matches that of `serge localize` and `serge import`, and also
+          works properly with symlinked files/folders when scanning the directory
+          tree.
+
+        - Fixed %LOCALE:LC% and %LOCALE:UC% macros that would be affected by
+          iOS-specific language remappings (e.g. pt and pt-br).
 
         - Fixed typos in embedded documentation
 

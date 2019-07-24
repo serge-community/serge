@@ -1,0 +1,28 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_process_subdirs                   YES
+        source_match                             \.go$
+
+        parser
+        {
+            plugin                               parse_go
+        }
+
+        callback_plugins
+        {
+            :rewrite_language_key
+            {
+                plugin                           replace_strings
+                phase                            before_save_localized_file
+
+                data
+                {
+                    replace                     `loc\.Translations\["en` `loc\.Translations\["%LANG%`
+                }
+            }
+        }
+    }
+}

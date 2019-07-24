@@ -1,0 +1,11 @@
+strings
+{
+    0    1 2 test3 NO 0
+    1    2 4 test4 NO 0
+    2    3 6 <p>test1</p><p>test2</p> NO 0
+    3    4 8 test9 NO 0
+    4    5 10 test10 NO 0
+    5    6 12 ‘test7’ NO 0
+    6    7 14 test8 NO 0
+    7    8 16 <p>test5</p><p>test6</p> NO 0
+}

@@ -1,0 +1,50 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value 1`                `翻译`
+                        `Value 2`                `Übersetzung über Straße  `
+                        `Value 4`                `Là récente et la plus sûre`
+                    }
+                }
+            }
+
+            {
+                plugin                           apply_xslt
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    apply                        ./xliff_filter_untranslated.xslt
+                }
+            }
+        }
+
+        source_match                             ^messages\.json$
+
+        parser
+        {
+            plugin                               parse_chrome_json
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

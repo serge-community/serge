@@ -1,0 +1,57 @@
+inc
+{
+    common
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+    }
+}
+
+jobs
+{
+    # step 1: process the first file and save the translation into the database
+    :step1
+    {
+        @inherit                                 .#inc/common
+
+        id                                       step1
+        source_match                             ^1\.properties$
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    translations
+                    {
+                        `Foo Bar Baz`            `zaB raB ooF`
+                    }
+                }
+            }
+        }
+    }
+
+    # step 2: process the second file, now with test_language plugin turned off;
+    # the translation from the previous job should be reused because
+    # `reuse_translations` job parameter defaults to YES
+    :step2
+    {
+        @inherit                                 .#inc/common
+
+        id                                       step2
+        source_match                             ^2\.properties$
+
+        # disable the test language plugin to avoid automatic translation
+        callback_plugins
+        {
+            -:test_language
+        }
+    }
+}

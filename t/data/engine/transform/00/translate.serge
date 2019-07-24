@@ -1,0 +1,35 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Foo Bar Baz`            `zaB raB ooF`
+                    }
+                }
+            }
+
+            :transform
+            {
+                plugin                           transform
+            }
+        }
+    }
+}

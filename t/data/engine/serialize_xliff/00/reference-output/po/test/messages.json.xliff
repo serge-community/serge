@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file datatype="x-unknown" original="messages.json" source-language="en" target-language="test">
+        <body>
+            <trans-unit approved="yes" id="37881f5ca702bb268877e4edb0edc83d" xml:space="preserve">
+                <source xml:lang="en">Value 1</source>
+                <target state="new" xml:lang="test" />
+                <note from="developer">Description 1</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">1</context>
+                    <context context-type="x-serge-file-id">1</context>
+                    <context context-type="x-serge-context">string1</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="7d8ec73df55728a29c38a9f7741aefa6" xml:space="preserve">
+                <source xml:lang="en">Value 2</source>
+                <target state="translated" xml:lang="test">Test Translation Two</target>
+                <note from="developer">Description 2</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">2</context>
+                    <context context-type="x-serge-file-id">1</context>
+                    <context context-type="x-serge-context">string2</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit approved="yes" id="8d1512246f4e8f44726fbe2f99e7e8b8" xml:space="preserve">
+                <source xml:lang="en">Value 3</source>
+                <target state="new" xml:lang="test" />
+                <note from="developer">Description 3</note>
+                <context-group name="serge" purpose="x-serge">
+                    <context context-type="x-serge-id">3</context>
+                    <context context-type="x-serge-file-id">1</context>
+                    <context context-type="x-serge-context">string3</context>
+                </context-group>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

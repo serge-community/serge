@@ -1,0 +1,14 @@
+strings
+{
+    0    1 2 `Value 1` string1 0
+    1    2 4
+         `Text <xliff:g id="p_1">"placeholder"</xliff:g> "text" (<xliff:g id="p_2">placeholder</xliff:g> "text"`
+         string3 0
+    2    3 6
+         `Text <xliff:g id='p_1'>'placeholder'</xliff:g> 'text' (<xliff:g id='p_2'>placeholder</xliff:g> 'text'`
+         string4 0
+    3    4 8 `%d foo` plural1:one 0
+    4    5 10 `%d foos` plural1:other 0
+    5    6 12 `Item 1.1` array1:0 0
+    6    7 14 `Item 1.2` array1:1 0
+}

@@ -1,0 +1,22 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.master$
+
+        parser
+        {
+            plugin                               parse_master
+
+            data
+            {
+                opening_marker                   `\[%` # use [% as an opening marker
+                closing_marker                   `%\]` # use %] as an closing marker
+                delimiter                        `\^`  # use ^ as a delimiter symbol
+            }
+        }
+
+        output_file_path                         ./test-output/localized-resources/%PATH%%NAME:LNAME%_%LOCALE%.%NAME:LEXT%
+    }
+}

@@ -1,0 +1,9 @@
+translations
+{
+    0    1 14 1 test `zaB raB ooF` NO 0 0
+    1    2 15 2 test `ZAB RAB OOF.` NO 1 0
+    2    3 16 3 test `zab rab oof!` NO 1 0
+    3    4 17 4 test `<strong>zaB raB ooF</strong>` NO 1 0
+    4    5 18 5 test `<strong>ZAB RAB OOF.</strong>` NO 1 0
+    5    6 19 6 test `<strong>zab rab oof!</strong>` NO 1 0
+}

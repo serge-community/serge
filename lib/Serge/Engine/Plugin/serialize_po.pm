@@ -17,12 +17,18 @@ sub serialize {
 
     my $locale = locale_from_lang($lang);
 
+    # Only show MAJOR.MINOR version in the header to reduce noise
+    my $version = $Serge::VERSION;
+    if ($version =~ m/^(\d+\.\d+)(\.\d+)+$/) {
+        $version = $1;
+    }
+
     my $text = qq|msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"
 "Language: $locale\\n"
-"Generated-By: Serge $Serge::VERSION\\n"
+"Generated-By: Serge $version\\n"
 |;
 
     foreach my $unit (@$units) {
@@ -55,7 +61,7 @@ msgstr ""
 
         # Print the translation entry
 
-        $text .= "msgctxt ".po_wrap($unit->{context})."\n" if $unit->{context};
+        $text .= "msgctxt ".po_wrap($unit->{context})."\n" if $unit->{context} ne '';
         $text .= join("\n", po_serialize_msgid($unit->{source}))."\n";
         # for now, just use one `msgstr[0]=""` placeholder for plural strings,
         # disregarding the number of plurals supported by a language
@@ -93,15 +99,11 @@ sub deserialize {
     #  "line2"
     #  ...
 
-    # join the multi-line entries
+    # normalize line breaks (Windows->Unix)
+    $$textref =~ s/\r\n/\n/sg;
 
+    # join multi-line entries
     $$textref =~ s/"\n"//sg;
-
-    # get current namespace
-
-    my $ns = $self->{job}->{db_namespace};
-
-    # do the search
 
     my @blocks = split(/\n\n/, $$textref);
     foreach my $block (@blocks) {
@@ -176,13 +178,13 @@ sub deserialize {
 
         # Skip blocks with no key defined (e.g. header entry)
 
-        if (!$string) {
+        if ($string eq '') {
             if (!$header_skipped) {
                 $header_skipped = 1;
                 next;
             }
 
-            if ($key) {
+            if ($key ne '') {
                 # if key is defined for an empty string, just warn that and empty item is found
                 # and continue (previously, the script was not safeguarded against empty strings,
                 # so there can be such entries which can just be skipped)
@@ -197,7 +199,10 @@ sub deserialize {
 
         # sanity check: skip blocks that have no ID defined
 
-        next unless $key;
+        if ($key eq '') {
+            print "\t\t? [empty key]\n";
+            next;
+        }
 
         # sanity check: the extracted key should match the generated one for given string/context
 

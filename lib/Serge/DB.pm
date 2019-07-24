@@ -10,7 +10,7 @@ use Encode qw(encode_utf8);
 use File::Basename;
 use utf8;
 
-our $DEBUG = undef;
+our $DEBUG = $ENV{CI} ne ''; # use debug mode from under CI environment to ensure better coverage
 
 my $DBD_PARAMS = {
     'SQLite' => {
@@ -145,15 +145,6 @@ sub commit_transaction {
     $self->{transaction_opened} = undef;
 }
 
-sub rollback_transaction {
-    my ($self) = @_;
-    return unless $self->{transaction_opened};
-    my $sqlquery = 'ROLLBACK';
-    print "[DB] $sqlquery\n" if $DEBUG;
-    $self->execute($sqlquery);
-    $self->{transaction_opened} = undef;
-}
-
 sub close {
     my ($self) = @_;
     if ($self->{dbh}) {
@@ -254,21 +245,6 @@ sub get_highest_usn_for_file_lang {
     $result = $s_usn if $s_usn > $result;
 
     return $result;
-}
-
-sub get_highest_translation_usn_for_lang {
-    my ($self, $lang) = @_;
-
-    my $sqlquery =
-        "SELECT MAX(usn) AS n FROM translations ".
-        "WHERE language = ?";
-    my $sth = $self->prepare($sqlquery);
-    $sth->bind_param(1, $lang) || die $sth->errstr;
-    $sth->execute || die $sth->errstr;
-    my $hr = $sth->fetchrow_hashref();
-    $sth->finish;
-    $sth = undef;
-    return $hr->{n} + 0;
 }
 
 sub prepare {
@@ -866,132 +842,6 @@ sub get_all_files_for_job {
     $sth = undef;
 
     return \%items;
-}
-
-sub get_translation {
-    my ($self, $item_id, $lang, $allow_skip) = @_;
-
-    $self->_check_item_id($item_id) if $DEBUG;
-
-    my $translation_id = $self->get_translation_id($item_id, $lang, undef, undef, undef, undef, 1); # do not create
-
-    if ($translation_id) {
-        my $i = $self->get_item_props($item_id);
-        my $s = $self->get_string_props($i->{string_id});
-
-        my $props = $self->get_translation_props($translation_id);
-        return if $s->{skip} and !$allow_skip;
-        return ($props->{string}, $props->{fuzzy}, $props->{comment}, $props->{merge}, $s->{skip});
-    }
-}
-
-sub set_translation {
-    my ($self, $item_id, $lang, $string, $fuzzy, $comment, $merge) = @_;
-
-    $self->_check_item_id($item_id) if $DEBUG;
-
-    $string = undef if $string eq '';
-    $comment = undef if $comment eq '';
-    $fuzzy = $fuzzy ? 1 : 0;
-    $merge = $merge ? 1 : 0;
-
-    my $id = $self->get_translation_id($item_id, $lang, $string, $fuzzy, $comment, $merge); # create if necessary
-
-    $self->update_translation_props($id, {
-        string => $string,
-        fuzzy => $fuzzy,
-        comment => $comment,
-        merge => $merge,
-    });
-}
-
-sub get_source_string {
-    my ($self, $item_id) = @_;
-
-    $self->_check_item_id($item_id) if $DEBUG;
-
-    # lookup for the source string for the given item
-
-    my $sqlquery =
-        "SELECT ".
-        "strings.string, strings.context, strings.skip ".
-        "FROM items ".
-        "LEFT OUTER JOIN strings ON items.string_id = strings.id ".
-        "WHERE items.id = ?";
-    my $sth = $self->prepare($sqlquery);
-    $sth->bind_param(1, $item_id) || die $sth->errstr;
-    $sth->execute || die $sth->errstr;
-    my $hr = $sth->fetchrow_hashref();
-    $sth->finish;
-    $sth = undef;
-
-    return unless $hr;
-
-    return ($hr->{string}, $hr->{context}, $hr->{skip});
-}
-
-sub find_best_translation { # find best match, including fuzzy translations
-    my ($self, $namespace, $filepath, $string, $context, $lang, $allow_orphaned) = @_;
-
-    utf8::upgrade($namespace) if defined $namespace;
-    utf8::upgrade($filepath) if defined $filepath;
-    utf8::upgrade($string) if defined $string;
-    $context = undef if ($context eq ''); # normalizing string
-    utf8::upgrade($context) if defined $context;
-    utf8::upgrade($lang) if defined $lang;
-
-    my $orphaned_filter = $allow_orphaned ? '' : 'AND items.orphaned = 0 AND files.orphaned = 0 ';
-
-    my $sqlquery =
-        "SELECT DISTINCT ".
-        "files.namespace, files.path, files.orphaned AS f_orphaned,".
-        "strings.context, ".
-        "items.orphaned, ".
-        "translations.string, translations.fuzzy, translations.comment ".
-        "FROM items ".
-
-        "LEFT OUTER JOIN files ".
-        "ON items.file_id = files.id ".
-
-        "LEFT OUTER JOIN strings ".
-        "ON items.string_id = strings.id ".
-
-        "LEFT OUTER JOIN translations ".
-        "ON items.id = translations.item_id AND translations.language = ? ".
-
-        "WHERE strings.string = ? ".
-        "AND strings.skip = 0 ".
-        $orphaned_filter.
-        "AND translations.string IS NOT NULL";
-
-    my $sth = $self->prepare($sqlquery);
-    $sth->bind_param(1, $lang) || die $sth->errstr;
-    $sth->bind_param(2, $string) || die $sth->errstr;
-    $sth->execute || die $sth->errstr;
-
-    my %variants;
-    my $best_fitness = -1;
-    my $translation;
-    my $fuzzy;
-    my $comment;
-    while (my $hr = $sth->fetchrow_hashref()) {
-        $variants{$hr->{string}} = 1;
-        my $fitness = 0;
-        $fitness++ if ($hr->{namespace} eq $namespace);
-        $fitness++ if ($hr->{path} eq $filepath);
-        $fitness++ if ($hr->{context} eq $context);
-        $fitness++ if (!$hr->{orphaned} && !$hr->{f_orphaned});
-        if ($fitness > $best_fitness) {
-            $best_fitness = $fitness;
-            $translation = $hr->{string};
-            $fuzzy = $hr->{fuzzy};
-            $comment = $hr->{comment};
-        }
-    }
-    $sth->finish;
-    $sth = undef;
-
-    return ($translation, $fuzzy, $comment, scalar(keys %variants) > 1);
 }
 
 1;

@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. key1
+#: File: strings.ini
+#: ID: b9654bb58db28f9c09099c29f2897d78
+msgid "foo"
+msgstr "ḟőő"
+
+#. key2
+#: File: strings.ini
+#: ID: 458d67e28e3c72583d476a32fd00581d
+msgctxt "key2"
+msgid "foo"
+msgstr "ḟőő"

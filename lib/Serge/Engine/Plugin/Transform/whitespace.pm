@@ -9,7 +9,10 @@ sub name {
 
 sub filter_key {
     my ($self, $s) = @_;
-    $s =~ s/\s+//sg; # remove all spaces
+
+    $s =~ s/\s+/ /sg;
+    $s =~ s/^\s+//sg;
+    $s =~ s/\s+$//sg;
     return $s;
 }
 

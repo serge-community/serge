@@ -72,7 +72,7 @@ sub _push {
 
     print "Pushing changes to Gerrit into branch '$branch' as user '$user' to reviewer <$email>...\n";
 
-    my $cmd = qq|git push --porcelain --quiet --receive-pack="git receive-pack --reviewer=$email" origin HEAD:refs/for/$branch 2>&1|;
+    my $cmd = qq|git push $self->{data}->{push_params} --porcelain --quiet --receive-pack="git receive-pack --reviewer=$email" origin HEAD:refs/for/$branch 2>&1|;
     my $output = $self->run_in($local_path, $cmd, 1); #1:capture
 
     if ($output =~ m/\Q[remote rejected] (no new changes)\E/) {

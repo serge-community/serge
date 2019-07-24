@@ -1,0 +1,15 @@
+<mail>
+  <to><![CDATA[${name} <${email}>]]></to>
+  <from><![CDATA[${from}]]></from>
+  <subject>ĀĆḾĒ áççőũŋţ áçţĩṽáţĩőŋ</subject>
+  <plain><![CDATA[
+Ŧĥĩš ēḿáĩļ çőŋḟĩŕḿš ŷőũŕ ŕēçēŋţ ĀĆḾĒ áççőũŋţ áçţĩṽáţĩőŋ ŕēǫũēšţ.
+
+Ḟőļļőŵ ţĥē ļĩŋķ ḃēļőŵ, áŋđ ŵē ŵĩļļ áçţĩṽáţē ŷőũŕ
+áççőũŋţ ŵĩţĥ ũšēŕŋáḿē ${username}:
+
+http://${url}/activate?username=${username}&secret=${secret}
+
+- Ŧĥē ĀĆḾĒ ţēáḿ
+]]></plain>
+</mail>

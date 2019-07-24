@@ -36,7 +36,7 @@ sub run {
 
     $importer->{dry_run} = 1 if $self->{dry_run};
     $importer->{save_report} = 1 unless $self->{no_report};
-    $importer->{debug_mode} = 1 if $self->{parent}->{debug};
+    $importer->{debug} = 1 if $self->{parent}->{debug};
     $importer->{disambiguate_keys} = 1 if $self->{disambiguate_keys};
 
     if ($self->{languages}) {
@@ -69,25 +69,18 @@ sub run {
                 foreach my $row_data (@$file_data) {
                     $error_totals->{$row_data->{error_status}}++ if $row_data->{error_status};
                     my $severity = $row_data->{severity};
+                    my $key = $row_data->{key} ne '' ? $row_data->{key} : qq|<em>Empty key</em>|;
+                    my $status = $row_data->{error_status} ne '' ? qq|<span class="status">$row_data->{error_status}</span| : '';
 
-                    if ($row_data->{key} eq '') {
-                        $html .= qq|
-<tr class="key status $severity">
-    <td colspan="2">$row_data->{error_status}</td>
-</tr>
-|;
-                    } else {
-                        my $status = $row_data->{error_status} ne '' ? qq|<span class="status">$row_data->{error_status}</span| : '';
+                    map {
+                        $row_data->{$_} = xml_escape($row_data->{$_});
+                        $row_data->{$_} = '&nbsp;' if $row_data->{$_} eq '';
+                    } qw(key source translation);
 
-                        map {
-                            $row_data->{$_} = xml_escape($row_data->{$_});
-                            $row_data->{$_} = '&nbsp;' if $row_data->{$_} eq '';
-                        } qw(key source translation);
-
-                        my $class = qq| class="$severity"| if $severity ne '';
-                        $html .= qq|
+                    my $class = qq| class="$severity"| if $severity ne '';
+                    $html .= qq|
 <tr class="key $severity">
-    <td colspan="2">$row_data->{key}$status</td>
+    <td colspan="2">$key$status</td>
 </tr>
 
 <tr$class>
@@ -95,7 +88,6 @@ sub run {
     <td>$row_data->{translation}</td>
 </tr>
 |;
-                    } # else
                 } # end foreach row
 
             } # end foreach key

@@ -1,0 +1,1 @@
+Test for 'replace_strings' plugin, 'rewrite_source' phase

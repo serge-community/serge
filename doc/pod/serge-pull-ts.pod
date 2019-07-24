@@ -4,7 +4,8 @@ serge-pull-ts - Pull translation files from translation server
 
 =head1 SYNOPSIS
 
-C<< serge pull-ts [configuration-files] [--force] [--echo-commands] [--echo-output] >>
+C<< serge pull-ts [configuration-files]
+	[--force] [--lang=aa,bb,cc] [--echo-commands] [--echo-output] >>
 
 Where C<< [configuration-files] >> is a path to a specific .serge file,
 or a directory to scan .serge files in. You can specify multiple paths
@@ -13,8 +14,8 @@ look up for .serge files in the current directory.
 
 =head1 DESCRIPTION
 
-Based on each configuration file's B<job> section, pull updated translation files
-from remote translation server into the local directory.
+Based on each configuration file's B<sync> section, pull updated translation
+files from remote translation server into the local directory.
 
 =head1 OPTIONS
 
@@ -23,6 +24,11 @@ from remote translation server into the local directory.
 =item B<--force>
 
 Instruct the remote party to skip any optimizations and force update all translation files.
+
+=item B<--lang=xx[,yy][,zz]>, B<--language=xx[,yy][,zz]> B<--languages=xx[,yy][,zz]>
+
+An optional comma-separated list of target languages.
+If not specified, all the available languages are supposed to be synchronized.
 
 =item B<--echo-commands>
 

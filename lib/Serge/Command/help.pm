@@ -6,6 +6,7 @@ use strict;
 use Getopt::Long;
 use Serge::Pod;
 use Serge;
+use Serge::Util::Pager;
 
 sub get_commands {
     return {
@@ -85,11 +86,13 @@ sub show_help_on_topic {
 
         my $podfile = $pod->get_pod_path($command);
         if (!-f $podfile) {
-            print "Sorry, but there's no help available for '$command'\n";
+            print "Sorry, but there's no help available for '$command' in '$pod->{root}'\n";
             exit(2);
         }
 
-        $pod->print_as_text($podfile);
+        my $fh = Serge::Util::Pager::init;
+        $pod->print_as_text($podfile, $fh);
+        Serge::Util::Pager::close;
     }
 }
 

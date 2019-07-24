@@ -1,33 +1,45 @@
 properties
 {
-    0     1 source:1 a513a59948cafc3a7a5bf924ca0f3cde
-    1     2 hash:1 a513a59948cafc3a7a5bf924ca0f3cde
-    2     3 size:1 1187
-    3     4 items:1 1,2,3,4,5,6,7
-    4     5 source:2 91375f70ba74beac5f744935d1caeb12
-    5     6 hash:2 91375f70ba74beac5f744935d1caeb12
-    6     7 size:2 1034
-    7     8 items:2 8,9,10,11,12
-    8     9 ts:1:test:count 7
-    9     10 usn:1:test 29
-    10    11 ts:1:test c86cf0a18aac7a4b934d827e879e1499
-    11    12 ts:2:test:count 5
-    12    13 usn:2:test 34
-    13    14 ts:2:test c493e40e0850d4af73fa6303dc8cacb4
-    14    15 target:1:test_job:test 3daa2699c50626d46f50b5251ed54c35
-    15    16 target:mtime:1:test_job:test 12345678
-    16    17 source:1:test_job:test a513a59948cafc3a7a5bf924ca0f3cde
-    17    18 source:ts:1:test_job:test
-          c86cf0a18aac7a4b934d827e879e1499
-    18    19 target:2:test_job:test b1e12029f404d864524459529a47240a
-    19    20 target:mtime:2:test_job:test 12345678
-    20    21 source:2:test_job:test 91375f70ba74beac5f744935d1caeb12
-    21    22 source:ts:2:test_job:test
-          c493e40e0850d4af73fa6303dc8cacb4
-    22    23 job-hash:test_namespace:test_job
-          8cb3840dc3829cd3dbdd111235eaca4f
-    23    24 job-plugin:test_namespace:test_job parse_pot.
-    24    25 job-serializer-plugin:test_namespace:test_job
+    0     1 source:1 2c52cb87d1b1401e713fe9c38a73eff5
+    1     2 hash:1 2c52cb87d1b1401e713fe9c38a73eff5
+    2     3 size:1 140
+    3     4 items:1 1
+    4     5 source:2 a513a59948cafc3a7a5bf924ca0f3cde
+    5     6 hash:2 a513a59948cafc3a7a5bf924ca0f3cde
+    6     7 size:2 1187
+    7     8 items:2 2,3,4,5,6,7,8
+    8     9 source:3 91375f70ba74beac5f744935d1caeb12
+    9     10 hash:3 91375f70ba74beac5f744935d1caeb12
+    10    11 size:3 1034
+    11    12 items:3 9,10,11,12,13
+    12    13 ts:1:test:count 1
+    13    14 usn:1:test 26
+    14    15 ts:1:test e09056b588e6e17c09ef0a765b21a4af
+    15    16 ts:2:test:count 7
+    16    17 usn:2:test 33
+    17    18 ts:2:test 48fe20ea562df9c2b85f32fdf169bcf7
+    18    19 ts:3:test:count 5
+    19    20 usn:3:test 38
+    20    21 ts:3:test 4666641bf7d73519b3422cec262c23bf
+    21    22 target:1:test_job:test 8bb03b0b5b61bc8fdb87930a40e8fe87
+    22    23 target:mtime:1:test_job:test 12345678
+    23    24 source:1:test_job:test 2c52cb87d1b1401e713fe9c38a73eff5
+    24    25 source:ts:1:test_job:test
+          e09056b588e6e17c09ef0a765b21a4af
+    25    26 target:2:test_job:test 3daa2699c50626d46f50b5251ed54c35
+    26    27 target:mtime:2:test_job:test 12345678
+    27    28 source:2:test_job:test a513a59948cafc3a7a5bf924ca0f3cde
+    28    29 source:ts:2:test_job:test
+          48fe20ea562df9c2b85f32fdf169bcf7
+    29    30 target:3:test_job:test b1e12029f404d864524459529a47240a
+    30    31 target:mtime:3:test_job:test 12345678
+    31    32 source:3:test_job:test 91375f70ba74beac5f744935d1caeb12
+    32    33 source:ts:3:test_job:test
+          4666641bf7d73519b3422cec262c23bf
+    33    34 job-hash:test_namespace:test_job
+          831060d0350c0cd2672bf309a05a4d2e
+    34    35 job-plugin:test_namespace:test_job parse_pot.
+    35    36 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    25    26 job-engine:test_namespace:test_job 1.2
+    36    37 job-engine:test_namespace:test_job 1.3.2
 }

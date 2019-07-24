@@ -34,10 +34,13 @@ sub init {
     $self->add({
         after_load_file => \&check,
         before_save_localized_file => \&check,
+        rewrite_source => \&check,
         rewrite_translation => \&check,
         rewrite_path => \&rewrite_path,
         rewrite_relative_output_file_path => \&rewrite_path,
-        rewrite_absolute_output_file_path => \&rewrite_path
+        rewrite_absolute_output_file_path => \&rewrite_path,
+        rewrite_relative_ts_file_path => \&rewrite_path,
+        rewrite_absolute_ts_file_path => \&rewrite_path
     });
 }
 

@@ -1,0 +1,1 @@
+Test for 'replace_strings' plugin + 'rewrite_absolute_ts_file_path'/'rewrite_relative_ts_file_path' phases

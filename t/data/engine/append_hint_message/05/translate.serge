@@ -1,0 +1,98 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    save_translations            YES
+
+                    translations
+                    {
+                        `Value 1`                `Test Translation 1`
+                        `Value 2`                `Test Translation 2`
+                        `Value 3`                `Test Translation 3`
+                    }
+                }
+            }
+
+            {
+                plugin                           if
+                phase                            after_load_source_file_for_processing
+
+                data
+                {
+                    capture
+                    {
+                        match                    GLOBAL_PARAM="(.*?)"
+                        prefix                   MYGLOBAL:
+                    }
+                }
+            }
+
+            {
+                plugin                           if
+                phase                            after_load_source_file_for_processing
+
+                data
+                {
+                    if
+                    {
+                        content_matches          \bFOO\b
+
+                        then
+                        {
+                            capture
+                            {
+                                match            FOO_PARAMS="(.*?)\|(.*?)\|(.*?)"
+                                prefix           MYFOO:
+                            }
+                        }
+                    }
+                }
+            }
+
+            {
+                plugin                           append_hint_message
+                phase                            add_hint
+
+                data
+                {
+                    if
+                    {
+                        has_capture             MYGLOBAL:1
+
+                        then
+                        {
+                            message             Captured MYGLOBAL value: %CAPTURE:MYGLOBAL:1%
+                        }
+                    }
+
+                    if
+                    {
+                        has_all_captures        MYFOO:1 MYFOO:2 MYFOO:3
+
+                        then
+                        {
+                            message             Captured MYFOO value 1: %CAPTURE:MYFOO:1%
+                            message             Captured MYFOO value 2: %CAPTURE:MYFOO:2%
+                            message             Captured MYFOO value 3: %CAPTURE:MYFOO:3%
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

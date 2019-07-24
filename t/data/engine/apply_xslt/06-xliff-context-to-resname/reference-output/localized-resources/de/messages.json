@@ -1,0 +1,13 @@
+{
+   "string1" : {
+      "description" : "Description 1",
+      "message" : "Wert eins"
+   },
+   "string2" : {
+      "description" : "Description 2",
+      "message" : "Wert zwei"
+   },
+   "string3" : {
+      "message" : "Wert drei"
+   }
+}

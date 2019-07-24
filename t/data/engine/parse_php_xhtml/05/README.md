@@ -1,0 +1,1 @@
+Test for bare HTML without enclosing tags + PHP

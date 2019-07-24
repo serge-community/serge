@@ -1,5 +1,6 @@
 package Serge::Engine::Plugin::parse_json;
 use parent Serge::Engine::Plugin::Base::Parser;
+use parent Serge::Interface::PluginHost;
 
 use strict;
 
@@ -22,40 +23,50 @@ sub init {
     $self->merge_schema({
         path_matches      => 'ARRAY',
         path_doesnt_match => 'ARRAY',
+        path_html         => 'ARRAY',
 
         email_from        => 'STRING',
         email_to          => 'ARRAY',
         email_subject     => 'STRING',
+
+        html_parser       => {
+            plugin        => 'STRING',
+
+            data          => {
+               '*'        => 'DATA',
+            }
+        },
     });
 
     $self->add('after_job', \&report_errors);
 }
 
-sub validate_data {
-    my $self = shift;
-
-    $self->SUPER::validate_data;
-
-    if (!defined $self->{data}->{email_from}) {
-        print "WARNING: 'email_from' is not defined. Will skip sending any reports.\n";
-    }
-
-    if (!defined $self->{data}->{email_to}) {
-        print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
-    }
-}
-
 sub report_errors {
     my ($self, $phase) = @_;
 
-    my $email_from = $self->{data}->{email_from};
-    if (!$email_from) {
-        $self->{errors} = {};
-        return;
+    # copy over errors from the child parser, if any
+    if ($self->{html_parser}) {
+        my @keys = keys %{$self->{html_parser}->{errors}};
+        if (scalar @keys > 0) {
+            map {
+                $self->{errors}->{$_} = $self->{html_parser}->{errors}->{$_};
+            } @keys;
+            $self->{html_parser}->{errors} = {};
+        }
     }
 
+    return if !scalar keys %{$self->{errors}};
+
+    my $email_from = $self->{data}->{email_from};
     my $email_to = $self->{data}->{email_to};
-    if (!$email_to) {
+
+    if (!$email_from || !$email_to) {
+        my @a;
+        push @a, "'email_from'" unless $email_from;
+        push @a, "'email_to'" unless $email_to;
+        my $fields = join(' and ', @a);
+        my $are = scalar @a > 1 ? 'are' : 'is';
+        print "WARNING: there are some parsing errors, but $fields $are not defined, so can't send an email.\n";
         $self->{errors} = {};
         return;
     }
@@ -140,7 +151,6 @@ sub parse {
     # (looks like an issue in some newer version of JSON:PP)
     # also, force 'canonical' to sort keys alphabetically to ensure the structure won't be changed on subsequent script runs
     return $lang ? to_json($tree, {pretty => 1, indent_length => 3, canonical => 1, escape_slash => 1}) : undef;
-    return undef;
 }
 
 sub process_node {
@@ -170,41 +180,84 @@ sub process_node {
 
         my $string = $subtree;
 
-        # translate only non-empty strings
-        if ($string ne '') {
-            if ($lang) {
-                my $translated_string = &$callbackref($string, undef, $path, undef, $lang, $path);
-                if (defined $index) {
-                    $parent->[$index] = $translated_string;
+        # trim the string
+        my $trimmed = $string;
+        $trimmed =~ s/^\s+//sg;
+        $trimmed =~ s/\s+$//sg;
+
+        # translate only non-empty (and non-whitespace) strings
+        if ($trimmed eq '') {
+            return;
+        }
+
+        if ($self->is_html($path)) {
+            # if node is html, pass its text to html parser for string extraction;
+            # if html_parser fails to parse the XML due to errors,
+            # it will die(), and this will be catched in main application
+
+            # lazy-load html parser plugin
+            # (parse_php_xhtml or the one specified in html_parser config node)
+            if (!$self->{html_parser}) {
+                if (exists $self->{data}->{html_parser}) {
+                    $self->{html_parser} = $self->load_plugin_from_node(
+                        'Serge::Engine::Plugin', $self->{data}->{html_parser}
+                    );
                 } else {
-                    $parent->{$key} = $translated_string;
+                    # fallback to loading parse_php_xhtml with default parameters
+                    eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
+                    ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
+                    print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
                 }
+            }
+
+            $self->{html_parser}->{current_file_rel} = $self->{parent}->{engine}->{current_file_rel}.":$path";
+            if ($lang) {
+                $string = $self->{html_parser}->parse(\$string, $callbackref, $lang);
+            } else {
+                $self->{html_parser}->parse(\$string, $callbackref);
+                return
+            }
+        } else {
+            # plain-text content
+            if ($lang) {
+                $string = &$callbackref($string, undef, $path, undef, $lang, $path);
             } else {
                 &$callbackref($string, undef, $path, undef, undef, $path);
+                return
             }
+        }
+
+        if (defined $index) {
+            $parent->[$index] = $string;
+        } else {
+            $parent->{$key} = $string;
         }
     }
 }
 
+sub _check_ruleset {
+    my ($ruleset, $positive, $value, $default) = @_;
+
+    return $default unless defined $ruleset;
+
+    foreach my $rule (@$ruleset) {
+        if ($value =~ m/$rule/s) {
+            return $positive;
+        }
+    }
+    return !$positive;
+}
+
 sub check_path {
     my ($self, $path) = @_;
-
-    sub _check_ruleset {
-        my ($ruleset, $positive, $value) = @_;
-
-        return 1 unless defined $ruleset;
-
-        foreach my $rule (@$ruleset) {
-            if ($value =~ m/$rule/s) {
-                return $positive;
-            }
-        }
-        return !$positive;
-    }
-
-    return 0 unless _check_ruleset($self->{data}->{path_matches},          1, $path);
-    return 0 unless _check_ruleset($self->{data}->{path_doesnt_match}, undef, $path);
+    return 0 unless _check_ruleset($self->{data}->{path_matches},          1, $path, 1);
+    return 0 unless _check_ruleset($self->{data}->{path_doesnt_match}, undef, $path, 1);
     return 1;
+}
+
+sub is_html {
+    my ($self, $path) = @_;
+    return _check_ruleset($self->{data}->{path_html}, 1, $path, undef);
 }
 
 1;

@@ -1,0 +1,74 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    de
+
+        callback_plugins
+        {
+            {
+                plugin                           apply_xslt
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    apply                        ./xliff_context_to_resname.xslt
+                }
+            },
+            :copy-resources
+            {
+                plugin                            run_command
+
+                data
+                {
+                    command                       perl ../../cp.pl ./resources/po/%LOCALE%/%FILE%.xliff ./test-output/po/%LOCALE%/updated-%FILE%.xliff
+                }
+            }
+        }
+
+        source_match                             ^messages\.json$
+
+        parser
+        {
+            plugin                               parse_chrome_json
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    },
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    de
+
+        callback_plugins
+        {
+            {
+                plugin                           apply_xslt
+                phase                            before_deserialize_ts_file
+
+                data
+                {
+                    apply                        ./xliff_resname_to_context.xslt
+                }
+            }
+        }
+
+        source_match                             ^messages\.json$
+
+        parser
+        {
+            plugin                               parse_chrome_json
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/updated-%FILE%.xliff
+    }
+}

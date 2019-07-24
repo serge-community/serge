@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- simple strings -->
+    <string name="string1">Ṽáļũē 1</string>
+    <string name="string2" translatable="false">Value 2</string>
+
+    <!-- strings with <xliff:g> placeholders and quotes/apostrophes -->
+    <string name="string3">Ŧēҳţ <xliff:g id="p_1">\"ṕļáçēĥőļđēŕ\"</xliff:g> \"ţēҳţ\" (<xliff:g id="p_2">ṕļáçēĥőļđēŕ</xliff:g> \"ţēҳţ\"</string>
+    <string name="string4">Ŧēҳţ <xliff:g id='p_1'>\'ṕļáçēĥőļđēŕ\'</xliff:g> \'ţēҳţ\' (<xliff:g id='p_2'>ṕļáçēĥőļđēŕ</xliff:g> \'ţēҳţ\'</string>
+
+    <!-- string arrays -->
+    <string-array name="array1">
+        <item>Ĩţēḿ 1.1</item>
+        <item>Ĩţēḿ 1.2</item>
+    </string-array>
+    <string-array name="array2" translatable="false">
+        <item>Item 2.1</item>
+        <item>Item 2.2</item>
+    </string-array>
+
+    <!-- plurals -->
+    <plurals name="plural1">
+        <item quantity="one">%d ḟőő</item>
+        <item quantity="other">%d ḟőőš</item>
+    </plurals>
+    <plurals name="plural2" translatable="false">
+        <item quantity="one">%d bar</item>
+        <item quantity="other">%d bars</item>
+    </plurals>
+</resources>

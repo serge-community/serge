@@ -138,7 +138,6 @@ my $SOURCE = $source_db->open($source_dsn, $source_user, $source_password);
 my $TARGET = $target_db->open($target_dsn, $target_user, $target_password);
 
 map { copy_data($_) } ('files', 'strings', 'items', 'translations', 'properties');
-cli::show_execution_time;
 
 sub copy_data {
     my ($table) = @_;

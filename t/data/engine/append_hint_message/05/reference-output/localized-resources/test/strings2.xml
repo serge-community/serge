@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FOO -->
+<!-- GLOBAL_PARAM="global param value in strings2.xml" -->
+<!-- FOO_PARAMS="value_foo|value_bar|value_baz" -->
+<resources>
+    <string name="string1">Test Translation 1</string>
+    <string name="string2">Test Translation 2</string>
+    <string name="string3">Test Translation 3</string>
+    <string name="string4">Value 4</string>
+    <string name="string5">Value 5</string>
+    <string name="string6">Value 6</string>
+    <string name="string7">Value 7</string>
+</resources>

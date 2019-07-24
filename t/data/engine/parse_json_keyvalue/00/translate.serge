@@ -12,6 +12,5 @@ jobs
         }
 
         output_encoding                          Java
-        output_bom                               YES
     }
 }

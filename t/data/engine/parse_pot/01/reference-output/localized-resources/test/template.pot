@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+msgctxt "context"
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+msgid "Value 3 - Singular"
+msgid_plural "Value 3 - Plural"
+msgstr[0] "Ṽáļũē 3 - Šĩŋğũļáŕ"
+msgstr[1] "Ṽáļũē 3 - Ṕļũŕáļ"

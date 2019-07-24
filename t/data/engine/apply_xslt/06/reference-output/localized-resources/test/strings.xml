@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- This is a comment-->
+<item type="hardware">
+    <id>Gadget</id>
+    <org>ACME Corp.</org>
+    <name>Dispositivo<!--prova--></name>
+    <categories>
+        <category>hardware</category>
+    </categories>
+    <added/>
+    <langs>en,fr,ja</langs>
+    <shortdesc>Gadget from ACME</shortdesc>
+    <longdesc>&lt;p&gt;Gadget from ACME can foo and bar.&lt;/p&gt;&lt;p&gt;Foo and bar without baz!&lt;/p&gt;</longdesc>
+    <test><![CDATA[<p>&lt;nuovo/&gt;</p>]]></test>
+    <test><![CDATA[<foo/>]]></test>
+    <smallimg>http:/example.com/gadget-small.png</smallimg>
+    <largeimg>http:/example.com/gadget-large.png</largeimg>
+    <linknames>
+	   <activation>Acquista adesso</activation>
+	   <blog>Blog Post</blog>
+	   <homepage>Gadget Website</homepage>
+	   <support>Gadget Support</support>
+    </linknames>
+    <links>
+        <en>
+            <activation> http://acme.com/products/gadget/shop </activation>
+            <blog>http://blog.acme.com/tag/gadget/</blog>
+        </en>
+    </links>
+</item>

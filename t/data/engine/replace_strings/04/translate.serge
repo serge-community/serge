@@ -1,0 +1,57 @@
+inc
+{
+    job-common
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    de
+
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+    }
+}
+
+jobs
+{
+    :first-pass
+    {
+        @inherit                                 .#inc/job-common
+
+        callback_plugins
+        {
+            # for each localized file (on file save), copy the reference .po file with translation to the destination
+            :copy-resources
+            {
+                plugin                            run_command
+
+                data
+                {
+                    command                       perl ../../cp.pl ./resources/po/%LOCALE%/%FILE%.po ./test-output/po/%LOCALE%/%FILE%.po
+                }
+            }
+        }
+    }
+
+    # run a second pass against the same data to see if the translations will be changed by the replace_strings plugin
+    :second-pass
+    {
+        @inherit                                 .#inc/job-common
+
+        callback_plugins
+        {
+            {
+                plugin                           replace_strings
+                phase                            before_deserialize_ts_file
+
+                data
+                {
+                    replace                      "2" "zwei" g
+                }
+            }
+        }
+    }
+}

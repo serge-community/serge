@@ -1,0 +1,15 @@
+<mail>
+  <to><![CDATA[${name} <${email}>]]></to>
+  <from><![CDATA[${from}]]></from>
+  <subject>[%ACME account activation^^Email subject%]</subject>
+  <plain><![CDATA[
+[%This email confirms your recent ACME account activation request.^^Please wrap the lines so their widths will be under 72 characters^dont-normalize%]
+
+[%Follow the link below, and we will activate your
+account with username ${username}:^^Please wrap the lines so their widths will be under 72 characters^dont-normalize%]
+
+http://${url}/activate?username=${username}&secret=${secret}
+
+- [%The ACME team^^Please wrap the lines so their widths will be under 72 characters^dont-normalize%]
+]]></plain>
+</mail>

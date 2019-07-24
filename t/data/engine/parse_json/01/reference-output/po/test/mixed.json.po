@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#: File: mixed.json
+#: ID: f7202a0b7d95fde965f44bfb8e979bef
+msgid "test3"
+msgstr "ţēšţ3"
+
+#: File: mixed.json
+#: ID: 778272242306477e539bddb8d83d8861
+msgid "test4"
+msgstr "ţēšţ4"
+
+#. /plaintext
+#: File: mixed.json
+#: ID: 02cd388a792576b74b51359725f576ec
+msgid "<p>test1</p><p>test2</p>"
+msgstr "<p>ţēšţ1</p><p>ţēšţ2</p>"
+
+#: File: mixed.json
+#: ID: 7d1e2d6f79b9dfd6b7f161578f1d91a2
+msgid "test9"
+msgstr "ţēšţ9"
+
+#: File: mixed.json
+#: ID: 2ce4ec8693dec78b0693a4aef5f7f547
+msgid "test10"
+msgstr "ţēšţ10"
+
+#: File: mixed.json
+#: ID: ea2fe7f6421f3c7b37503aeaca03122d
+msgid "&lsquo;test7&rsquo;"
+msgstr "&lsquo;ţēšţ7&rsquo;"
+
+#: File: mixed.json
+#: ID: 76d3f29f6f62fbe2fd3cf3105c7841e2
+msgid "test8"
+msgstr "ţēšţ8"
+
+#. /sub/plaintext
+#: File: mixed.json
+#: ID: 31859ac78bd9f32a78c4b7dbb047d266
+msgid "<p>test5</p><p>test6</p>"
+msgstr "<p>ţēšţ5</p><p>ţēšţ6</p>"

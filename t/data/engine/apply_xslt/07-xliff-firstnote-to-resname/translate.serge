@@ -1,0 +1,34 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        destination_languages                    de
+
+        callback_plugins
+        {
+            {
+                plugin                           apply_xslt
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    apply                        ./xliff_firstnote_to_resname.xslt
+                }
+            }
+        }
+
+        source_match                             \.properties$
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+
+        serializer
+        {
+            plugin                               serialize_xliff
+        }
+
+        ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
+    }
+}

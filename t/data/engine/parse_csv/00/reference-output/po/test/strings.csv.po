@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#: File: strings.csv
+#: ID: 0e06836499090f2f0713e983e3d42382
+msgctxt "string1"
+msgid "value1"
+msgstr "ṽáļũē1"
+
+#: File: strings.csv
+#: ID: fd1ffdab2afce98824086d9e0cd37ff0
+msgctxt "string2"
+msgid "value,2"
+msgstr "ṽáļũē,2"
+
+#: File: strings.csv
+#: ID: a9572d320f4fcf0828d05497d223415a
+msgctxt "string3"
+msgid "''"
+msgstr "''"
+
+#: File: strings.csv
+#: ID: e18daa468c420c818b4ffd850952ed58
+msgctxt "string4"
+msgid ""
+"line1\n"
+"line2"
+msgstr ""
+"ļĩŋē1\n"
+"ļĩŋē2"
+
+#: File: strings.csv
+#: ID: d6497771d1355a7a9f2dce4722c02998
+msgctxt "string5"
+msgid "\""
+msgstr "\""
+
+#: File: strings.csv
+#: ID: 3f2c82d2863391d63ceee71a34b21517
+msgctxt "string7"
+msgid " "
+msgstr " "

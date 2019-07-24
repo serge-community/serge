@@ -64,7 +64,7 @@ use utf8;
 
 use cli;
 use Getopt::Long;
-use Serge::DB;
+use Serge::DB::Cached;
 use Serge::Engine::Plugin::transform;
 
 $| = 1; # disable buffered output
@@ -86,7 +86,7 @@ my $result = GetOptions(
 if (!$result) {
     cli::error("Failed to parse some command-line parameters.");
 }
-my $db = Serge::DB->new();
+my $db = Serge::DB::Cached->new();
 
 die "'L10N_DATABASE' environment variable not defined\n" unless exists $ENV{'L10N_DATABASE'};
 $db->open($ENV{'L10N_DATABASE'}, $ENV{'L10N_DATABASE_USER'}, $ENV{'L10N_DATABASE_PASSWORD'});

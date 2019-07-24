@@ -16,6 +16,7 @@ BEGIN {
 }
 
 use Encode qw(encode_utf8);
+use File::Path;
 
 use Serge::DB;
 my $db = Serge::DB->new();
@@ -66,6 +67,12 @@ sub dump_database_into_html {
 
         my $filename = $OUT_PATH;
         $filename =~ s/%LANG%/$language/g;
+
+        my $path = dirname($filename);
+        if ($path ne '.') {
+            eval { mkpath($path) };
+            ($@) && die "Couldn't create $path: $@\n";
+        }
 
         print "\tGenerating $filename\n";
 
@@ -118,7 +125,7 @@ sub dump_database_into_html {
 
         $html .= _generate_row($lines) if scalar(@$lines) > 0; # last row
 
-        open(HTML, ">$filename");
+        open(HTML, ">$filename") or die "Can't write to file: $!";
         binmode(HTML, ':utf8');
 
         print HTML qq{

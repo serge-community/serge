@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 foo NO 0
+    1    2 4 foo key2 0
+    2    3 10 foo key1 0
+}

@@ -26,15 +26,12 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        as_fuzzy_default => 'BOOLEAN',
-        as_fuzzy         => 'ARRAY',
-        as_not_fuzzy     => 'ARRAY'
+        as_fuzzy_default => 'BOOLEAN', # DEPRECATED; kept for backward compatibility for a while
+        as_fuzzy         => 'ARRAY',   # DEPRECATED; kept for backward compatibility for a while
+        as_not_fuzzy     => 'ARRAY'    # DEPRECATED; kept for backward compatibility for a while
     });
 
     $self->{keys} = {};
-    $self->{as_fuzzy_default} = 1; # by default, all guessed translations are returned as fuzzy
-    $self->{as_fuzzy} = []; # list of languages for which guessed translations are always returned as fuzzy (despite the `as_fuzzy_default` setting)
-    $self->{as_not_fuzzy} = []; # list of languages for which guessed translations are always returned as NOT fuzzy (despite the `as_fuzzy_default` setting)
 
     $self->add('get_translation', \&get_translation);
 }
@@ -45,7 +42,9 @@ sub validate_data {
     $self->SUPER::validate_data;
 
     map {
-        $self->{$_} = $self->{data}->{$_} if exists $self->{data}->{$_};
+        if (exists $self->{data}->{$_}) {
+            warn "NOTICE: $_ parameter is deprecated; please remove it from the config";
+        };
     } qw(
         as_fuzzy_default
         as_fuzzy
@@ -177,11 +176,11 @@ sub get_translation {
     }
 
     if (defined $key && exists $mappings->{$key}) {
-        my ($guessed, $fuzzy) = $self->guess_translation($string, $context, $namespace, $filepath, $lang);
-        if (defined $guessed) {
-            print "Guessed translation: '$guessed'\n" if $self->{parent}->{debug};
-            # return: (translation, fuzzy_state, comment, db_save_flag)
-            return ($guessed, $fuzzy, undef, 1); # save to database
+        my $guessed_translation = $self->guess_translation($string, $context, $namespace, $filepath, $lang);
+        if (defined $guessed_translation) {
+            print "Guessed translation: '$guessed_translation'\n" if $self->{parent}->{debug};
+            # guessed translations are always returned as fuzzy
+            return ($guessed_translation, 1, undef, 1); # fuzzy; empty comment; save to database
         } else {
             print "Failed to guess translation\n" if $self->{parent}->{debug};
         }
@@ -197,8 +196,6 @@ sub find_solution {
     print "Finding solution to transform '$a' into '$b'\n" if $self->{parent}->{debug};
 
     foreach my $sequence (@combinations) {
-        my @c = split('', $sequence);
-
         my $result = $self->apply_solution($a, $b, $sequence);
 
         if ($result && ($result eq $b)) {
@@ -230,11 +227,16 @@ sub guess_translation {
     my $candidates = $mappings->{$key};
     # filter out candidates that have no translations (or have multiple translations and reuse_uncertain is disabled)
     foreach my $candidate (keys %$candidates) {
-        my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{parent}->{engine}->{db}->find_best_translation($namespace, $filepath, $candidate, $context, $lang);
+        my ($translation, $fuzzy, $comment, $multiple_variants) =
+            $self->{parent}->{engine}->{db}->find_best_translation(
+                $namespace, $filepath, $candidate, $context, $lang,
+                $self->{parent}->{reuse_orphaned},
+                $self->{parent}->{reuse_fuzzy},
+                $self->{parent}->{reuse_uncertain}
+            );
 
         if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
             print "Multiple translations found, will skip the candidate because 'reuse_uncertain' mode is set to NO\n" if $self->{parent}->{debug};
-            undef $translation;
         }
 
         if ($translation eq '') {
@@ -258,27 +260,21 @@ sub guess_translation {
                 my $solution_text = join(' -> ', map { $transforms[$_] } split(//, $solution));
                 print "\nSolution: '$candidate' -> $solution_text\n" if $self->{parent}->{debug};
 
-                my ($translation, $fuzzy, $comment, $multiple_variants) = $self->{parent}->{engine}->{db}->find_best_translation($namespace, $filepath, $candidate, $context, $lang);
+                my ($translation, $fuzzy, $comment, $multiple_variants) =
+                    $self->{parent}->{engine}->{db}->find_best_translation(
+                        $namespace, $filepath, $candidate, $context, $lang,
+                        $self->{parent}->{reuse_orphaned},
+                        $self->{parent}->{reuse_fuzzy},
+                        $self->{parent}->{reuse_uncertain}
+                    );
+
                 if ($multiple_variants && !$self->{parent}->{reuse_uncertain}) {
                     print "Multiple translations found, won't reuse any because 'reuse_uncertain' mode is set to NO\n" if $self->{parent}->{debug};
-                    undef $translation;
                 }
 
                 if ($translation ne '') {
                     print "Applying this solution to translation '$translation'\n" if $self->{parent}->{debug};
-                    $translation = $self->apply_solution($translation, $source, $solution, $lang);
-
-                    if ($fuzzy) {
-                        # if the fuzzy flag is already set, always leave it as is,
-                        # even if the language is listed under `as_not_fuzzy` list
-                    } else {
-                        # the fuzzy flag is not set, but we might want to raise it here
-                        my $lang_as_fuzzy = is_flag_set($self->{as_fuzzy}, $lang);
-                        my $lang_as_not_fuzzy = is_flag_set($self->{as_not_fuzzy}, $lang);
-                        $fuzzy = 1 if $lang_as_fuzzy || ($self->{as_fuzzy_default} && !$lang_as_not_fuzzy);
-                    }
-
-                    return ($translation, $fuzzy);
+                    return $self->apply_solution($translation, $source, $solution, $lang);
                 } else {
                     print "There's no translation for the candidate string\n" if $self->{parent}->{debug};
                 }

@@ -7,7 +7,7 @@ translations
     3     4 50 4 test `ļőçáļĩžáḃļē áļţ áţţŕĩḃũţē ţēҳţ` NO 0 0
     4     5 51 5 test `ļőçáļĩžáḃļē ţĩţļē áţţŕĩḃũţē ţēҳţ` NO 0 0
     5     6 52 6 test `<img src="x.png" alt="localizable image" />` NO
-          00
+          0 0
     6     7 53 7 test `ļőçáļĩžáḃļē šţŕĩŋğ 2` NO 0 0
     7     8 54 8 test `Ŧáḃļē őḟ Ćőŋţēŋţš` NO 0 0
     8     9 55 9 test `Ŧőṕĩç 1` NO 0 0

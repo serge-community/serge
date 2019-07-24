@@ -6,7 +6,7 @@ use parent Serge::Plugin::Base::Callback;
 use strict;
 use warnings;
 
-use Serge::Util qw(set_flags);
+use Serge::Util qw(is_flag_set set_flags);
 
 our $LANG = 'test';
 our $LANGID = 0xffff;
@@ -21,12 +21,15 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        save_translations => 'BOOLEAN',
-        language          => 'STRING',
-        transliterate     => 'BOOLEAN',
-        expand_length     => 'BOOLEAN',
+        save_translations  => 'BOOLEAN',
+        language           => 'STRING',
+        transliterate      => 'BOOLEAN',
+        expand_length      => 'BOOLEAN',
+        fuzzy_translations => {
+            '*'            => 'STRING'
+        },
         translations => {
-            '*'           => 'STRING'
+            '*'            => 'STRING'
         }
     });
 
@@ -56,8 +59,12 @@ sub adjust_phases {
     # always tie to 'can_process_ts_file' phase
     set_flags($phases, 'can_generate_ts_file', 'can_process_ts_file');
 
-    # this plugin makes sense only when applied to a single phase (in addition to 'can_generate_ts_file' and 'can_process_ts_file')
-    die "This plugin needs to be attached to only one phase at a time" unless @$phases == 3;
+    # this plugin makes sense only when applied to either
+    # get_translation_pre or get_translation phase, but not both
+    my $f1 = is_flag_set($phases, 'get_translation_pre');
+    my $f2 = is_flag_set($phases, 'get_translation');
+    die "This plugin needs to be attached to either get_translation_pre or get_translation phase" if !$f1 && !$f2;
+    die "This plugin needs to be attached to either get_translation_pre or get_translation phase, but not both" if $f1 && $f2;
 }
 
 # public static method
@@ -70,6 +77,10 @@ sub is_test_language {
 sub _fake_translate_string {
     my ($self, $s) = @_;
 
+    # check 'fuzzy_translations' map and return such translations with a fuzzy flag set
+    return ($self->{data}->{fuzzy_translations}->{$s}, 1) if exists $self->{data}->{fuzzy_translations};
+
+    # check 'translations' map and return such translations with no fuzzy flag set
     return $self->{data}->{translations}->{$s} if exists $self->{data}->{translations};
 
     my $out = $s;
@@ -199,8 +210,8 @@ sub _expand_string {
 sub get_translation {
     my ($self, $phase, $string, $context, $namespace, $filepath, $lang) = @_;
 
-    return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations}) if $self->is_test_language($lang);
-    return (); # otherwise, return an empty array
+    return () unless $self->is_test_language($lang);
+    return ($self->_fake_translate_string($string), undef, undef, $self->{data}->{save_translations});
 }
 
 sub can_process_ts_file {

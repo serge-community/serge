@@ -23,6 +23,7 @@ sub init {
         "data-file:s"   => \$self->{data_file},
         "import-mode"   => \$self->{import_mode},
         "output-mode:s" => \$self->{output_mode},
+        "as-objects"    => \$self->{as_objects},
     ) or die "Failed to parse some command-line parameters.";
 
     $self->{parser} = {
@@ -66,7 +67,20 @@ sub run {
     $parser->{import_mode} = 1 if $self->{import_mode};
     $parser->parse(\$src, sub {
         my @row = @_;
-        push @data, \@row;
+
+        if ($self->{as_objects}) {
+            push @data, {
+                string => $row[0],
+                context => $row[1],
+                hint => $row[2],
+                flagsref => $row[3],
+                lang => $row[4],
+                key => $row[5],
+            };
+        } else {
+            push @data, \@row;
+        }
+
         return $row[0]; # return original source string as translation (solely for parser debugging purposes)
     });
 
@@ -75,12 +89,13 @@ sub run {
     if ($mode eq 'dumper') {
         eval 'use Data::Dumper';
         print Dumper(\@data);
-
     } else {
         eval 'use Config::Neat::Render';
+        my @order = qw(string context hint flagsref lang key);
         my $r = Config::Neat::Render->new({
             wrap_width => 256,
-            undefined_value => '-',
+            undefined_value => '',
+            sort => \@order
         });
         print $r->render({ data => \@data });
     }

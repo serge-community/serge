@@ -1,0 +1,10 @@
+strings
+{
+    0    1 2 value-#1 NO 0
+    1    2 4 value-#2 NO 0
+    2    3 6 value-#3 NO 0
+    3    4 8 value-#4 NO 0
+    4    5 10 value-#5 NO 0
+    5    6 12 value-#6 NO 0
+    6    7 14 value-#7 NO 0
+}

@@ -26,8 +26,12 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        name => 'STRING',
-        email => 'STRING'
+        clone_params  => 'STRING',
+        name          => 'STRING',
+        email         => 'STRING',
+        commit_params => 'STRING',
+        push_params   => 'STRING',
+        fetch_params  => 'STRING'
     });
 }
 
@@ -55,6 +59,10 @@ sub split_remote_path_branch {
 # get remote repository URL with an optional #branch_name suffix
 sub get_remote_url {
     my ($self, $local_path) = @_;
+
+    # if there's no .git subfolder, return immediately
+    # without running any commands
+    return undef unless -d catfile($local_path, '.git');
 
     my ($url, $branch);
 
@@ -85,7 +93,8 @@ sub switch_to_branch {
     }
 
     $self->run_in($local_path, qq|git checkout $branch|);
-    $self->run_in($local_path, qq|git rebase origin/$branch|);
+    # reset to remote state
+    $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
 
 sub get_last_revision {
@@ -106,7 +115,7 @@ sub status {
 sub init_repo {
     my ($self, $local_path, $remote_path, $branch) = @_;
 
-    $self->run_in($local_path, qq|git clone $remote_path --branch $branch .|);
+    $self->run_in($local_path, qq|git clone $remote_path --branch $branch $self->{data}->{clone_params} .|);
 
     # if email is provided, set it up as an override for this local repository
     if (exists $self->{data}->{email}) {
@@ -156,8 +165,9 @@ sub checkout {
     $self->run_in($local_path, qq|git remote prune origin|);
 
     # pull changes from remote server
-    $self->run_in($local_path, qq|git fetch|);
-    $self->run_in($local_path, qq|git rebase origin/$branch|);
+    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
+    # reset to remote state
+    $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
 
 sub _update_message {
@@ -190,10 +200,10 @@ sub commit {
     my $msg_parameters = join(' ', map { "-m \"$_\"" } split(/\n+/s, $message));
 
     # commit locally
-    $self->run_in($local_path, qq|git commit $msg_parameters|);
+    $self->run_in($local_path, qq|git commit $msg_parameters $self->{data}->{commit_params}|);
 
     # fetch changes from remote server
-    $self->run_in($local_path, qq|git fetch|);
+    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
 
     # rebase (do not merge, since merges are incompatible with Gerrit).
     $self->run_in($local_path, qq|git rebase origin/$branch|);
@@ -208,7 +218,7 @@ sub _push {
 
     ($remote_path, my $branch) = $self->split_remote_path_branch($remote_path);
 
-    $self->run_in($local_path, qq|git push origin $branch|);
+    $self->run_in($local_path, qq|git push origin $branch $self->{data}->{push_params}|);
 }
 
 1;

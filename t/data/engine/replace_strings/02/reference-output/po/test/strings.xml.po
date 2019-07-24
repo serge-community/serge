@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. string1
+#: File: strings.xml
+#: ID: d06956d72e922eb2991ece4034895089
+msgid "value-#1"
+msgstr "Test Translation 1"
+
+#. string2
+#: File: strings.xml
+#: ID: 30453f768e4e665ba26badab929ec584
+msgid "value-#2"
+msgstr "Test Translation 2"
+
+#. string3
+#: File: strings.xml
+#: ID: dd6b7c9c2be727eadd5df9b0df14b20b
+msgid "value-#3"
+msgstr "Test Translation 3"
+
+#. string4
+#: File: strings.xml
+#: ID: 0ce20d1d5c532fe9035319d1268e9e58
+msgid "value-#4"
+msgstr ""
+
+#. string5
+#: File: strings.xml
+#: ID: 8ddf4ff3dd9b15e0f54aaa79992e9ce0
+msgid "value-#5"
+msgstr ""
+
+#. string6
+#: File: strings.xml
+#: ID: 64cc25d41a3fc1f6dad7c6bfa29bef7b
+msgid "value-#6"
+msgstr ""
+
+#. string7
+#: File: strings.xml
+#: ID: 8828ac9338665f9c7cb608893d02893d
+msgid "value-#7"
+msgstr ""

@@ -1,0 +1,25 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            {
+                plugin                           apply_xslt
+                phase                            before_save_localized_file
+
+                data
+                {
+                    apply                        ./invalid.xslt
+                }
+            }
+        }
+    }
+}

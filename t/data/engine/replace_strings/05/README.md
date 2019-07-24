@@ -1,0 +1,1 @@
+Test for 'replace_strings' plugin, 'after_serialize_ts_file' phase

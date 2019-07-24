@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. H1 Heading
+#. welcomeMessageKey
+#: File: strings.go
+#: ID: 320760f7217fd75ac2837a6675d951f1
+msgid "Ú are welcome!"
+msgstr "Ú áŕē ŵēļçőḿē!"
+
+#. {NAME} is the name of the user
+#. HelloUser
+#: File: strings.go
+#: ID: 149f54090fcb9b1895830101b3b1f3b7
+msgid "Hello, {NAME}!"
+msgstr "Ĥēļļő, {ŅĀḾĒ}!"
+
+#. {X} is the number of files, {Y} is the number of folders,
+#. {COMMAND} in the ID of the command
+#. XFilesFoundInYFolders
+#: File: strings.go
+#: ID: 3b3177b5debe5a61b611b63cd2276600
+msgid ""
+"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. Do "
+"you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
+msgstr ""
+"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. Do "
+"you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
+
+#. Male name
+#. John
+#: File: strings.go
+#: ID: 9659d607f8d7fe37960d55b3ad97bc8d
+msgid "John"
+msgstr "Ĵőĥŋ"
+
+#. Male name, genitive case
+#. John
+#: File: strings.go
+#: ID: 7bb5aa8087e496a8b37aa2028cd57f92
+msgctxt "genitive"
+msgid "John's"
+msgstr "Ĵőĥŋ'š"
+
+#. Single-line raw string
+#. RawString
+#: File: strings.go
+#: ID: 70aba0198d7bd596830de93ab8e1d610
+msgid "foo \"bar\" baz"
+msgstr "ḟőő \"ḃáŕ\" ḃáž"
+
+#. Multi-line raw string
+#. Template
+#: File: strings.go
+#: ID: ac5b2d59bfcb067de30f489f296cca24
+msgid ""
+"Line 1\n"
+"\"Line 2\"\n"
+"Line 3"
+msgstr ""
+"Łĩŋē 1\n"
+"\"Łĩŋē 2\"\n"
+"Łĩŋē 3"

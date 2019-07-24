@@ -2,6 +2,16 @@
 
 use strict;
 
+# HOW TO USE THIS TEST
+#
+# By default, this test runs over all directories in t/data/engine/.  To run
+# the test only for specific directories, pass the directory names to this
+# script or assign them to the environment variable SERGE_ENGINE_TESTS as a
+# comma-separated list.  The following two examples are equivalent:
+#
+# perl t/engine.t parse_json parse_strings
+# SERGE_ENGINE_TESTS=parse_json,parse_strings prove t/engine.t
+
 BEGIN {
     use Cwd qw(abs_path);
     use File::Basename;
@@ -32,7 +42,8 @@ sub Serge::Engine::file_mtime {
     return 12345678;
 }
 
-my $thisdir = dirname(abs_path(__FILE__));
+my $this_dir = dirname(abs_path(__FILE__));
+my $tests_dir = catfile($this_dir, 'data', 'engine');
 
 my @confs;
 
@@ -41,16 +52,19 @@ my ($init_references);
 GetOptions("init" => \$init_references);
 
 my @dirs = @ARGV;
+if (my $env_dirs = $ENV{SERGE_ENGINE_TESTS}) {
+    push @dirs, split(/,/, $env_dirs);
+}
 
 unless (@dirs) {
     find(sub {
         push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-    }, $thisdir);
+    }, $tests_dir);
 } else {
     for my $dir (@dirs) {
         find(sub {
             push @confs, $File::Find::name if(-f $_ && /\.serge$/ && $_ ne 'common.serge');
-        }, catfile($thisdir, "data/engine", $dir));
+        }, catfile($tests_dir, $dir));
     }
 }
 
@@ -76,7 +90,7 @@ sub delete_directory {
 }
 
 
-for my $config_file (@confs) {
+for my $config_file (sort @confs) {
 
     subtest "Test config: $config_file" => sub {
         my $cfg = Test::Config->new($config_file);
@@ -94,14 +108,13 @@ for my $config_file (@confs) {
 
             my $engine = Serge::Engine->new();
             $engine->{optimizations} = undef; # force generate all the files
-            my $config = Serge::Config->new($config_file);
-            $config->chdir;
+            $cfg->chdir;
 
-            foreach my $job_data (@{$config->{data}->{jobs}}) {
+            foreach my $job_data (@{$cfg->{data}->{jobs}}) {
                 my $job;
 
                 eval {
-                    $job = Serge::Engine::Job->new($job_data, $engine, $config->{base_dir});
+                    $job = Serge::Engine::Job->new($job_data, $engine, $cfg->{base_dir});
                     $engine->process_job($job);
                 };
 

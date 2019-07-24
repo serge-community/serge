@@ -1,0 +1,5 @@
+files
+{
+    0    1 1 step1 test_namespace 1.properties 0
+    1    2 4 step2 test_namespace 2.properties 0
+}

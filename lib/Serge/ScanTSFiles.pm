@@ -10,6 +10,8 @@ sub process_job {
     my ($self, $job) = @_;
 
     $self->init_job($job);
+    $self->adjust_job_defaults($job);
+    $self->adjust_destination_languages($job);
 
     #$self->{job}->{debug} = 1;
 

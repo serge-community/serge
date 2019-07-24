@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -ex
+
+# All of this is to prevent requiring a .dockerignore be checked in at the top-level. I think we
+# should move to that in the future.
+(cd ..; find . -regextype posix-egrep -false $(perl -p - MANIFEST.SKIP) | perl -pe 's{^\./}{}' > .dockerignore) <<'EOF'
+chomp;
+
+s{^(?!\^)(\\/)?}{.*/};
+s{^\^}{^\\./};
+
+s{(?<!\$)(?<!\\/)$}{.*};
+s{\\/$}{\$};
+
+$_ = "-o -regex $_\n"
+EOF
+
+# END .dockerignore hack
+
+if echo $DOCKER_TAG | grep -q alpine ; then
+  echo '[****] Building alpine image (ignore the ARG defaults in the output below, they will be overriden)'
+  BASE_IMAGE=alpine:3.8
+  ADD_REPOS='echo -e @edge http://dl-cdn.alpinelinux.org/alpine/edge/main\\n@testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories'
+  UPDATE_REPOS='apk update'
+  # TODO: Eventually perl-json-xs will move to the edge repo, and then 3.9?
+  PACKAGES=( \
+    perl perl-app-cpanminus make perl-xml-parser perl-text-diff \
+    perl-yaml-libyaml perl-mime-lite perl-file-copy-recursive \
+    perl-authen-sasl perl-xml-twig perl-text-csv_xs perl-json \
+    perl-json-xs@testing perl-net-smtp-ssl perl-dbd-sqlite \
+  )
+  INSTALL_PREREQUISITES="$ADD_REPOS && $UPDATE_REPOS && apk add --no-cache ${PACKAGES[*]}"
+  CLEAN_PREREQUISITES='apk del -f --purge make perl-app-cpanminus'
+else
+  echo '[****] Building debian image'
+  # Use the values in the Docker file, so that we do not have them in two places, allowing divergence
+  BASE_IMAGE=`grep BASE_IMAGE= Dockerfile | sed -e 's/.*=//'`
+  INSTALL_PREREQUISITES=`grep 'INSTALL_PREREQUISITES=' Dockerfile | sed -E 's/.*="(.*)"$/\1/'`
+  CLEAN_PREREQUISITES=`grep 'CLEAN_PREREQUISITES=' Dockerfile | sed -E 's/.*="(.*)"$/\1/'`
+fi
+
+docker build \
+  --build-arg GIT_SHA1="$GIT_SHA1" \
+  --build-arg BASE_IMAGE="$BASE_IMAGE" \
+  --build-arg INSTALL_PREREQUISITES="$INSTALL_PREREQUISITES" \
+  --build-arg CLEAN_PREREQUISITES="$CLEAN_PREREQUISITES" \
+  -t ${IMAGE_NAME} -f ./Dockerfile ..

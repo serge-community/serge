@@ -10,7 +10,7 @@ foo({
     "value1" : "\u1e7d\u00e1\u013c\u0169\u01131",
 
     // line comments are extracted as hints as well
-    "key5" : "\u1e7d\u00e1\u013c\u0169\u01131", // this is a comment
+    "key5" : "\u1e7d\u00e1\u013c\u0169\u01131", // this is a comment "with quotes" and forward slashes: // test
 
     // bad strings
     "bad_key1" : 'bad_value1',

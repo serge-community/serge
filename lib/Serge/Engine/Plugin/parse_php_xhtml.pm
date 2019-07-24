@@ -34,20 +34,6 @@ sub init {
     $self->add('after_job', \&report_errors);
 }
 
-sub validate_data {
-    my $self = shift;
-
-    $self->SUPER::validate_data;
-
-    if (!defined $self->{data}->{email_from}) {
-        print "WARNING: 'email_from' is not defined. Will skip sending any reports.\n";
-    }
-
-    if (!defined $self->{data}->{email_to}) {
-        print "WARNING: 'email_to' is not defined. Will skip sending any reports.\n";
-    }
-}
-
 sub validate_output {
     my ($self, $phase, $file, $lang, $textref) = @_;
 
@@ -68,19 +54,23 @@ sub validate_output {
 sub report_errors {
     my ($self, $phase) = @_;
 
+    return if !scalar keys %{$self->{errors}};
+
     my $email_from = $self->{data}->{email_from};
-    if (!$email_from) {
-        $self->{errors} = {};
-        return;
-    }
-
     my $email_to = $self->{data}->{email_to};
-    if (!$email_to) {
+
+    if (!$email_from || !$email_to) {
+        my @a;
+        push @a, "'email_from'" unless $email_from;
+        push @a, "'email_to'" unless $email_to;
+        my $fields = join(' and ', @a);
+        my $are = scalar @a > 1 ? 'are' : 'is';
+        print "WARNING: there are some parsing errors, but $fields $are not defined, so can't send an email.\n";
         $self->{errors} = {};
         return;
     }
 
-    my $email_subject = $self->{data}->{email_subject} || ("[".$self->{parent}->{id}.']: XML Parse Errors');
+    my $email_subject = $self->{data}->{email_subject} || ("[".$self->{parent}->{id}.']: PHP/XHTML Parse Errors');
 
     my $text;
     foreach my $key (sort keys %{$self->{errors}}) {
@@ -224,28 +214,6 @@ sub fix_php_blocks {
     return $s;
 }
 
-sub dump_debug_xml {
-    my ($self, $textref) = @_;
-
-    use File::Path;
-
-    my $dir = $self->{parent}->{base_dir}.'/_debug_output';
-
-    eval { mkpath($dir) };
-    ($@) && die "Couldn't create $dir: $@";
-
-    my $file = $self->get_current_file_rel;
-    $file =~ s/[^\w\.]/_/g;
-    $file = $dir.'/'.$file.'.xml';
-
-    print "***** Dumping XML to $file\n";
-
-    open (OUT, ">$file");
-    binmode (OUT, ":utf8");
-    print OUT $$textref;
-    close(OUT);
-}
-
 sub parse {
     my ($self, $textref, $callbackref, $lang) = @_;
 
@@ -326,9 +294,6 @@ sub parse {
         $error_text =~ s/^\s+//s;
 
         $self->{errors}->{$self->get_current_file_rel} = $error_text;
-
-        $self->dump_debug_xml(\$text) if $self->{parent}->{debug};
-
         die $error_text;
     }
 
@@ -354,7 +319,6 @@ sub parse {
     #print "\n******************\n$out\n******************\n";
 
     return $lang ? $out : undef;
-    return undef;
 }
 
 sub parse_underscore_functions {
@@ -412,10 +376,13 @@ sub analyze_tag_recursively {
     my $can_translate = undef;
     my $will_translate = undef;
     my $contains_translatables = undef;
+    my $prohibit_children_translation = undef;
 
-    # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated
+    # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated;
+    # bare HTML (content of the root node) is also considered translated by default (provided there are no inner tags
+    # that override the segmentation)
 
-    if ($name =~ m/^(?:h[1-7]|p|li|dt|dd|label|option)$/) {
+    if ($name =~ m/^(?:|h[1-7]|p|li|dt|dd|label|option)$/) {
         $can_translate = !$prohibit_translation;
     }
 
@@ -453,9 +420,10 @@ sub analyze_tag_recursively {
                 $str =~ s/^[\r\n\t ]+//sg;
                 $str =~ s/[\r\n\t ]+$//sg;
 
-                # Only non-empty strings (which are not php blocks) can be translated
+                # Only non-empty strings which do not contain php blocks can be translated by default
 
-                $contains_translatables = 1 if ($str ne '') && ($str !~ m/^__PHP__BLOCK__(\d+)__$/);
+                $contains_translatables = 1 if $str ne '';
+                $prohibit_children_translation = 1 if $str =~ m/\b__PHP__BLOCK__(\d+)__\b/;
 
                 #print "** [$name: can=$can_translate, ctr=$contains_translatables] [$str]\n" if $self->{parent}->{debug};
             }
@@ -463,7 +431,7 @@ sub analyze_tag_recursively {
     }
 
     $will_translate = 1 if $can_translate && $contains_translatables;
-    $will_translate = undef if $prohibit_translation or $some_child_will_translate;
+    $will_translate = undef if $prohibit_translation or $prohibit_children_translation or $some_child_will_translate;
 
     #print "[2][$name: can=$can_translate, ctr=$contains_translatables, some=$some_child_will_translate, will=$will_translate]\n" if $self->{parent}->{debug};
 
@@ -475,7 +443,7 @@ sub analyze_tag_recursively {
         $attrs->{'.prohibit'} = 1;
     }
 
-    return ($will_translate or $some_child_will_translate or $prohibit_translation, $contains_translatables);
+    return ($will_translate or $some_child_will_translate or $prohibit_translation or $prohibit_children_translation, $contains_translatables);
 }
 
 sub render_tag_recursively {

@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#: File: template.pot
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+msgid "Value 1"
+msgstr "Ṽáļũē 1"
+
+#: File: template.pot
+#: ID: 388e86b127f532b03c528f6a29cbcd95
+msgctxt "context"
+msgid "Value 2"
+msgstr "Ṽáļũē 2"
+
+#: File: template.pot
+#: ID: d90c4562c1ba3fdc5d5f6c2e7af748dc
+msgid "Value 3 - Singular"
+msgid_plural "Value 3 - Plural"
+msgstr[0] "Ṽáļũē 3 - Šĩŋğũļáŕ"
+msgstr[1] "Ṽáļũē 3 - Ṕļũŕáļ"

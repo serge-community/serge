@@ -1,21 +1,21 @@
 properties
 {
-    0     1 source:1 a526436fdee2c1479e22e44a32742054
-    1     2 hash:1 a526436fdee2c1479e22e44a32742054
-    2     3 size:1 70
-    3     4 items:1 1,2,3,4
-    4     5 ts:1:test:count 4
-    5     6 usn:1:test 13
-    6     7 ts:1:test 382dd356cf94e37ffca15fa5fdf823fa
-    7     8 target:1:test_job:test b2906b513f0c63e243cd6eb6a9c3e45e
+    0     1 source:1 6ff380c6a14d0e16908940b564b0fdd9
+    1     2 hash:1 6ff380c6a14d0e16908940b564b0fdd9
+    2     3 size:1 81
+    3     4 items:1 1,2,3,4,5
+    4     5 ts:1:test:count 5
+    5     6 usn:1:test 16
+    6     7 ts:1:test 439118577fe431f637c91bfc1a6d6e7e
+    7     8 target:1:test_job:test 02819e7d838cb0a094d020443d699c5f
     8     9 target:mtime:1:test_job:test 12345678
-    9     10 source:1:test_job:test a526436fdee2c1479e22e44a32742054
+    9     10 source:1:test_job:test 6ff380c6a14d0e16908940b564b0fdd9
     10    11 source:ts:1:test_job:test
-          382dd356cf94e37ffca15fa5fdf823fa
+          439118577fe431f637c91bfc1a6d6e7e
     11    12 job-hash:test_namespace:test_job
-          0b85ffcd40e69567d39979f6f3083a7b
+          5ffbd6cd6a218a8fe7126f6381903b01
     12    13 job-plugin:test_namespace:test_job parse_keyvalue.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    14    15 job-engine:test_namespace:test_job 1.2
+    14    15 job-engine:test_namespace:test_job 1.3.2
 }

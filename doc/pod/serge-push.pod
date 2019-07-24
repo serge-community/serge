@@ -26,6 +26,10 @@ not be the one you are doing any development in.
 
 =over 8
 
+=item B<--message="commit message">
+
+When pushing localized data back to version control, override the commit message with the provided one.
+
 =item B<--echo-commands>
 
 Echo system commands about to be executed (useful for debugging)

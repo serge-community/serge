@@ -66,6 +66,7 @@ jobs                                ARRAY
         }
 
         normalize_strings           BOOLEAN
+        use_keys_as_context         BOOLEAN
         leave_untranslated_blank    BOOLEAN
         db_source                   STRING
         db_username                 STRING
@@ -74,6 +75,7 @@ jobs                                ARRAY
         reuse_translations          BOOLEAN
         reuse_orphaned              BOOLEAN
         reuse_uncertain             BOOLEAN
+        reuse_fuzzy                 BOOLEAN
         reuse_as_fuzzy_default      BOOLEAN
         reuse_as_fuzzy              ARRAY
         reuse_as_not_fuzzy          ARRAY

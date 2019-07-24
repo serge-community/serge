@@ -1,0 +1,8 @@
+translations
+{
+    0    1 16 1 test Dispositivo NO 0 0
+    1    2 17 2 test prova NO 0 0
+    2    3 18 3 test <p>&lt;nuovo/&gt;</p> NO 0 0
+    3    4 19 4 test <foo/> NO 0 0
+    4    5 20 5 test `Acquista adesso` NO 0 0
+}

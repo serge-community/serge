@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.3\n"
+
+#. /zero
+#: File: blanks.json
+#: ID: 3a9c7161dfd4991eb57ee72859221baf
+msgid "0"
+msgstr "0"

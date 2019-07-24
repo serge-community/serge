@@ -66,7 +66,7 @@ sub init {
     {
         # generic rule to limit translation only to a certain set of languages
         # example: L10N_LIMIT_DESTINATION_LANGUAGES=es-latam,zh-tw
-        content_matches    \\bL10N_LIMIT_DESTINATION_LANGUAGES=([\\w,-]*)
+        content_matches    \\bL10N_LIMIT_DESTINATION_LANGUAGES=([\\w,-]*\\w+)?
 
         then
         {
@@ -79,7 +79,7 @@ sub init {
     {
         # generic rule to exclude a certain set of languages
         # example: L10N_EXCLUDE_DESTINATION_LANGUAGES=ar
-        content_matches    \\bL10N_EXCLUDE_DESTINATION_LANGUAGES=([\\w,-]*)
+        content_matches    \\bL10N_EXCLUDE_DESTINATION_LANGUAGES=([\\w,-]*\\w+)?
 
         then
         {
@@ -100,14 +100,16 @@ sub validate_data {
     $self->SUPER::validate_data;
 
     # merge rules from the default config
+    # (default rules should go before the custom ones
+    # so that they can be overridden)
 
     if (!exists $self->{data}->{if}) {
         $self->{data}->{if} = Config::Neat::Array->new();
     }
 
     map {
-        push @{$self->{data}->{if}}, $_;
-    } @{$self->{default_if_rules}->{if}};
+        unshift @{$self->{data}->{if}}, $_;
+    } reverse @{$self->{default_if_rules}->{if}};
 
     # check each rule
 
@@ -190,11 +192,13 @@ sub check_block {
     sub _check_rule {
         my ($ruleset, $positive, $value) = @_;
 
+        # if ruleset is not defined, skip the rule by always returning
+        # a true value (regardless of what $positive is set to)
         return 1 unless defined $ruleset;
 
         foreach my $rule (@$ruleset) {
             if ($value =~ m/$rule/s) {
-                return 1;
+                return $positive;
             }
         }
         return !$positive;

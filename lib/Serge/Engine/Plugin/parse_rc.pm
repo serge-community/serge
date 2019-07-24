@@ -86,15 +86,13 @@ sub parse {
         if ($orig_str) {
             my $str = $orig_str;
             $str =~ s/""/"/g;
-            $translated_str = &$callbackref($str, undef, $hint, undef, $lang);
+            $translated_str = &$callbackref($str, undef, $hint, undef, $lang, $idstr);
         }
 
         if ($lang) {
-            if ($translated_str) {
-                $translated_str =~ s/"/""/g;
-                $translated_str =~ s/\n/\\n/g;
-                $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
-            }
+            $translated_str =~ s/"/""/g;
+            $translated_str =~ s/\n/\\n/g;
+            $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
             $translated_text .= $line."\n";
         }
     }

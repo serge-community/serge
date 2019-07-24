@@ -1,0 +1,1 @@
+<span lang="en"><?php ?> foo4</span>

@@ -6,7 +6,7 @@
     See https://github.com/iafan/Config-Neat for more information.
 */
 
-# `sync` block contains all synchroinzation-related settings
+# `sync` block contains all synchronization-related settings
 sync
 {
     # `ts` defines which translation service
@@ -14,19 +14,15 @@ sync
     ts
     {
         # (STRING) TS plugin name
-        plugin                      pootle
+        plugin                      zing
 
         # [OPTIONAL] Plugin data. Each plugin may have specific parameters
         # inside the `data` block. See the documentation for each specific
         # plugin for more information.
         data
         {
-            # Unique project id (folder name) in Pootle
+            # Unique project id (folder name) in Zing
             project_id              my_project
-
-            # Path to Pootle's `manage.py` utility that is used to sync
-            # local translation files with its internal database
-            manage_py_path          /path/to/pootle/manage.py
         }
     }
 
@@ -175,12 +171,19 @@ jobs
 
         # (ARRAY) List of regular expressions for the file name
         # to match the files that should be processed.
-        # This matches case-insensitively agains the file name (without path)
+        # This matches case-sensitively against the file name (without path)
         source_match                \.rc$
+
+        # (ARRAY) [OPTIONAL] List of regular expressions for directory paths
+        # that should be skipped. Matches are performed case-sensitively
+        # against the relative directory path (without file name).
+        # Default behavior: Exclude `.svn', `.git', `.hg' (Mercurial),
+        # '.bzr' (Bazaar) and `CVS' dirs
+        source_exclude_dirs ^(\.svn|\.git|\.hg|\.bzr|CVS)$
 
         # (ARRAY) [OPTIONAL] List of regular expressions for the file name
         # to match the files that should be skipped.
-        # This matches case-insensitively agains the file name (without path)
+        # This matches case-sensitively against the file name (without path)
         # Default behavior: no exclusion takes place
         source_exclude              ``
 
@@ -225,6 +228,17 @@ jobs
         # YES - the string should be normalized
         # NO - the string is extracted as is (default)
         normalize_strings           NO
+
+        # (BOOLEAN) [OPTIONAL] Should the string keys reported by a parser
+        # be copied into a context field?
+        # Note that original context in this case becomes overwritten,
+        # unless the returned key is empty.
+        # Changing this setting on an existing previously translated project
+        # will change all the string signatures and may require one to re-apply
+        # and review translations once.
+        # YES - extracted keys should be used as context
+        # NO - keep the original extracted context (default)
+        use_keys_as_context         NO
 
         # (BOOLEAN) [OPTIONAL] Should untranslated strings appear blank
         # in the output file, or have source strings as their "translation"?
@@ -288,6 +302,13 @@ jobs
         # YES - just try to pick the best one based on context/file/namespace
         # NO - do not reuse such uncertain translations at all (default)
         reuse_uncertain             NO
+
+        # (BOOLEAN) [OPTIONAL] Should the fuzzy translations be reused?
+        # Note that for the translation to be reusable, it must satisfy
+        # all the reuse_* criteria at the same time.
+        # YES - reuse fuzzy translations (default)
+        # NO - do not reuse fuzzy translations
+        reuse_fuzzy                 YES
 
         # (BOOLEAN) [OPTIONAL] Should the fuzzy flag be set on translations
         # which are copied from other strings?

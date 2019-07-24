@@ -1,0 +1,8 @@
+#  translator-comments
+#. automatic-comments
+#: reference
+#, flag
+#| extra unsupported line
+#~ extra unsupported line
+msgid "foo"
+msgstr "ḟőő"

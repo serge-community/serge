@@ -59,6 +59,13 @@ for debugging.
 
 =back
 
+=item B<--as-objects>
+
+By default, parsed data is rendered as an array of arrays; each inner array holds fields
+in the following order: string, context, hint, flagsref, lang, key. With --as-objects,
+the data will be rendered as an array of objects with corresponding key names
+for better readability.
+
 =item B<--data-file=E<lt>file_pathE<gt>>
 
 Some parsers require configuration data. You can pass data structure to the parser

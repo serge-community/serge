@@ -5,7 +5,7 @@ use strict;
 
 use Config::Neat::Schema;
 use File::Path;
-use File::Spec::Functions qw(rel2abs);
+use File::Spec::Functions qw(catfile rel2abs);
 
 use Serge::Sync::Util;
 use Serge::Util qw(subst_macros);
@@ -43,6 +43,10 @@ sub validate_data {
 
 sub get_remote_url {
     my ($self, $local_path) = @_;
+
+    # if there's no .svn subfolder, return immediately
+    # without running any commands
+    return undef unless -d catfile($local_path, '.svn');
 
     my $output;
 

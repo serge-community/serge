@@ -16,11 +16,27 @@ sub new {
     $self = {} unless defined $self;
 
     $self->{css} = 'media/pod.css' unless exists $self->{css};
-    $self->{pod_root} = catfile(dirname(__FILE__), '../../doc/pod') unless exists $self->{pod_root};
-    $self->{html_root} = catfile(dirname(__FILE__), '../../doc/html') unless exists $self->{html_root};
+
+    $self->{root} = _find_doc_root();
+    $self->{pod_root} = catfile($self->{root}, 'pod') unless exists $self->{pod_root};
+    $self->{html_root} = catfile($self->{root}, 'html') unless exists $self->{html_root};
 
     bless $self, $class;
     return $self;
+}
+
+sub _find_doc_root {
+    my @trydirs = (
+        catfile(dirname(__FILE__), '../../doc'),
+        '/usr/local/share/serge/doc',
+        '/usr/share/serge/doc'
+    );
+
+    map {
+        return $_ if -d $_;
+    } @trydirs;
+
+    return '.';
 }
 
 sub save_html {
@@ -60,7 +76,7 @@ qq|
 
         <div class="footer">
             <div class="copyright">
-                &copy; 2014&ndash;2015 Evernote Corporation.<br/>
+                &copy; 2014&ndash;2018 Evernote Corporation.<br/>
                 All rights reserved.
             </div>
             <div class="license">
@@ -86,11 +102,12 @@ qq|
 }
 
 sub print_as_text {
-    my ($self, $podfile) = @_;
+    my ($self, $podfile, $fh) = @_;
+    $fh = *STDOUT unless $fh; # otherwise some old version of Pod::Simple won't properly initialize the output
 
     my $parser = Pod::Text->new(sentence => 0, width => 78);
-    $parser->output_fh(\*STDOUT); # otherwise some old version of Pod::Simple won't properly initialize the output
-    $parser->parse_file($podfile); # this will render the file to STDOUT
+    $parser->output_fh($fh);
+    $parser->parse_file($podfile); # this will render the file to the specified file handle
 }
 
 sub get_pod_path {

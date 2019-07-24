@@ -1,0 +1,87 @@
+inc
+{
+    common
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        parser
+        {
+            plugin                               parse_properties
+        }
+    }
+}
+
+jobs
+{
+    # step 1: process the first file and save the translation into the database
+    :step1
+    {
+        @inherit                                 .#inc/common
+
+        id                                       step1
+        source_match                             ^1\.properties$
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    fuzzy_translations
+                    {
+                        `Foo Bar Baz`            `Translation A`
+                    }
+                }
+            }
+        }
+    }
+
+    # step 2: process the second file, now with a different translation,
+    # and save the translation into the database
+    :step2
+    {
+        @inherit                                 .#inc/common
+
+        id                                       step2
+        source_match                             ^2\.properties$
+
+        callback_plugins
+        {
+            :test_language
+            {
+                plugin                           test_language
+
+                data
+                {
+                    translations
+                    {
+                        `Foo Bar Baz`            `Translation B`
+                    }
+                }
+            }
+        }
+    }
+
+    # step 3: process the third file, now with test_language plugin turned off;
+    # the second translation should be reused even if there's an implicit
+    # `reuse_uncertain NO` setting, because the first translation will be ignored
+    # due to explicit `reuse_fuzzy NO` setting
+    :step3
+    {
+        @inherit                                 .#inc/common
+
+        id                                       step3
+        source_match                             ^3\.properties$
+
+        # no NOT reuse fuzzy transalations
+        reuse_fuzzy                              NO
+
+        # disable the test language plugin to avoid automatic translation
+        callback_plugins
+        {
+            -:test_language
+        }
+    }
+}
