@@ -1,0 +1,8 @@
+strings
+{
+    0    1 2 `Value 1` NO 0
+    1    2 4 `Value 2` NO 0
+    2    3 6 `Error %s` NO 0
+    3    4 8 `Value 3` NO 0
+    4    5 10 `Value 4` NO 0
+}
