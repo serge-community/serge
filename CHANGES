@@ -338,6 +338,10 @@ Revision history
         - Fixed %LOCALE:LC% and %LOCALE:UC% macros that would be affected by
           iOS-specific language remappings (e.g. pt and pt-br).
 
+        - Added new `serge show <config>` command to expand the @inherit
+          rules in the configuration file and render the nicely formatted
+          final config structure.
+
         - Fixed typos in embedded documentation
 
 1.0     October 15, 2015
