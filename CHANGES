@@ -1,6 +1,6 @@
 Revision history
 
-1.4     Pending release
+1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
           (gives an ability to specify one or more languages which should be
