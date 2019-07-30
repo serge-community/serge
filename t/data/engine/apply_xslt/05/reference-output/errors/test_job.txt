@@ -1,3 +1,3 @@
-./invalid.xslt:5: parser error : Specification mandate value for attribute invalid
+./invalid.xslt:5: parser error : Specification mandates value for attribute invalid
     <xsl:template invalid>
                          ^

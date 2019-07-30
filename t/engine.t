@@ -126,6 +126,11 @@ for my $config_file (sort @confs) {
                     $error =~ s/ \(\@INC contains: .*\)$//s;
                     $error =~ s/\@INC.+$/\@INC/s;
 
+                    # older versions of libxml have the word "mandate" in the error message,
+                    # while newer ones have it replaced with "mandates". To stabilize the error message
+                    # in test for broken XML code, manually rewrite the message to a newer one
+                    $error =~ s/Specification mandate value for attribute/Specification mandates value for attribute/;
+
                     print "Job '$job_data->{id}' will be skipped: $error\n";
 
                     eval { mkpath($cfg->errors_path) };
