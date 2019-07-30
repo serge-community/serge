@@ -121,7 +121,7 @@ Revision history
           (in addition to extracting them as translation hints).
 
         - Added support for `use_keys_as_context` job parameter (#89).
-        
+
         - Added new `show` command to display expanded .serge configurations (#40).
 
         - Miscellaneous smaller fixes and improvements.
