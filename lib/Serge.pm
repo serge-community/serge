@@ -21,6 +21,6 @@ L<https://serge.io/>
 
 package Serge;
 
-our $VERSION = '1.3.2';
+our $VERSION = '1.4';
 
 1;

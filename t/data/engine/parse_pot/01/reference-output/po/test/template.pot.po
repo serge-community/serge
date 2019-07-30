@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: test\n"
-"Generated-By: Serge 1.3\n"
+"Generated-By: Serge 1.4\n"
 
 #: File: template.pot
 #: ID: 52b8425aa485a7e3b7a02e1b586f9cef

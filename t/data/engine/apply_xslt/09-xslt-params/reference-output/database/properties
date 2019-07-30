@@ -10,24 +10,24 @@ properties
     7     8 items:2 5,6,7
     8     9 ts:1:test:count 4
     9     10 usn:1:test 19
-    10    11 ts:1:test db524e256690b8939492a17c27068bfe
+    10    11 ts:1:test 0a186047630c85de0051afadc39bcc62
     11    12 ts:2:test:count 3
     12    13 usn:2:test 16
-    13    14 ts:2:test 7c3c443d759caece01607de76f584df7
+    13    14 ts:2:test 57a2a0b2789f322f44aadee9ee1a9ed4
     14    15 target:1:test_job:test fe8f2b3388bd33a16245c8ed3dcd690b
     15    16 target:mtime:1:test_job:test 12345678
     16    17 source:1:test_job:test ccac4096bd690925a3c4e7d86150c8dd
     17    18 source:ts:1:test_job:test
-          db524e256690b8939492a17c27068bfe
+          0a186047630c85de0051afadc39bcc62
     18    19 target:2:test_job:test 519d6d2572205bb3a1296f057d044e6f
     19    20 target:mtime:2:test_job:test 12345678
     20    21 source:2:test_job:test 5973ebe79ea489cf060409d350af0412
     21    22 source:ts:2:test_job:test
-          7c3c443d759caece01607de76f584df7
+          57a2a0b2789f322f44aadee9ee1a9ed4
     22    23 job-hash:test_namespace:test_job
           78a0ccd573b5eb469a72abe2d3afcf41
     23    24 job-plugin:test_namespace:test_job parse_android.
     24    25 job-serializer-plugin:test_namespace:test_job
           serialize_po.
-    25    26 job-engine:test_namespace:test_job 1.3.2
+    25    26 job-engine:test_namespace:test_job 1.4
 }
