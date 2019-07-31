@@ -12,7 +12,7 @@ properties
     9     10 source:1:test_job:de b08afa64184f7ae4b1ac167d2109a8c4
     10    11 source:ts:1:test_job:de 7d07e2735a168e9655fab343cbf5cf65
     11    12 job-hash:test_namespace:test_job
-          2d5784bf21c6b9a7c8d6d3579f2feb72
+          d86de46b4a99dfcbcd91bdc4f138046c
     12    13 job-plugin:test_namespace:test_job parse_chrome_json.
     13    14 job-serializer-plugin:test_namespace:test_job
           serialize_xliff.

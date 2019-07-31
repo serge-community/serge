@@ -14,7 +14,8 @@ jobs
                 {
                     apply                        ./xliff_context_to_resname.xslt
                 }
-            },
+            }
+
             :copy-resources
             {
                 plugin                            run_command
@@ -39,7 +40,8 @@ jobs
         }
 
         ts_file_path                             ./test-output/po/%LOCALE%/%FILE%.xliff
-    },
+    }
+
     {
         @inherit                                 ../../common.serge#job_template
         destination_languages                    de
