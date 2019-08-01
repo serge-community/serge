@@ -106,7 +106,7 @@ sub parse {
 
     my $tree;
     eval {
-        $tree = XML::Twig->new()->parse($$textref);
+        $tree = XML::Twig->new(escape_gt => 1)->parse($$textref);
         $tree->set_indent(' ' x 4);
     };
     if ($@) {

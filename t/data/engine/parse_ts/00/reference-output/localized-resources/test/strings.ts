@@ -13,8 +13,8 @@
             <translation>Ṽáļũē 2</translation>
         </message>
         <message>
-            <source>"Value1" &lt;> "&amp;Value2"</source>
-            <translation>"Ṽáļũē1" &lt;> "&amp;Ṽáļũē2"</translation>
+            <source>"Value1" &lt;&gt; "&amp;Value2"</source>
+            <translation>"Ṽáļũē1" &lt;&gt; "&amp;Ṽáļũē2"</translation>
         </message>
     </context>
     <message>
