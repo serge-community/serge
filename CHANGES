@@ -1,5 +1,9 @@
 Revision history
 
+Pending release
+
+        - Fixed parse_ts to output strict XML by escaping `>`.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
