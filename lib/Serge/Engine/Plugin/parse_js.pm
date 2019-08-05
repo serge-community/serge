@@ -35,11 +35,11 @@ sub parse_callback {
     push @hint, $key if $key ne '' && $key ne $string;
     push @hint, $comment if $comment ne '';
 
-    $string =~ s/(\\\d{1,3}|\\x[0-9a-f]{2}|\\u[0-9a-f]{4}|\\u\{[0-9a-f]{1,6}\}|\\[bfnrtv"'\\])/_unescape($1)/sgie;
+    $string =~ s/(\\\d{1,3}|\\x[0-9a-f]{2}|\\u[0-9a-f]{4}|\\u\{[0-9a-f]{1,6}\}|\\[bfnrtv"'\\\/])/_unescape($1)/sgie;
 
     my $translated_string = &$callbackref($string, $context, join("\n", @hint), undef, $lang, $key);
 
-    $translated_string =~ s/(\\[bfrv]|[\\"'\n\t])/_escape($1)/sge;
+    $translated_string =~ s/(\\[bfrv\/]|[\\"'\n\t])/_escape($1)/sge;
 
     return $translated_string;
 }

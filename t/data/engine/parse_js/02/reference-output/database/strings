@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 foo/bar NO 0
+    1    2 4 foo\/bar NO 0
+    2    3 6 foo\/bar key3 0
+}

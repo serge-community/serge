@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. key1
+#. unnecessary escaping of the forward slash
+#: File: strings.js
+#: ID: 330d177a8c9395a01ccaabbbf9a66b50
+msgid "foo/bar"
+msgstr ""
+
+#. key2
+#: File: strings.js
+#: ID: 078f8df45151d46731191a013805a04e
+msgid "foo\\/bar"
+msgstr ""
+
+#. key3
+#. unnecessary escaping of the forward slash
+#: File: strings.js
+#: ID: 15f331ec239c7408716f4574c199dc98
+msgctxt "key3"
+msgid "foo\\/bar"
+msgstr ""

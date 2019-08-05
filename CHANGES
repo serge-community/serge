@@ -4,6 +4,8 @@ Pending release
 
         - Fixed parse_ts to output strict XML by escaping `>`.
 
+        - Fixed parse_js escaped forward slash handling (#108).
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
