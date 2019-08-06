@@ -1,5 +1,5 @@
 foo({
-    // supported are only keys and values in double quotes
+    // test keys and values surrounded by double quotes
     "key1" : "value1",
     "key2": "value\\2",
     "key3" :"value \"3\"",
@@ -10,10 +10,8 @@ foo({
     "value1" : "value1",
 
     // line comments are extracted as hints as well
-    "key5" : "value1", // this is a comment "with quotes" and forward slashes: // test
-
-    // bad strings
-    "bad_key1" : 'bad_value1',
-    'bad_key2': "bad_value2",
-    'bad_key3' :'bad_value3'
+    "key5" : "value5", // this is a comment "with quotes" and forward slashes: // test
+    "key6" : "value6",//        comment 6
+    "key7" : "value7",//comment 7
+    "key8" : "value8",          //comment 8
 });

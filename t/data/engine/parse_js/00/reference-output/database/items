@@ -9,4 +9,10 @@ items
          `key5
 this is a comment "with quotes" and forward slashes: // test`
          NO 0
+    6    7 15 1 7 `key6
+comment 6` NO 0
+    7    8 17 1 8 `key7
+comment 7` NO 0
+    8    9 19 1 9 `key8
+comment 8` NO 0
 }

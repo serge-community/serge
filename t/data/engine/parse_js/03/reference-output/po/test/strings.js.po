@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. key1
+#. extra comment 1
+#: File: strings.js
+#: ID: d9caf9ea253be203a918e9546c72d0db
+msgid "foo'bar"
+msgstr "ḟőő'ḃáŕ"
+
+#. key2
+#. extra comment 2
+#: File: strings.js
+#: ID: 148f27acdf1e90b8f388ae1747688eae
+msgctxt "key2"
+msgid "foo'bar"
+msgstr "ḟőő'ḃáŕ"
+
+#. key3
+#. extra comment 3
+#: File: strings.js
+#: ID: 372090f90b64819fc73430a133db6d60
+msgid "foo\"bar"
+msgstr "ḟőő\"ḃáŕ"
+
+#. key4
+#. extra comment 4
+#: File: strings.js
+#: ID: 2eb35a77363641c8ded63d0cf3a722f2
+msgctxt "key4"
+msgid "foo\"bar"
+msgstr "ḟőő\"ḃáŕ"
+
+#. key5
+#. extra comment 5
+#: File: strings.js
+#: ID: 29ccaf51b2918164715411db11f8770e
+msgid "foo bar 5"
+msgstr "ḟőő ḃáŕ 5"
+
+#. key_6
+#. extra comment 6
+#: File: strings.js
+#: ID: a35357b7d11f48f2a0577f47c59cec3b
+msgid "foo bar 6"
+msgstr "ḟőő ḃáŕ 6"

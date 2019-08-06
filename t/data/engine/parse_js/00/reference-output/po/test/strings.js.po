@@ -38,7 +38,27 @@ msgstr "ṽáļũē1"
 #. key5
 #. this is a comment "with quotes" and forward slashes: // test
 #: File: strings.js
-#: ID: b37932e128ce3529d5b0f30bbaf970ab
-msgctxt "key5"
-msgid "value1"
-msgstr "ṽáļũē1"
+#: ID: 70b1ec883872532408cfe3dca6fbd66c
+msgid "value5"
+msgstr "ṽáļũē5"
+
+#. key6
+#. comment 6
+#: File: strings.js
+#: ID: 7c5a1479bae6385cd58bc0f5318c53be
+msgid "value6"
+msgstr "ṽáļũē6"
+
+#. key7
+#. comment 7
+#: File: strings.js
+#: ID: aeafaaa48c4ca135a3e1213589e98550
+msgid "value7"
+msgstr "ṽáļũē7"
+
+#. key8
+#. comment 8
+#: File: strings.js
+#: ID: e4f56606f5795fc1065ce5036f39e0de
+msgid "value8"
+msgstr "ṽáļũē8"

@@ -5,5 +5,8 @@ strings
     2    3 6 `value "3"` NO 0
     3    4 8 value\"4" NO 0
     4    5 10 value1 value1 0
-    5    6 12 value1 key5 0
+    5    6 12 value5 NO 0
+    6    7 14 value6 NO 0
+    7    8 16 value7 NO 0
+    8    9 18 value8 NO 0
 }

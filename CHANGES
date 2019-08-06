@@ -2,9 +2,11 @@ Revision history
 
 Pending release
 
-        - Fixed parse_ts to output strict XML by escaping `>`.
+        - Fixed `parse_ts` plugin to output strict XML by escaping `>`.
 
-        - Fixed parse_js escaped forward slash handling (#108).
+        - Fixed `parse_js` plugin escaped forward slash handling (#108).
+          The plugin now also supports quote-less key names and key names
+          and values with single-quote string syntax (#118).
 
 1.4     July 30, 2019
 
