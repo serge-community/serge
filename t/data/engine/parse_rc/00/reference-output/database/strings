@@ -5,4 +5,7 @@ strings
     2    3 6 `Error %s` NO 0
     3    4 8 `Value 3` NO 0
     4    5 10 `Value 4` NO 0
+    5    6 12 `My Application` NO 0
+    6    7 14 `Sample text` NO 0
+    7    8 16 OK NO 0
 }

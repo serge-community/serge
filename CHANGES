@@ -8,6 +8,8 @@ Pending release
           The plugin now also supports quote-less key names and key names
           and values with single-quote string syntax (#118).
 
+        - Fixed `parse_rc` plugin resource ID extraction.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`

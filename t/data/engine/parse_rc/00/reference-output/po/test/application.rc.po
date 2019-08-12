@@ -34,3 +34,21 @@ msgstr "Ṽáļũē 3"
 #: ID: bf5a11014de06a379dcb4fda0faa156d
 msgid "Value 4"
 msgstr "Ṽáļũē 4"
+
+#. IDD_MSGBOX_DLG CAPTION
+#: File: application.rc
+#: ID: 11d23031d7a9e8234f553ab8fc21432e
+msgid "My Application"
+msgstr "Ḿŷ Āṕṕļĩçáţĩőŋ"
+
+#. LTEXT IDC_MSGBOX_HEADER
+#: File: application.rc
+#: ID: 6506c8baf8edba3d2fea1e8c15b407f5
+msgid "Sample text"
+msgstr "Šáḿṕļē ţēҳţ"
+
+#. PUSHBUTTON IDC_MSGBOX_BTTN
+#: File: application.rc
+#: ID: bf897b18b45a8a2c2029a5ceb57d3cb4
+msgid "OK"
+msgstr "ŐĶ"

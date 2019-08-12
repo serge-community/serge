@@ -21,6 +21,7 @@ sub parse {
     my $stringtable;
     my $blocklevel = 0;
     my $idstr;
+    my $dialogid;
 
     foreach my $line (split(/\n/, $$textref)) {
         my $norm_line = $line;
@@ -37,7 +38,10 @@ sub parse {
         $norm_line =~ s/^(.*?)\/\/.*$/$1/g; # get rid of comments
 
         $menu = 1 if ($norm_line =~ m/ MENU$/);
-        $dialog = 1 if ($norm_line =~ m/^\w+ (DIALOG|DIALOGEX) /);
+        if ($norm_line =~ m/^(\w+) (DIALOG|DIALOGEX) /) {
+            $dialogid = $1;
+            $dialog = 1;
+        }
         $stringtable = 1 if ($norm_line eq 'STRINGTABLE');
         $blocklevel++ if ($norm_line eq 'BEGIN');
         if ($norm_line eq 'END') {
@@ -45,6 +49,7 @@ sub parse {
             if ($blocklevel == 0) {
                 $menu = undef;
                 $dialog = undef;
+                $dialogid = undef;
                 $stringtable = undef;
             }
         }
@@ -57,13 +62,15 @@ sub parse {
         if ($dialog && !$blocklevel) {
 
             if ($line =~ m/^[\t ]*(CAPTION)[\t ]+"((.*?("")*)*?)"/) {
-                $hint = $1;
+                $idstr = $dialogid.':'.$1;
+                $hint = $dialogid.' '.$1;
                 $orig_str = $2;
             }
 
         # MENU and DIALOGEX BEGIN...END block contents
         } elsif (($menu || $dialog) && $blocklevel) {
             if ($line =~ m/^[\t ]*(\w+)[\t ]+"((.*?("")*)*?)"(,[\t ]*(\w+)){0,1}/) {
+                $idstr = $6;
                 $hint = $6 ? "$1 $6" : $1;
                 $orig_str = $2;
             }
@@ -71,6 +78,7 @@ sub parse {
         # STRINGTABLE BEGIN...END block contents
         } elsif ($stringtable && $blocklevel) {
             if ($line =~ m/^[\t ]*(\w+)[\t ]+"((.*?("")*)*?)"/) { # test for one-line string definitions
+                $idstr = $1;
                 $hint = $1;
                 $orig_str = $2;
             } elsif ($line =~ m/^[\t ]*(\w+)[\t ]*(\/\/.*)*$/) { # test for the first line (id) of the two-line string definitions
@@ -87,12 +95,19 @@ sub parse {
             my $str = $orig_str;
             $str =~ s/""/"/g;
             $translated_str = &$callbackref($str, undef, $hint, undef, $lang, $idstr);
+
+            if ($lang) {
+                $translated_str =~ s/"/""/g;
+                $translated_str =~ s/\n/\\n/g;
+                $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
+            }
+
+            $idstr = undef;
+            $hint = undef;
+            $orig_str = undef;
         }
 
         if ($lang) {
-            $translated_str =~ s/"/""/g;
-            $translated_str =~ s/\n/\\n/g;
-            $line =~ s/\Q"$orig_str"\E/"$translated_str"/;
             $translated_text .= $line."\n";
         }
     }

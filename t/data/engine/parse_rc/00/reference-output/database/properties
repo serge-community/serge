@@ -1,17 +1,17 @@
 properties
 {
-    0     1 source:1 b88e2e32e7cd852f7d4b76ba913a78a1
-    1     2 hash:1 b88e2e32e7cd852f7d4b76ba913a78a1
-    2     3 size:1 969
-    3     4 items:1 1,2,3,4,5
-    4     5 ts:1:test:count 5
-    5     6 usn:1:test 16
-    6     7 ts:1:test 075e069c9630dedd9add150161abd8ad
-    7     8 target:1:test_job:test 402d4b321ffe9876cb697d5122b5569a
+    0     1 source:1 1663dd9f9f8cae198bdf473b943fa499
+    1     2 hash:1 1663dd9f9f8cae198bdf473b943fa499
+    2     3 size:1 1362
+    3     4 items:1 1,2,3,4,5,6,7,8
+    4     5 ts:1:test:count 8
+    5     6 usn:1:test 25
+    6     7 ts:1:test ff86f5d649d89f89506bd594b9c6f404
+    7     8 target:1:test_job:test 410bb70705e00c91cdd8e7c07554bddb
     8     9 target:mtime:1:test_job:test 12345678
-    9     10 source:1:test_job:test b88e2e32e7cd852f7d4b76ba913a78a1
+    9     10 source:1:test_job:test 1663dd9f9f8cae198bdf473b943fa499
     10    11 source:ts:1:test_job:test
-          075e069c9630dedd9add150161abd8ad
+          ff86f5d649d89f89506bd594b9c6f404
     11    12 job-hash:test_namespace:test_job
           13b98de1726dbf76b84d3c04553c69a6
     12    13 job-plugin:test_namespace:test_job parse_rc.
