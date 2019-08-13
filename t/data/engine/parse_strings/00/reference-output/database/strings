@@ -1,12 +1,23 @@
 strings
 {
-    0    1 2 `some text 1` NO 0
-    1    2 4 `some text 2` NO 0
-    2    3 6 `some text 3` NO 0
-    3    4 8 `some text 4` NO 0
-    4    5 10 `some text 5` NO 0
-    5    6 12 `some text 6` NO 0
-    6    7 14 `some text 7` NO 0
-    7    8 16 `some text 8` NO 0
-    8    9 18 `some text 9` NO 0
+    0     1 2 `Line 1.
+Line 2.
+Line 3` NO 0
+    1     2 4 `some text 1` NO 0
+    2     3 6 `some text 2` NO 0
+    3     4 8 `some text 3` NO 0
+    4     5 10 `some text 4` NO 0
+    5     6 12 `some text 5` NO 0
+    6     7 14 `some text 6` NO 0
+    7     8 16 `some text 7` NO 0
+    8     9 18 `some text 8` NO 0
+    9     10 20 `some text 9` NO 0
+    10    11 22 `Line A.
+Line B.
+Line C` NO 0
+    11    12 24 `Foo1 value.` NO 0
+    12    13 26 `Foo2 "%@" value.` NO 0
+    13    14 28 `Foo3 "%@" value.` NO 0
+    14    15 30 `Foo4 value.` NO 0
+    15    16 32 `Foo5 \"%@\" value.` NO 0
 }

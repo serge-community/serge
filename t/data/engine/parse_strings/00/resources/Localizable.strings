@@ -1,4 +1,8 @@
-/* Single-line comment 1 */
+"Multi-line string 1" = "Line 1.
+Line 2.
+Line 3";
+
+ /* Single-line comment 1 */
     /*Single-line comment 2*/
 
 // Single-line comment 3
@@ -14,3 +18,14 @@ String_with_no_quotes2= "some text 2"; // comment line 2
     "String with quotes 7"= "some text 7";  
     "String with quotes 8" ="some text 8";
  "String with quotes 9" = "some text 9";
+ "Multi-line string 2" = "Line A.
+Line B.
+Line C";
+
+/* Strings with escaped quotes in key / value */
+
+"Foo1 \"%@\" key." = "Foo1 value.";
+"Foo2 \"%@\" key." = "Foo2 \"%@\" value.";
+"Foo3 key." = "Foo3 \"%@\" value.";
+"Foo4 key." = "Foo4 value.";
+"Foo5 \\\"%@\\\" key." = "Foo5 \\\"%@\\\" value.";

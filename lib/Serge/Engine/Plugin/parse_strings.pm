@@ -5,8 +5,6 @@ use strict;
 
 # TODO:
 # - Decode \\Uxxxx in strings
-# - Support "key" = "value" pairs that span multiple lines
-# - Better handling of comments
 
 sub name {
     return 'MacOS/iOS .strings parser plugin';
@@ -35,6 +33,9 @@ sub parse {
     # The key name is also appended to a hint message.
     # If the key contains '##suffix', the 'suffix' is used as a context string
 
+    #               1           2                                   3               4
+    $$textref =~ s/((?:^|\n)\h*("(?:\\"|[^"])+"|[\w\d\#]+)\h*=\h*")((?:\\"|[^"])*?)("\h*;)/$1.unwrap_string($3).$4/sge;
+
     my @all_hints;
 
     foreach my $line (split(/\n/, $$textref)) {
@@ -45,17 +46,18 @@ sub parse {
         my $orig_str;
         my $translated_str;
 
-        if ($line =~ m/^[\t ]*$/) { # blank line
+        if ($line =~ m/^\h*$/) { # blank line
             @all_hints = (); # reset accumulator array
-        } elsif ($line =~ m/^[\t ]*\/\*[\t ]*(.*?)[\t ]*\*\/[\t ]*$/) { # a /* */ comment line
+        } elsif ($line =~ m/^\h*\/\*\h*(.*?)\h*\*\/\h*$/) { # a /* */ comment line
             my $s = $1;
             if ($s && ($s !~ m/^Class = /)) {
                 push(@all_hints, $s);
             }
-        } elsif ($line =~ m/^[\t ]*("(.*?)"|([\w\#]+))[\t ]*=[\t ]*"(.*)"[\t ]*;[\t ]*(\/\/[\t ]*(.*?))?$/) { # a "key"="value" line
+        #                        1 2                3                  4            5       6
+        } elsif ($line =~ m/^\h*("((?:\\"|[^"])+)"|([\w\d\#]+))\h*=\h*"(.*)"\h*;\h*(\/\/\h*(.*?))?$/) { # a "key"="value" line
             $orig_str = $4;
             push(@all_hints, $6) if $6;
-            $key = $2 || $3;
+            $key = unescape_string($2) || $3;
             ($hint, $context) = split(/##/, $key, 2);
 
             # skip placeholder strings
@@ -72,25 +74,42 @@ sub parse {
             # remove all hint lines which are equal to the source string
             @all_hints = map { $_ eq $orig_str ? () : $_ } @all_hints;
 
-            my $str = $orig_str;
-            $str =~ s/\\"/"/g;
-            $str =~ s/\\n/\n/g;
-            $str =~ s/\\\\/\\/g;
+            my $str = unescape_string($orig_str);
 
             $translated_str = &$callbackref($str, $context, join("\n", @all_hints), undef, $lang, $key);
             @all_hints = (); # reset accumulator array
         }
 
         if ($lang) {
-            $translated_str =~ s/\\/\\\\/g;
-            $translated_str =~ s/\n/\\n/g;
-            $translated_str =~ s/"/\\"/g;
+            $translated_str = escape_string($translated_str);
             $line =~ s/\Q"$orig_str"\E[\t ]*;/"$translated_str";/;
             $translated_text .= $line."\n";
         }
     }
 
     return $translated_text;
+}
+
+sub unescape_string {
+    my ($s) = @_;
+    $s =~ s/\\"/"/g;
+    $s =~ s/\\n/\n/g;
+    $s =~ s/\\\\/\\/g;
+    return $s;
+}
+
+sub escape_string {
+    my ($s) = @_;
+    $s =~ s/\\/\\\\/g;
+    $s =~ s/\n/\\n/g;
+    $s =~ s/"/\\"/g;
+    return $s;
+}
+
+sub unwrap_string {
+    my ($s) = @_;
+    $s =~ s/\n/\\n/sg;
+    return $s;
 }
 
 1;

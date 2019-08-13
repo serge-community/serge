@@ -10,6 +10,8 @@ Pending release
 
         - Fixed `parse_rc` plugin resource ID extraction.
 
+        - `parse_strings` plugin now supports multi-line strings.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`

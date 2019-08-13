@@ -5,6 +5,18 @@ msgstr ""
 "Language: test\n"
 "Generated-By: Serge 1.4\n"
 
+#. Multi-line string 1
+#: File: Localizable.strings
+#: ID: 3d14766aedb57e2b2cbf6d5e84981b6c
+msgid ""
+"Line 1.\n"
+"Line 2.\n"
+"Line 3"
+msgstr ""
+"Łĩŋē 1.\n"
+"Łĩŋē 2.\n"
+"Łĩŋē 3"
+
 #. String_with_no_quotes1
 #: File: Localizable.strings
 #: ID: 3cf884a5158a75e2ed71b81803d1b7e8
@@ -60,3 +72,45 @@ msgstr "šőḿē ţēҳţ 8"
 #: ID: 1fd1007e02dbdc340f4d3171a049d7c1
 msgid "some text 9"
 msgstr "šőḿē ţēҳţ 9"
+
+#. Multi-line string 2
+#: File: Localizable.strings
+#: ID: 7f6f1c2a83e3dd528998b5f079428e44
+msgid ""
+"Line A.\n"
+"Line B.\n"
+"Line C"
+msgstr ""
+"Łĩŋē Ā.\n"
+"Łĩŋē Ḃ.\n"
+"Łĩŋē Ć"
+
+#. Foo1 "%@" key.
+#: File: Localizable.strings
+#: ID: 2de06b62a6c228ff55a228c545f8a646
+msgid "Foo1 value."
+msgstr "Ḟőő1 ṽáļũē."
+
+#. Foo2 "%@" key.
+#: File: Localizable.strings
+#: ID: 59631f0936926e28ec587af646c312f9
+msgid "Foo2 \"%@\" value."
+msgstr "Ḟőő2 \"%@\" ṽáļũē."
+
+#. Foo3 key.
+#: File: Localizable.strings
+#: ID: 599f5457b262e3c67c63605cca3a2819
+msgid "Foo3 \"%@\" value."
+msgstr "Ḟőő3 \"%@\" ṽáļũē."
+
+#. Foo4 key.
+#: File: Localizable.strings
+#: ID: 232ffcbc91841b0035884fc79245beda
+msgid "Foo4 value."
+msgstr "Ḟőő4 ṽáļũē."
+
+#. Foo5 \"%@\" key.
+#: File: Localizable.strings
+#: ID: 8a39c31bf9b8cf975e4680828d8ad029
+msgid "Foo5 \\\"%@\\\" value."
+msgstr "Ḟőő5 \\\"%@\\\" ṽáļũē."
