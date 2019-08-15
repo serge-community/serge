@@ -18,6 +18,7 @@ sub init {
 
     $self->SUPER::init(@_);
 
+    $self->{extractable_tags} = {};
     $self->{errors} = {};
     $self->{php_blocks} = [];
 
@@ -25,13 +26,40 @@ sub init {
         expand_entities => 'BOOLEAN',
         validate_output => 'BOOLEAN',
 
-        email_from    => 'STRING',
-        email_to      => 'ARRAY',
-        email_subject => 'STRING',
+        include_tags    => 'ARRAY',
+        exclude_tags    => 'ARRAY',
+
+        email_from      => 'STRING',
+        email_to        => 'ARRAY',
+        email_subject   => 'STRING',
     });
 
     $self->add('can_save_localized_file', \&validate_output);
     $self->add('after_job', \&report_errors);
+
+    # initialize the default list of tags that are used for content extraction
+    map {
+        $self->{extractable_tags}->{$_} = 1;
+    } qw(h1 h2 h3 h4 h5 h6 h7 p li dt dd label option);
+
+    # bare HTML (content of the root node) is also considered translated by default
+    # (provided there are no inner tags that override the segmentation);
+    # such content is identified by an empty tag name
+    $self->{extractable_tags}->{''} = 1;
+
+    # apply the list of tags from `include_tags`
+    if (defined $self->{data}->{include_tags}) {
+        map {
+            $self->{extractable_tags}->{$_} = 1;
+        } @{$self->{data}->{include_tags}};
+    }
+
+    # remove tags listed in `exclude_tags`
+    if (defined $self->{data}->{exclude_tags}) {
+        map {
+            delete $self->{extractable_tags}->{$_};
+        } @{$self->{data}->{exclude_tags}};
+    }
 }
 
 sub validate_output {
@@ -378,11 +406,7 @@ sub analyze_tag_recursively {
     my $contains_translatables = undef;
     my $prohibit_children_translation = undef;
 
-    # By default, headings, paragraphs, labels, options, list items, definition terms and definition descriptions are translated;
-    # bare HTML (content of the root node) is also considered translated by default (provided there are no inner tags
-    # that override the segmentation)
-
-    if ($name =~ m/^(?:|h[1-7]|p|li|dt|dd|label|option)$/) {
+    if (exists $self->{extractable_tags}->{$name}) {
         $can_translate = !$prohibit_translation;
     }
 

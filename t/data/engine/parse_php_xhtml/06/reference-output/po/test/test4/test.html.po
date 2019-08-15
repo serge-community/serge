@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: test4/test.html
+#: ID: bfbc8f478c954b6c5765d5285b655500
+msgid "Paragraph 2"
+msgstr "Ṕáŕáğŕáṕĥ 2"
+
+#: File: test4/test.html
+#: ID: 4ca56cae289474519837edb8194df421
+msgid "Cell Header A"
+msgstr "Ćēļļ Ĥēáđēŕ Ā"
+
+#: File: test4/test.html
+#: ID: f669f280cd9468d3ca411a95aa357baf
+msgid "Cell Header B"
+msgstr "Ćēļļ Ĥēáđēŕ Ḃ"
+
+#: File: test4/test.html
+#: ID: b308dd2477947b508c74d6ef8929b3a5
+msgid "Cell A"
+msgstr "Ćēļļ Ā"
+
+#: File: test4/test.html
+#: ID: 659757f62d0b497e8f733a317402f9c4
+msgid "Cell B"
+msgstr "Ćēļļ Ḃ"

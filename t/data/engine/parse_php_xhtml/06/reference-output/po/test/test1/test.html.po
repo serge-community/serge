@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: test1/test.html
+#: ID: b83cf33cec7da7d163364c5e9f1379b2
+msgid "Header"
+msgstr "Ĥēáđēŕ"
+
+#: File: test1/test.html
+#: ID: 96bc27974e4e82a218a4d1502938d02d
+msgid "Paragraph 1"
+msgstr "Ṕáŕáğŕáṕĥ 1"
+
+#: File: test1/test.html
+#: ID: bfbc8f478c954b6c5765d5285b655500
+msgid "Paragraph 2"
+msgstr "Ṕáŕáğŕáṕĥ 2"

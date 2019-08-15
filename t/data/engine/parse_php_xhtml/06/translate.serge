@@ -1,0 +1,87 @@
+inc
+{
+    job-common
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        normalize_strings                        YES
+        source_match                             \.html$
+
+        parser
+        {
+            plugin                               parse_php_xhtml
+        }
+    }
+}
+
+jobs
+{
+    :test1
+    {
+        @inherit                                 .#inc/job-common
+
+        name                                     Test with default parameters
+        id                                       test1
+
+        source_path_prefix                       test1/
+        output_file_path                         ./test-output/localized-resources/%LOCALE%/test1/%FILE%
+    }
+
+    :test2
+    {
+        @inherit                                 .#inc/job-common
+
+        name                                     Test with `include_tags`
+        id                                       test2
+
+        source_path_prefix                       test2/
+        output_file_path                         ./test-output/localized-resources/%LOCALE%/test2/%FILE%
+
+        parser
+        {
+            data
+            {
+                include_tags                     td th
+            }
+        }
+    }
+
+    :test3
+    {
+        @inherit                                 .#inc/job-common
+
+        name                                     Test with `exclude_tags`
+        id                                       test3
+
+        source_path_prefix                       test3/
+        output_file_path                         ./test-output/localized-resources/%LOCALE%/test3/%FILE%
+
+        parser
+        {
+            data
+            {
+                exclude_tags                     h2 p
+            }
+        }
+    }
+
+    :test4
+    {
+        @inherit                                 .#inc/job-common
+
+        name                                     Test with both `include_tags` and `exclude_tags`
+        id                                       test4
+
+        source_path_prefix                       test4/
+        output_file_path                         ./test-output/localized-resources/%LOCALE%/test4/%FILE%
+
+        parser
+        {
+            data
+            {
+                include_tags                     td th
+                exclude_tags                     h2 p
+            }
+        }
+    }
+}

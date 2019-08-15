@@ -1,0 +1,7 @@
+files
+{
+    0    1 1 test1 test_namespace test1/test.html 0
+    1    2 11 test2 test_namespace test2/test.html 0
+    2    3 30 test3 test_namespace test3/test.html 0
+    3    4 33 test4 test_namespace test4/test.html 0
+}

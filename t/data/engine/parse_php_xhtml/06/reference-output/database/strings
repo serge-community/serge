@@ -1,0 +1,10 @@
+strings
+{
+    0    1 2 Header NO 0
+    1    2 4 `Paragraph 1` NO 0
+    2    3 6 `Paragraph 2` NO 0
+    3    4 15 `Cell Header A` NO 0
+    4    5 17 `Cell Header B` NO 0
+    5    6 19 `Cell A` NO 0
+    6    7 21 `Cell B` NO 0
+}

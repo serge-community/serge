@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: test3/test.html
+#: ID: bfbc8f478c954b6c5765d5285b655500
+msgid "Paragraph 2"
+msgstr "Ṕáŕáğŕáṕĥ 2"
