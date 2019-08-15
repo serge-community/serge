@@ -12,6 +12,9 @@ Pending release
 
         - `parse_strings` plugin now supports multi-line strings.
 
+        - `parse_php_xhtml` plugin now allows to fine-tune the list of tags
+          processed by default (#120).
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
