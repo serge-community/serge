@@ -199,14 +199,15 @@ sub process_node {
             # (parse_php_xhtml or the one specified in html_parser config node)
             if (!$self->{html_parser}) {
                 if (exists $self->{data}->{html_parser}) {
+                    # if there's a `html_parser` config node, use it to initialize the plugin
                     $self->{html_parser} = $self->load_plugin_from_node(
                         'Serge::Engine::Plugin', $self->{data}->{html_parser}
                     );
                 } else {
-                    # fallback to loading parse_php_xhtml with default parameters
-                    eval('use Serge::Engine::Plugin::parse_php_xhtml; $self->{html_parser} = Serge::Engine::Plugin::parse_php_xhtml->new($self->{parent});');
-                    ($@) && die "Can't load parser plugin 'parse_php_xhtml': $@";
-                    print "Loaded HTML parser plugin for HTML nodes\n" if $self->{parent}->{debug};
+                    # otherwise, fall back to loading parse_php_xhtml plugin with default parameters
+                    $self->{html_parser} = $self->load_plugin(
+                        'Serge::Engine::Plugin::parse_php_xhtml', {}
+                    );
                 }
             }
 
