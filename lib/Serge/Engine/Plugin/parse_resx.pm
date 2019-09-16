@@ -33,8 +33,9 @@ sub parse_callback {
 
     xml_unescape_strref(\$string);
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
-
+    #my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang, $hint);
+    
     xml_escape_strref(\$translated_string);
 
     return $translated_string;
