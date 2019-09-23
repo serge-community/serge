@@ -31,6 +31,7 @@ our @EXPORT = qw(
     po_wrap
     read_and_normalize_file
     file_mtime
+    remove_blank_entries
 );
 
 our @EXPORT_OK = qw(
@@ -580,6 +581,21 @@ sub file_mtime {
        $atime, $mtime, $ctime, $blksize, $blocks) = stat($fname);
 
     return $mtime;
+}
+
+sub remove_blank_entries {
+    my ($aref, $reason) = @_;
+
+    my @out;
+    foreach my $s (@$aref) {
+        if ($s eq '') {
+            print "$reason\n" if $reason ne '';
+        } else {
+            push @out, $s;
+        }
+    }
+
+    return \@out;
 }
 
 1;

@@ -320,6 +320,13 @@ sub init_job {
 
     # preserve the original list for future reference
     $job->{original_destination_languages} = $job->{destination_languages};
+
+    map {
+        $self->{job}->{$_} = remove_blank_entries(
+            $self->{job}->{$_},
+            "WARNING: $_ config parameter should have no empty regular expressions"
+        );
+    } qw(source_match source_exclude source_exclude_dirs);
 }
 
 sub process_job {
