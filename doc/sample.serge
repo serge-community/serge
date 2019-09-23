@@ -185,7 +185,7 @@ jobs
         # to match the files that should be skipped.
         # This matches case-sensitively against the file name (without path)
         # Default behavior: no exclusion takes place
-        source_exclude              ``
+        source_exclude              \.internal\.rc$
 
         # Parser plugin definition
         parser
