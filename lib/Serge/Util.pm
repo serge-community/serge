@@ -487,8 +487,9 @@ sub wrap {
     my ($s, $length) = @_;
     die "length should be a positive integer" unless $length > 0;
 
-    # Wrap by '\n' explicitly
+    return ('') if $s eq '';
 
+    # Wrap by '\n' explicitly
     if ($s =~ m{^(.*?(?:\\n|\n))(.+)$}s) {
         my $a = $1; # if $1 and $2 are used directly, this won't work
         my $b = $2;
@@ -496,34 +497,32 @@ sub wrap {
     }
 
     # The following regexp was taken from the Translate Toolkit, file textwrap.py
-
     my @a = split(/(\s+|[^\s\w]*\w+[a-zA-Z]-(?=\w+[a-zA-Z])|(?<=[\w\!\"\'\&\.\,\?])-{2,}(?=\w))/, $s);
 
     my @lines;
-    my $line = '';
+    my $accum = '';
     while (scalar(@a) > 0) {
 
-        # Take next chunk
-
+        # Take the next chunk and append the
+        # following whitespace chunk to it, if any
         my $chunk = shift @a;
+        if (@a > 0 && $a[0] =~ m/^\s*$/) {
+            $chunk .= shift @a;
+        }
 
-        # Treat whitespace chunks as zero-width to avoid starting the line with whitespace
+        if (length($accum) + length($chunk) > $length) {
+            push @lines, $accum if $accum ne '';
 
-        my $chunk_length = ($chunk =~ m/^\s*$/) ? 0 : length($chunk);
+            while (length($chunk) >= $length) {
+                push @lines, substr($chunk, 0, $length, '');
+            }
 
-        if (length($line) + $chunk_length > $length) {
-            push @lines, $line;
-
-            # We do not handle the situation when chunk by itself is bigger than $length.
-            # We can optionally hard-break such chunks into sub-chunks of exact $length
-            # (this might be an option later)
-
-            $line = $chunk;
+            $accum = $chunk;
         } else {
-            $line .= $chunk;
+            $accum .= $chunk;
         }
     }
-    push @lines, $line if $line ne '';
+    push @lines, $accum if $accum ne '';
 
     return @lines;
 }

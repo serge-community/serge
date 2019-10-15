@@ -25,11 +25,11 @@ msgstr "Ĥēļļő, {ŅĀḾĒ}!"
 #: File: strings.go
 #: ID: 3b3177b5debe5a61b611b63cd2276600
 msgid ""
-"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. Do "
-"you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
+"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. "
+"Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
 msgstr ""
-"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. Do "
-"you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
+"{X_PLURAL:{X} file|{X} files} found in {Y_PLURAL:{Y} folder|{Y} folders}. "
+"Do you want to {COMMAND:copy|move|delete} {X:them|it|them}?"
 
 #. Male name
 #. John
