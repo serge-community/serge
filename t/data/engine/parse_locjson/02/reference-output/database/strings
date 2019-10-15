@@ -1,0 +1,9 @@
+strings
+{
+    0    1 2 `String 1` NO 0
+    1    2 4 `String 2` NO 0
+    2    3 6
+         `Some long string that should be word-wrapped at 50 characters.
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890`
+         NO 0
+}

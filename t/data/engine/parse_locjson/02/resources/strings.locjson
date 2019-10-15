@@ -1,0 +1,42 @@
+{
+    "properties": {
+        "comments": [
+            "File - comment line 1",
+            "File - comment line 2"
+        ]
+    },
+    "units": [
+        {
+            "key": "key1",
+            "properties": {
+                "comments": [
+                    "Key 1 - comment line 1",
+                    "Key 1 - comment line 2"
+                ]
+            },
+            "source": [
+                "String 1"
+            ]
+        },
+        {
+            "key": "key2",
+            "properties": {
+                "comments": [
+                    "Key 2 - comment line 1",
+                    "Key 2 - comment line 2"
+                ]
+            },
+            "source": [
+                "String 2"
+            ]
+        },
+        {
+            "key": "key3",
+            "source": [
+                "Some long string that should be word-wrapped at 50 characters.\n",
+                "123456789012345678901234567890123456789012345678901234567890",
+                "123456789012345678901234567890123456789012345678901234567890"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. Key 1 - comment line 1
+#. Key 1 - comment line 2
+#: File: strings.locjson
+#: ID: 920ac8a193eb31d5afe8d2be37e383cc
+msgid "String 1"
+msgstr "Šţŕĩŋğ 1"
+
+#. Key 2 - comment line 1
+#. Key 2 - comment line 2
+#: File: strings.locjson
+#: ID: 8bcb57540d0301b500b53e8781c4c8e2
+msgid "String 2"
+msgstr "Šţŕĩŋğ 2"
+
+#: File: strings.locjson
+#: ID: 57bdfdab30334350238be80dcb5fbcf1
+msgid ""
+"Some long string that should be word-wrapped at 50 characters.\n"
+"1234567890123456789012345678901234567890123456789012345678901234567890123456"
+"78901234567890123456789012345678901234567890"
+msgstr ""
+"Šőḿē ļőŋğ šţŕĩŋğ ţĥáţ šĥőũļđ ḃē ŵőŕđ-ŵŕáṕṕēđ áţ 50 çĥáŕáçţēŕš.\n"
+"1234567890123456789012345678901234567890123456789012345678901234567890123456"
+"78901234567890123456789012345678901234567890"

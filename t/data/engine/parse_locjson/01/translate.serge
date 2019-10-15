@@ -1,0 +1,13 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.locjson$
+
+        parser
+        {
+            plugin                               parse_locjson
+        }
+    }
+}

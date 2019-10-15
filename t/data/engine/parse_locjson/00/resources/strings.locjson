@@ -1,0 +1,24 @@
+{
+    "units": [
+        {
+            "key": "key1",
+            "source": [
+                "String 1"
+            ]
+        },
+        {
+            "key": "key2",
+            "source": [
+                "String 2"
+            ]
+        },
+        {
+            "key": "key3",
+            "source": [
+                "Some long string that should be word-wrapped at 50 characters.\n",
+                "123456789012345678901234567890123456789012345678901234567890",
+                "123456789012345678901234567890123456789012345678901234567890"
+            ]
+        }
+    ]
+}
