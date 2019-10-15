@@ -15,6 +15,12 @@ Pending release
         - `parse_php_xhtml` plugin now allows to fine-tune the list of tags
           processed by default (#120).
 
+        - Added `parse_locjson` plugin to parse monolingual LocJSON files
+          (see https://github.com/iafan/LocJSON).
+
+        - Word wrapping functionality improved for .PO files;
+          lines will never go beyond the defined maximum length.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
