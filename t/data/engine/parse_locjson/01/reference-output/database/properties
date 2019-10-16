@@ -7,7 +7,7 @@ properties
     4     5 ts:1:test:count 3
     5     6 usn:1:test 10
     6     7 ts:1:test 99d4ec5cd0f206a82c530082b73e0a3b
-    7     8 target:1:test_job:test f1012db327f13829a18d6a8a8fc96242
+    7     8 target:1:test_job:test e5f560e011df5396f48c2f8965f2d128
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test c0eb3efea77cd31064690b5ef2f3cf42
     10    11 source:ts:1:test_job:test

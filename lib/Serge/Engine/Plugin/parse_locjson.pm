@@ -153,7 +153,9 @@ sub parse {
     }
 
     # Per LocJSON specs, sort keys alphabetically and pretty-print with 4 spaces for indentation
-    return JSON::PP->new->pretty->canonical->escape_slash(undef)->indent_length(4)->encode($locjson);
+    return JSON::PP->new->
+        indent(1)->indent_length(4)->space_before(0)->space_after(1)->
+        escape_slash(0)->canonical->encode($locjson);
 }
 
 1;

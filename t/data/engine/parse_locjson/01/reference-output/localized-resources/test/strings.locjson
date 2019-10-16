@@ -1,38 +1,38 @@
 {
-    "properties" : {
-        "comments" : [
+    "properties": {
+        "comments": [
             "File - comment line 1",
             "File - comment line 2"
         ]
     },
-    "units" : [
+    "units": [
         {
-            "key" : "key1",
-            "properties" : {
-                "comments" : [
+            "key": "key1",
+            "properties": {
+                "comments": [
                     "Key 1 - comment line 1",
                     "Key 1 - comment line 2"
                 ]
             },
-            "source" : [
+            "source": [
                 "Šţŕĩŋğ 1"
             ]
         },
         {
-            "key" : "key2",
-            "properties" : {
-                "comments" : [
+            "key": "key2",
+            "properties": {
+                "comments": [
                     "Key 2 - comment line 1",
                     "Key 2 - comment line 2"
                 ]
             },
-            "source" : [
+            "source": [
                 "Šţŕĩŋğ 2"
             ]
         },
         {
-            "key" : "key3",
-            "source" : [
+            "key": "key3",
+            "source": [
                 "Šőḿē ļőŋğ šţŕĩŋğ ţĥáţ šĥőũļđ ḃē ŵőŕđ-ŵŕáṕṕēđ áţ ",
                 "50 çĥáŕáçţēŕš.\n",
                 "12345678901234567890123456789012345678901234567890",
