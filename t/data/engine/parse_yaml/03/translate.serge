@@ -1,0 +1,58 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.yml$
+
+        parser
+        {
+            plugin                               parse_yaml
+        }
+
+        callback_plugins
+        {
+            # first, globally replace bare `true` and `false`
+            # words with `___true___` and `___false___`, respectively
+            {
+                plugin                           replace_strings
+                phase                            after_load_file
+
+                data
+                {
+                    replace                      \b(true|false)\b
+                                                 ___$1___
+                                                 g
+                }
+            }
+
+            # upon parsing, restore `___true___` and `___false___`
+            # back to `true` and `false` in the content of strings
+            {
+                plugin                           replace_strings
+                phase                            rewrite_source
+
+                data
+                {
+                    replace                      ___(true|false)___
+                                                 $1
+                                                 g
+                }
+            }
+
+            # upon rendering the localized file, additionally
+            # restore `___true___` and `___false___` back to
+            # `true` and `false` in the entire file (i.e. keys as well)
+            {
+                plugin                           replace_strings
+                phase                            before_save_localized_file
+
+                data
+                {
+                    replace                      ___(true|false)___
+                                                 $1
+                                                 g
+                }
+            }
+        }
+    }
+}

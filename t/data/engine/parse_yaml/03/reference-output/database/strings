@@ -1,0 +1,11 @@
+strings
+{
+    0    1 2 `this one is false` NO 0
+    1    2 4 `this one is true` NO 0
+    2    3 6 false NO 0
+    3    4 8 false /more_tests/___false___ 0
+    4    5 10 true NO 0
+    5    6 12 false /quoted_keys/___false___ 0
+    6    7 14 true /quoted_keys/___true___ 0
+    7    8 16 true /true_key 0
+}

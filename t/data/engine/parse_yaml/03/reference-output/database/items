@@ -1,0 +1,11 @@
+items
+{
+    0    1 3 1 1 /___false___ NO 0
+    1    2 5 1 2 /___true___ NO 0
+    2    3 7 1 3 /false_key NO 0
+    3    4 9 1 4 /more_tests/___false___ NO 0
+    4    5 11 1 5 /more_tests/___true___ NO 0
+    5    6 13 1 6 /quoted_keys/___false___ NO 0
+    6    7 15 1 7 /quoted_keys/___true___ NO 0
+    7    8 17 1 8 /true_key NO 0
+}

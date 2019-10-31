@@ -1,0 +1,11 @@
+---
+false: ţĥĩš őŋē ĩš ḟáļšē
+true: ţĥĩš őŋē ĩš ţŕũē
+false_key: ḟáļšē
+more_tests:
+  false: ḟáļšē
+  true: ţŕũē
+quoted_keys:
+  false: ḟáļšē
+  true: ţŕũē
+true_key: ţŕũē

@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /___false___
+#: File: strings.yml
+#: ID: 4ff01fbfff6480c7208db9be1cf61c39
+msgid "this one is false"
+msgstr "ţĥĩš őŋē ĩš ḟáļšē"
+
+#. /___true___
+#: File: strings.yml
+#: ID: 7f668c0ac75fa2ce62a6f7c9a808360d
+msgid "this one is true"
+msgstr "ţĥĩš őŋē ĩš ţŕũē"
+
+#. /false_key
+#: File: strings.yml
+#: ID: 24271159cfa5b2ca320bd8c5ef768663
+msgid "false"
+msgstr "ḟáļšē"
+
+#. /more_tests/___false___
+#: File: strings.yml
+#: ID: 052109f194a3310a7bbb13aa22409e85
+msgctxt "/more_tests/___false___"
+msgid "false"
+msgstr "ḟáļšē"
+
+#. /more_tests/___true___
+#: File: strings.yml
+#: ID: de65ee1067357b1c582d3729b2873311
+msgid "true"
+msgstr "ţŕũē"
+
+#. /quoted_keys/___false___
+#: File: strings.yml
+#: ID: de6eccb9858b6a377ed77a8f3d00a941
+msgctxt "/quoted_keys/___false___"
+msgid "false"
+msgstr "ḟáļšē"
+
+#. /quoted_keys/___true___
+#: File: strings.yml
+#: ID: 5174da7cf234988b3be844132d5b930c
+msgctxt "/quoted_keys/___true___"
+msgid "true"
+msgstr "ţŕũē"
+
+#. /true_key
+#: File: strings.yml
+#: ID: f6bb0e259f8b254d153bf32f4212d826
+msgctxt "/true_key"
+msgid "true"
+msgstr "ţŕũē"

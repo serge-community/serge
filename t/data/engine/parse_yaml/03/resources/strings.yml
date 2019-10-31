@@ -1,0 +1,10 @@
+true: this one is true
+false: this one is false
+true_key: true
+false_key: false
+more_tests:
+    false: false
+    true: true
+quoted_keys:
+    'false': 'false'
+    'true': 'true'
