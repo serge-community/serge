@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Generated-By: Serge 1.4\n"
+
+#. foo
+#: File: strings.txt
+#: ID: e50f58a0c3646749785128dd81d1cc0e
+msgid "Foo!"
+msgstr ""
+
+#. bar
+#: File: strings.txt
+#: ID: d35dc5d8ba744381159a8e854596a6e0
+msgid "Bar?"
+msgstr ""

@@ -1,0 +1,30 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    pt pt-br
+
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            # this will remove the `.txt` part from the .po file,
+            # generating `strings.po` file instead of `strings.txt.po`
+            {
+                plugin                           replace_strings
+                phase                            rewrite_relative_ts_file_path
+
+                data
+                {
+                    replace                      `\.txt` `` g
+                }
+            }
+        }
+    }
+}
