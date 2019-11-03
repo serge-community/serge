@@ -141,7 +141,7 @@ sub update_database_from_ts_files_lang {
 sub update_database_from_ts_files_lang_file {
     my ($self, $lang, $relfile) = @_;
 
-    my $fullpath = $self->{job}->get_full_ts_file_path($relfile, $lang);
+    my $fullpath = $self->get_full_ts_file_path($relfile, $lang);
 
     print "\t$fullpath\n";
 
