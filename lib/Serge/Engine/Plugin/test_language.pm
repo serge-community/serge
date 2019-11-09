@@ -67,13 +67,11 @@ sub adjust_phases {
     die "This plugin needs to be attached to either get_translation_pre or get_translation phase, but not both" if $f1 && $f2;
 }
 
-# public static method
 sub is_test_language {
     my ($self, $lang) = @_;
     return $lang eq $self->{language};
 }
 
-# private static method
 sub _fake_translate_string {
     my ($self, $s) = @_;
 
