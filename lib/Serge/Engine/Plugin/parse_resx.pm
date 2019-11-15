@@ -29,11 +29,11 @@ sub parse {
 }
 
 sub parse_callback {
-    my ($self, $callbackref, $string, $context, $hint, $flagsref, $lang) = @_;
+    my ($self, $callbackref, $string, $context, $key, $flagsref, $lang) = @_;
 
     xml_unescape_strref(\$string);
 
-    my $translated_string = &$callbackref($string, $context, $hint, $flagsref, $lang);
+    my $translated_string = &$callbackref($string, $context, $key, $flagsref, $lang, $key);
 
     xml_escape_strref(\$translated_string);
 

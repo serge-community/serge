@@ -21,6 +21,9 @@ Pending release
         - Word wrapping functionality improved for .PO files;
           lines will never go beyond the defined maximum length.
 
+        - `parse_resx` plugin now exports keys explicitly
+          (in addition to extracting them as translation hints).
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
