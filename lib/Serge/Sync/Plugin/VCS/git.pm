@@ -4,7 +4,7 @@ use parent Serge::Sync::Plugin::Base::VCS;
 use strict;
 
 use File::Spec::Functions qw(catfile);
-use Serge::Util qw(subst_macros);
+use Serge::Util qw(normalize_path subst_macros);
 
 # named boolean values for clarity
 my $CAPTURE = 1;
@@ -26,12 +26,15 @@ sub init {
     $self->SUPER::init(@_);
 
     $self->merge_schema({
-        clone_params  => 'STRING',
         name          => 'STRING',
         email         => 'STRING',
+
+        clone_params  => 'STRING',
         commit_params => 'STRING',
         push_params   => 'STRING',
-        fetch_params  => 'STRING'
+        fetch_params  => 'STRING',
+
+        clone_command => 'STRING'
     });
 }
 
@@ -115,7 +118,11 @@ sub status {
 sub init_repo {
     my ($self, $local_path, $remote_path, $branch) = @_;
 
-    $self->run_in($local_path, qq|git clone $remote_path --branch $branch $self->{data}->{clone_params} .|);
+    if ($self->{data}->{clone_command} ne '') {
+        $self->_run_custom_command($self->{data}->{clone_command}, $local_path, $remote_path, $branch);
+    } else {
+        $self->run_in($local_path, qq|git clone $remote_path --branch $branch $self->{data}->{clone_params} .|);
+    }
 
     # if email is provided, set it up as an override for this local repository
     if (exists $self->{data}->{email}) {
@@ -126,6 +133,18 @@ sub init_repo {
     if (exists $self->{data}->{name}) {
         $self->run_in($local_path, qq|git config user.name "$self->{data}->{name}"|);
     }
+}
+
+sub _run_custom_command {
+    my ($self, $script_path, $local_path, $remote_path, $branch) = @_;
+
+    $ENV{GIT_LOCAL} = $local_path;
+    $ENV{GIT_REMOTE} = $remote_path;
+    $ENV{GIT_BRANCH} = $branch;
+
+    $script_path = normalize_path($self->{parent}->abspath($script_path));
+    print "Executing custom script: $script_path\n";
+    $self->run_in($local_path, $script_path);
 }
 
 sub delete_unversioned {
@@ -165,7 +184,8 @@ sub checkout {
     $self->run_in($local_path, qq|git remote prune origin|);
 
     # pull changes from remote server
-    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
+    my $params = $self->_subst_vcs_macros($self->{data}->{fetch_params}, $branch);
+    $self->run_in($local_path, qq|git fetch $params|);
     # reset to remote state
     $self->run_in($local_path, qq|git reset --hard origin/$branch|);
 }
@@ -203,7 +223,8 @@ sub commit {
     $self->run_in($local_path, qq|git commit $msg_parameters $self->{data}->{commit_params}|);
 
     # fetch changes from remote server
-    $self->run_in($local_path, qq|git fetch $self->{data}->{fetch_params}|);
+    my $params = $self->_subst_vcs_macros($self->{data}->{fetch_params}, $branch);
+    $self->run_in($local_path, qq|git fetch $params|);
 
     # rebase (do not merge, since merges are incompatible with Gerrit).
     $self->run_in($local_path, qq|git rebase origin/$branch|);
@@ -219,6 +240,12 @@ sub _push {
     ($remote_path, my $branch) = $self->split_remote_path_branch($remote_path);
 
     $self->run_in($local_path, qq|git push origin $branch $self->{data}->{push_params}|);
+}
+
+sub _subst_vcs_macros {
+    my ($self, $str, $branch) = @_;
+    $str =~ s/%BRANCH%/$branch/ge;
+    return $str;
 }
 
 1;
