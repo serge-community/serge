@@ -62,7 +62,7 @@ CREATE UNIQUE INDEX items_file_id_string_id ON items (
   string_id ASC
 );
 
-DROP INDEX IF EXISTS items_file_id_string_id;
+DROP INDEX IF EXISTS strings_string_context;
 CREATE UNIQUE INDEX strings_string_context ON strings (
   string ASC,
   context ASC
