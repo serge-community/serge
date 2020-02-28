@@ -29,3 +29,17 @@ Line C";
 "Foo3 key." = "Foo3 \"%@\" value.";
 "Foo4 key." = "Foo4 value.";
 "Foo5 \\\"%@\\\" key." = "Foo5 \\\"%@\\\" value.";
+
+/* Special symbols */
+
+"test special 1" = "foo\\bar\\baz";
+"test special 2" = "foo\tbar\tbaz";
+"test special 3" = "foo\nbar\nbaz";
+"test special 4" = "foo\r\nbar\r\nbaz";
+"test special 5" = "foo\U00A0bar\U00A0baz";
+
+/* Escaped symbols */
+
+"test escaped 1" = "TAB is escaped as \\t";
+"test escaped 2" = "CR is escaped as \\r";
+"test escaped 3" = "LF is escaped as \\n";

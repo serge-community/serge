@@ -18,4 +18,12 @@ String with quotes 6` NO 0
     13    14 29 1 14 `Foo3 key.` NO 0
     14    15 31 1 15 `Foo4 key.` NO 0
     15    16 33 1 16 `Foo5 \"%@\" key.` NO 0
+    16    17 35 1 17 `test special 1` NO 0
+    17    18 37 1 18 `test special 2` NO 0
+    18    19 39 1 19 `test special 3` NO 0
+    19    20 41 1 20 `test special 4` NO 0
+    20    21 43 1 21 `test special 5` NO 0
+    21    22 45 1 22 `test escaped 1` NO 0
+    22    23 47 1 23 `test escaped 2` NO 0
+    23    24 49 1 24 `test escaped 3` NO 0
 }

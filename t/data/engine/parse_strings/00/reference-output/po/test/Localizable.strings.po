@@ -114,3 +114,63 @@ msgstr "Ḟőő4 ṽáļũē."
 #: ID: 8a39c31bf9b8cf975e4680828d8ad029
 msgid "Foo5 \\\"%@\\\" value."
 msgstr "Ḟőő5 \\\"%@\\\" ṽáļũē."
+
+#. test special 1
+#: File: Localizable.strings
+#: ID: f4ffad19260647535e623d638e90b6b3
+msgid "foo\\bar\\baz"
+msgstr "ḟőő\\báŕ\\báž"
+
+#. test special 2
+#: File: Localizable.strings
+#: ID: c082778a6c6dfa9aacd82b07739b9c97
+msgid "foo\tbar\tbaz"
+msgstr "ḟőő\tḃáŕ\tḃáž"
+
+#. test special 3
+#: File: Localizable.strings
+#: ID: 715b1cf86b765b574164abdd921df1cf
+msgid ""
+"foo\n"
+"bar\n"
+"baz"
+msgstr ""
+"ḟőő\n"
+"ḃáŕ\n"
+"ḃáž"
+
+#. test special 4
+#: File: Localizable.strings
+#: ID: 2102640cec1e8586f72e4966bf661f4e
+msgid ""
+"foo\r\n"
+"bar\r\n"
+"baz"
+msgstr ""
+"ḟőő\r\n"
+"ḃáŕ\r\n"
+"ḃáž"
+
+#. test special 5
+#: File: Localizable.strings
+#: ID: 8498579c44c6b13b6acef7413ace1b44
+msgid "foo bar baz"
+msgstr "ḟőő ḃáŕ ḃáž"
+
+#. test escaped 1
+#: File: Localizable.strings
+#: ID: a578a0d9ca40837392ab03973d8912c6
+msgid "TAB is escaped as \\t"
+msgstr "ŦĀḂ ĩš ēšçáṕēđ áš \\t"
+
+#. test escaped 2
+#: File: Localizable.strings
+#: ID: 28bb2e8a47e6f1fefb1f858b59f5603b
+msgid "CR is escaped as \\r"
+msgstr "ĆŖ ĩš ēšçáṕēđ áš \\r"
+
+#. test escaped 3
+#: File: Localizable.strings
+#: ID: f2e3e8dfa5fd1dd96f8b9e0647d08126
+msgid "LF is escaped as \\n"
+msgstr "ŁḞ ĩš ēšçáṕēđ áš \\n"

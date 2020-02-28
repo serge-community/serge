@@ -3,9 +3,6 @@ use parent Serge::Engine::Plugin::Base::Parser;
 
 use strict;
 
-# TODO:
-# - Decode \\Uxxxx in strings
-
 sub name {
     return 'MacOS/iOS .strings parser plugin';
 }
@@ -92,9 +89,13 @@ sub parse {
 
 sub unescape_string {
     my ($s) = @_;
+    $s =~ s/\\\\/\000/g; # temporarily replace escaped backslashes with NULL chars
+    $s =~ s/\\U([0-9A-Fa-f]{4})/chr(hex($1))/ge; # decode \UXXXX sequences
     $s =~ s/\\"/"/g;
     $s =~ s/\\n/\n/g;
-    $s =~ s/\\\\/\\/g;
+    $s =~ s/\\r/\r/g;
+    $s =~ s/\\t/\t/g;
+    $s =~ s/\000/\\/g; # convert NULL characters to backslashes
     return $s;
 }
 
@@ -102,6 +103,8 @@ sub escape_string {
     my ($s) = @_;
     $s =~ s/\\/\\\\/g;
     $s =~ s/\n/\\n/g;
+    $s =~ s/\r/\\r/g;
+    $s =~ s/\t/\\t/g;
     $s =~ s/"/\\"/g;
     return $s;
 }
