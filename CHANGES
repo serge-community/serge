@@ -10,7 +10,8 @@ Pending release
 
         - Fixed `parse_rc` plugin resource ID extraction.
 
-        - `parse_strings` plugin now supports multi-line strings.
+        - `parse_strings` plugin now supports multi-line strings,
+          as well as \r, \t, and \UXXXX escape sequences.
 
         - `parse_php_xhtml` plugin now allows to fine-tune the list of tags
           processed by default (#120).
