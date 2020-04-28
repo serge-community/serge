@@ -3,7 +3,7 @@ use parent Serge::Engine::Plugin::Base::Parser;
 
 use strict;
 
-use JSON::PP;
+use JSON -support_by_pp; # -support_by_pp is used to make Perl on Mac happy
 use Serge::Mail;
 use Serge::Util qw(xml_escape_strref wrap);
 
@@ -109,7 +109,7 @@ sub parse {
 
     my $locjson;
     eval {
-        $locjson = decode_json($$textref);
+        $locjson = from_json($$textref);
     };
     if ($@ || !$locjson) {
         my $error_text = $@;
@@ -153,7 +153,7 @@ sub parse {
     }
 
     # Per LocJSON specs, sort keys alphabetically and pretty-print with 4 spaces for indentation
-    return JSON::PP->new->
+    return JSON->new->
         indent(1)->indent_length(4)->space_before(0)->space_after(1)->
         escape_slash(0)->canonical->encode($locjson);
 }
