@@ -1,0 +1,11 @@
+strings
+{
+    0    1 2
+         `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed vel enim felis.`
+         NO 0
+    1    2 4
+         `Ut est orci, bibendum ut mi ut, feugiat gravida ligula.
+Curabitur auctor eget leo a rutrum. Suspendisse tempor velit id dui volutpat condimentum.`
+         NO 0
+}

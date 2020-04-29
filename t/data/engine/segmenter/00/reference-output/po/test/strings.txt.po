@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: strings.txt
+#: ID: 0a3aaf6df76d82c8115d6ee6494796e2
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n"
+"Sed vel enim felis."
+msgstr ""
+"Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ.\n"
+"Šēđ ṽēļ ēŋĩḿ ḟēļĩš."
+
+#: File: strings.txt
+#: ID: 309d88181c30daef1c9cf857157144cf
+msgid ""
+"Ut est orci, bibendum ut mi ut, feugiat gravida ligula.\n"
+"Curabitur auctor eget leo a rutrum. Suspendisse tempor velit id dui "
+"volutpat condimentum."
+msgstr ""
+"Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá.\n"
+"Ćũŕáḃĩţũŕ áũçţőŕ ēğēţ ļēő á ŕũţŕũḿ. Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ "
+"ṽőļũţṕáţ çőŋđĩḿēŋţũḿ."

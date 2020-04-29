@@ -1,0 +1,20 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_master
+        }
+
+        callback_plugins
+        {
+            :segment
+            {
+                plugin                           segmenter
+            }
+        }
+    }
+}
