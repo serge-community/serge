@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Generated-By: Serge 1.4\n"
+
+#. string1
+#: File: strings.txt
+#: ID: 52b8425aa485a7e3b7a02e1b586f9cef
+#, fuzzy
+msgid "Value 1"
+msgstr "[mt:eng:rus]Value 1[/mt]"
+
+#. string2
+#: File: strings.txt
+#: ID: 3fa07f98de1fb810037bfde267c704d1
+#, fuzzy
+msgid "Value 2"
+msgstr "[mt:eng:rus]Value 2[/mt]"
+
+#. string3
+#: File: strings.txt
+#: ID: 2e920fe719df0296f38564a3a624f4fa
+#, fuzzy
+msgid "Value 3"
+msgstr "[mt:eng:rus]Value 3[/mt]"

@@ -1,0 +1,22 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.txt$
+        destination_languages                    ru
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            :mt
+            {
+                plugin                           mt_dummy
+            }
+        }
+    }
+}

@@ -1,0 +1,3 @@
+string1=[mt:eng:rus]Value 1[/mt]
+string2=[mt:eng:rus]Value 2[/mt]
+string3=[mt:eng:rus]Value 3[/mt]
