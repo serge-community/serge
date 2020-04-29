@@ -140,9 +140,28 @@ sub parse_localized_files_for_file_lang {
     $self->clear_disambiguation_cache();
 
     # Parsing the file
+
+    # if there's a segmentation callback plugin enabled, use a segmentation-aware
+    # callback; otherwise, use a regular one, so that it won't have to check
+    # for segmentation for each extracted unit
+
+    my $callback_sub = sub {
+        my ($orig_self, @params) = @_;
+        $orig_self->parse_localized_file_callback(@params);
+    };
+    if ($self->{job}->has_callbacks('segment_source')) {
+        $callback_sub = sub {
+            my ($orig_self, @params) = @_;
+            $orig_self->segmentation_wrapper_callback(sub {
+                my ($orig_self, @params) = @_;
+                $orig_self->parse_localized_file_callback(@params);
+            }, @params);
+        };
+    }
+
     eval {
         $self->{job}->{parser_object}->{import_mode} = 1;
-        $self->{job}->{parser_object}->parse(\$src, sub { $self->parse_localized_file_callback(@_) }, $lang);
+        $self->{job}->{parser_object}->parse(\$src, sub { &$callback_sub($self, @_) }, $lang);
     };
 
     if ($@) {

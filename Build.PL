@@ -29,6 +29,7 @@ my $builder = Module::Build->new(
         'DBD::SQLite'        => 0,
         'JSON'               => 0,
         'JSON::XS'           => 0,
+        'Lingua::Sentence'   => 0,
         'MIME::Lite'         => 0,
         'Net::SMTP'          => '1.28',
         'XML::Parser'        => 0,

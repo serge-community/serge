@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: strings.txt
+#: ID: deeb9593cba1b68c979574341d22e4b8
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+msgstr "Łőŕēḿ ĩṕšũḿ đőļőŕ šĩţ áḿēţ, çőŋšēçţēţũŕ áđĩṕĩšçĩŋğ ēļĩţ."
+
+#: File: strings.txt
+#: ID: 7a43fa44f6821a9ccce12607840af689
+msgid "Sed vel enim felis."
+msgstr "Šēđ ṽēļ ēŋĩḿ ḟēļĩš."
+
+#: File: strings.txt
+#: ID: 94b869ba7090e9fd8449b3965792384d
+msgid "Ut est orci, bibendum ut mi ut, feugiat gravida ligula."
+msgstr "Ůţ ēšţ őŕçĩ, ḃĩḃēŋđũḿ ũţ ḿĩ ũţ, ḟēũğĩáţ ğŕáṽĩđá ļĩğũļá."
+
+#: File: strings.txt
+#: ID: f2e1d3f700862367e5b2def36ba4d663
+msgid "Curabitur auctor eget leo a rutrum."
+msgstr "Ćũŕáḃĩţũŕ áũçţőŕ ēğēţ ļēő á ŕũţŕũḿ."
+
+#: File: strings.txt
+#: ID: 6370bc31b828e05d7d5f1868a28eea8c
+msgid "Suspendisse tempor velit id dui volutpat condimentum."
+msgstr "Šũšṕēŋđĩššē ţēḿṕőŕ ṽēļĩţ ĩđ đũĩ ṽőļũţṕáţ çőŋđĩḿēŋţũḿ."
