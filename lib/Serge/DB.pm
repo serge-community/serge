@@ -31,7 +31,7 @@ my $DBD_PARAMS = {
 
     'mysql' => {
         'options' => {
-            'mysql_enable_utf8' => 1,
+            'mysql_enable_utf8mb4' => 1,
             'mysql_bind_type_guessing' => 1,
         },
         'begin_transaction_stmt' => 'START TRANSACTION',
