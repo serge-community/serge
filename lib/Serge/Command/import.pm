@@ -263,7 +263,7 @@ $html
     ];
     foreach my $lang (sort keys %{$importer->{stats}}) {
         my $stats = $importer->{stats}->{$lang};
-        $lang = 'source language' if $lang eq '';
+        $lang = $lang.' (source language)' if $lang eq $importer->{job}->{source_language};
         push @$data, [$lang, $stats->{files}, $stats->{notices}, $stats->{warnings}, $stats->{errors}];
     }
     print_formatted_table($data);
