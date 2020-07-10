@@ -30,8 +30,14 @@ sub load_plugin_from_node {
     # if plugin name has '::', treat it as a full class name and don't expand it;
     # otherwise, prepend the provided class prefix to form a full class name
 
+    # also allow for '::classname' syntax to indicate that no implicit prefix
+    # should be added (and leading '::' will be removed)
+
     my $class = $node->{plugin};
     $class = $class_prefix.'::'.$class if ($class_prefix ne '' && $class !~ m/::/);
+
+    # remove the leading '::'
+    $class =~ s/^:://;
 
     return $self->load_plugin($class, $node->{data} || {});
 }
