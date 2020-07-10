@@ -33,6 +33,11 @@ Pending release
           has been modified, thus enabling optimized preprocessing
           scenarios.
 
+        - Added `rclone` VCS sync plugin that wraps the functionality
+          of Rclone (https://rclone.org/) and allows to use
+          `serge pull` and `serge push` to pull and push changes
+          from various cloud storage providers.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
