@@ -55,6 +55,12 @@ sub new {
         }
     }
 
+    # load callback plugins
+
+    map {
+        $self->load_plugin_and_register_callbacks($_);
+    } @{$self->{callback_plugins}};
+
     # load parser plugin
 
     $self->{parser_object} = $self->load_plugin_and_register_callbacks($self->{parser});
@@ -76,12 +82,6 @@ sub new {
     }
     my $class = ref $self->{serializer_object};
     $self->{serializer_version} = $plugin_name.'.'.eval('$'.$class.'::VERSION');
-
-    # load callback plugins
-
-    map {
-        $self->load_plugin_and_register_callbacks($_);
-    } @{$self->{callback_plugins}};
 
     return $self;
 }
