@@ -28,6 +28,11 @@ Pending release
         - Added `lib` plugin to allow to use plugins (Perl modules)
           from custom folders.
 
+        - Added `before_parsing_source_file` callback that is run
+          before the file is parsed, and only when the source file
+          has been modified, thus enabling optimized preprocessing
+          scenarios.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`

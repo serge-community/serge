@@ -708,6 +708,12 @@ sub parse_source_file {
 
     $self->clear_disambiguation_cache;
 
+    # Run the callback before parsing the file; it is not expected for
+    # the callback to modify the file, as this callback is run after the hash
+    # is calculated, and only if the source file has changed (or if in the forced mode).
+
+    $self->run_callbacks('before_parsing_source_file', $self->{current_file_rel}, \$src);
+
     # Parsing the file
 
     eval {
