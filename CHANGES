@@ -38,6 +38,9 @@ Pending release
           `serge pull` and `serge push` to pull and push changes
           from various cloud storage providers.
 
+        - When MySQL database is used as a backend, `utf8mb4`
+          encoding is now forced for the connection.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
