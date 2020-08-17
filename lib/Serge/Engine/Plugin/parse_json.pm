@@ -24,6 +24,7 @@ sub init {
         path_matches      => 'ARRAY',
         path_doesnt_match => 'ARRAY',
         path_html         => 'ARRAY',
+        jsonp             => 'BOOLEAN',
 
         email_from        => 'STRING',
         email_to          => 'ARRAY',
@@ -120,6 +121,14 @@ sub parse {
     # Make a copy of the string as we will change it
 
     my $text = $$textref;
+    my $jsonp_prefix = '';
+    my $jsonp_suffix = '';
+
+    if ($self->{data}->{jsonp} && $text =~ m/^(.*?)(\{.*\})(.*?)$/s) {
+        $jsonp_prefix = $1;
+        $text = $2;
+        $jsonp_suffix = $3;
+    }
 
     # Parse JSON
 
@@ -145,12 +154,25 @@ sub parse {
 
     $self->process_node('', $tree, $callbackref, $lang);
 
+    return undef unless $lang; # if in source parsing mode, return nothing
+
     # Reconstruct JSON
 
     # need to force indent_length, otherwise it will be zero when PP extension 'escape_slash' is used
     # (looks like an issue in some newer version of JSON:PP)
     # also, force 'canonical' to sort keys alphabetically to ensure the structure won't be changed on subsequent script runs
-    return $lang ? to_json($tree, {pretty => 1, indent_length => 3, canonical => 1, escape_slash => 1}) : undef;
+    my $json = to_json($tree, {
+        pretty => 1,
+        indent_length => 3,
+        canonical => 1,
+        escape_slash => 1
+    });
+
+    if ($self->{data}->{jsonp}) {
+        chomp $json;
+        return $jsonp_prefix.$json.$jsonp_suffix;
+    }
+    return $json;
 }
 
 sub process_node {

@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /key
+#: File: test.json
+#: ID: 2b4d8c4b431891b0118cf8827cb55de8
+msgid "value"
+msgstr "ṽáļũē"
