@@ -32,9 +32,9 @@ sub process_job {
 
     my $ts_file_path = $job->{ts_file_path};
     die "ERROR: ts_file_path not defined" unless $ts_file_path;
-    my ($ts_base_dir) = split(/[\\\/]%LOCALE%[\\\/]/, $ts_file_path);
+    my ($ts_base_dir, $extra) = split(/[\\\/]%(CULTURE|LANG[^%]*|LOCALE[^%]*)%[\\\/]/, $ts_file_path);
     # die here, otherwise there's a chance some translation interchange files will be deleted by mistake
-    die "ERROR: ts_file_path has no %LOCALE% macro defined" unless $ts_base_dir;
+    die "ERROR: ts_file_path has no %CULTURE%, %LANG% or %LOCALE% macro provided" unless $extra ne '';
     $ts_base_dir =~ s/\\/\//sg; # always use forward slash for consistency
 
     die "source_dir [$job->{source_dir}] doesn't exist. Try doing an initial data checkout (`serge pull --initialize`), or reconfigure your job" unless -d $job->{source_dir};

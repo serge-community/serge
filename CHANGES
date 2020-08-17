@@ -43,6 +43,9 @@ Pending release
 
         - Added support for JSONP mode in the `parse_json` parser.
 
+        - Fixed `clean-ts` parser to understand different language macros
+          in `ts_file_path` parameter, not just %LOCALE%.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
