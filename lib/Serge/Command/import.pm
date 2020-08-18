@@ -26,6 +26,7 @@ sub init {
         "lang|language|languages=s"   => \$self->{languages},
         "disambiguate-keys"           => \$self->{disambiguate_keys},
         "no-report"                   => \$self->{no_report},
+        "force-same"                  => \$self->{force_same},
     ) or die "Failed to parse some command-line parameters.";
 }
 
@@ -38,6 +39,7 @@ sub run {
     $importer->{save_report} = 1 unless $self->{no_report};
     $importer->{debug} = 1 if $self->{parent}->{debug};
     $importer->{disambiguate_keys} = 1 if $self->{disambiguate_keys};
+    $importer->{force_same} = 1 if $self->{force_same};
 
     if ($self->{languages}) {
         my @l = split(/,/, $self->{languages});

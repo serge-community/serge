@@ -321,7 +321,11 @@ sub parse_localized_file_callback {
         return;
     }
 
-    if ($data->{string} ne $translation) {
+    print "\t\t\t::localized file [$lang]: '$key' => '$translation'\n" if $self->{debug};
+
+    my $is_same = $data->{string} eq $translation;
+
+    if (!$is_same) {
         if ($self->{save_report}) {
             push @{$self->{current_report_key}}, {
                 key => $key,
@@ -331,7 +335,13 @@ sub parse_localized_file_callback {
             };
         }
     } else {
-        $self->_notice("Translation is the same as the source for key '$key'", "\t\t\t");
+        my $status;
+        if ($self->{force_same}) {
+           $status = 'will be imported because of --force-same flag';
+        } else {
+           $status = 'skipping';
+        }
+        $self->_notice("Translation is the same as the source for key '$key', $status", "\t\t\t");
         if ($self->{save_report}) {
             push @{$self->{current_report_key}}, {
                 key => $key,
@@ -344,9 +354,9 @@ sub parse_localized_file_callback {
         }
     }
 
-    print "\t\t\t::localized file [$lang]: '$key' => '$translation'\n" if $self->{debug};
-
-    $self->{db}->set_translation($item_id, $lang, $translation, undef, undef, 0) unless $self->{dry_run};
+    if (!$is_same || $self->{force_same}) {
+        $self->{db}->set_translation($item_id, $lang, $translation, undef, undef, 0) unless $self->{dry_run};
+    }
 
     return $translation;
 }

@@ -50,6 +50,10 @@ Pending release
 
         - Made `$calculate_params` config parameter optional in `fbcgen` tool.
 
+        - `serge import` now by default skips translations that are identical
+          to source. A new flag, `--force-same`, was introduced to force
+          the old behavior where such translations would be imported.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
