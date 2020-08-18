@@ -3,15 +3,15 @@ properties
     0     1 source:1 ad85b64562255c209ab8e828853bb8da
     1     2 hash:1 ad85b64562255c209ab8e828853bb8da
     2     3 size:1 6061
-    3     4 items:1 1,2,3,4,5,6
-    4     5 ts:1:test:count 6
-    5     6 usn:1:test 19
-    6     7 ts:1:test ba4b3b22e640959913ef523c44bd52a9
-    7     8 target:1:test_job:test 113889a4272517462cafa6c004416eee
+    3     4 items:1 1,2,3
+    4     5 ts:1:test:count 3
+    5     6 usn:1:test 10
+    6     7 ts:1:test 27d41eda4e44cf494dde4d85b66ecf36
+    7     8 target:1:test_job:test 389e8b01993eeb42e6f7354c97dbbfdf
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test ad85b64562255c209ab8e828853bb8da
     10    11 source:ts:1:test_job:test
-          ba4b3b22e640959913ef523c44bd52a9
+          27d41eda4e44cf494dde4d85b66ecf36
     11    12 job-hash:test_namespace:test_job
           a335961cf382017eb1694b806842d0cc
     12    13 job-plugin:test_namespace:test_job parse_resx.

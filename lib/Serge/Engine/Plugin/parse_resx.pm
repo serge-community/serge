@@ -14,14 +14,19 @@ sub parse {
 
     die 'callbackref not specified' unless $callbackref;
 
-    # Finding translatable strings in file
+    my $translated_text = $$textref;
+
+    # Remove XML comments, as RESX files usually have a large comment
+    # with examples, and these examples get picked by the regexp-based parser
+
+    $translated_text =~ s/<!--.*?-->//sg;
+
+    # Find translatable strings in file
 
     # Format is:
     # <data name="...hint..." ...>
     #   <value>...string...</value>
     # </data>
-
-    my $translated_text = $$textref;
 
     $translated_text =~ s|(<data.*?name=")(.*?)(".*?>.*?<value[^\/]*?>)(.*?)(</value>)|$1.$2.$3.$self->parse_callback($callbackref, $4, undef, $2, undef, $lang).$5|sge;
 

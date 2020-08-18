@@ -24,6 +24,8 @@ Pending release
 
         - `parse_resx` plugin now exports keys explicitly
           (in addition to extracting them as translation hints).
+          Localized ResX files now also no longer contain
+          XML comments (this allows to exclude commented out keys).
 
         - Added `lib` plugin to allow to use plugins (Perl modules)
           from custom folders.

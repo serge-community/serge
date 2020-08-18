@@ -1,12 +1,6 @@
 strings
 {
-    0    1 2 `this is my long string` NO 0
-    1    2 4 `[base64 mime encoded serialized .NET Framework object]`
-         NO 0
-    2    3 6
-         `[base64 mime encoded string representing a byte array form of the .NET Framework object]`
-         NO 0
-    3    4 8 `Value 1` NO 0
-    4    5 10 `Value 2` NO 0
-    5    6 12 `Value 3` NO 0
+    0    1 2 `Value 1` NO 0
+    1    2 4 `Value 2` NO 0
+    2    3 6 `Value 3` NO 0
 }
