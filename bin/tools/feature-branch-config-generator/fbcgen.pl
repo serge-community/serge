@@ -284,7 +284,7 @@ foreach my $branch (@feature_branches) {
     $dir = 'branch-'.$dir;
     my $dir_padded = $dir . (' ' x ($width - length($branch)));
 
-    my $params = &$calculate_params($branch);
+    my $params = defined $calculate_params ? &$calculate_params($branch) : {};
     $params->{DIR} = $dir;
     $params->{DIR_PADDED} = $dir_padded;
     $params->{BRANCH} = $branch;

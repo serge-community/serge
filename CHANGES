@@ -46,6 +46,8 @@ Pending release
         - Fixed `clean-ts` parser to understand different language macros
           in `ts_file_path` parameter, not just %LOCALE%.
 
+        - Made `$calculate_params` config parameter optional in `fbcgen` tool.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
