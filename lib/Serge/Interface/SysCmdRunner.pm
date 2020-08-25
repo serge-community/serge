@@ -4,12 +4,17 @@ use strict;
 
 use Cwd;
 
+sub strip_sensitive_info {
+    my ($self, $command) = @_;
+    $command =~ s/(\-\-password \").+?(\")/$1******$2/;
+    return $command;
+}
+
 sub run_cmd {
     my ($self, $command, $capture, $ignore_codes) = @_;
 
     if ($self->{echo_commands}) {
-        my $line = $command;
-        $line =~ s/(\-\-password \").+?(\")/$1******$2/;
+        my $line = $self->strip_sensitive_info($command);
         print "RUN: $line\n";
     }
 
