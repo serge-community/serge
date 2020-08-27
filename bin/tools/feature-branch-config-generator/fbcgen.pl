@@ -70,6 +70,8 @@ if (!$config) {
 
 my $config_dir = dirname(rel2abs($config));
 chdir($config_dir); # expand paths based on the config location
+# See https://perldoc.perl.org/perl5260delta.html#Security
+unshift @INC, $config_dir;
 
 print "Loading config: $config\n";
 
