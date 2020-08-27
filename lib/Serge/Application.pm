@@ -34,6 +34,12 @@ sub run {
 
     my $command = shift @ARGV;
 
+    # Set the environment variables for child processes
+    # to be able to recognize that they are running
+    # from under Serge, and act accordingly.
+    $ENV{'SERGE'} = $Serge::VERSION;
+    $ENV{'SERGE_DEBUG'} = 1 if $debug;
+
     # print out version when passing the flag to a bare `serge` command
     if ($version && $command eq '') {
         print "Serge $Serge::VERSION\n";
