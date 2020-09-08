@@ -38,6 +38,9 @@ sub show_brief_help {
     my @commands = sort keys %{$self->{parent}->{commands}};
 
     print $message ? $message."\n" : "Serge $Serge::VERSION - Free, Open-Source Solution for Continuous Localization\n";
+    if ($ENV{SERGE_BUILD} ne '') {
+        print $ENV{SERGE_BUILD}, "\n";
+    }
     $self->{parent}->show_synopsis;
 
     # determine the max size of commands to render second column
