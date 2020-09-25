@@ -3,9 +3,11 @@ strings
     0    1 2 `Value 1` NO 0
     1    2 4 `Value 2` NO 0
     2    3 6 `Error %s` NO 0
-    3    4 8 `Value 3` NO 0
-    4    5 10 `Value 4` NO 0
-    5    6 12 `My Application` NO 0
-    6    7 14 `Sample text` NO 0
-    7    8 16 OK NO 0
+    3    4 8 `Euro (€)` NO 0
+    4    5 10 180° NO 0
+    5    6 12 `Value 3` NO 0
+    6    7 14 `Value 4` NO 0
+    7    8 16 `My Application` NO 0
+    8    9 18 `Sample text` NO 0
+    9    10 20 OK NO 0
 }

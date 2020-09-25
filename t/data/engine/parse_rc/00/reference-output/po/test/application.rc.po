@@ -23,6 +23,18 @@ msgstr "Ṽáļũē 2"
 msgid "Error %s"
 msgstr "Ēŕŕőŕ %s"
 
+#. IDS_CURRENCY
+#: File: application.rc
+#: ID: b2f73d63d600cdd5012364b8525296d6
+msgid "Euro (€)"
+msgstr "Ēũŕő (€)"
+
+#. IDS_ANGLE
+#: File: application.rc
+#: ID: 17e3e574984651dcc018e0517f5612cc
+msgid "180°"
+msgstr "180°"
+
 #. IDS_TEST_3
 #: File: application.rc
 #: ID: 2e920fe719df0296f38564a3a624f4fa

@@ -37,6 +37,8 @@ BEGIN
     IDS_TEST_1 "Ṽáļũē 1"
     IDS_TEST_2 "Ṽáļũē 2"
     IDS_ERROR  "Ēŕŕőŕ %s"
+    IDS_CURRENCY "Ēũŕő (€)"
+    IDS_ANGLE  "180°"
 END
 
 STRINGTABLE
