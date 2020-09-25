@@ -37,6 +37,8 @@ BEGIN
     IDS_TEST_1 "Value 1"
     IDS_TEST_2 "Value 2"
     IDS_ERROR  "Error %s"
+    IDS_CURRENCY L"Euro (\x20AC)"
+    IDS_ANGLE  L"180\x00B0"
 END
 
 STRINGTABLE
