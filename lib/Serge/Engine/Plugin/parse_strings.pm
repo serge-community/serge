@@ -54,7 +54,8 @@ sub parse {
         } elsif ($line =~ m/^\h*("((?:\\"|[^"])+)"|([\w\d\#]+))\h*=\h*"(.*)"\h*;\h*(\/\/\h*(.*?))?$/) { # a "key"="value" line
             $orig_str = $4;
             push(@all_hints, $6) if $6;
-            $key = unescape_string($2) || $3;
+            $key = unescape_string($2);
+            $key = $3 if $key eq '';
             ($hint, $context) = split(/##/, $key, 2);
 
             # skip placeholder strings
