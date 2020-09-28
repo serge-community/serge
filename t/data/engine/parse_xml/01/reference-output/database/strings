@@ -1,0 +1,13 @@
+strings
+{
+    0    1 2 Gadget NO 0
+    1    2 4 test NO 0
+    2    3 6 `Gadget from ACME` NO 0
+    3    4 8 `Gadget from ACME can foo and bar.` NO 0
+    4    5 10 `Foo and bar without baz!` NO 0
+    5    6 12 &lt;foo/&gt; NO 0
+    6    7 14 `Buy Now` NO 0
+    7    8 16 `Blog Post` NO 0
+    8    9 18 `Gadget Website` NO 0
+    9    10 20 `Gadget Support` NO 0
+}

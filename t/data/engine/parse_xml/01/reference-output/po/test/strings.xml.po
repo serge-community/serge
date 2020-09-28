@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /item/name
+#: File: strings.xml
+#: ID: ef0b50fa37872c3f752a75fdca3b5bcd
+msgid "Gadget"
+msgstr "Ĝáđğēţ"
+
+#. /item/name
+#: File: strings.xml
+#: ID: d4962e0a3426ad69a6e8a923fbc9adfe
+msgid "test"
+msgstr "ţēšţ"
+
+#. /item/shortdesc
+#: File: strings.xml
+#: ID: f082ecbed0780d783b91505f3dfeea09
+msgid "Gadget from ACME"
+msgstr "Ĝáđğēţ ḟŕőḿ ĀĆḾĒ"
+
+#: File: strings.xml
+#: ID: 2c488162f20e4b3011e9cd91539089a9
+msgid "Gadget from ACME can foo and bar."
+msgstr "Ĝáđğēţ ḟŕőḿ ĀĆḾĒ çáŋ ḟőő áŋđ ḃáŕ."
+
+#: File: strings.xml
+#: ID: 27f15ad771d204a18b921aaae9a87484
+msgid "Foo and bar without baz!"
+msgstr "Ḟőő áŋđ ḃáŕ ŵĩţĥőũţ ḃáž!"
+
+#: File: strings.xml
+#: ID: e9c17e7531908898a386f41b26db298e
+msgid "&lt;foo/&gt;"
+msgstr "&lt;ḟőő/&gt;"
+
+#. /item/linknames/activation
+#: File: strings.xml
+#: ID: 7235172da113bf7d254a0797cb983db9
+msgid "Buy Now"
+msgstr "Ḃũŷ Ņőŵ"
+
+#. /item/linknames/blog
+#: File: strings.xml
+#: ID: 779ebed65369c0d62e904ab4b71aa681
+msgid "Blog Post"
+msgstr "Ḃļőğ Ṕőšţ"
+
+#. /item/linknames/homepage
+#: File: strings.xml
+#: ID: 3c2e2bd05e342a28845dc2d60a01fd90
+msgid "Gadget Website"
+msgstr "Ĝáđğēţ Ŵēḃšĩţē"
+
+#. /item/linknames/support
+#: File: strings.xml
+#: ID: 69420d1c485befa6a92df45c43d0aa28
+msgid "Gadget Support"
+msgstr "Ĝáđğēţ Šũṕṕőŕţ"

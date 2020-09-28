@@ -1,0 +1,13 @@
+items
+{
+    0    1 3 1 1 /item/name NO 0
+    1    2 5 1 2 /item/name NO 0
+    2    3 7 1 3 /item/shortdesc NO 0
+    3    4 9 1 4 NO NO 0
+    4    5 11 1 5 NO NO 0
+    5    6 13 1 6 NO NO 0
+    6    7 15 1 7 /item/linknames/activation NO 0
+    7    8 17 1 8 /item/linknames/blog NO 0
+    8    9 19 1 9 /item/linknames/homepage NO 0
+    9    10 21 1 10 /item/linknames/support NO 0
+}

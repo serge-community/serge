@@ -22,20 +22,21 @@ sub init {
     $self->{errors} = {};
 
     $self->merge_schema({
-        node_match    => 'ARRAY',
-        node_exclude  => 'ARRAY',
-        node_html     => 'ARRAY',
-        xml_kind      => 'STRING',
+        node_match      => 'ARRAY',
+        node_exclude    => 'ARRAY',
+        node_html       => 'ARRAY',
+        autodetect_html => 'BOOLEAN',
+        xml_kind        => 'STRING',
 
-        email_from    => 'STRING',
-        email_to      => 'ARRAY',
-        email_subject => 'STRING',
+        email_from      => 'STRING',
+        email_to        => 'ARRAY',
+        email_subject   => 'STRING',
 
-        html_parser   => {
-            plugin    => 'STRING',
+        html_parser     => {
+            plugin      => 'STRING',
 
-            data      => {
-               '*'    => 'DATA',
+            data        => {
+               '*'      => 'DATA',
             }
         },
     });
@@ -373,6 +374,11 @@ sub process_text_node {
 
         # unescape basic XML entities unless we're inside CDATA block
         xml_unescape_strref($strref) unless $cdata;
+
+        if ($self->{data}->{autodetect_html}) {
+            # auto-detect HTML by the opening tag
+            $is_html = 1 if $$strref =~ m/^</s;
+        }
 
         if ($is_html) {
             # if node is html, pass its text to html parser for string extraction
