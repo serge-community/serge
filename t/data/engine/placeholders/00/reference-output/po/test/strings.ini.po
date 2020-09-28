@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. string1
+#. <1> = <tag>
+#. <2> = </tag>
+#. <3> = <etc/>
+#: File: strings.ini
+#: ID: fdbe2f2c05ea1a7c76e0eee4c63b2b11
+msgid "foo <1>bar<2> baz<3>"
+msgstr "ḟőő <1>ḃáŕ<2> ḃáž<3>"
+
+#. string2
+#. <1> = ${USERNAME}
+#: File: strings.ini
+#: ID: 6ecf1d892830bad34a24eba0d70db4f2
+msgid "Hello, <1>!"
+msgstr "Ĥēļļő, <1>!"

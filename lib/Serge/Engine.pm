@@ -850,6 +850,8 @@ sub parse_source_file_callback {
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
 
+    # We don't need to pass a callback context here, since
+    # there's no `rewrite_translation` callback to pass it down to.
     $self->run_callbacks('rewrite_source', $self->{current_file_rel}, undef, \$string, \$hint);
 
     # normalize once again, in case the string was changed
@@ -1600,7 +1602,8 @@ sub generate_localized_files_for_file_lang_callback {
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
 
-    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint);
+    my $callback_context = {};
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint, $callback_context);
 
     # normalize once again, in case the string was changed
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
@@ -1647,7 +1650,7 @@ sub generate_localized_files_for_file_lang_callback {
         $translation = $self->{job}->{leave_untranslated_blank} ? '' : $string;
     }
 
-    if (combine_or($self->run_callbacks('rewrite_translation', $self->{current_file_rel}, $lang, \$translation))) {
+    if (combine_or($self->run_callbacks('rewrite_translation', $self->{current_file_rel}, $lang, \$translation, $callback_context))) {
         # if any of the rewrite_translation plugins returned a true value, normalize the output
         $translation = '' if !defined $translation; # convert to a string for consistency
         $translation = NFC($translation);

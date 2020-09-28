@@ -1,0 +1,5 @@
+strings
+{
+    0    1 2 `foo <1>bar<2> baz<3>` NO 0
+    1    2 4 `Hello, <1>!` NO 0
+}

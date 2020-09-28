@@ -1,0 +1,26 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.ini$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            :placeholders
+            {
+                plugin                           placeholders
+
+                data
+                {
+                    matches                      `<.*?>`
+                                                 `\$\{.*?\}`
+                }
+            }
+        }
+    }
+}

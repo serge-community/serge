@@ -219,7 +219,15 @@ sub parse_source_file_callback {
 
     my $item_id;
     if ($self->{dry_run}) {
+        # Normalize parameters
         $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+
+        my $callback_context = {};
+        $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint);
+
+        # Normalize once again, in case the string was changed.
+        $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+
     } else {
         $item_id = Serge::Engine::parse_source_file_callback(@_);
     }
@@ -231,6 +239,11 @@ sub parse_localized_file_callback {
 
     # Normalize parameters
 
+    $translation = NFC($translation) if ($translation =~ m/[^\x00-\x7F]/);
+
+    $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$translation, \$hint);
+
+    # Normalize once again, in case the string was changed.
     $translation = NFC($translation) if ($translation =~ m/[^\x00-\x7F]/);
 
     my $keys = $self->{job}->{localized_keys};

@@ -57,6 +57,10 @@ Pending release
         - A new `smartcat_v2` synchronization plugin was added for Smartcat
           localization platform.
 
+        - Added support for `callback_context` parameter in `rewrite_source`
+          and `rewrite_translation` callbacks for plugins to be able to share
+          data between subsequent calls.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
