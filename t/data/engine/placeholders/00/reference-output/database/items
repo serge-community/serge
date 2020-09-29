@@ -6,4 +6,7 @@ items
 <3> = <etc/>` NO 0
     1    2 5 1 2 `string2
 <1> = ${USERNAME}` NO 0
+    2    3 7 1 3 `string3
+<1> = <em>
+<2> = </em>` NO 0
 }

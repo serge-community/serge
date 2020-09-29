@@ -20,3 +20,11 @@ msgstr "ḟőő <1>ḃáŕ<2> ḃáž<3>"
 #: ID: 6ecf1d892830bad34a24eba0d70db4f2
 msgid "Hello, <1>!"
 msgstr "Ĥēļļő, <1>!"
+
+#. string3
+#. <1> = <em>
+#. <2> = </em>
+#: File: strings.ini
+#: ID: c48d9a053e8d0a9478e4ae6686afbde1
+msgid "foo <1>bar<2> and <1>baz><2>"
+msgstr "ḟőő <1>ḃáŕ<2> áŋđ <1>ḃáž><2>"

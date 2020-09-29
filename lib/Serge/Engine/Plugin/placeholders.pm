@@ -49,10 +49,14 @@ sub adjust_phases {
 
 sub subst_placeholder {
     my ($context, $text) = @_;
-    $context->{counter}++;
-    my $key = "<".$context->{counter}.">";
-    $context->{replacements}->{$key} = $text;
-    push @{$context->{replacement_keys}}, $key;
+    my $key = $context->{text_to_key}->{$text};
+    if (!defined $key) {
+        $context->{counter}++;
+        $key = "<".$context->{counter}.">";
+        $context->{key_to_text}->{$key} = $text;
+        $context->{text_to_key}->{$text} = $key;
+        push @{$context->{sorted_keys}}, $key;
+    }
     return $key;
 }
 
@@ -64,8 +68,9 @@ sub rewrite_source {
     $context = {} unless $context;
     my $ctx = $context->{placeholders} = {
         counter => 0,
-        replacements => {},
-        replacement_keys => []
+        key_to_text => {},
+        text_to_key => {},
+        sorted_keys => []
     };
 
     my $regex = $self->{matches_regex};
@@ -73,9 +78,9 @@ sub rewrite_source {
     eval($eval_line);
     die "eval() failed on: '$eval_line'\n$@" if $@;
 
-    foreach my $key (@{$ctx->{replacement_keys}}) {
-        my $source = $ctx->{replacements}->{$key};
-        $$hintref .= "\n$key = $source";
+    foreach my $key (@{$ctx->{sorted_keys}}) {
+        my $text = $ctx->{key_to_text}->{$key};
+        $$hintref .= "\n$key = $text";
     }
 
     print "\t::rewrite_source after  : $$strref\n" if $self->{parent}->{debug};
@@ -88,7 +93,7 @@ sub rewrite_translation {
 
     print "\t::rewrite_translation before : $$strref\n" if $self->{parent}->{debug};
 
-    my $r = $context->{placeholders}->{replacements};
+    my $r = $context->{placeholders}->{key_to_text};
     $$strref =~ s/(<\d+>)/$r->{$1}/sge;
 
     print "\t::rewrite_translation after  : $$strref\n" if $self->{parent}->{debug};

@@ -30,6 +30,9 @@ Pending release
         - Added `lib` plugin to allow to use plugins (Perl modules)
           from custom folders.
 
+        - Added `placeholder` plugin to replace placeholder-like sequences
+          and tags with simplified uniform placeholders like <1>, <2>, ...
+
         - Added `before_parsing_source_file` callback that is run
           before the file is parsed, and only when the source file
           has been modified, thus enabling optimized preprocessing
