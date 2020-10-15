@@ -16,6 +16,8 @@ Pending release
         - `parse_php_xhtml` plugin now allows to fine-tune the list of tags
           processed by default (#120).
 
+        - `parse_yaml` parser now supports arrays.
+
         - Added `parse_locjson` plugin to parse monolingual LocJSON files
           (see https://github.com/iafan/LocJSON).
 
