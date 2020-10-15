@@ -64,6 +64,9 @@ Pending release
           and `rewrite_translation` callbacks for plugins to be able to share
           data between subsequent calls.
 
+        - Added `comment_attrs` property for `parse_xml` parser to allow for
+          easy comment extraction from a set of attributes of a wrapper node.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`

@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /item/shortdesc
+#: File: strings.xml
+#: ID: f082ecbed0780d783b91505f3dfeea09
+msgid "Gadget from ACME"
+msgstr "Ĝáđğēţ ḟŕőḿ ĀĆḾĒ"
+
+#. /item/linknames/activation
+#: File: strings.xml
+#: ID: 7235172da113bf7d254a0797cb983db9
+msgid "Buy Now"
+msgstr "Ḃũŷ Ņőŵ"
+
+#. /item/linknames/activation@Make this text short if possible
+#. 
+#. comment = Make this text short if possible
+#. 
+#. description = Menu option
+#: File: strings.xml
+#: ID: 30f39bf21acd60415b430c65cdd55fbc
+msgid "Make this text short if possible"
+msgstr "Ḿáķē ţĥĩš ţēҳţ šĥőŕţ ĩḟ ṕőššĩḃļē"
+
+#. /item/linknames/activation@Menu option
+#. 
+#. comment = Make this text short if possible
+#. 
+#. description = Menu option
+#: File: strings.xml
+#: ID: 5e030f3c3ca94384d4b4f1e4ad545e91
+msgid "Menu option"
+msgstr "Ḿēŋũ őṕţĩőŋ"
+
+#. /item/linknames/blog
+#: File: strings.xml
+#: ID: 779ebed65369c0d62e904ab4b71aa681
+msgid "Blog Post"
+msgstr "Ḃļőğ Ṕőšţ"
+
+#. /item/linknames/blog@Menu option
+#. 
+#. description = Menu option
+#: File: strings.xml
+#: ID: a5a73c7f35752a43de808027550281d5
+msgctxt ""
+"/item/linknames/blog@Menu option\n"
+"\n"
+"description = Menu option"
+msgid "Menu option"
+msgstr "Ḿēŋũ őṕţĩőŋ"
+
+#. /item/linknames/homepage
+#: File: strings.xml
+#: ID: 3c2e2bd05e342a28845dc2d60a01fd90
+msgid "Gadget Website"
+msgstr "Ĝáđğēţ Ŵēḃšĩţē"
+
+#. /item/linknames/homepage@Menu option
+#. 
+#. description = Menu option
+#: File: strings.xml
+#: ID: 412e2d0b4d950644f4e48f0f4275b7e0
+msgctxt ""
+"/item/linknames/homepage@Menu option\n"
+"\n"
+"description = Menu option"
+msgid "Menu option"
+msgstr "Ḿēŋũ őṕţĩőŋ"
+
+#. /item/linknames/support
+#: File: strings.xml
+#: ID: 69420d1c485befa6a92df45c43d0aa28
+msgid "Gadget Support"
+msgstr "Ĝáđğēţ Šũṕṕőŕţ"
+
+#. /item/linknames/support@Menu option
+#. 
+#. description = Menu option
+#: File: strings.xml
+#: ID: e02c0aab352bce0d49096a5b9df9edca
+msgctxt ""
+"/item/linknames/support@Menu option\n"
+"\n"
+"description = Menu option"
+msgid "Menu option"
+msgstr "Ḿēŋũ őṕţĩőŋ"

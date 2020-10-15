@@ -1,0 +1,20 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_xml
+
+            data
+            {
+                node_match                       ^/item/(name|shortdesc)$
+                                                 ^/item/linknames/
+
+                comment_attrs                    description comment
+            }
+        }
+    }
+}

@@ -25,6 +25,7 @@ sub init {
         node_match      => 'ARRAY',
         node_exclude    => 'ARRAY',
         node_html       => 'ARRAY',
+        comment_attrs   => 'ARRAY',
         autodetect_html => 'BOOLEAN',
         xml_kind        => 'STRING',
 
@@ -134,10 +135,6 @@ sub parse {
     die 'callbackref not specified' unless $callbackref;
 
     die 'node_match not specified' unless $self->{data}->{node_match};
-
-    my $node_match = $self->{data}->{node_match} || [];
-    my $node_exclude = $self->{data}->{node_exclude} || [];
-    my $node_html = $self->{data}->{node_html} || [];
 
     # Make a copy of the string as we will change it
 
@@ -359,6 +356,17 @@ sub process_text_node {
     $trimmed =~ s/^\s+//sg;
     $trimmed =~ s/\s+$//sg;
 
+    # gather the comment attributes
+    my $comment_attrs = $self->{data}->{comment_attrs} || [];
+
+    my @comments = ($path);
+    foreach my $name (sort @$comment_attrs) {
+        if (exists $attrs->{$name}) {
+            push @comments, "$name = $attrs->{$name}";
+        }
+    }
+    my $comment = join("\n\n", @comments);
+
     # 1) skip empty strings
     # 2) skip strings consisting of non-alphabet characters (bullets, arrows, etc.)
     # 3) skip strings representing plain numbers
@@ -418,9 +426,9 @@ sub process_text_node {
             _android_unescape($strref) if ($self->{data}->{xml_kind_android});
 
             if ($lang) {
-                $$strref = &$callbackref($$strref, undef, $path, undef, $lang);
+                $$strref = &$callbackref($$strref, undef, $comment, undef, $lang);
             } else {
-                &$callbackref($$strref, undef, $path, undef, undef);
+                &$callbackref($$strref, undef, $comment, undef, undef);
             }
 
             # escape Android-specific stuff if requested
