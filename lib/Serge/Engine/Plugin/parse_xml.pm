@@ -528,7 +528,7 @@ sub render_tag_recursively {
     foreach my $key (sort keys %$attrs) {
         my $str = $attrs->{$key};
 
-        my $tagpath = $path.'@'.$str;
+        my $tagpath = $path.'@'.$key;
 
         $self->process_text_node($tagpath, $attrs, \$str, $callbackref, $lang, undef, undef);
 

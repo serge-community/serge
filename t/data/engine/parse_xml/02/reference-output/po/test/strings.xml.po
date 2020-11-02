@@ -17,7 +17,7 @@ msgstr "Ĝáđğēţ ḟŕőḿ ĀĆḾĒ"
 msgid "Buy Now"
 msgstr "Ḃũŷ Ņőŵ"
 
-#. /item/linknames/activation@Make this text short if possible
+#. /item/linknames/activation@comment
 #. 
 #. comment = Make this text short if possible
 #. 
@@ -27,7 +27,7 @@ msgstr "Ḃũŷ Ņőŵ"
 msgid "Make this text short if possible"
 msgstr "Ḿáķē ţĥĩš ţēҳţ šĥőŕţ ĩḟ ṕőššĩḃļē"
 
-#. /item/linknames/activation@Menu option
+#. /item/linknames/activation@description
 #. 
 #. comment = Make this text short if possible
 #. 
@@ -43,13 +43,13 @@ msgstr "Ḿēŋũ őṕţĩőŋ"
 msgid "Blog Post"
 msgstr "Ḃļőğ Ṕőšţ"
 
-#. /item/linknames/blog@Menu option
+#. /item/linknames/blog@description
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: a5a73c7f35752a43de808027550281d5
+#: ID: f2d128f869434a88ba3427fb0a801af0
 msgctxt ""
-"/item/linknames/blog@Menu option\n"
+"/item/linknames/blog@description\n"
 "\n"
 "description = Menu option"
 msgid "Menu option"
@@ -61,13 +61,13 @@ msgstr "Ḿēŋũ őṕţĩőŋ"
 msgid "Gadget Website"
 msgstr "Ĝáđğēţ Ŵēḃšĩţē"
 
-#. /item/linknames/homepage@Menu option
+#. /item/linknames/homepage@description
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: 412e2d0b4d950644f4e48f0f4275b7e0
+#: ID: 00de5736db7e003598afa97c9d54ae69
 msgctxt ""
-"/item/linknames/homepage@Menu option\n"
+"/item/linknames/homepage@description\n"
 "\n"
 "description = Menu option"
 msgid "Menu option"
@@ -79,13 +79,13 @@ msgstr "Ḿēŋũ őṕţĩőŋ"
 msgid "Gadget Support"
 msgstr "Ĝáđğēţ Šũṕṕőŕţ"
 
-#. /item/linknames/support@Menu option
+#. /item/linknames/support@description
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: e02c0aab352bce0d49096a5b9df9edca
+#: ID: afcbf74824d7d0c428f3996c1f7ad881
 msgctxt ""
-"/item/linknames/support@Menu option\n"
+"/item/linknames/support@description\n"
 "\n"
 "description = Menu option"
 msgid "Menu option"
