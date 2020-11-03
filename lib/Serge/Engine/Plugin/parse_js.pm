@@ -30,9 +30,11 @@ sub parse {
     #   key: "value",
     #   key: 'value',
 
+    #   key: `value`,
+
     # \h = horizontal whitespace
-    #                       1   23                   4            5  6                      7  8                      9                    10
-    $translated_text =~ s!^(\h*((['"]).+?\3|[\w\d]+)(\h*:\h*))(?:(")((?:\\\\|\\"|[^"])+?)"|(')((?:\\\\|\\'|[^'])+?)')(\h*(?:,\h*)?(?://\h*(.*)\h*)?)$!$1.$5.$7.$self->parse_callback($callbackref, $6.$8, undef, $2, $10, $lang).$5.$7.$9!mgie;
+    #                       1   23                   4            5  6                      7  8                      9  10 11                  12
+    $translated_text =~ s!^(\h*((['"]).+?\3|[\w\d]+)(\h*:\h*))(?:(")((?:\\\\|\\"|[^"])+?)"|(')((?:\\\\|\\'|[^'])+?)'|(`)((?:\\\\|\\`|[^`])+?)`)(\h*(?:,\h*)?(?://\h*(.*)\h*)?)$!$1.$5.$7.$9.$self->parse_callback($callbackref, $6.$8.$10, undef, $2, $12, $lang).$5.$7.$9.$11!mgie;
 
     return $translated_text;
 }

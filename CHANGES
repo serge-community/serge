@@ -5,8 +5,9 @@ Pending release
         - Fixed `parse_ts` plugin to output strict XML by escaping `>`.
 
         - Fixed `parse_js` plugin escaped forward slash handling (#108).
-          The plugin now also supports quote-less key names and key names
-          and values with single-quote string syntax (#118).
+          The plugin now also supports quote-less key names, key names
+          and values with single-quote string syntax (#118), and template
+          literals (i.e. strings wrapped with backticks).
 
         - Fixed `parse_rc` plugin resource ID extraction.
 

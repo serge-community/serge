@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. key1
+#. comment 1
+#: File: strings.js
+#: ID: d578a556062176471bdc52a5da72e179
+msgid "foo bar 1"
+msgstr "ḟőő ḃáŕ 1"
+
+#. key2
+#. comment 2
+#: File: strings.js
+#: ID: 5e7e7e058daf73a5124c4a3bce326a7d
+msgid "foo bar 2"
+msgstr "ḟőő ḃáŕ 2"
