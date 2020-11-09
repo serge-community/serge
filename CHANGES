@@ -70,6 +70,10 @@ Pending release
         - Added `comment_attrs` property for `parse_xml` parser to allow for
           easy comment extraction from a set of attributes of a wrapper node.
 
+        - `serge clean-ts` now can accept `--ts-dir=path` (or
+          `--ts-dirs=path,path2,...`) parameters. The parameters allow one
+          to explicitly specify a list of directories to scan and clean.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`

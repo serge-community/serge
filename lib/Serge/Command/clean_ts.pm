@@ -21,6 +21,7 @@ sub init {
     $self->SUPER::init($command);
 
     GetOptions(
+        "ts-dir|ts-dirs=s"  => \$self->{ts_directories},
         "dry-run"    => \$self->{dry_run},
         "for-each:s" => \$self->{for_each},
     ) or die "Failed to parse some command-line parameters.";
@@ -55,9 +56,27 @@ sub run {
         $processor->run();
     }
 
-    print "\nFound translation directories:\n";
-    foreach (sort keys %{$scanner->{ts_directories}}) {
+    if ($self->{ts_directories}) {
+        my @dirs = split(/,/, $self->{ts_directories});
+        map {
+            my $path = $_;
+            $path = abspath(normalize_path($path));
+            $ts_directories{$path} = 1;
+        } @dirs;
+    } else {
+        %ts_directories = %{$scanner->{ts_directories}};
+    }
+
+    if ($self->{ts_directories}) {
+        print "\nUsing explicitly specified translation directories:\n";
+    } else {
+        print "\nFound translation directories:\n";
+    }
+    foreach (sort keys %ts_directories) {
         print "\t$_\n";
+        if (!-d) {
+            print "\t\tWARNING: Directory $_ doesn't exist\n";
+        }
     }
 
     print "\nScanning translation files...";
@@ -67,7 +86,7 @@ sub run {
         push @ts_files, $File::Find::name if (-f $_ && /\.po$/); # TODO: refactor; file extensions should not be hard-coded
     };
 
-    foreach my $dir (sort keys %{$scanner->{ts_directories}}) {
+    foreach my $dir (sort keys %ts_directories) {
         finddepth({wanted => $wanted, follow => 1}, $dir);
     }
     $n = scalar(@ts_files);
