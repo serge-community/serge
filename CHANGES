@@ -77,6 +77,8 @@ Pending release
           `--ts-dirs=path,path2,...`) parameters. The parameters allow one
           to explicitly specify a list of directories to scan and clean.
 
+        - `parse_rc` parser now supports L-strings and escape codes.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
