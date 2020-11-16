@@ -5,7 +5,9 @@ use parent Serge::Interface::PluginHost;
 use strict;
 
 use File::Path;
+use JSON::Streaming::Reader;
 use JSON -support_by_pp; # -support_by_pp is used to make Perl on Mac happy
+use Tie::IxHash;
 use Serge::Mail;
 use Serge::Util qw(xml_escape_strref);
 
@@ -25,6 +27,7 @@ sub init {
         path_doesnt_match => 'ARRAY',
         path_html         => 'ARRAY',
         jsonp             => 'BOOLEAN',
+        streaming_mode    => 'BOOLEAN',
 
         email_from        => 'STRING',
         email_to          => 'ARRAY',
@@ -113,6 +116,101 @@ $text
 
 }
 
+sub parse_json_as_stream {
+    my ($self, $textref) = @_;
+
+    my $jsonr = JSON::Streaming::Reader->for_string($textref);
+    my $root = {};
+    tie(%$root, 'Tie::IxHash');
+    my $node = $root;
+    my $prop;
+    my $value;
+    my $error;
+    my @stack = ();
+    $jsonr->process_tokens(
+        start_property => sub {
+            my ($name) = @_;
+            $prop = $name;
+            $value = undef;
+        },
+
+        start_object => sub {
+            $value = {};
+            tie(%$value, 'Tie::IxHash');
+            if (ref $node eq 'HASH') {
+                $node->{$prop} = $value;
+            }
+            if (ref $node eq 'ARRAY') {
+                push @$node, $value;
+            }
+            push @stack, $node;
+            $node = $value;
+            $value = undef;
+        },
+
+        end_object => sub {
+            $node = pop @stack;
+        },
+
+        start_array => sub {
+            $value = [];
+            if (ref $node eq 'HASH') {
+                $node->{$prop} = $value;
+            }
+            if (ref $node eq 'ARRAY') {
+                push @$node, $value;
+            }
+            push @stack, $node;
+            $node = $value;
+            $value = undef;
+        },
+
+        end_array => sub {
+            $node = pop @stack;
+        },
+
+        add_string => sub {
+            my ($s) = @_;
+            $value .= $s;
+        },
+
+        add_number => sub {
+            my ($n) = @_;
+            $value = $n;
+        },
+
+        add_boolean => sub {
+            my ($b) = @_;
+            $value = $b ? JSON::true : JSON::false;
+        },
+
+        add_null => sub {
+            $value = JSON::null;
+        },
+
+        end_property => sub {
+            if (ref $node eq 'HASH' && defined $prop) {
+                $node->{$prop} = $value;
+                $prop = undef;
+            }
+            if (ref $node eq 'ARRAY') {
+                push @$node, $value;
+            }
+            $value = undef;
+        },
+
+        error => sub {
+            ($error) = @_;
+        },
+    );
+
+    if (defined $error) {
+        return (undef, $error);
+    }
+
+    return $root->{''};
+}
+
 sub parse {
     my ($self, $textref, $callbackref, $lang) = @_;
 
@@ -132,17 +230,24 @@ sub parse {
 
     # Parse JSON
 
-    my $tree;
-    eval {
-        ($tree) = from_json($text, {relaxed => 1});
-    };
-    if ($@ || !$tree) {
-        my $error_text = $@;
+    my ($tree, $error_text);
+    if ($self->{data}->{streaming_mode}) {
+        ($tree, $error_text) = $self->parse_json_as_stream(\$text);
+    } else {
+        eval {
+            ($tree) = from_json($text, {relaxed => 1});
+        };
+        if ($@ || !$tree) {
+            $error_text = $@;
+        }
+    }
+
+    if (!$tree) {
         if ($error_text) {
             $error_text =~ s/\t/ /g;
             $error_text =~ s/^\s+//s;
         } else {
-            $error_text = "from_json() returned empty data structure";
+            $error_text = "perser returned an empty data structure";
         }
 
         $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $error_text;
@@ -160,11 +265,12 @@ sub parse {
 
     # need to force indent_length, otherwise it will be zero when PP extension 'escape_slash' is used
     # (looks like an issue in some newer version of JSON:PP)
-    # also, force 'canonical' to sort keys alphabetically to ensure the structure won't be changed on subsequent script runs
+    # also, when not in the streaming mode, force 'canonical' option to sort keys alphabetically
+    # to ensure the structure won't be changed on subsequent script runs
     my $json = to_json($tree, {
         pretty => 1,
         indent_length => 3,
-        canonical => 1,
+        canonical => !$self->{data}->{streaming_mode},
         escape_slash => 1
     });
 
@@ -181,7 +287,8 @@ sub process_node {
     if (ref($subtree) eq 'HASH') {
         # hash
 
-        foreach my $key (sort keys %$subtree) {
+        my @keys = $self->{data}->{streaming_mode} ? keys %$subtree : sort keys %$subtree;
+        foreach my $key (@keys) {
             $self->process_node($path.'/'.$key, $subtree->{$key}, $callbackref, $lang, $subtree, $key);
         }
     } elsif (ref($subtree) eq 'ARRAY') {
@@ -195,6 +302,18 @@ sub process_node {
         }
 
     } else {
+        # restore boolean scalars
+
+        if (JSON::is_bool($subtree)) {
+            my $val = $subtree ? JSON::true : JSON::false;
+            if (defined $index) {
+                $parent->[$index] = $val;
+            } else {
+                $parent->{$key} = $val;
+            }
+            return;
+        }
+
         # text
         return unless $self->check_path($path);
 

@@ -51,6 +51,9 @@ Pending release
 
         - Added support for JSONP mode in the `parse_json` parser.
 
+        - Added support for streaming mode in the `parse_json` parser.
+          This mode allows to preserve original key ordering inside JSON.
+
         - Fixed `clean-ts` parser to understand different language macros
           in `ts_file_path` parameter, not just %LOCALE%.
 

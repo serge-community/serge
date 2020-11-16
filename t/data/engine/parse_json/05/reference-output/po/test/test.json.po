@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /C/CB
+#: File: test.json
+#: ID: 02e2a0849e9fabaa87965c21cc9611cb
+msgid "bbb"
+msgstr "ḃḃḃ"
+
+#. /C/CA
+#: File: test.json
+#: ID: 8a4c5c5eb557874ea36892cbf8be6398
+msgid "aaa"
+msgstr "ááá"
+
+#. /C/CC
+#: File: test.json
+#: ID: deff9dbd2a98622dd825dc3172b88e85
+msgid "ccc"
+msgstr "ççç"
+
+#. /A/AA
+#: File: test.json
+#: ID: e824fe1cc6bb9ae0e266563d46a54e9d
+msgctxt "/A/AA"
+msgid "aaa"
+msgstr "ááá"
+
+#. /A/AC
+#: File: test.json
+#: ID: a5f92f4512fcf5cb784b2bbeb0bfe4af
+msgctxt "/A/AC"
+msgid "ccc"
+msgstr "ççç"
+
+#. /A/AB
+#: File: test.json
+#: ID: af5ef60faec1eda69f3bf1d9332b59be
+msgctxt "/A/AB"
+msgid "bbb"
+msgstr "ḃḃḃ"
+
+#. /B/BC
+#: File: test.json
+#: ID: 202cc372ade4e8374fa5fbf7ec93b6a1
+msgctxt "/B/BC"
+msgid "ccc"
+msgstr "ççç"
+
+#. /B/BB
+#: File: test.json
+#: ID: 8f0c95de258bb0ded739b5d6a6704044
+msgctxt "/B/BB"
+msgid "bbb"
+msgstr "ḃḃḃ"
+
+#. /B/BA
+#: File: test.json
+#: ID: 069d4308e667d00a6312fcbac5265f62
+msgctxt "/B/BA"
+msgid "aaa"
+msgstr "ááá"
+
+#. /D[0]/str
+#: File: test.json
+#: ID: e1bf3a977713c98ee0353e55faeee457
+msgid "AAA"
+msgstr "ĀĀĀ"
+
+#. /D[0]/value
+#: File: test.json
+#: ID: 1b03752ce7a8a2d296cbca406c9c0580
+msgctxt "/D[0]/value"
+msgid "aaa"
+msgstr "ááá"
+
+#. /D[1]/str
+#: File: test.json
+#: ID: 459fdf6f3b609c1a747b01e501cfcabb
+msgid "BBB"
+msgstr "ḂḂḂ"
+
+#. /D[1]/value
+#: File: test.json
+#: ID: def18773452d74c832b455e4ecff40ba
+msgctxt "/D[1]/value"
+msgid "bbb"
+msgstr "ḃḃḃ"
+
+#. /E
+#: File: test.json
+#: ID: 5742e4e9f40b5967db45fa68b2a42a27
+msgid "123"
+msgstr "123"

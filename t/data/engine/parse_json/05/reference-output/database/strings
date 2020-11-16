@@ -1,0 +1,17 @@
+strings
+{
+    0     1 2 bbb NO 0
+    1     2 4 aaa NO 0
+    2     3 6 ccc NO 0
+    3     4 8 aaa /A/AA 0
+    4     5 10 ccc /A/AC 0
+    5     6 12 bbb /A/AB 0
+    6     7 14 ccc /B/BC 0
+    7     8 16 bbb /B/BB 0
+    8     9 18 aaa /B/BA 0
+    9     10 20 AAA NO 0
+    10    11 22 aaa /D[0]/value 0
+    11    12 24 BBB NO 0
+    12    13 26 bbb /D[1]/value 0
+    13    14 28 123 NO 0
+}

@@ -1,0 +1,30 @@
+{
+    "C": {
+        "CB": "bbb",
+        "CA": "aaa",
+        "CC": "ccc"
+    },
+    "A": {
+        "AA": "aaa",
+        "AC": "ccc",
+        "AB": "bbb"
+    },
+    "B": {
+        "BC": "ccc",
+        "BB": "bbb",
+        "BA": "aaa"
+    },
+    "D": [
+        {
+            "str": "AAA",
+            "value": "aaa"
+        },
+        {
+            "str": "BBB",
+            "value": "bbb"
+        }
+    ],
+    "F": false,
+    "E": 123,
+    "0": null
+}
