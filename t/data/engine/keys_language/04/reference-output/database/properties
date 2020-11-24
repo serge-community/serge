@@ -1,0 +1,16 @@
+properties
+{
+    0     1 source:1 e5399f29be2b2c2068eaec052fd1216c
+    1     2 hash:1 e5399f29be2b2c2068eaec052fd1216c
+    2     3 size:1 108
+    3     4 items:1 1,2
+    4     5 target:1:test_job:keys af0ba784ce9e26f89110382d1eef8cf9
+    5     6 target:mtime:1:test_job:keys 12345678
+    6     7 source:1:test_job:keys e5399f29be2b2c2068eaec052fd1216c
+    7     8 job-hash:test_namespace:test_job
+          4b061efff0f76ddaf833f521e0e513ee
+    8     9 job-plugin:test_namespace:test_job parse_php_xhtml.
+    9     10 job-serializer-plugin:test_namespace:test_job
+          serialize_po.
+    10    11 job-engine:test_namespace:test_job 1.4
+}

@@ -46,6 +46,11 @@ Pending release
           `serge pull` and `serge push` to pull and push changes
           from various cloud storage providers.
 
+        - `keys_language` plugin now supports the 'preview' output format
+          that generates invisible markers around the source text,
+          so that the target document text is both readable and ready
+          to be used for in-context preview scenarios.
+
         - When MySQL database is used as a backend, `utf8mb4`
           encoding is now forced for the connection.
 
