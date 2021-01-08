@@ -247,7 +247,7 @@ sub parse {
             $error_text =~ s/\t/ /g;
             $error_text =~ s/^\s+//s;
         } else {
-            $error_text = "perser returned an empty data structure";
+            $error_text = "parser returned an empty data structure";
         }
 
         $self->{errors}->{$self->{parent}->{engine}->{current_file_rel}} = $error_text;
