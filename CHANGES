@@ -84,6 +84,9 @@ Pending release
 
         - `parse_rc` parser now supports L-strings and escape codes.
 
+        - `replace_strings` plugin now supports newly added `rewrite_context`,
+          `rewrite_hint` and `rewrite_key` callbacks.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
