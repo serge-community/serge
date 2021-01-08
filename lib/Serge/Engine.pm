@@ -901,13 +901,20 @@ sub parse_source_file_callback {
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     # We don't need to pass a callback context here, since
     # there's no `rewrite_translation` callback to pass it down to.
+    $self->run_callbacks('rewrite_hint', $self->{current_file_rel}, undef, \$hint);
     $self->run_callbacks('rewrite_source', $self->{current_file_rel}, undef, \$string, \$hint);
+    $self->run_callbacks('rewrite_context', $self->{current_file_rel}, undef, \$context, \$hint);
+    $self->run_callbacks('rewrite_key', $self->{current_file_rel}, undef, \$key, \$hint);
 
     # normalize once again, in case the string was changed
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+    $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
+    $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 
@@ -1671,12 +1678,19 @@ sub generate_localized_files_for_file_lang_callback {
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
     $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     my $callback_context = {};
+    $self->run_callbacks('rewrite_hint', $self->{current_file_rel}, $lang, \$hint, $callback_context);
     $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint, $callback_context);
+    $self->run_callbacks('rewrite_context', $self->{current_file_rel}, $lang, \$context, \$hint, $callback_context);
+    $self->run_callbacks('rewrite_key', $self->{current_file_rel}, $lang, \$key, \$hint, $callback_context);
 
     # normalize once again, in case the string was changed
     $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+    $context = NFC($context) if ($context =~ m/[^\x00-\x7F]/);
+    $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     $context = $self->disambiguate_string($string, $context, $key, $hint);
 

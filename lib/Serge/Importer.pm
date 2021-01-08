@@ -240,12 +240,18 @@ sub parse_source_file_callback {
     if ($self->{dry_run}) {
         # Normalize parameters
         $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+        $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+        $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
         my $callback_context = {};
+        $self->run_callbacks('rewrite_hint', $self->{current_file_rel}, $lang, \$hint);
         $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$string, \$hint);
+        $self->run_callbacks('rewrite_key', $self->{current_file_rel}, $lang, \$key, \$hint);
 
         # Normalize once again, in case the string was changed.
         $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
+        $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
+        $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     } else {
         $item_id = Serge::Engine::parse_source_file_callback(@_);
@@ -258,12 +264,18 @@ sub parse_localized_file_callback {
 
     # Normalize parameters
 
+    $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
     $translation = NFC($translation) if ($translation =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
+    $self->run_callbacks('rewrite_hint', $self->{current_file_rel}, $lang, \$hint);
     $self->run_callbacks('rewrite_source', $self->{current_file_rel}, $lang, \$translation, \$hint);
+    $self->run_callbacks('rewrite_key', $self->{current_file_rel}, $lang, \$key, \$hint);
 
     # Normalize once again, in case the string was changed.
+    $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
     $translation = NFC($translation) if ($translation =~ m/[^\x00-\x7F]/);
+    $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
 
     my $keys = $self->{job}->{localized_keys};
 
