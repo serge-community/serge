@@ -308,6 +308,7 @@ sub parse {
     # Creating XML parser object
 
     use XML::Parser;
+    use XML::Parser::Style::IxTree;
     my $parser = new XML::Parser(Style => 'IxTree', ErrorContext => 4);
 
     # Parsing XML

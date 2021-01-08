@@ -170,6 +170,7 @@ sub parse {
     # Create XML parser object
 
     use XML::Parser;
+    use XML::Parser::Style::IxTree;
     my $parser = new XML::Parser(Style => 'IxTree');
 
     # Parse XML
