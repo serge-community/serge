@@ -1,0 +1,67 @@
+strings
+{
+    0     1 2 foo NO 0
+    1     2 4 bar NO 0
+    2     3 7 `Heading 1` NO 0
+    3     4 9 `Another heading 1` NO 0
+    4     5 11
+          `This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.`
+          NO 0
+    5     6 13
+          `Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.`
+          NO 0
+    6     7 15 `Heading 2` NO 0
+    7     8 17 `This is a header.` NO 0
+    8     9 19 `This is the first list item.` NO 0
+    9     10 21 `This is the second list item.` NO 0
+    10    11 23 `Here's some example code:` NO 0
+    11    12 25 `Another heading 2` NO 0
+    12    13 27 `Heading 3 ###` NO 0
+    13    14 29 `+ Red + Green + Blue` NO 0
+    14    15 31 `Heading 4 ####` NO 0
+    15    16 33 Red NO 0
+    16    17 35 Green NO 0
+    17    18 37 Blue NO 0
+    18    19 39 `Heading 5 #####` NO 0
+    19    20 41 Bird NO 0
+    20    21 43 McHale NO 0
+    21    22 45 Parish NO 0
+    22    23 47 `Heading 6 ######` NO 0
+    23    24 49 `Paragraph 1.` NO 0
+    24    25 51 Bird context.1 0
+    25    26 53 McHale context.1 0
+    26    27 55 Parish context.1 0
+    27    28 57 `Paragraph 2.` NO 0
+    28    29 59
+          `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.`
+          NO 0
+    29    30 61
+          `Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipiscing.`
+          context.1 0
+    30    31 63 `Some text with html: <img src="foo.jpg" alt="Foo" />`
+          NO 0
+    31    32 65 Bird context.2 0
+    32    33 67 Magic NO 0
+    33    34 69 `1986\. What a great season.` NO 0
+    34    35 71 `This is a normal paragraph:` NO 0
+    35    36 73 `Here is an example of AppleScript:` NO 0
+    36    37 75 `* * *` NO 0
+    37    38 77 *** NO 0
+    38    39 79 ***** NO 0
+    39    40 81 `- - -` NO 0
+    40    41 83 --------------------------------------- NO 0
+    41    42 85
+          `This is [an example](http://example.com/ "Title") inline link.`
+          NO 0
+    42    43 87
+          `[This link](http://example.net/) has no title attribute.`
+          NO 0
+    43    44 89 `This is [an example][id] reference-style link.` NO 0
+    44    45 91 `[id]: http://example.com/ "Optional Title Here"` NO 0
+    45    46 93 `*single asterisks*` NO 0
+    46    47 95 `_single underscores_` NO 0
+    47    48 97 `**double asterisks**` NO 0
+    48    49 99 `__double underscores__` NO 0
+    49    50 101 `![Alt text](/path/to/img.jpg)` NO 0
+    50    51 103 `![Alt text](/path/to/img.jpg "Optional title")` NO 0
+}
