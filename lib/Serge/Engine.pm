@@ -629,7 +629,13 @@ sub parse_source_file {
 
     my $path = $self->get_full_source_path($self->{current_file_rel});
 
-    my ($src, $file_hash) = $self->read_file($path, 1);
+    my ($src, $file_hash);
+    if ($self->{job}->{parser_object}->can('read_file')) {
+        print "\t\tParser will handle file reading\n" if $self->{debug};
+        ($src, $file_hash) = $self->{job}->{parser_object}->read_file($path, 1);
+    } else {
+        ($src, $file_hash) = $self->read_file($path, 1);
+    }
 
     $self->run_callbacks('after_load_source_file_for_processing', $self->{current_file_rel}, \$src);
 
@@ -784,6 +790,27 @@ sub read_file {
     $self->run_callbacks('after_load_file', $fname, $self->{job}->{source_language}, \$data);
 
     return ($data, $hash);
+}
+
+sub serialize_file_content {
+    my ($self, $strref) = @_;
+
+    my $enc = $self->{job}->{output_encoding};
+    my $text;
+
+    # print BOM
+    if ($self->{job}->{output_bom}) {
+        $text = "\xFF\xFE"         if  (uc($enc) eq 'UTF-16LE');
+        $text = "\xFE\xFF"         if ((uc($enc) eq 'UTF-16BE') || (uc($enc) eq 'UTF-16'));
+        $text = "\xFF\xFE\x00\x00" if  (uc($enc) eq 'UTF-32LE');
+        $text = "\x00\x00\xFE\xFF" if ((uc($enc) eq 'UTF-32BE') || (uc($enc) eq 'UTF-32'));
+        $text = "\xEF\xBB\xBF"     if  (uc($enc) eq 'UTF-8');
+    }
+
+    # append content
+    $text .= encode($enc, $$strref);
+
+    return ($text, generate_hash($text));
 }
 
 sub clear_disambiguation_cache {
@@ -1542,7 +1569,13 @@ sub generate_localized_files_for_file_lang {
         }
     }
 
-    my ($src) = $self->read_file($srcpath);
+    my $src;
+    if ($self->{job}->{parser_object}->can('read_file')) {
+        print "\t\tParser will handle file reading\n" if $self->{debug};
+        ($src) = $self->{job}->{parser_object}->read_file($srcpath);
+    } else {
+        ($src) = $self->read_file($srcpath);
+    }
 
     $result = combine_and(1, $self->run_callbacks('can_generate_localized_file_source', $file, $lang, \$src));
     if ($result eq '0') {
@@ -1591,22 +1624,13 @@ sub generate_localized_files_for_file_lang {
 
     $self->run_callbacks('before_save_localized_file', $file, $lang, \$out);
 
-    my $enc = $self->{job}->{output_encoding};
-    my $text;
-
-    # print BOM
-    if ($self->{job}->{output_bom}) {
-        $text = "\xFF\xFE"         if  (uc($enc) eq 'UTF-16LE');
-        $text = "\xFE\xFF"         if ((uc($enc) eq 'UTF-16BE') || (uc($enc) eq 'UTF-16'));
-        $text = "\xFF\xFE\x00\x00" if  (uc($enc) eq 'UTF-32LE');
-        $text = "\x00\x00\xFE\xFF" if ((uc($enc) eq 'UTF-32BE') || (uc($enc) eq 'UTF-32'));
-        $text = "\xEF\xBB\xBF"     if  (uc($enc) eq 'UTF-8');
+    my ($text, $current_hash);
+    if ($self->{job}->{parser_object}->can('serialize')) {
+        print "\t\tParser will handle serialization\n" if $self->{debug};
+        ($text, $current_hash) = $self->{job}->{parser_object}->serialize(\$out);
+    } else {
+        ($text, $current_hash) = $self->serialize_file_content(\$out);
     }
-
-    # append content
-    $text .= encode($enc, $out);
-
-    my $current_hash = generate_hash($text);
     my $old_hash = $self->{db}->get_property("target:$filekey:$lang");
 
     if ($self->{job}->{optimizations}
@@ -1635,10 +1659,17 @@ sub generate_localized_files_for_file_lang {
 
         # Writing the entire file
         print "\t\tSaving $fullpath, because ".join(', ', @reasons);
-        open(OUT, ">$fullpath") || die "Can't write to [$fullpath]: $!";
-        binmode(OUT);
-        print OUT $text;
-        close(OUT);
+
+        if ($self->{job}->{parser_object}->can('write_file')) {
+            print "\t\tParser will handle file writing\n" if $self->{debug};
+            ($text, $current_hash) = $self->{job}->{parser_object}->write_file($fullpath, \$text);
+        } else {
+            open(OUT, ">$fullpath") || die "Can't write to [$fullpath]: $!";
+            binmode(OUT);
+            print OUT $text;
+            close(OUT);
+        }
+
         my $size = -s $fullpath;
         print " ($size bytes)\n";
 

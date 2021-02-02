@@ -134,7 +134,13 @@ sub parse_localized_files_for_file_lang {
 
     # Getting plugin object
 
-    my ($src) = $self->read_file($fullpath);
+    my $src;
+    if ($self->{job}->{parser_object}->can('read_file')) {
+        print "\t\tParser will handle file reading\n" if $self->{debug};
+        ($src) = $self->{job}->{parser_object}->read_file($fullpath);
+    } else {
+        ($src) = $self->read_file($fullpath);
+    }
 
     # clear disambiguation cache
     $self->clear_disambiguation_cache();
