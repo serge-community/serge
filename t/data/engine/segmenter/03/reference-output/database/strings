@@ -1,0 +1,6 @@
+strings
+{
+    0    1 2 `Line one` NO 0
+    1    2 4 `Line two` NO 0
+    2    3 6 `line three` NO 0
+}
