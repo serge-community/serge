@@ -24,6 +24,8 @@ sub init {
             token       => 'STRING',
             project_id  => 'STRING',
             project_dir => 'STRING',
+            pull_params => 'STRING',
+            push_params => 'STRING',
             debug       => 'BOOLEAN',
         }
     );
@@ -119,16 +121,21 @@ sub strip_sensitive_info {
 sub pull_ts {
     my ($self, $langs) = @_;
 
-    return $self->run_smartcat_cli('pull --skip-missing', $langs);
+    my $params = 'pull --skip-missing';
+    if ($self->{data}->{pull_params} ne '') {
+        $params .= ' ' . $self->{data}->{pull_params};
+    }
+    return $self->run_smartcat_cli($params, $langs);
 }
 
 sub push_ts {
     my ($self, $langs) = @_;
 
-    return $self->run_smartcat_cli(
-        'push --disassemble-algorithm-name="Serge.io PO" --delete-not-existing',
-        $langs
-    );
+    my $params = 'push --disassemble-algorithm-name="Serge.io PO" --delete-not-existing';
+    if ($self->{data}->{push_params} ne '') {
+        $params .= ' ' . $self->{data}->{push_params};
+    }
+    return $self->run_smartcat_cli($params, $langs);
 }
 
 1;
