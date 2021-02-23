@@ -75,13 +75,6 @@ sub segment_source {
     # <text> <split string> <text> <split string> <text> ...
     my @chunks = split($self->{split_re}, $source_string);
 
-    #print "!!!====================================\n";
-    #print "!!!split_re=[$self->{split_re}]\n";
-    #print ">>>[$source_string]\n";
-    #print "!!!====================================\n";
-    #print "<<<[".join("][", @chunks)."]\n";
-    #print "!!!====================================\n";
-
     my $is_splitter = undef;
     @chunks = map {
         my @out;
