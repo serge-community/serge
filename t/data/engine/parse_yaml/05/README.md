@@ -1,0 +1,1 @@
+Test for boolean values.
