@@ -51,17 +51,57 @@ sub validate_data {
         $paths = $self->{data}->{remote_path} = {'' => $paths};
     }
 
-    # do not allow deeply nested subdirectory structure, since this would complicate directory structure cleanup
-    # so make sure each key contains only latin characters, digits, underscore, hyphen or dot
-    # (sans directory names like '.' or '..')
+    # make sure each key contains only Latin characters, digits, underscore,
+    # hyphen, dot, or forward slashes; then exclude directory names like '.' or '..'
     foreach (keys %$paths) {
-        die "Not a valid subdirectory name: '$_'" if ($_ ne '') && ($_ !~ m/^[\w\.\-]+$/ || $_ =~ m/^\.+$/);
+        die "Not a valid subdirectory name: '$_'" if ($_ ne '') && ($_ !~ m/^[\w\.\-\/]+$/ || $_ =~ m/^\.+$/);
     }
 
     # Expand macros (environment variables) in paths
     foreach (keys %$paths) {
         $self->{data}->{remote_path}->{$_} = subst_macros($self->{data}->{remote_path}->{$_});
     }
+}
+
+sub _check_folder {
+    my ($self, $data_path, $subpath, $parent_folders) = @_;
+    my $local_path = $subpath eq '' ? $data_path : $data_path.'/'.$subpath;
+
+    # if the target folder doesn't exist, quit early
+    return 1 if !-e $local_path;
+
+    print "\nChecking folder $local_path\n";
+
+    my @a = get_directory_contents($local_path);
+
+    # delete files and directories that shouldn't be there
+    foreach my $entry (@a) {
+        my $path = $subpath eq '' ? $entry : $subpath.'/'.$entry;
+        my $fullpath = $local_path.'/'.$entry;
+        if (-f $fullpath) {
+            # allow Apple-specific file to reside in the directory
+            next if $path eq '.DS_Store';
+
+            if ($self->{initialize}) {
+                print "Deleting file '$fullpath'\n";
+                unlink($fullpath);
+            } else {
+                print "ERROR: file '$fullpath' should not be present in the local project folder\n";
+                return undef; # error
+            }
+        } elsif (-d $fullpath
+            && !exists $parent_folders->{$path}
+            && !exists $self->{data}->{remote_path}->{$path}) {
+
+            if ($self->{initialize}) {
+                $self->_delete_directory($fullpath);
+            } else {
+                print "ERROR: directory '$fullpath' should not be present in the local project folder\n";
+                return undef; # error
+            }
+        }
+    }
+    return 1; # ok
 }
 
 sub checkout_all {
@@ -75,35 +115,23 @@ sub checkout_all {
 
     my $init_errors_found = undef;
 
-    # if the root project data directory is not under VCS control,
-    # see if it contains some random (old) data, and if yes, clean it up
-    if (!exists $paths->{''}) {
-        my $local_path = $data_path;
-        my @a = get_directory_contents($local_path);
+    # based on the list of target paths, prepare a list of parent folders
+    # to check or clean up
+    my $parent_folders = {};
 
-        # delete files and directories that shouldn't be there
-        foreach my $path (@a) {
-            my $fullpath = $data_path.'/'.$path;
-            if (-f $fullpath) {
-                # allow Apple-specific file to reside in the directory
-                next if $path eq '.DS_Store';
+    foreach my $path (keys %$paths) {
+        my @a = split(/\//, $path);
+        pop @a; # get the parent one
 
-                if ($self->{initialize}) {
-                    print "Deleting file '$fullpath'\n";
-                    unlink($fullpath);
-                } else {
-                    print "ERROR: file '$fullpath' should not be present in the local project folder\n";
-                    $init_errors_found = 1;
-                }
-            } elsif (-d $fullpath && !exists $paths->{$path}) {
-                if ($self->{initialize}) {
-                    $self->_delete_directory($fullpath);
-                } else {
-                    print "ERROR: directory '$fullpath' should not be present in the local project folder\n";
-                    $init_errors_found = 1;
-                }
-            }
+        while (@a > 0) {
+            $parent_folders->{join('/', @a)} = 1;
+            $parent_folders->{''} = 1; # check the root as well
+            pop @a;
         }
+    }
+
+    foreach my $path (sort keys %$parent_folders) {
+        $init_errors_found ||= !$self->_check_folder($data_path, $path, $parent_folders);
     }
 
     # then go through each subfolder
