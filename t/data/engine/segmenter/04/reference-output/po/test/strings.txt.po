@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#: File: strings.txt
+#: ID: 7e2803c8fffdbb31e7384187cc84b9e4
+msgid "line 1"
+msgstr "ļĩŋē 1"
+
+#: File: strings.txt
+#: ID: 1ee002ab7ed5625bfeef76bed8279523
+msgid "line 2"
+msgstr "ļĩŋē 2"
+
+#: File: strings.txt
+#: ID: df4b078e642930c40eedf0c1d2a43fa1
+msgid " "
+msgstr " "
+
+#: File: strings.txt
+#: ID: 145a3899709590882ad97ddd80c3ba7e
+msgid "line 3"
+msgstr "ļĩŋē 3"
+
+#: File: strings.txt
+#: ID: d9828156e763b2db0d879844d86cc54a
+msgid "line 4"
+msgstr "ļĩŋē 4"

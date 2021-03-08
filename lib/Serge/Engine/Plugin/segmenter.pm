@@ -80,6 +80,11 @@ sub segment_source {
         my @out;
         if ($is_splitter) {
             @out = ($_); # return splitter as is
+        } elsif ($_ =~ m/^\s+$/) {
+            # for whitespace-only strings, return whitespace as is,
+            # as otherwise the sentence-based segmenter
+            # will return incorrect results
+            @out = ($_);
         } else {
             # if we have an extra splitter, return the array
             if ($self->{data}->{split_sentences}) {
