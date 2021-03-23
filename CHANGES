@@ -88,6 +88,8 @@ Pending release
         - `replace_strings` plugin now supports newly added `rewrite_context`,
           `rewrite_hint` and `rewrite_key` callbacks.
 
+        - Added support for UTF-8 filenames under Unix.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
