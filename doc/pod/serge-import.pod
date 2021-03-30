@@ -47,6 +47,12 @@ the ordering and the number of ambiguous keys in all files (both original
 and localized) is the same, otherwise you might end up importing
 wrong translations for wrong keys.
 
+=item B<--as-fuzzy>
+
+Import all translations as fuzzy (i.e. requiring review). This is helpful
+when one wants to import previously existing translations, but wants to do
+an initial review of imported strings.
+
 =item B<--force-same>
 
 By default, translations that are identical to source strings are not imported.

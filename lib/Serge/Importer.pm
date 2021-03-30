@@ -399,7 +399,7 @@ sub parse_localized_file_callback {
     }
 
     if (!$is_same || $self->{force_same}) {
-        $self->{db}->set_translation($item_id, $lang, $translation, undef, undef, 0) unless $self->{dry_run};
+        $self->{db}->set_translation($item_id, $lang, $translation, $self->{as_fuzzy}, undef, 0) unless $self->{dry_run};
     }
 
     return $translation;
