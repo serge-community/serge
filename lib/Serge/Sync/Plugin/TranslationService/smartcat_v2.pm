@@ -56,13 +56,6 @@ sub validate_data {
     if ($self->{data}->{project_dir} eq '') {
         $self->determine_project_dir;
     }
-
-    if (!-d $self->{data}->{project_dir}) {
-        die sprintf(
-            "ERROR: 'project_dir' (%s) does not point to a valid directory. Run 'serge localize' to generate translation files first.\n",
-            $self->{data}->{project_dir}
-        );
-    }
 }
 
 sub determine_project_dir {
@@ -122,6 +115,12 @@ sub strip_sensitive_info {
 sub pull_ts {
     my ($self, $langs) = @_;
 
+    my $dir = $self->{data}->{project_dir};
+    if (!-d $dir) {
+        print "'project_dir' ($dir) does not exist. Run `serge localize` first.\n";
+        return;
+    }
+
     my $params = 'pull --skip-missing';
     if ($self->{data}->{pull_params} ne '') {
         $params .= ' ' . $self->{data}->{pull_params};
@@ -131,6 +130,12 @@ sub pull_ts {
 
 sub push_ts {
     my ($self, $langs) = @_;
+
+    my $dir = $self->{data}->{project_dir};
+    if (!-d $dir) {
+        print "'project_dir' ($dir) does not exist. Run `serge localize` first.\n";
+        return;
+    }
 
     my $params = 'push --disassemble-algorithm-name="Serge.io PO" --delete-not-existing';
     if ($self->{data}->{push_params} ne '') {
