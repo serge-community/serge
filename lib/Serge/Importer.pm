@@ -239,6 +239,15 @@ sub parse_source_file_callback {
     my $item_id;
     if ($self->{dry_run}) {
         # Normalize parameters
+
+        my $norm = $self->{job}->{normalize_strings};
+        $norm = undef if is_flag_set($flagsref, 'dont-normalize');
+        $norm = 1 if is_flag_set($flagsref, 'normalize');
+
+        if ($norm) {
+            normalize_strref(\$string);
+        }
+
         $string = NFC($string) if ($string =~ m/[^\x00-\x7F]/);
         $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
         $key = NFC($key) if ($key =~ m/[^\x00-\x7F]/);
@@ -263,6 +272,14 @@ sub parse_localized_file_callback {
     my ($self, $translation, $context, $hint, $flagsref, $lang, $key) = @_;
 
     # Normalize parameters
+
+    my $norm = $self->{job}->{normalize_strings};
+    $norm = undef if is_flag_set($flagsref, 'dont-normalize');
+    $norm = 1 if is_flag_set($flagsref, 'normalize');
+
+    if ($norm) {
+        normalize_strref(\$translation);
+    }
 
     $hint = NFC($hint) if ($hint =~ m/[^\x00-\x7F]/);
     $translation = NFC($translation) if ($translation =~ m/[^\x00-\x7F]/);

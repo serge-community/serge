@@ -93,6 +93,8 @@ Pending release
 
         - Added support for UTF-8 filenames under Unix.
 
+        - `normalize_strings` parameter is now obeyed by `serge import`.
+
 1.4     July 30, 2019
 
         - Support `--lang` parameter in `serge pull-ts` and `serge push-ts`
