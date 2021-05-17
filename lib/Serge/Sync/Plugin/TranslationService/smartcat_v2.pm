@@ -2,7 +2,8 @@ package Serge::Sync::Plugin::TranslationService::smartcat_v2;
 use parent Serge::Sync::Plugin::Base::TranslationService, Serge::Interface::SysCmdRunner;
 
 use strict;
-use warnings;
+
+no warnings qw(uninitialized);
 
 use File::Basename;
 use File::Spec::Functions qw(rel2abs);
