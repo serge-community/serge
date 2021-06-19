@@ -1,0 +1,1 @@
+Test for streaming_mode parsing with arrays of mixed values.

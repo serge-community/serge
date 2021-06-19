@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /oneItem[0]
+#: File: test.json
+#: ID: d4962e0a3426ad69a6e8a923fbc9adfe
+msgid "test"
+msgstr "ţēšţ"
+
+#. /threeItems[0]
+#: File: test.json
+#: ID: f32882676e66210bc8782ef5a664e93e
+msgid "Monday"
+msgstr "Ḿőŋđáŷ"
+
+#. /threeItems[1]
+#: File: test.json
+#: ID: a2835afc1877f7ad97867b5cb6db7685
+msgid "Tuesday"
+msgstr "Ŧũēšđáŷ"
+
+#. /threeItems[2]
+#: File: test.json
+#: ID: 3e6b76a1907b94e35b2a75fa7c390a77
+msgid "Wednesday"
+msgstr "Ŵēđŋēšđáŷ"
+
+#. /mixedItems[0]
+#: File: test.json
+#: ID: b9654bb58db28f9c09099c29f2897d78
+msgid "foo"
+msgstr "ḟőő"
+
+#. /mixedItems[1]/subItem
+#: File: test.json
+#: ID: 05c382b374518cc317f4ec0f98409fa0
+msgid "bar"
+msgstr "ḃáŕ"
+
+#. /mixedItems[2]
+#: File: test.json
+#: ID: 39c07b0474e55bea1855fc74a2f9b4ab
+msgid "baz"
+msgstr "ḃáž"
+
+#. /nestedArrays[0]
+#: File: test.json
+#: ID: df4638a39025bee17ae3649d8f879832
+msgid "one"
+msgstr "őŋē"
+
+#. /nestedArrays[1][0]
+#: File: test.json
+#: ID: d9982d563e59c4f8ab9b0534731a6992
+msgid "two"
+msgstr "ţŵő"
+
+#. /nestedArrays[1][1]
+#: File: test.json
+#: ID: b25fd45a3dfc5a7708d0d40a0249737c
+msgid "three"
+msgstr "ţĥŕēē"
+
+#. /nestedArrays[2]
+#: File: test.json
+#: ID: 5915c7168faab8fc855e82e17aeb9ff5
+msgid "four"
+msgstr "ḟőũŕ"
+
+#. /mixedItems2[0]
+#: File: test.json
+#: ID: de9e0c0189a5cfa4efdcb8392b4d6b8f
+msgctxt "/mixedItems2[0]"
+msgid "one"
+msgstr "őŋē"
+
+#. /mixedItems2[1][0]
+#: File: test.json
+#: ID: 783eb5fae202ce0569cb430861db04db
+msgctxt "/mixedItems2[1][0]"
+msgid "two"
+msgstr "ţŵő"
+
+#. /mixedItems2[1][1]
+#: File: test.json
+#: ID: df613d3336d0829f34047eb72539e28d
+msgctxt "/mixedItems2[1][1]"
+msgid "three"
+msgstr "ţĥŕēē"
+
+#. /mixedItems2[2]/subItem
+#: File: test.json
+#: ID: b0f071142897bcfd4f05123135993eec
+msgctxt "/mixedItems2[2]/subItem"
+msgid "four"
+msgstr "ḟőũŕ"
