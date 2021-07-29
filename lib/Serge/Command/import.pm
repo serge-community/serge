@@ -236,7 +236,7 @@ sub run {
 </style>
 <body>
 
-<h1>Serge Import Report for '$lang' Language</h1>
+<h1>Import Report for '$lang' Language</h1>
 
 <table class="summary">
 $html_error_totals
