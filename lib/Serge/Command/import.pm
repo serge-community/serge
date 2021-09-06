@@ -149,6 +149,7 @@ sub run {
         font-weight: 400;
         font-size: 120%;
         color: #0af;
+        word-break: break-word;
     }
 
     tr.notice td {
@@ -181,6 +182,7 @@ sub run {
     .details td {
         width: 50%;
         position: relative;
+        word-break: break-word;
     }
 
     tr.key.status td {
