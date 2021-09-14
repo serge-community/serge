@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file datatype="x-unknown" original="messages.json" source-language="en" target-language="zh-CN">
         <body>
-            <trans-unit approved="yes" id="37881f5ca702bb268877e4edb0edc83d" xml:space="preserve">
+            <trans-unit id="37881f5ca702bb268877e4edb0edc83d" xml:space="preserve">
                 <source xml:lang="en">Value 1</source>
                 <target state="new" xml:lang="zh-CN" />
                 <note from="developer">Description 1</note>
@@ -12,7 +12,7 @@
                     <context context-type="x-serge-context">string1</context>
                 </context-group>
             </trans-unit>
-            <trans-unit approved="yes" id="7d8ec73df55728a29c38a9f7741aefa6" xml:space="preserve">
+            <trans-unit id="7d8ec73df55728a29c38a9f7741aefa6" xml:space="preserve">
                 <source xml:lang="en">Value 2</source>
                 <target state="new" xml:lang="zh-CN" />
                 <note from="developer">Description 2</note>
@@ -22,7 +22,7 @@
                     <context context-type="x-serge-context">string2</context>
                 </context-group>
             </trans-unit>
-            <trans-unit approved="yes" id="8d1512246f4e8f44726fbe2f99e7e8b8" xml:space="preserve">
+            <trans-unit id="8d1512246f4e8f44726fbe2f99e7e8b8" xml:space="preserve">
                 <source xml:lang="en">Value 3</source>
                 <target state="new" xml:lang="zh-CN" />
                 <note from="developer">Description 3</note>
