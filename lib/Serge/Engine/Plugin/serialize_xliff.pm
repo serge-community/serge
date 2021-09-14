@@ -54,7 +54,7 @@ sub serialize {
 
         $unit_element->set_att('xml:space' => 'preserve');
 
-        if ($source_lang ne $lang) {
+        if ($source_lang ne $lang && $unit->{target} ne '') {
             my $approved = $unit->{fuzzy} ? "no" : "yes";
 
             $unit_element->set_att(approved => $approved);
