@@ -6,12 +6,12 @@ properties
     3     4 items:1 1,2,3,4,5,6,7,8,9,10
     4     5 ts:1:test:count 10
     5     6 usn:1:test 31
-    6     7 ts:1:test 24f7b6d4d6b16c59caad19fc61e9fbf9
+    6     7 ts:1:test a69ed4795a2bdc939e2f17ccd5ab4a25
     7     8 target:1:test_job:test 5f07e52f82ac89735a29e9f137b7efae
     8     9 target:mtime:1:test_job:test 12345678
     9     10 source:1:test_job:test cc03a58c47e5b3cbf3ad51c7080a7737
     10    11 source:ts:1:test_job:test
-          24f7b6d4d6b16c59caad19fc61e9fbf9
+          a69ed4795a2bdc939e2f17ccd5ab4a25
     11    12 job-hash:test_namespace:test_job
           b36b5bcb4a97188c5881440ad91026a0
     12    13 job-plugin:test_namespace:test_job parse_xml.

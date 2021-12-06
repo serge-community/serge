@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /item/name
+#: File: strings.xml
+#: ID: fd71e98aa1bf6dc92475241555960b44
+msgid "Foo"
+msgstr "Ḟőő"
+
+#: File: strings.xml
+#: ID: 2d8bab2917864cf8b0a10dbf68a583bb
+msgid "Paragraph one."
+msgstr "Ṕáŕáğŕáṕĥ őŋē."
+
+#: File: strings.xml
+#: ID: 4c38e93c90d15199813806c7d763b17e
+msgid "Paragraph two."
+msgstr "Ṕáŕáğŕáṕĥ ţŵő."

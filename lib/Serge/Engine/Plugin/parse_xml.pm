@@ -410,9 +410,14 @@ sub process_text_node {
                 }
             }
 
+            my $nested_html_callbackref = sub {
+                my ($string, $context, $hint, $flagsref, $lang, $key) = @_;
+                &$callbackref($string, $context, $hint, $flagsref, $lang, $path.$key);
+            };
+
             $self->{html_parser}->{current_file_rel} = $self->{parent}->{engine}->{current_file_rel}.":$path";
             if ($lang) {
-                $$strref = $self->{html_parser}->parse($strref, $callbackref, $lang);
+                $$strref = $self->{html_parser}->parse($strref, $nested_html_callbackref, $lang);
                 if (defined $$strref) {
                     # escape unsafe xml chars unless we're in CDATA block
                     xml_escape_strref($strref, $noquotes) unless $cdata;
@@ -420,16 +425,16 @@ sub process_text_node {
                     $$strref = $trimmed;
                 }
             } else {
-                $self->{html_parser}->parse($strref, $callbackref);
+                $self->{html_parser}->parse($strref, $nested_html_callbackref);
             }
         } else {
             # additionally unescape Android-specific stuff, if requested
             _android_unescape($strref) if ($self->{data}->{xml_kind_android});
 
             if ($lang) {
-                $$strref = &$callbackref($$strref, undef, $comment, undef, $lang);
+                $$strref = &$callbackref($$strref, undef, $comment, undef, $lang, $path);
             } else {
-                &$callbackref($$strref, undef, $comment, undef, undef);
+                &$callbackref($$strref, undef, $comment, undef, undef, $path);
             }
 
             # escape Android-specific stuff if requested

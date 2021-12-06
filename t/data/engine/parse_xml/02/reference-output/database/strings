@@ -5,21 +5,9 @@ strings
     2    3 6 `Make this text short if possible` NO 0
     3    4 8 `Menu option` NO 0
     4    5 10 `Blog Post` NO 0
-    5    6 12 `Menu option`
-         `/item/linknames/blog@description
-
-description = Menu option`
-         0
+    5    6 12 `Menu option` /item/linknames/blog@description 0
     6    7 14 `Gadget Website` NO 0
-    7    8 16 `Menu option`
-         `/item/linknames/homepage@description
-
-description = Menu option`
-         0
+    7    8 16 `Menu option` /item/linknames/homepage@description 0
     8    9 18 `Gadget Support` NO 0
-    9    10 20 `Menu option`
-         `/item/linknames/support@description
-
-description = Menu option`
-         0
+    9    10 20 `Menu option` /item/linknames/support@description 0
 }
