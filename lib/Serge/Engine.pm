@@ -469,8 +469,7 @@ sub update_database_from_source_files {
     my $time = tv_interval($start, $end);
     my $files_found = scalar(@{$self->{found_files}});
     print("Scanned in $time sec, $files_found files match the criteria\n");
-
-    die "No files match the search criteria. Please reconfigure your job" unless $files_found;
+    print "WARNING: No files match the search criteria. Please reconfigure your job\n" unless $files_found;
 
     # compare the list with the one in the database and see how many files are new,
     # an how many of them are orphaned (and mark them as such), or remove the orphaned
