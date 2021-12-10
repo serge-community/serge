@@ -181,11 +181,11 @@ sub disambiguate_key {
     if (exists $store->{$key}) {
         die "Shouldn't disambiguate when disambiguate_keys is not enabled" unless $self->{disambiguate_keys};
 
-        my $n = 1;
+        my $n = 0;
         my $base_key = $key;
         do {
             $n++;
-            $key = "$base_key.$n";
+            $key = "$base_key:$n";
         } while exists $store->{$key};
     }
 
