@@ -850,6 +850,8 @@ sub segmentation_wrapper_callback {
     # can vary (for example, $key many not be passed back from a parser)
     my ($self, $original_callback, $string, $context, $hint, $flagsref, $lang, $key) = @_;
 
+    $self->normalize_strref_considering_flags(\$string, $flagsref);
+
     # if segment_source callback returns any scalar value,
     # it will be auto-converted to a one-item array, which will mean
     # no segmentation is necessary
@@ -1656,8 +1658,8 @@ sub generate_localized_files_for_file_lang {
     $self->run_callbacks('after_save_localized_file', $file, $lang, \$text);
 }
 
-sub generate_localized_files_for_file_lang_callback {
-    my ($self, $string, $context, $hint, $flagsref, $lang, $key) = @_;
+sub normalize_strref_considering_flags {
+    my ($self, $strref, $flagsref) = @_;
 
     # Normalize parameters
 
@@ -1666,8 +1668,14 @@ sub generate_localized_files_for_file_lang_callback {
     $norm = 1 if is_flag_set($flagsref, 'normalize');
 
     if ($norm) {
-        normalize_strref(\$string);
+        normalize_strref($strref);
     }
+}
+
+sub generate_localized_files_for_file_lang_callback {
+    my ($self, $string, $context, $hint, $flagsref, $lang, $key) = @_;
+
+    $self->normalize_strref_considering_flags(\$string, $flagsref);
 
     if ($string eq '') {
         print "::skipping empty string\n" if $self->{debug};
