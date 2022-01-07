@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item title="homepage" description="localizable strings for the homepage">
+    <about title="Press this button to go to About page" alt="About button">About</about>
+    <support title="Press this button to go to Suport page" alt="Support button">Support</support>
+</item>

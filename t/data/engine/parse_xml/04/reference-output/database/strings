@@ -1,0 +1,9 @@
+strings
+{
+    0    1 2 About NO 0
+    1    2 4 `About button` NO 0
+    2    3 6 `Press this button to go to About page` NO 0
+    3    4 8 Support NO 0
+    4    5 10 `Support button` NO 0
+    5    6 12 `Press this button to go to Suport page` NO 0
+}
