@@ -1,0 +1,9 @@
+properties
+{
+    0    1 job-hash:test_namespace:test_job
+         c46da60eb96beb211ef40fa3817f975b
+    1    2 job-plugin:test_namespace:test_job parse_csv.
+    2    3 job-serializer-plugin:test_namespace:test_job
+         serialize_po.
+    3    4 job-engine:test_namespace:test_job 1.4
+}

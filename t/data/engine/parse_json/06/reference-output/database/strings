@@ -1,0 +1,18 @@
+strings
+{
+    0     1 2 test NO 0
+    1     2 4 Monday NO 0
+    2     3 6 Tuesday NO 0
+    3     4 8 Wednesday NO 0
+    4     5 10 foo NO 0
+    5     6 12 bar NO 0
+    6     7 14 baz NO 0
+    7     8 16 one NO 0
+    8     9 18 two NO 0
+    9     10 20 three NO 0
+    10    11 22 four NO 0
+    11    12 24 one /mixedItems2[0] 0
+    12    13 26 two /mixedItems2[1][0] 0
+    13    14 28 three /mixedItems2[1][1] 0
+    14    15 30 four /mixedItems2[2]/subItem 0
+}

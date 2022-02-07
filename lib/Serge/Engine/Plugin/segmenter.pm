@@ -75,18 +75,16 @@ sub segment_source {
     # <text> <split string> <text> <split string> <text> ...
     my @chunks = split($self->{split_re}, $source_string);
 
-    #print "!!!====================================\n";
-    #print "!!!split_re=[$self->{split_re}]\n";
-    #print ">>>[$source_string]\n";
-    #print "!!!====================================\n";
-    #print "<<<[".join("][", @chunks)."]\n";
-    #print "!!!====================================\n";
-
     my $is_splitter = undef;
     @chunks = map {
         my @out;
         if ($is_splitter) {
             @out = ($_); # return splitter as is
+        } elsif ($_ =~ m/^\s+$/) {
+            # for whitespace-only strings, return whitespace as is,
+            # as otherwise the sentence-based segmenter
+            # will return incorrect results
+            @out = ($_);
         } else {
             # if we have an extra splitter, return the array
             if ($self->{data}->{split_sentences}) {

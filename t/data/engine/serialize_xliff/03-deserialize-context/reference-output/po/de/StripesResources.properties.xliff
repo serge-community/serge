@@ -23,7 +23,7 @@
                     <context context-type="x-serge-file-id">1</context>
                 </context-group>
             </trans-unit>
-            <trans-unit approved="yes" id="b2ec9e2f7eb5151d3db4591441d4e0d1" xml:space="preserve">
+            <trans-unit id="b2ec9e2f7eb5151d3db4591441d4e0d1" xml:space="preserve">
                 <source xml:lang="en">bar3</source>
                 <target state="new" xml:lang="de" />
                 <note from="developer">foo3</note>

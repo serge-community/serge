@@ -47,11 +47,8 @@ msgstr "Ḃļőğ Ṕőšţ"
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: f2d128f869434a88ba3427fb0a801af0
-msgctxt ""
-"/item/linknames/blog@description\n"
-"\n"
-"description = Menu option"
+#: ID: 18e897e20d33218e21b0acb802ef148b
+msgctxt "/item/linknames/blog@description"
 msgid "Menu option"
 msgstr "Ḿēŋũ őṕţĩőŋ"
 
@@ -65,11 +62,8 @@ msgstr "Ĝáđğēţ Ŵēḃšĩţē"
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: 00de5736db7e003598afa97c9d54ae69
-msgctxt ""
-"/item/linknames/homepage@description\n"
-"\n"
-"description = Menu option"
+#: ID: 486eb311dd092e29c78622c67b663c83
+msgctxt "/item/linknames/homepage@description"
 msgid "Menu option"
 msgstr "Ḿēŋũ őṕţĩőŋ"
 
@@ -83,10 +77,7 @@ msgstr "Ĝáđğēţ Šũṕṕőŕţ"
 #. 
 #. description = Menu option
 #: File: strings.xml
-#: ID: afcbf74824d7d0c428f3996c1f7ad881
-msgctxt ""
-"/item/linknames/support@description\n"
-"\n"
-"description = Menu option"
+#: ID: aab12a6e59ca3e8f023c847a4d23a42e
+msgctxt "/item/linknames/support@description"
 msgid "Menu option"
 msgstr "Ḿēŋũ őṕţĩőŋ"

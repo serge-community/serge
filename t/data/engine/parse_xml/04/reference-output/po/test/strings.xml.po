@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. /item/about
+#. 
+#. description = localizable strings for the homepage
+#: File: strings.xml
+#: ID: 78e8a7f4173de7bc8efcbd3319cb492f
+msgid "About"
+msgstr "Āḃőũţ"
+
+#. /item/about@alt
+#: File: strings.xml
+#: ID: 478ab75a4ddf2d7c6bc3d640602a602d
+msgid "About button"
+msgstr "Āḃőũţ ḃũţţőŋ"
+
+#. /item/about@title
+#: File: strings.xml
+#: ID: 92c0ab7f0c4191d51d9d956588af5ce0
+msgid "Press this button to go to About page"
+msgstr "Ṕŕēšš ţĥĩš ḃũţţőŋ ţő ğő ţő Āḃőũţ ṕáğē"
+
+#. /item/support
+#. 
+#. description = localizable strings for the homepage
+#: File: strings.xml
+#: ID: 8d50b6f90ef92bad05fe721f38e2814c
+msgid "Support"
+msgstr "Šũṕṕőŕţ"
+
+#. /item/support@alt
+#: File: strings.xml
+#: ID: 7e23dcbdc84d3fe2f2b2c7617ea9af69
+msgid "Support button"
+msgstr "Šũṕṕőŕţ ḃũţţőŋ"
+
+#. /item/support@title
+#: File: strings.xml
+#: ID: cb54cccd97e667ac32e717a82b7d5771
+msgid "Press this button to go to Suport page"
+msgstr "Ṕŕēšš ţĥĩš ḃũţţőŋ ţő ğő ţő Šũṕőŕţ ṕáğē"

@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: test\n"
+"Generated-By: Serge 1.4\n"
+
+#. multiline-string
+#: File: strings.xml
+#: ID: a18ce8dbf432dbc4673682a211f5bdd9
+msgid "Line one"
+msgstr "Łĩŋē őŋē"
+
+#. multiline-string
+#: File: strings.xml
+#: ID: 23164332fee204d10e30dcae4ccf6deb
+msgid "Line two"
+msgstr "Łĩŋē ţŵő"
+
+#. multiline-string
+#: File: strings.xml
+#: ID: bbe2e239e90f6c0a3e8a8cb48be1fe8e
+msgid "line three"
+msgstr "ļĩŋē ţĥŕēē"

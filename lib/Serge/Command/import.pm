@@ -26,6 +26,7 @@ sub init {
         "lang|language|languages=s"   => \$self->{languages},
         "disambiguate-keys"           => \$self->{disambiguate_keys},
         "no-report"                   => \$self->{no_report},
+        "as-fuzzy"                    => \$self->{as_fuzzy},
         "force-same"                  => \$self->{force_same},
     ) or die "Failed to parse some command-line parameters.";
 }
@@ -39,6 +40,7 @@ sub run {
     $importer->{save_report} = 1 unless $self->{no_report};
     $importer->{debug} = 1 if $self->{parent}->{debug};
     $importer->{disambiguate_keys} = 1 if $self->{disambiguate_keys};
+    $importer->{as_fuzzy} = 1 if $self->{as_fuzzy};
     $importer->{force_same} = 1 if $self->{force_same};
 
     if ($self->{languages}) {
@@ -147,6 +149,7 @@ sub run {
         font-weight: 400;
         font-size: 120%;
         color: #0af;
+        word-break: break-word;
     }
 
     tr.notice td {
@@ -179,6 +182,7 @@ sub run {
     .details td {
         width: 50%;
         position: relative;
+        word-break: break-word;
     }
 
     tr.key.status td {
@@ -234,7 +238,7 @@ sub run {
 </style>
 <body>
 
-<h1>Serge Import Report for '$lang' Language</h1>
+<h1>Import Report for '$lang' Language</h1>
 
 <table class="summary">
 $html_error_totals

@@ -17,7 +17,8 @@ Pending release
         - `parse_php_xhtml` plugin now allows to fine-tune the list of tags
           processed by default (#120).
 
-        - `parse_yaml` parser now supports arrays.
+        - `parse_yaml` parser now supports arrays, and also skips
+          over boolean values.
 
         - Added `parse_locjson` plugin to parse monolingual LocJSON files
           (see https://github.com/iafan/LocJSON).
@@ -68,6 +69,9 @@ Pending release
           to source. A new flag, `--force-same`, was introduced to force
           the old behavior where such translations would be imported.
 
+        - `serge import` has a new flag, `--as-fuzzy`, that allows importing
+          translations as fuzzy ones (i.e. requiring review).
+
         - A new `smartcat_v2` synchronization plugin was added for Smartcat
           localization platform.
 
@@ -86,6 +90,10 @@ Pending release
 
         - `replace_strings` plugin now supports newly added `rewrite_context`,
           `rewrite_hint` and `rewrite_key` callbacks.
+
+        - Added support for UTF-8 filenames under Unix.
+
+        - `normalize_strings` parameter is now obeyed by `serge import`.
 
 1.4     July 30, 2019
 

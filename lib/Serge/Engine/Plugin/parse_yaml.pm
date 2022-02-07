@@ -9,6 +9,11 @@ use Serge::Mail;
 use Serge::Util qw(xml_escape_strref);
 use YAML::XS;
 
+# load boolean values as JSON::PP::Boolean objects
+# so that they can be skipped at translation time
+# and exported back as booleans
+$YAML::XS::Boolean = "JSON::PP";
+
 sub name {
     return 'Generic YAML tree parser plugin';
 }
@@ -192,6 +197,11 @@ sub parse {
 
 sub process_node {
     my ($self, $path, $subtree, $callbackref, $lang, $parent, $key, $is_array) = @_;
+
+    # skip boolean values
+    if (ref $subtree eq 'JSON::PP::Boolean') {
+        return;
+    }
 
     if (ref($subtree) eq 'HASH') {
         # hash

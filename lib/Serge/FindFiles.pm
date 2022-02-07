@@ -1,7 +1,9 @@
 package Serge::FindFiles;
 
 use strict;
+use utf8;
 
+no utf8;
 no warnings qw(uninitialized);
 
 use Config::Neat::Util qw(is_array is_neat_array);
@@ -41,6 +43,9 @@ sub process_subdir {
 
     opendir(my $dh, $dir);
     while (my $name = readdir $dh) {
+        if ($^O !~ /MSWin32/) { # assume we are on Unix if not on Windows
+            utf8::decode($name); # assume UTF8 filenames
+        }
         next if $name eq '.' || $name eq '..';
         my $subpath = $relpath ne '' ? $relpath.'/'.$name : $name; # relative path is always delimited by a forward slash (relative paths are platform-independent)
         my $fullpath = catfile($dir, $name);

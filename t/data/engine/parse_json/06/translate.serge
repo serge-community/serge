@@ -1,0 +1,18 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        source_match                             \.json$
+
+        parser
+        {
+            plugin                               parse_json
+
+            data
+            {
+                streaming_mode                   YES
+            }
+        }
+    }
+}

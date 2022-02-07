@@ -1,0 +1,7 @@
+{
+    "oneItem": ["test"],
+    "threeItems": ["Monday", "Tuesday", "Wednesday"],
+    "mixedItems": ["foo", { "subItem": "bar" }, "baz"],
+    "nestedArrays": ["one", [ "two", "three" ], "four"],
+    "mixedItems2": ["one", [ "two", "three" ], { "subItem": "four" }]
+}

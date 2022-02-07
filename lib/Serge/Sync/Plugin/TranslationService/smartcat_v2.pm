@@ -2,7 +2,8 @@ package Serge::Sync::Plugin::TranslationService::smartcat_v2;
 use parent Serge::Sync::Plugin::Base::TranslationService, Serge::Interface::SysCmdRunner;
 
 use strict;
-use warnings;
+
+no warnings qw(uninitialized);
 
 use File::Basename;
 use File::Spec::Functions qw(rel2abs);
@@ -24,6 +25,8 @@ sub init {
             token       => 'STRING',
             project_id  => 'STRING',
             project_dir => 'STRING',
+            pull_params => 'STRING',
+            push_params => 'STRING',
             debug       => 'BOOLEAN',
         }
     );
@@ -52,13 +55,6 @@ sub validate_data {
 
     if ($self->{data}->{project_dir} eq '') {
         $self->determine_project_dir;
-    }
-
-    if (!-d $self->{data}->{project_dir}) {
-        die sprintf(
-            "ERROR: 'project_dir' (%s) does not point to a valid directory. Run 'serge localize' to generate translation files first.\n",
-            $self->{data}->{project_dir}
-        );
     }
 }
 
@@ -119,16 +115,33 @@ sub strip_sensitive_info {
 sub pull_ts {
     my ($self, $langs) = @_;
 
-    return $self->run_smartcat_cli('pull --skip-missing', $langs);
+    my $dir = $self->{data}->{project_dir};
+    if (!-d $dir) {
+        print "'project_dir' ($dir) does not exist. Run `serge localize` first.\n";
+        return;
+    }
+
+    my $params = 'pull --skip-missing';
+    if ($self->{data}->{pull_params} ne '') {
+        $params .= ' ' . $self->{data}->{pull_params};
+    }
+    return $self->run_smartcat_cli($params, $langs);
 }
 
 sub push_ts {
     my ($self, $langs) = @_;
 
-    return $self->run_smartcat_cli(
-        'push --disassemble-algorithm-name="Serge.io PO" --delete-not-existing',
-        $langs
-    );
+    my $dir = $self->{data}->{project_dir};
+    if (!-d $dir) {
+        print "'project_dir' ($dir) does not exist. Run `serge localize` first.\n";
+        return;
+    }
+
+    my $params = 'push --disassemble-algorithm-name="Serge.io PO" --delete-not-existing';
+    if ($self->{data}->{push_params} ne '') {
+        $params .= ' ' . $self->{data}->{push_params};
+    }
+    return $self->run_smartcat_cli($params, $langs);
 }
 
 1;

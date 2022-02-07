@@ -1,0 +1,58 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+
+        destination_languages                    de
+
+        source_match                             \.txt$
+
+        parser
+        {
+            plugin                               parse_keyvalue
+        }
+
+        callback_plugins
+        {
+            # Use the `lib` directory with custom plugins.
+            {
+                plugin                          lib
+
+                data
+                {
+                    path                        lib
+                }
+            }
+
+            # Load the custom `uri` plugin that does nothing
+            # but has the `escape` function defined
+            # (so it can be called externally as `uri::escape`).
+            {
+                plugin                           ::uri
+            }
+
+            # Append the hint message with a preview URL where the path part
+            # that needs to be post-processed is marked up with `<<<` and `>>>`
+            {
+                plugin                           append_hint_message
+
+                data
+                {
+                    message                      Preview: https://example.com/<<<%FILE%>>>
+                }
+            }
+
+            # Use `replace_strings` plugin that would process all the text
+            # marked with `<<<` and `>>>` with the `uri::escape` function
+            {
+                plugin                           replace_strings
+                phase                            after_serialize_ts_file
+
+                data
+                {
+                    replace                      `<<<(.*?)>>>` `uri::escape($1)` ge
+                }
+            }
+        }
+    }
+}

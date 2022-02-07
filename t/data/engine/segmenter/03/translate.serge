@@ -1,0 +1,26 @@
+jobs
+{
+    {
+        @inherit                                 ../../common.serge#job_template
+        source_match                             \.xml$
+
+        parser
+        {
+            plugin                               parse_android
+        }
+
+        callback_plugins
+        {
+            :segment
+            {
+                plugin                           segmenter
+
+                data
+                {
+                    # split by a `\n` character sequence in the string
+                    split_regex                  \\n
+                }
+            }
+        }
+    }
+}

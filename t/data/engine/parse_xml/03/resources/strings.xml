@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item type="hardware">
+    <id>foo</id>
+    <name>Foo</name>
+    <description><![CDATA[
+        <p>Paragraph one.</p>
+        <p>Paragraph two.</p>
+    ]]></description>
+</item>

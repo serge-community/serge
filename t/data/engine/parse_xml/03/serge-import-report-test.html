@@ -1,0 +1,177 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<style>
+    @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,300italic);
+    body {
+        font-family: Roboto, sans-serif;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: 400;
+        margin: 1.5em 0 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        vertical-align: top;
+        padding: 0.4em;
+        border: 1px solid #ccc;
+    }
+
+    table.summary {
+        display: inline-block;
+        margin-top: 3em;
+    }
+
+    table.summary tr td:last-child {
+        text-align: right;
+    }
+
+    table.details {
+        width: 100%;
+    }
+
+    .details th {
+        padding: 3em 0 1em;
+        font-weight: 400;
+        font-size: 120%;
+        color: #0af;
+        word-break: break-word;
+    }
+
+    tr.notice td {
+        background-color: #fea;
+    }
+
+    tr.key.notice td {
+        background-color: #dc8;
+        color: #000;
+    }
+
+    tr.warning td {
+        background-color: #fcc;
+    }
+
+    tr.key.warning td {
+        background-color: #daa;
+        color: #000;
+    }
+
+    tr.error td {
+        background-color: #c00;
+        color: #fff;
+    }
+
+    tr.key.error td {
+        background-color: #a00;
+    }
+
+    .details td {
+        width: 50%;
+        position: relative;
+        word-break: break-word;
+    }
+
+    tr.key.status td {
+        background: none;
+        border: none;
+        color: #999;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 100%;
+    }
+
+    tr.key.status.notice td {
+        color: #c2ae60;
+    }
+
+    tr.key.status.error td {
+        color: #f00;
+    }
+
+    td .status {
+        font-style: italic;
+        position: absolute;
+        right: 0.4em;
+    }
+
+    .key td {
+        font-size: 80%;
+        color: #999;
+        background: #f8f8f8;
+        text-align: center;
+    }
+
+    p.footer {
+        margin: 3em 0;
+        font-style: italic;
+        font-size: 80%;
+        color: #999;
+    }
+
+    .br {
+        font-size: 70%;
+        background: #999;
+        color: white;
+        padding: 0 0.4em;
+        margin-left: 0.2em;
+        border-radius: 3px;
+    }
+
+    .br:before {
+        content: "SEP"
+    }
+
+</style>
+<body>
+
+<h1>Import Report for 'test' Language</h1>
+
+<table class="summary">
+
+<table>
+
+<table class="details">
+<tr><th colspan="2">strings.xml</th></tr>
+
+<tr class="key ">
+    <td colspan="2">/item/name</td>
+</tr>
+
+<tr>
+    <td>Foo</td>
+    <td>Ḟőő</td>
+</tr>
+
+<tr class="key ">
+    <td colspan="2">/item/description</td>
+</tr>
+
+<tr>
+    <td>Paragraph one.</td>
+    <td>Ṕáŕáğŕáṕĥ őŋē.</td>
+</tr>
+
+<tr class="key ">
+    <td colspan="2">/item/description.2</td>
+</tr>
+
+<tr>
+    <td>Paragraph two.</td>
+    <td>Ṕáŕáğŕáṕĥ ţŵő.</td>
+</tr>
+
+</table>
+
+<p class="footer">&mdash; end of document &mdash;</p>
+
+</body>
+</html>

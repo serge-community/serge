@@ -1,6 +1,9 @@
 package Serge::Command::clean_ts;
 use parent Serge::Command;
 
+use utf8;
+no utf8;
+
 use File::Basename;
 use File::Find qw(finddepth);
 use Getopt::Long;
@@ -83,7 +86,11 @@ sub run {
     my @ts_files;
 
     my $wanted = sub {
-        push @ts_files, $File::Find::name if (-f $_ && /\.po$/); # TODO: refactor; file extensions should not be hard-coded
+        my $name = $File::Find::name;
+        if ($^O !~ /MSWin32/) { # assume we are on Unix if not on Windows
+            utf8::decode($name); # assume UTF8 filenames
+        }
+        push @ts_files, $name if (-f $_ && /\.po$/); # TODO: refactor; file extensions should not be hard-coded
     };
 
     foreach my $dir (sort keys %ts_directories) {

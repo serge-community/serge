@@ -120,83 +120,75 @@ sub parse_json_as_stream {
     my ($self, $textref) = @_;
 
     my $jsonr = JSON::Streaming::Reader->for_string($textref);
-    my $root = {};
-    tie(%$root, 'Tie::IxHash');
-    my $node = $root;
+    my $node = {};
+    tie(%$node, 'Tie::IxHash');
+    my $root = $node;
     my $prop;
-    my $value;
     my $error;
     my @stack = ();
+
+    sub _add_value {
+        my ($value, $node, $prop) = @_;
+        $prop = $prop.'';
+
+        if (ref $node eq 'HASH') {
+            $node->{$prop} = $value;
+            return;
+        }
+        if (ref $node eq 'ARRAY') {
+            push @$node, $value;
+            return;
+        }
+        die "Unhandled parent node type ".(ref $node);
+    }
+
     $jsonr->process_tokens(
+        start_object => sub {
+            push @stack, [$node, $prop]; # save context
+            $node = {};
+            tie(%$node, 'Tie::IxHash');
+        },
+
         start_property => sub {
             my ($name) = @_;
             $prop = $name;
-            $value = undef;
-        },
-
-        start_object => sub {
-            $value = {};
-            tie(%$value, 'Tie::IxHash');
-            if (ref $node eq 'HASH') {
-                $node->{$prop} = $value;
-            }
-            if (ref $node eq 'ARRAY') {
-                push @$node, $value;
-            }
-            push @stack, $node;
-            $node = $value;
-            $value = undef;
-        },
-
-        end_object => sub {
-            $node = pop @stack;
-        },
-
-        start_array => sub {
-            $value = [];
-            if (ref $node eq 'HASH') {
-                $node->{$prop} = $value;
-            }
-            if (ref $node eq 'ARRAY') {
-                push @$node, $value;
-            }
-            push @stack, $node;
-            $node = $value;
-            $value = undef;
-        },
-
-        end_array => sub {
-            $node = pop @stack;
-        },
-
-        add_string => sub {
-            my ($s) = @_;
-            $value .= $s;
-        },
-
-        add_number => sub {
-            my ($n) = @_;
-            $value = $n;
-        },
-
-        add_boolean => sub {
-            my ($b) = @_;
-            $value = $b ? JSON::true : JSON::false;
-        },
-
-        add_null => sub {
-            $value = JSON::null;
         },
 
         end_property => sub {
-            if (ref $node eq 'HASH' && defined $prop) {
-                $node->{$prop} = $value;
-                $prop = undef;
-            }
-            if (ref $node eq 'ARRAY') {
-                push @$node, $value;
-            }
-            $value = undef;
+            $prop = undef;
+        },
+
+        end_object => sub {
+            my $value = $node;
+            ($node, $prop) = @{pop @stack}; # restore context
+            _add_value($value, $node, $prop);
+        },
+
+        start_array => sub {
+            push @stack, [$node, $prop]; # save context
+            $node = [];
+        },
+
+        end_array => sub {
+            my $value = $node;
+            ($node, $prop) = @{pop @stack}; # restore context
+            _add_value($value, $node, $prop);
+        },
+
+        add_string => sub {
+            _add_value(shift, $node, $prop);
+        },
+
+        add_number => sub {
+            _add_value(shift, $node, $prop);
+        },
+
+        add_boolean => sub {
+            _add_value(shift ? JSON::true : JSON::false, $node, $prop);
+        },
+
+        add_null => sub {
+            _add_value(JSON::null, $node, $prop);
         },
 
         error => sub {

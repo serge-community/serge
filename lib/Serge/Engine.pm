@@ -469,8 +469,7 @@ sub update_database_from_source_files {
     my $time = tv_interval($start, $end);
     my $files_found = scalar(@{$self->{found_files}});
     print("Scanned in $time sec, $files_found files match the criteria\n");
-
-    die "No files match the search criteria. Please reconfigure your job" unless $files_found;
+    print "WARNING: No files match the search criteria. Please reconfigure your job\n" unless $files_found;
 
     # compare the list with the one in the database and see how many files are new,
     # an how many of them are orphaned (and mark them as such), or remove the orphaned
@@ -850,6 +849,8 @@ sub segmentation_wrapper_callback {
     # $original_callback comes first (after $self), becuse the list of passed parameters
     # can vary (for example, $key many not be passed back from a parser)
     my ($self, $original_callback, $string, $context, $hint, $flagsref, $lang, $key) = @_;
+
+    $self->normalize_strref_considering_flags(\$string, $flagsref);
 
     # if segment_source callback returns any scalar value,
     # it will be auto-converted to a one-item array, which will mean
@@ -1657,8 +1658,8 @@ sub generate_localized_files_for_file_lang {
     $self->run_callbacks('after_save_localized_file', $file, $lang, \$text);
 }
 
-sub generate_localized_files_for_file_lang_callback {
-    my ($self, $string, $context, $hint, $flagsref, $lang, $key) = @_;
+sub normalize_strref_considering_flags {
+    my ($self, $strref, $flagsref) = @_;
 
     # Normalize parameters
 
@@ -1667,8 +1668,14 @@ sub generate_localized_files_for_file_lang_callback {
     $norm = 1 if is_flag_set($flagsref, 'normalize');
 
     if ($norm) {
-        normalize_strref(\$string);
+        normalize_strref($strref);
     }
+}
+
+sub generate_localized_files_for_file_lang_callback {
+    my ($self, $string, $context, $hint, $flagsref, $lang, $key) = @_;
+
+    $self->normalize_strref_considering_flags(\$string, $flagsref);
 
     if ($string eq '') {
         print "::skipping empty string\n" if $self->{debug};
