@@ -31,6 +31,7 @@ my $builder = Module::Build->new(
         'JSON::Streaming::Reader'    => 0,
         'JSON::XS'                   => 0,
         'Lingua::Sentence'           => 0,
+        'Loctools::Markdown'         => 0,
         'MIME::Lite'                 => 0,
         'Net::SMTP'                  => '1.28',
         'XML::Parser'                => 0,

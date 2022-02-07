@@ -1,0 +1,5 @@
+files
+{
+    0    1 1 test_job test_namespace test-minimal.md 0
+    1    2 6 test_job test_namespace test.md 0
+}
