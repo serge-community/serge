@@ -713,7 +713,7 @@ sub find_best_translation {
         my $fitness = 0;
         $fitness++ if $hr->{namespace} eq $namespace;
         $fitness++ if $hr->{path} eq $filepath;
-        $fitness++ if $hr->{context} eq $context;
+        $fitness += 2 if $hr->{context} eq $context;
         $fitness++ if !$hr->{orphaned};
         if ($fitness > $best_fitness) {
             $best_fitness = $fitness;
