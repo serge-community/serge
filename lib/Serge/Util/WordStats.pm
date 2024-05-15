@@ -47,7 +47,6 @@ sub get_wordcount_chunks {
     find_placeholders($chunks, '\{\\\n\}'); # '{\n}' newline marker
     find_placeholders($chunks, '\\\+[rnt]'); # escaping sequences (\n, \r, \t)
     find_placeholders($chunks, '&#\d+;|&\w+;'); # XML entities
-    find_placeholders($chunks, 'Evernote International|Evernote Food|Evernote Hello|Evernote Clearly|Evernote Business|Skitch|Evernote®?|Food|^Hello$|Clearly'); # product names
     find_placeholders($chunks, 'Ctrl\+\w$|Shift\+\w$|Alt\+\w$'); # Shortcuts
     find_placeholders($chunks, 'Ctrl\+$|Shift\+$|Alt\+$'); # Shortcut modifiers
     #find_placeholders($chunks, '^["\']+|["\']+$'); # surrounding quotes (including ones around placeholders)

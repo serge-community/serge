@@ -6,7 +6,7 @@ use strict;
 use Serge::Util qw(subst_macros);
 
 sub name {
-    return 'Zing translation server (https://evernote.github.io/zing/) synchronization plugin';
+    return 'Zing translation server (https://serge-community.github.io/zing/) synchronization plugin';
 }
 
 sub init {

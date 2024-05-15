@@ -124,7 +124,7 @@ if (($ttx_format && ((!exists $param->{languages}) || (!exists $param->{namespac
     print "  --force-duplicate:  Force export duplicate strings\n";
     print "\n";
     print "  --mask:             An output file naming pattern.\n";
-    print "                      Default: 'evernote-%DATETIME%-%LANG%'\n";
+    print "                      Default: 'serge-%DATETIME%-%LANG%'\n";
     print "\n";
     print "                      %DATETIME% is optional and will be substituted\n";
     print "                      with the current timestamp\n";
@@ -199,7 +199,7 @@ delete $param->{'include-empty'} if exists $param->{'force-translated'};
 
 my @languages = @{$param->{languages}};
 
-my $OUT_PATH = $param->{mask}->[0] || "evernote-%DATETIME%-%LANG%";
+my $OUT_PATH = $param->{mask}->[0] || "serge-%DATETIME%-%LANG%";
 
 if ((scalar(@languages) > 1) && ($OUT_PATH !~ m/%LANG%/)) {
     $OUT_PATH .= '-%LANG%';
@@ -625,7 +625,7 @@ __END__
     $$ttxref = <<__END__;
 <?xml version='1.0'?>
 <TRADOStag Version="2.0">
-<FrontMatter><ToolSettings CreationDate="$timestamp" CreationTool="Evernote TTX Export Tool" CreationToolVersion="1.0"/>
+<FrontMatter><ToolSettings CreationDate="$timestamp" CreationTool="TTX Export Tool" CreationToolVersion="1.0"/>
 <UserSettings DataType="XML" O-Encoding="UTF-8" SettingsName="Predefined HTML Settings"
 SourceLanguage="EN-US" TargetLanguage="$locale"
 TargetDefaultFont="Arial" PlugInInfo=""/>
@@ -765,10 +765,10 @@ __END__
     $$ttxref = <<__END__;
 <?xml version="1.0"?>
 <tmx version="1.4">
-    <header creationtool="Evernote TMX Export Tool"
+    <header creationtool="TMX Export Tool"
         creationtoolversion="1.0"
         segtype="block"
-        o-tmf="Evernote internal"
+        o-tmf="internal"
         adminlang="EN-US"
         srclang="EN-US"
         datatype="unknown" />

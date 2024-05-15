@@ -81,7 +81,7 @@ sub open {
         }
 
         # expand '~/' in file path to the value of $ENV{HOME}
-        # See https://github.com/evernote/serge/issues/1
+        # See https://github.com/serge-community/serge/issues/1
         $source =~ s!^(DBI:SQLite:dbname=)~/(.*)$!$1.$ENV{HOME}.'/'.$2!se;
 
         if (exists $DBD_PARAMS->{$type}) {

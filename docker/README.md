@@ -6,17 +6,13 @@ in a fully automated and scalable fashion. It allows developers to
 concentrate on maintaining resource files in just one language (e.g. English),
 and will take care of keeping all localized resources in sync and translated.
 
-Serge is developed and maintained by Evernote, where it works non-stop
-to help deliver various Evernote clients, websites and marketing materials
-in 25 languages.
-
-### Learn more at [serge.io &rarr;](https://serge.io/docs/) or [the GitHub repository &rarr;](https://github.com/evernote/serge)
+### Learn more at [serge.io &rarr;](https://serge.io/docs/) or [the GitHub repository &rarr;](https://github.com/serge-community/serge)
 
 ## Installation
 
 You need to run `docker` from the parent (root) project directory:
 
-    $ docker build --no-cache -t serge -f docker/Dockerfile .
+    docker build --no-cache -t serge -f docker/Dockerfile .
 
 This will create an image called `serge`.
 
@@ -39,16 +35,16 @@ Serge is expected to run against configuration files, data directories and a dat
 
 Inside the Docker image, the data volume is defined as `/data`. If you have a directory structure on your host machine as suggested above, under `/var/serge/data`, Serge can be run as follows:
 
-    $ docker run -v /var/serge/data:/data serge [parameters]
+    docker run -v /var/serge/data:/data serge [parameters]
 
 Example:
 
-    $ docker run -v /var/serge/data:/data serge localize /data/configs/config1.serge
+    docker run -v /var/serge/data:/data serge localize /data/configs/config1.serge
 
 ## Creating a wrapper
 
-    $ sudo sh -c 'echo "#!/bin/sh\ndocker run -v /var/serge/data:/data serge \"\$@\"" >/usr/local/bin/serge'
+    sudo sh -c 'echo "#!/bin/sh\ndocker run -v /var/serge/data:/data serge \"\$@\"" >/usr/local/bin/serge'
 
-    $ sudo chmod +x /usr/local/bin/serge
+    sudo chmod +x /usr/local/bin/serge
 
 Assuming you're using a Unix-like OS, the commands above will create a helper executable script, `/usr/local/bin/serge`, which you can then simply run as `serge`, instead of having to type `docker run -v /var/serge/data:/data serge`.
