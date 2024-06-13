@@ -10,13 +10,6 @@ in a fully automated and scalable fashion. It allows developers to
 concentrate on maintaining resource files in just one language (e.g. English),
 and will take care of keeping all localized resources in sync and translated.
 
-### [Watch the Video &rarr;](https://www.youtube.com/watch?v=bC3wECRgLog)
-
-This is a recording of the presentation we did at IMUG meetup. It gives
-an overview of what Serge is and how you can use it in your team.
-
-[![](http://img.youtube.com/vi/bC3wECRgLog/0.jpg)](https://www.youtube.com/watch?v=bC3wECRgLog)
-
 ### [Learn more at serge.io &rarr;](https://serge.io/docs/)
 
 See also <https://github.com/serge-community/serge-website> for serge.io website source code.
